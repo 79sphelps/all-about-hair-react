@@ -55,7 +55,7 @@ export const Gallery = () => {
                 >
                   <div className="item">
                     {/* <img src={meter1} alt="Image" /> */}
-                    <img src={g1} alt="Image" />
+                    <img src={g1} alt="Image" style={{ width: "300px" }}/>
                     {/* <h5>Web Development</h5> */}
                   </div>
                   {/* <ModalImage
@@ -65,17 +65,17 @@ export const Gallery = () => {
                                 /> */}
                   <div className="item">
                     {/* <img src={meter2} alt="Image" /> */}
-                    <img src={g2} alt="Image" />
+                    <img src={g2} alt="Image" style={{ width: "300px" }}/>
                     {/* <h5>Brand Identity</h5> */}
                   </div>
                   <div className="item">
                     {/* <img src={meter3} alt="Image" /> */}
-                    <img src={g3} alt="Image" />
+                    <img src={g3} alt="Image" style={{ width: "300px" }}/>
                     {/* <h5>Logo Design</h5> */}
                   </div>
                   <div className="item">
                     {/* <img src={meter1} alt="Image" /> */}
-                    <img src={g4} alt="Image" />
+                    <img src={g4} alt="Image" style={{ width: "300px" }}/>
                     {/* <h5>Web Development</h5> */}
                   </div>
                 </Carousel>
