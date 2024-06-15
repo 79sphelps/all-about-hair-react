@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import Modal from 'react-bootstrap/Modal';
+import Modal from "react-bootstrap/Modal";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
-import Table from 'react-bootstrap/Table';
-
+import Table from "react-bootstrap/Table";
 
 export const Services2Card = (props) => {
   const [show, setShow] = useState(false);
@@ -15,22 +14,29 @@ export const Services2Card = (props) => {
 
   const [service, setService] = useState([]);
 
-  console.log(props.service)
-
   useEffect(() => {
-    setService(props.service)
+    setService(props.service);
   }, [props]);
-
 
   return (
     <Card className="project-card-view">
-      <Card.Img variant="top" src={props.imgPath} alt="card-img" onClick={handleShow}/>
+      <Card.Img
+        variant="top"
+        src={props.imgPath}
+        alt="card-img"
+        onClick={handleShow}
+      />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text style={{ textAlign: "justify" }}>
           {props.description}
         </Card.Text>
-        <Button variant="primary" href={props.ghLink} target="_blank" onClick={handleShow}>
+        <Button
+          variant="primary"
+          href={props.ghLink}
+          target="_blank"
+          onClick={handleShow}
+        >
           {/* <BsGithub /> &nbsp;
           {props.isBlog ? "Blog" : "GitHub"} */}
           More Details
@@ -38,14 +44,30 @@ export const Services2Card = (props) => {
         {"\n"}
         {"\n"}
 
-
-        <Modal show={show} onHide={handleClose} centered>
-          <Modal.Header closeButton>
+        <Modal 
+          show={show} 
+          onHide={handleClose} 
+          centered 
+          scrollable={true}
+          // scrollable
+          // dialogClassName="modal-90w"
+          style={{ marginTop: "50px" }}
+        >
+          <Modal.Header closeButton style={{ paddingTop: "0", paddingBottom: "0" }}>
             <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
-
           </Modal.Header>
-          <Card.Img variant="top" src={props.imgPath} style={{ height: "200px", width: "200px" }} />
-          <Modal.Body style={{ color: "black" }}>
+
+          <Card.Img
+            variant="top"
+            src={props.imgPath}
+            style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }}
+          />
+          
+          {/* <Modal.Body style={{ color: "black", maxHeight: 'calc(100vh - 210px)', overflowY: 'auto' }}> */}
+          <Modal.Body style={{ color: "black", paddingTop: "0", paddingBottom: "0" }}>
+
+          {/* <img src={props.imgPath} style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }} /> */}
+
             {/* Woohoo, you are reading this text in a modal!
              */}
             <Table striped bordered hover>
@@ -57,31 +79,27 @@ export const Services2Card = (props) => {
                 </tr>
               </thead>
               <tbody>
-              {
-                service.map((service, index) => {
+                {service.map((service, index) => {
                   return (
-                      <tr>
-                        <td>{service.type}</td>
-                        <td>{service.price}</td>
-                        <td>{service.description}</td>
-                      </tr>
-
-                  )
-                })
-              }
-              </tbody> 
+                    <tr key={service}>
+                      <td>{service.type}</td>
+                      <td>{service.price}</td>
+                      <td>{service.description}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </Table>
-            </Modal.Body>
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            {/* <Button variant="primary" onClick={handleClose}>
               Save Changes
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
-
 
         {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
 
@@ -99,5 +117,5 @@ export const Services2Card = (props) => {
       </Card.Body>
     </Card>
   );
-}
+};
 // export default ProjectCards;

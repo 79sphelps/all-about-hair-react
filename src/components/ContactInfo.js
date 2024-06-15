@@ -43,10 +43,19 @@ export const ContactInfo = () => {
         {/* <Particle /> */}
         <Container>
           <h1 className="project-heading">Salon Information</h1>
-          <p style={{ color: "white" }}>
-            We are almost always available during salon hours.
+          <p style={{ color: "white", marginTop: "0", marginBottom: "0" }}>
+            An experienced team member is almost always available during salon hours. 
+            <br/><br/>
+            <h3>Cuts</h3>
+            Whether you're in need of a clean-up, a new style, or a gender-affirming transformation, we've got you covered. Our experienced stylists are here for all your haircut needs. 
+            <br/><br/>
+            <h3>Coloring</h3>
+            From subtle to fantasy, our experienced stylists can give you the color you've been dreaming of. Need a little inspiration? Book a color consultation with a stylist and we will help you on your color journey.
+            <br/><br/>
+            <h3>A-La-Carte</h3>
+            We offer a variety of a-la-carte services, from hair treatments and styling to beard care, we have all the cutting-edge services you need!
           </p>
-          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+          <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
             <Col md={3} className="project-card">
               <h3>Visit Our Salon</h3>
               <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>

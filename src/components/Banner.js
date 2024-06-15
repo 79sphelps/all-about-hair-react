@@ -6,6 +6,9 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
+import { useQuery } from "@tanstack/react-query";
+import { getHomepageDetails } from "../api/index.js";
+
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -14,6 +17,18 @@ export const Banner = () => {
   const [index, setIndex] = useState(1);
   const toRotate = [ "Special Occasions", "All Occasions", "Going to the Dentist" ];
   const period = 2000;
+
+
+  let {
+    isLoading,
+    isError,
+    data: bannerInfo,
+    error,
+  } = useQuery({
+    queryKey: ["bannerInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
 
   useEffect(() => {
     let ticker = setInterval(() => {
@@ -48,6 +63,9 @@ export const Banner = () => {
     }
   }
 
+  if (isLoading) return "loading...";
+  if (isError) return `Error: ${error.message}`;
+
   return (
     <section className="banner" id="home">
       <Container>
@@ -56,12 +74,20 @@ export const Banner = () => {
             <TrackVisibility>
               {({ isVisible }) =>
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                <span className="tagline animate__animated animate__bounce">All About Hair</span>
+
+
+                <span className="tagline animate__animated animate__bounce">
+                  All About Hair
+                </span>
                 {/* <h1>{`Hair Styling is a Must Try Fashion for`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Special Occasions", "All Occasions", "Going to the Dentist" ]'><span className="wrap">{text}</span></span></h1> */}
                 <h1>{`Hair Styling is a Must Try Fashion for`} <span className="txt-rotate" data-rotate='[ "Special Occasions", "All Occasions", "Going to the Dentist" ]'><span className="wrap">{text}</span></span></h1>
-                  <p>At All About Hair, we provide custom salon care at an affordable price.</p>
-                  <button className="animate__animated animate__backInLeft" onClick={() => { document.getElementById("contact").scrollIntoView() }}>Let’s Connect <ArrowRightCircle size={25} /></button>
-              </div>}
+                {/* <p>At All About Hair, we provide custom salon care at an affordable price.</p> */}
+                <p>{ bannerInfo && bannerInfo[0].headlineSubMsg }</p>
+                <button className="animate__animated animate__backInLeft" onClick={() => { document.getElementById("contact").scrollIntoView() }}>Let’s Connect <ArrowRightCircle size={25} /></button>
+            
+
+              </div>
+              }
             </TrackVisibility>
           </Col>
           <Col xs={12} md={6} xl={5}>

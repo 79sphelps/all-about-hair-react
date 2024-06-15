@@ -486,7 +486,7 @@
   
   .mission-section {
     position: relative !important;
-    padding-top: 50px !important;
+    /* padding-top: 50px !important; */
     /* padding-bottom: 30px !important; */
     background-image: var(--section-background-color) !important;
   }
@@ -498,7 +498,7 @@
   
   .services-section {
     position: relative !important;
-    padding-top: 50px !important;
+    padding-top: 30px !important;
     /* padding-bottom: 30px !important; */
     background-image: var(--section-background-color) !important;
   }
@@ -509,7 +509,7 @@
   
   .team-section {
     position: relative !important;
-    padding-top: 50px !important;
+    /* padding-top: 50px !important; */
     /* padding-bottom: 30px !important; */
     background-image: var(--section-background-color) !important;
   }
@@ -520,7 +520,7 @@
   
   .gallery-section {
     position: relative !important;
-    padding-top: 50px !important;
+    /* padding-top: 30px !important; */
     /* padding-bottom: 30px !important; */
     background-image: var(--section-background-color) !important;
   }
@@ -531,7 +531,7 @@
 
   .contact-info-section {
     position: relative !important;
-    padding-top: 50px !important;
+    /* padding-top: 50px !important; */
     /* padding-bottom: 30px !important; */
     background-image: var(--section-background-color) !important;
   }

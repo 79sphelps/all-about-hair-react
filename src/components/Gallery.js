@@ -46,16 +46,20 @@ export const Gallery = () => {
           <div className="row">
             <div className="col-12">
               <div className="skill-bx wow zoomIn">
-                <h2>Stylings and Cuts</h2>
+                <h2 style={{ paddingBottom: "10px" }}>Stylings and Cuts</h2>
                 {/* <p>Local stylists who love what they do and are able to service their clients directly from our salon.</p> */}
                 <Carousel
                   responsive={responsive}
                   infinite={true}
                   className="owl-carousel owl-theme skill-slider"
+                  swipeable={true}
+                  draggable={true}
+                  showDots={false}
                 >
                   <div className="item">
                     {/* <img src={meter1} alt="Image" /> */}
-                    <img src={g1} alt="Image" style={{ width: "300px" }}/>
+                    {/* <img src={g1} alt="Image" style={{ width: "300px" }}/> */}
+                    <img src={g1} alt="Image" />
                     {/* <h5>Web Development</h5> */}
                   </div>
                   {/* <ModalImage
@@ -65,17 +69,20 @@ export const Gallery = () => {
                                 /> */}
                   <div className="item">
                     {/* <img src={meter2} alt="Image" /> */}
-                    <img src={g2} alt="Image" style={{ width: "300px" }}/>
+                    {/* <img src={g2} alt="Image" style={{ width: "300px" }}/> */}
+                    <img src={g2} alt="Image" />
                     {/* <h5>Brand Identity</h5> */}
                   </div>
                   <div className="item">
                     {/* <img src={meter3} alt="Image" /> */}
-                    <img src={g3} alt="Image" style={{ width: "300px" }}/>
+                    {/* <img src={g3} alt="Image" style={{ width: "300px" }}/> */}
+                    <img src={g3} alt="Image" />
                     {/* <h5>Logo Design</h5> */}
                   </div>
                   <div className="item">
                     {/* <img src={meter1} alt="Image" /> */}
-                    <img src={g4} alt="Image" style={{ width: "300px" }}/>
+                    {/* <img src={g4} alt="Image" style={{ width: "300px" }}/> */}
+                    <img src={g4} alt="Image" />
                     {/* <h5>Web Development</h5> */}
                   </div>
                 </Carousel>

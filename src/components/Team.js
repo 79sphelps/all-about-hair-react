@@ -16,12 +16,32 @@ import colorSharp from "../assets/img/color-sharp.png";
 import { Container, Row, Col } from "react-bootstrap";
 import { TeamCard } from "./TeamCard";
 
-
+import { useQuery } from "@tanstack/react-query";
+import { getTeamDetails, getHomepageDetails } from "../api/index.js";
 
 export const Team = () => {
 
+  let {
+    isLoading,
+    isError,
+    data: homepageInfo,
+    error,
+  } = useQuery({
+    queryKey: ["homepageInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
 
-
+  let {
+    isLoading2,
+    isError2,
+    data: teamInfo,
+    error2,
+  } = useQuery({
+    queryKey: ["teamInfo"],
+    queryFn: getTeamDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
 
   const responsive = {
     superLargeDesktop: {
@@ -42,6 +62,11 @@ export const Team = () => {
       items: 1,
     },
   };
+
+  if (isLoading || isLoading2) return "loading...";
+  if (isError) return `Error: ${error.message}`;
+  if (isError2) return `Error: ${error2.message}`;
+
 
   return (
     // <section className="skill" id="team">
@@ -80,25 +105,41 @@ export const Team = () => {
     //     <img className="background-image-left" src={colorSharp} alt="Image" />
     // </section>
 
-    <section className="skill" id="team">
-    <Container fluid className="team-section">
+    <section className="skill" id="team" >
+    <Container fluid className="team-section" >
       {/* <Particle /> */}
       <Container>
-        <h1 className="project-heading">
-        Experienced Stylists
-        </h1>
-        <p style={{ color: "white" }}>
-        Local stylists who love what they do and are able to service their clients directly from our salon.
-        </p>
+
+        <div style={{ marginLeft: "7px" }}>
+          <h1 className="project-heading">
+          {/* Experienced Stylists */}
+          { homepageInfo && homepageInfo[0].stylistsHeadline }
+          </h1>
+          {/* <p style={{ color: "white" }}> */}
+          
+          {/* Local stylists who love what they do and are able to service their clients directly from our salon. */}
+          { homepageInfo && homepageInfo[0].stylistsSubMsg }
+          </div>
+          {/* </p> */}
+
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-          <Col md={3} className="project-card">
+
+          { teamInfo && teamInfo.slice(1, teamInfo.length).map((team) => {
+            return (<Col md={3} className="project-card">
+              <TeamCard
+                imgPath={require('../' + team.photo)}
+                title={team.name}
+                description={team.role.split(" ").join("-")}
+              />
+            </Col>)
+          })}
+
+          {/* <Col md={3} className="project-card">
             <TeamCard
               imgPath={team1}
               isBlog={false}
               title="Ana Nguyen"
               description="Local Stylist"
-              // ghLink="https://github.com/soumyajit4419/Chatify"
-              // demoLink="https://chatify-49.web.app/"
             />
           </Col>
 
@@ -108,8 +149,6 @@ export const Team = () => {
               isBlog={false}
               title="Rodney Cooper"
               description="Local Stylist"
-              // ghLink="https://github.com/soumyajit4419/Bits-0f-C0de"
-              // demoLink="https://blogs.soumya-jit.tech/"
             />
           </Col>
 
@@ -119,8 +158,6 @@ export const Team = () => {
               isBlog={false}
               title="Dora Walker"
               description="Local Stylist"
-              // ghLink="https://github.com/soumyajit4419/Editor.io"
-              // demoLink="https://editor.soumya-jit.tech/"
             />
           </Col>
 
@@ -130,10 +167,9 @@ export const Team = () => {
               isBlog={false}
               title="Aron Hart"
               description="Local Stylist"
-              // ghLink="https://github.com/soumyajit4419/Plant_AI"
-              // demoLink="https://plant49-ai.herokuapp.com/"
             />
-          </Col>
+          </Col> */}
+
         </Row>
       </Container>
     </Container>

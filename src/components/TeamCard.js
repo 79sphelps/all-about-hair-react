@@ -18,9 +18,9 @@ export const TeamCard = (props) => {
   return (
     <Card className="project-card-view">
       <Card.Img variant="top" src={props.imgPath} alt="card-img" className="teamCardAnimation"/>
-      <Card.Body>
+      <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
         <Card.Title>{props.title}</Card.Title>
-        <Card.Text style={{ textAlign: "justify" }}>
+        <Card.Text style={{ textAlign: "justify", marginBottom: "14px" }}>
           {props.description}
         </Card.Text>
         <Button variant="primary" href={props.ghLink} target="_blank" onClick={handleShow}>
@@ -42,7 +42,13 @@ export const TeamCard = (props) => {
           <Modal.Header closeButton>
             <Modal.Title style={{ color: "black" }}>Modal heading</Modal.Title>
           </Modal.Header>
-          <Modal.Body style={{ color: "black" }}>Woohoo, you are reading this text in a modal!</Modal.Body>
+          <Modal.Body style={{ color: "black" }}>
+            Woohoo, you are reading this text in a modal!
+
+                  <a href="#"> <i class="fa fa-facebook"></i> </a>
+        <a href="#"> <i class="fa fa-twitter"></i> </a>
+        <a href="#"> <i class="fa fa-linkedin"></i> </a>  
+          </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close

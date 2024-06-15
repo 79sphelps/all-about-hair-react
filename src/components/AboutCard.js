@@ -2,7 +2,25 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
 
+import { useQuery } from "@tanstack/react-query";
+import { getHomepageDetails } from "../api/index.js";
+
 function AboutCard() {
+
+  let {
+    isLoading,
+    isError,
+    data: homepageInfo,
+    error,
+  } = useQuery({
+    queryKey: ["homepageInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
+
+  if (isLoading) return "loading...";
+  if (isError) return `Error: ${error.message}`;
+
   return (
     <Card className="quote-card-view">
       <Card.Body>
@@ -21,7 +39,10 @@ function AboutCard() {
             Apart from coding, some other activities that I love to do!
           </p> */}
 
-          <p style={{ textAlign: "justify" }}>All About Hair is an Aveda Exclusive Salon with a mission to provide an upscale experience with a friendly, neighborhood feeling. Stylists have been chosen based on talent, passion, personality & commitment. Ongoing training & support will assure each guest receives the utmost enjoyable experience, along with a personally tailored look that fits their expectations.</p>
+          <p style={{ textAlign: "justify" }}>
+            {/* All About Hair is an Aveda Exclusive Salon with a mission to provide an upscale experience with a friendly, neighborhood feeling. Stylists have been chosen based on talent, passion, personality & commitment. Ongoing training & support will assure each guest receives the utmost enjoyable experience, along with a personally tailored look that fits their expectations. */}
+            { homepageInfo && homepageInfo[0].aboutSubMsg }
+          </p>
 
           <ul>
             <li className="about-activity">

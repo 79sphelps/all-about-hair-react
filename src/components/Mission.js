@@ -27,7 +27,7 @@ export const Mission = () => {
           >
             <h1 style={{ fontSize: "2.1em", paddingBottom: "20px" }} className="animate__animated animate__fadeInLeft">
               {/* Know Who <strong className="purple">I'M</strong> */}
-              We Believe that Interior beautifies the Total Architecture
+              We Believe that Interior Beautifies the Total Architecture
             </h1>
             <Aboutcard />
           </Col>
@@ -52,7 +52,6 @@ export const Mission = () => {
 
         {/* <Toolstack /> */}
 
-        {/* <Github /> */}
       </Container>
     </Container>
     </section>
