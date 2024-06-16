@@ -536,6 +536,17 @@
     background-image: var(--section-background-color) !important;
   }
 
+  @media (max-width: 767px) {
+    .contact-info-card {
+      padding-top: 10px !important;
+      padding-bottom: 0px !important;
+      padding-left: 25px !important;
+      padding-right: 25px !important;
+      height: auto !important;
+    }
+  }
+
+
   /* --------- */
   /* Projects */
   /* --------- */

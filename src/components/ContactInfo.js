@@ -56,22 +56,22 @@ export const ContactInfo = () => {
             We offer a variety of a-la-carte services, from hair treatments and styling to beard care, we have all the cutting-edge services you need!
           </p>
           <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
-            <Col md={3} className="project-card">
+            <Col md={3} className="contact-info-card">
               <h3>Visit Our Salon</h3>
               <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
             </Col>
 
-            <Col md={3} className="project-card">
+            <Col md={3} className="contact-info-card">
               <h3>Call Us</h3>
               <p>(503) 305-7152</p>
             </Col>
 
-            <Col md={3} className="project-card">
+            <Col md={3} className="contact-info-card">
               <h3>Email Us</h3>
               <p>admin@allabouthair.com</p>
             </Col>
 
-            <Col md={3} className="project-card">
+            <Col md={3} className="contact-info-card">
               <h3>Salon Hours</h3>
               <ul>
                 <li>Mon: 10:30am - 7:00pm</li>

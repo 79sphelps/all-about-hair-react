@@ -257,11 +257,16 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   background-size: cover;
   background-repeat: no-repeat;
 
-
   background: linear-gradient(135deg, #aa3bb1, #582a7e);
-
-
 }
+
+@media (max-width:768px) {
+  .banner {
+    margin-top: 0;
+    padding: 100px 0 100px 0 !important;
+  }
+}
+
 .banner .tagline {
   font-weight: 700;
   letter-spacing: 0.8px;
