@@ -287,7 +287,7 @@ export const Services2 = () => {
             {servicesInfo &&
               servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
                 return (
-                  <Col md={4} className="project-card" key={service}>
+                  <Col xl={4} lg={4} md={6} sm={6} xm={10} className="project-card" key={service._id}>
                     <Services2Card
                       imgPath={require("../" + service.image)}
                       // imgPath={projImg1}

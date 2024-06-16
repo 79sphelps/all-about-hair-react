@@ -75,7 +75,6 @@ export const Banner = () => {
               {({ isVisible }) =>
               <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
 
-
                 <span className="tagline animate__animated animate__bounce">
                   All About Hair
                 </span>
@@ -85,7 +84,6 @@ export const Banner = () => {
                 <p>{ bannerInfo && bannerInfo[0].headlineSubMsg }</p>
                 <button className="animate__animated animate__backInLeft" onClick={() => { document.getElementById("contact").scrollIntoView() }}>Let’s Connect <ArrowRightCircle size={25} /></button>
             
-
               </div>
               }
             </TrackVisibility>

@@ -546,6 +546,27 @@
     }
   }
 
+  @media (max-width: 576px) {
+    .contact-info-card {
+      /* padding-top: 10px !important; */
+      padding-bottom: 0px !important;
+      padding-left: 25px !important;
+      padding-right: 25px !important;
+      height: auto !important;
+    }
+  }
+/* 
+  @media (max-width: 990px) {
+    .contact-info-card {
+
+      padding-bottom: 0px !important;
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+      height: auto !important;
+      font-size: 0.5em !important;
+    }
+  } */
+
 
   /* --------- */
   /* Projects */

@@ -16,26 +16,24 @@ import colorSharp from "../assets/img/color-sharp.png";
 import { Container, Row, Col } from "react-bootstrap";
 import { TeamCard } from "./TeamCard";
 
+import { useQuery } from "@tanstack/react-query";
+import { getContactInfo } from "../api/index.js";
+
 export const ContactInfo = () => {
-  //   const responsive = {
-  //     superLargeDesktop: {
-  //       // the naming can be any, depends on you.
-  //       breakpoint: { max: 4000, min: 3000 },
-  //       items: 5,
-  //     },
-  //     desktop: {
-  //       breakpoint: { max: 3000, min: 1024 },
-  //       items: 3,
-  //     },
-  //     tablet: {
-  //       breakpoint: { max: 1024, min: 464 },
-  //       items: 2,
-  //     },
-  //     mobile: {
-  //       breakpoint: { max: 464, min: 0 },
-  //       items: 1,
-  //     },
-  //   };
+
+  let {
+    isLoading,
+    isError,
+    data: contactInfo,
+    error,
+  } = useQuery({
+    queryKey: ["contactInfo"],
+    queryFn: getContactInfo, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
+
+  if (isLoading) return "loading...";
+  if (isError) return `Error: ${error.message}`;
 
   return (
     <section className="skill" id="contact-info">
@@ -43,7 +41,7 @@ export const ContactInfo = () => {
         {/* <Particle /> */}
         <Container>
           <h1 className="project-heading">Salon Information</h1>
-          <p style={{ color: "white", marginTop: "0", marginBottom: "0" }}>
+          <p style={{ color: "white", marginTop: "0", marginBottom: "30px" }}>
             An experienced team member is almost always available during salon hours. 
             <br/><br/>
             <h3>Cuts</h3>
@@ -55,23 +53,65 @@ export const ContactInfo = () => {
             <h3>A-La-Carte</h3>
             We offer a variety of a-la-carte services, from hair treatments and styling to beard care, we have all the cutting-edge services you need!
           </p>
-          <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
-            <Col md={3} className="contact-info-card">
+
+          { contactInfo && (
+            
+            <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
+
+              <Col md={3} sm={6} xs={10} className="contact-info-card">
+                <h3>Visit Our Salon</h3>
+                {/* <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p> */}
+                { contactInfo[0].location }
+              </Col>
+
+              <Col md={3} sm={6} xs={10} className="contact-info-card">
+                <h3>Call Us</h3>
+                {/* <p>(503) 305-7152</p> */}
+                { contactInfo[0].phone }
+              </Col>
+
+              <Col md={3} sm={6} xs={10} className="contact-info-card">
+                <h3>Email Us</h3>
+                {/* <p>admin@allabouthair.com</p> */}
+                { contactInfo[0].email }
+              </Col>
+
+              <Col md={3} sm={6} xs={10} className="contact-info-card">
+                <h3>Salon Hours</h3>
+                <ul>
+                  { contactInfo[0].hours.map((time) => {
+                    return (
+                      <li key={time}>{ time }</li>
+                    )
+                  })}
+                  {/* <li>Mon: 10:30am - 7:00pm</li>
+                  <li>Tues: Closed</li>
+                  <li>Wed: 10:30am - 7:00pm</li>
+                  <li>Thur: 10:30am - 7:00pm</li>
+                  <li>Fri: 10:30am - 7:00pm</li>
+                  <li>Sat: 10:30am - 7:00pm</li>
+                  <li>Sun: 11:30am - 5:00pm</li> */}
+                </ul>
+              </Col>
+              
+    
+
+            {/* <Col md={3} sm={6} xs={10} className="contact-info-card">
               <h3>Visit Our Salon</h3>
               <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
             </Col>
 
-            <Col md={3} className="contact-info-card">
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
               <h3>Call Us</h3>
               <p>(503) 305-7152</p>
             </Col>
 
-            <Col md={3} className="contact-info-card">
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
               <h3>Email Us</h3>
               <p>admin@allabouthair.com</p>
             </Col>
 
-            <Col md={3} className="contact-info-card">
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
               <h3>Salon Hours</h3>
               <ul>
                 <li>Mon: 10:30am - 7:00pm</li>
@@ -82,8 +122,13 @@ export const ContactInfo = () => {
                 <li>Sat: 10:30am - 7:00pm</li>
                 <li>Sun: 11:30am - 5:00pm</li>
               </ul>
-            </Col>
+            </Col> */}
+
+
           </Row>
+
+        )}
+
         </Container>
       </Container>
     </section>

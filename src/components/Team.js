@@ -67,9 +67,6 @@ export const Team = () => {
   if (isError) return `Error: ${error.message}`;
   if (isError2) return `Error: ${error2.message}`;
 
-  console.log(teamInfo)
-
-
   return (
     // <section className="skill" id="team">
     //     <div className="container">
@@ -127,7 +124,7 @@ export const Team = () => {
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
 
           { teamInfo && teamInfo.slice(1, teamInfo.length).map((team) => {
-            return (<Col md={3} className="project-card">
+            return (<Col lg={3} md={6} sm={6} xm={10} className="project-card" key={team._id}>
               <TeamCard
                 imgPath={require('../' + team.photo)}
                 title={team.name}

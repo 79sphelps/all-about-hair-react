@@ -16,6 +16,9 @@ import colorSharp from "../assets/img/color-sharp.png";
 import { Container, Row, Col } from "react-bootstrap";
 import ModalImage from "react-modal-image";
 
+import { useQuery } from "@tanstack/react-query";
+import { getGalleryImages } from "../api/index.js";
+
 export const Gallery = () => {
   const responsive = {
     superLargeDesktop: {
@@ -37,6 +40,20 @@ export const Gallery = () => {
     },
   };
 
+  let {
+    isLoading,
+    isError,
+    data: galleryPics,
+    error,
+  } = useQuery({
+    queryKey: ["galleryPics"],
+    queryFn: getGalleryImages, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
+
+  if (isLoading) return "loading...";
+  if (isError) return `Error: ${error.message}`;
+
   return (
     <section className="skill" id="gallery">
       {/* // <section id="gallery"> */}
@@ -56,35 +73,29 @@ export const Gallery = () => {
                   draggable={true}
                   showDots={false}
                 >
-                  <div className="item">
-                    {/* <img src={meter1} alt="Image" /> */}
-                    {/* <img src={g1} alt="Image" style={{ width: "300px" }}/> */}
+
+                {
+                  galleryPics && galleryPics.map((pic) => {
+                    return (
+                      <div key={pic._id} className="item">
+                        <img src={require("../" + pic.path)} alt="Image" />
+                      </div>
+                    )
+                  })
+                }
+
+                  {/* <div className="item">
                     <img src={g1} alt="Image" />
-                    {/* <h5>Web Development</h5> */}
                   </div>
-                  {/* <ModalImage
-                                  small={g1}
-                                  large={g1}
-                                  alt="Hello World!"
-                                /> */}
                   <div className="item">
-                    {/* <img src={meter2} alt="Image" /> */}
-                    {/* <img src={g2} alt="Image" style={{ width: "300px" }}/> */}
                     <img src={g2} alt="Image" />
-                    {/* <h5>Brand Identity</h5> */}
                   </div>
                   <div className="item">
-                    {/* <img src={meter3} alt="Image" /> */}
-                    {/* <img src={g3} alt="Image" style={{ width: "300px" }}/> */}
                     <img src={g3} alt="Image" />
-                    {/* <h5>Logo Design</h5> */}
                   </div>
                   <div className="item">
-                    {/* <img src={meter1} alt="Image" /> */}
-                    {/* <img src={g4} alt="Image" style={{ width: "300px" }}/> */}
                     <img src={g4} alt="Image" />
-                    {/* <h5>Web Development</h5> */}
-                  </div>
+                  </div> */}
                 </Carousel>
               </div>
             </div>
