@@ -36,7 +36,7 @@ export const Footer = () => {
           {/* <br /> */}
           <p>Let us be social</p>
           <ul className="footer-icons">
-            <li className="social-icons">
+            {/* <li className="social-icons">
               <a
                 href="https://github.com/soumyajit4419"
                 style={{ color: "white" }}
@@ -45,7 +45,7 @@ export const Footer = () => {
               >
                 <AiFillGithub />
               </a>
-            </li>
+            </li> */}
             <li className="social-icons">
               <a
                 href="https://twitter.com/Soumyajit4419"

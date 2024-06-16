@@ -17,13 +17,23 @@ export const TeamCard = (props) => {
 
   return (
     <Card className="project-card-view">
-      <Card.Img variant="top" src={props.imgPath} alt="card-img" className="teamCardAnimation"/>
+      <Card.Img
+        variant="top"
+        src={props.imgPath}
+        alt="card-img"
+        className="teamCardAnimation"
+      />
       <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
         <Card.Title>{props.title}</Card.Title>
         <Card.Text style={{ textAlign: "justify", marginBottom: "14px" }}>
           {props.description}
         </Card.Text>
-        <Button variant="primary" href={props.ghLink} target="_blank" onClick={handleShow}>
+        <Button
+          variant="primary"
+          href={props.ghLink}
+          target="_blank"
+          onClick={handleShow}
+        >
           {/* <BsGithub /> &nbsp; */}
           {/* {props.isBlog ? "Blog" : "GitHub"} */}
           Full Profile
@@ -32,22 +42,45 @@ export const TeamCard = (props) => {
         {"\n"}
 
         <div className="text">
-            <a href="#"> <i className="fa fa-facebook"></i> </a>
-            <a href="#"> <i className="fa fa-twitter"></i> </a>
-            <a href="#"> <i className="fa fa-linkedin"></i> </a>
+          <a href="#">
+            {" "}
+            <i className="fa fa-facebook"></i>{" "}
+          </a>
+          <a href="#">
+            {" "}
+            <i className="fa fa-twitter"></i>{" "}
+          </a>
+          <a href="#">
+            {" "}
+            <i className="fa fa-linkedin"></i>{" "}
+          </a>
         </div>
-
 
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
-            <Modal.Title style={{ color: "black" }}>Modal heading</Modal.Title>
+            <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
+            <Card.Img
+              variant="top"
+              src={props.imgPath}
+              alt="card-img"
+              className="teamCardAnimation"
+            />
           </Modal.Header>
           <Modal.Body style={{ color: "black" }}>
-            Woohoo, you are reading this text in a modal!
-
-                  <a href="#"> <i class="fa fa-facebook"></i> </a>
-        <a href="#"> <i class="fa fa-twitter"></i> </a>
-        <a href="#"> <i class="fa fa-linkedin"></i> </a>  
+            {/* Woohoo, you are reading this text in a modal! */}
+            {props.bio}
+            <a href="#">
+              {" "}
+              <i class="fa fa-facebook"></i>{" "}
+            </a>
+            <a href="#">
+              {" "}
+              <i class="fa fa-twitter"></i>{" "}
+            </a>
+            <a href="#">
+              {" "}
+              <i class="fa fa-linkedin"></i>{" "}
+            </a>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
@@ -58,8 +91,6 @@ export const TeamCard = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-
-
 
         {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
 

@@ -67,6 +67,8 @@ export const Team = () => {
   if (isError) return `Error: ${error.message}`;
   if (isError2) return `Error: ${error2.message}`;
 
+  console.log(teamInfo)
+
 
   return (
     // <section className="skill" id="team">
@@ -130,6 +132,7 @@ export const Team = () => {
                 imgPath={require('../' + team.photo)}
                 title={team.name}
                 description={team.role.split(" ").join("-")}
+                bio={team.bio}
               />
             </Col>)
           })}
