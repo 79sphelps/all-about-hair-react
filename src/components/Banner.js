@@ -6,6 +6,8 @@ import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
 
+import { Loading } from "./Loading.js";
+
 import { useQuery } from "@tanstack/react-query";
 import { getHomepageDetails } from "../api/index.js";
 
@@ -63,10 +65,10 @@ export const Banner = () => {
     }
   }
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  return (
+  return (!isLoading && 
     <section className="banner" id="home">
       <Container>
         <Row className="aligh-items-center">

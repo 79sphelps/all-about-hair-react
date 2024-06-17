@@ -3,7 +3,9 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { CgWebsite } from "react-icons/cg";
 import { BsGithub } from "react-icons/bs";
-
+import navIcon1 from '../assets/img/nav-icon1.svg';
+import navIcon2 from '../assets/img/nav-icon2.svg';
+import navIcon3 from '../assets/img/nav-icon3.svg';
 
 import Modal from 'react-bootstrap/Modal';
 
@@ -41,7 +43,7 @@ export const TeamCard = (props) => {
         {"\n"}
         {"\n"}
 
-        <div className="text">
+        {/* <div className="text">
           <a href="#">
             {" "}
             <i className="fa fa-facebook"></i>{" "}
@@ -54,6 +56,11 @@ export const TeamCard = (props) => {
             {" "}
             <i className="fa fa-linkedin"></i>{" "}
           </a>
+        </div> */}
+        <div className="team-social-icon">
+          <a href="#"><img src={navIcon1} alt="" /></a>
+          <a href="#"><img src={navIcon2} alt="" /></a>
+          <a href="#"><img src={navIcon3} alt="" /></a>
         </div>
 
         <Modal show={show} onHide={handleClose} centered>
@@ -65,11 +72,13 @@ export const TeamCard = (props) => {
               alt="card-img"
               className="teamCardAnimation"
             />
+
           </Modal.Header>
           <Modal.Body style={{ color: "black" }}>
             {/* Woohoo, you are reading this text in a modal! */}
             {props.bio}
-            <a href="#">
+
+            {/* <a href="#">
               {" "}
               <i class="fa fa-facebook"></i>{" "}
             </a>
@@ -80,15 +89,15 @@ export const TeamCard = (props) => {
             <a href="#">
               {" "}
               <i class="fa fa-linkedin"></i>{" "}
-            </a>
+            </a> */}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            {/* <Button variant="primary" onClick={handleClose}>
               Save Changes
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
 

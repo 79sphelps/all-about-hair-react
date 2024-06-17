@@ -19,6 +19,8 @@ import { TeamCard } from "./TeamCard";
 import { useQuery } from "@tanstack/react-query";
 import { getTeamDetails, getHomepageDetails } from "../api/index.js";
 
+import { Loading } from "./Loading.js";
+
 export const Team = () => {
 
   let {
@@ -63,11 +65,11 @@ export const Team = () => {
     },
   };
 
-  if (isLoading || isLoading2) return "loading...";
+  if (isLoading || isLoading2) return <Loading />;
   if (isError) return `Error: ${error.message}`;
   if (isError2) return `Error: ${error2.message}`;
 
-  return (
+  return (!isLoading && 
     // <section className="skill" id="team">
     //     <div className="container">
     //         <div className="row">

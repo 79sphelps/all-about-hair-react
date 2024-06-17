@@ -19,6 +19,8 @@ import { TeamCard } from "./TeamCard";
 import { useQuery } from "@tanstack/react-query";
 import { getContactInfo } from "../api/index.js";
 
+import { Loading } from "./Loading.js";
+
 export const ContactInfo = () => {
 
   let {
@@ -32,10 +34,10 @@ export const ContactInfo = () => {
     // onSuccess: (data) => setBannerDetails(data),
   });
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  return (
+  return (!isLoading && 
     <section className="skill" id="contact-info">
       <Container fluid className="contact-info-section">
         {/* <Particle /> */}

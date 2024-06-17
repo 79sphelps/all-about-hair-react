@@ -2,22 +2,24 @@ import React, { useState, useEffect }  from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Services2Card } from "./Services2Card";
 // import Particle from "../Particle";
-import leaf from "../assets/img/leaf.png";
-import emotion from "../assets/img/emotion.png";
-import editor from "../assets/img/codeEditor.png";
-import chatify from "../assets/img/chatify.png";
-import suicide from "../assets/img/suicide.png";
-import bitsOfCode from "../assets/img/blog.png";
+// import leaf from "../assets/img/leaf.png";
+// import emotion from "../assets/img/emotion.png";
+// import editor from "../assets/img/codeEditor.png";
+// import chatify from "../assets/img/chatify.png";
+// import suicide from "../assets/img/suicide.png";
+// import bitsOfCode from "../assets/img/blog.png";
 
-import projImg1 from "../assets/img/hair_extensions.png";
-import projImg2 from "../assets/img/waxing2.png";
-import projImg3 from "../assets/img/hair-extension.png";
-import projImg4 from "../assets/img/red_hair.png";
-import projImg5 from "../assets/img/haircut_utensils.png";
-import projImg6 from "../assets/img/eyelash.png";
-import projImg7 from "../assets/img/girl_w_flower.png";
+// import projImg1 from "../assets/img/hair_extensions.png";
+// import projImg2 from "../assets/img/waxing2.png";
+// import projImg3 from "../assets/img/hair-extension.png";
+// import projImg4 from "../assets/img/red_hair.png";
+// import projImg5 from "../assets/img/haircut_utensils.png";
+// import projImg6 from "../assets/img/eyelash.png";
+// import projImg7 from "../assets/img/girl_w_flower.png";
 
 import '../style.css';
+
+import { Loading } from "./Loading.js";
 
 import { useQuery } from "@tanstack/react-query";
 import { getServiceDetails, getHomepageDetails } from "../api/index.js";
@@ -263,11 +265,11 @@ export const Services2 = () => {
     ]
   }
 
-  if (isLoading || isLoading2) return "loading...";
+  if (isLoading || isLoading2) return <Loading />;
   if (isError) return `Error: ${error.message}`;
   if (isError2) return `Error: ${error2.message}`;
 
-  return (
+  return (!isLoading && !isLoading2 && 
     // <section className="project" id="services">
     <section id="services">
       <Container fluid className="services-section">

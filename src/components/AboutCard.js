@@ -5,6 +5,8 @@ import { ImPointRight } from "react-icons/im";
 import { useQuery } from "@tanstack/react-query";
 import { getHomepageDetails } from "../api/index.js";
 
+import { Loading } from "./Loading.js";
+
 function AboutCard() {
 
   let {
@@ -18,10 +20,10 @@ function AboutCard() {
     // onSuccess: (data) => setBannerDetails(data),
   });
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  return (
+  return (!isLoading && 
     <Card className="quote-card-view">
       <Card.Body>
         <blockquote className="blockquote mb-0">
