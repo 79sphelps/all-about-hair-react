@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { CgWebsite } from "react-icons/cg";
-import { BsGithub } from "react-icons/bs";
+// import { CgWebsite } from "react-icons/cg";
+// import { BsGithub } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
 
 export const Services2Card = (props) => {

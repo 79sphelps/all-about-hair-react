@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import { CgWebsite } from "react-icons/cg";
-import { BsGithub } from "react-icons/bs";
+// import { CgWebsite } from "react-icons/cg";
+// import { BsGithub } from "react-icons/bs";
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
 import navIcon3 from '../assets/img/nav-icon3.svg';
@@ -10,12 +10,9 @@ import navIcon3 from '../assets/img/nav-icon3.svg';
 import Modal from 'react-bootstrap/Modal';
 
 export const TeamCard = (props) => {
-
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
 
   return (
     <Card className="project-card-view">
@@ -63,7 +60,14 @@ export const TeamCard = (props) => {
           <a href="#"><img src={navIcon3} alt="" /></a>
         </div>
 
-        <Modal show={show} onHide={handleClose} centered>
+        <Modal show={show} onHide={handleClose} centered
+          scrollable={true}
+          style={{ 
+            marginTop: "50px",
+            height: "100%",
+            width: "80%" 
+          }}
+        >
           <Modal.Header closeButton>
             <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
             <Card.Img
@@ -77,7 +81,6 @@ export const TeamCard = (props) => {
           <Modal.Body style={{ color: "black" }}>
             {/* Woohoo, you are reading this text in a modal! */}
             {props.bio}
-
             {/* <a href="#">
               {" "}
               <i class="fa fa-facebook"></i>{" "}

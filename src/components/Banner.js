@@ -20,7 +20,6 @@ export const Banner = () => {
   const toRotate = [ "Special Occasions", "All Occasions", "Going to the Dentist" ];
   const period = 2000;
 
-
   let {
     isLoading,
     isError,
