@@ -37,9 +37,9 @@ export const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, [])
 
-  const onUpdateActiveLink = (value) => {
+  const onUpdateActiveLink = (value, page) => {
     setActiveLink(value);
-    navigate("/admin/home-page-details");
+    navigate(page);
   }
 
   /* 
@@ -60,11 +60,12 @@ export const NavBar = () => {
             <Nav className="ms-auto">
               { isAuthenticated && (
                 // <Nav.Link eventKey="1" href="/admin/home-page-details" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
-                <Nav.Link eventKey="1" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
+                <Nav.Link eventKey="1" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home', '/admin/home-page-details')}>Home</Nav.Link>
               )}
 
               { isAuthenticated && (
-                <Nav.Link eventKey="1" href="/admin/services-details" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services')}>Services</Nav.Link>
+                // <Nav.Link eventKey="1" href="/admin/services-details" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services')}>Services</Nav.Link>
+                <Nav.Link eventKey="1" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services', '/admin/services-details')}>Services</Nav.Link>
               )}
 
               { !isAuthenticated && (
