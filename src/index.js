@@ -48,14 +48,16 @@ root.render(
   // </React.StrictMode>
 
   <React.StrictMode>
-    <BrowserRouter>
+
       <Auth0Provider {...providerConfig}>
         <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
+          </BrowserRouter>
         </QueryClientProvider>
       </Auth0Provider>
-    </BrowserRouter>
+
   </React.StrictMode>
 );
 
