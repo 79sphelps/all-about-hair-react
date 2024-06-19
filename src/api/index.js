@@ -18,6 +18,16 @@ export async function getServiceDetails() {
     return response.json();
 }
 
+export async function getServiceDetail(id) {
+  const response = await fetch(API + `admin/services/${id}`);
+  return response.json();
+}
+
+export async function updateServiceDetail(id) {
+  const response = await fetch(API + `admin/services/update/${id}`);
+  return response.json();
+}
+
 export async function getTeamDetails() {
     const response = await fetch(API + "admin/personel");
     return response.json();
@@ -51,3 +61,21 @@ export async function updateHomepageDetails(data) {
     );
     return response.json();
   }
+
+  export async function updateServiceDetails(data) {
+    // const access_token = await data.access_token
+    // console.log(access_token)
+
+    const response = await fetch(
+        API + `admin/services/update/${data.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          // "Authorization": `Bearer ${access_token}`
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return response.json();
+  }  

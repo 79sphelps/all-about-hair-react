@@ -59,6 +59,10 @@ export const NavBar = () => {
                 <Nav.Link eventKey="1" href="/admin/home-page-details" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
               )}
 
+              { isAuthenticated && (
+                <Nav.Link eventKey="1" href="/admin/services-details" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services')}>Services</Nav.Link>
+              )}
+
               { !isAuthenticated && (
                 <Nav.Link eventKey="1" href="#home" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
               )}
