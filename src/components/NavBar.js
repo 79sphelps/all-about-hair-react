@@ -9,8 +9,10 @@ import navIcon3 from '../assets/img/nav-icon3.svg';
 //   BrowserRouter as Router
 // } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
+  const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const logoutWithRedirect = () =>
@@ -37,6 +39,7 @@ export const NavBar = () => {
 
   const onUpdateActiveLink = (value) => {
     setActiveLink(value);
+    navigate("/admin/home-page-details");
   }
 
   /* 
@@ -56,7 +59,8 @@ export const NavBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               { isAuthenticated && (
-                <Nav.Link eventKey="1" href="/admin/home-page-details" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
+                // <Nav.Link eventKey="1" href="/admin/home-page-details" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
+                <Nav.Link eventKey="1" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
               )}
 
               { isAuthenticated && (
