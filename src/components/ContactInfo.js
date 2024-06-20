@@ -22,7 +22,6 @@ import { getContactInfo } from "../api/index.js";
 import { Loading } from "./Loading.js";
 
 export const ContactInfo = () => {
-
   let {
     isLoading,
     isError,
@@ -36,69 +35,65 @@ export const ContactInfo = () => {
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  return (!isLoading && 
-    <section className="skill" id="contact-info">
-      <Container fluid className="contact-info-section">
-        {/* <Particle /> */}
-        <Container>
-          <h1 className="project-heading">Salon Information</h1>
-          <p style={{ color: "white", marginTop: "0", marginBottom: "30px" }}>
-            An experienced team member is almost always available during salon hours. 
+  return (
+    !isLoading && (
+      <section className="skill" id="contact-info">
+        <Container fluid className="contact-info-section">
+          {/* <Particle /> */}
+          <Container>
+            <h1 className="project-heading">Salon Information</h1>
+            <p style={{ color: "white", marginTop: "0", marginBottom: "30px" }}>
+              An experienced team member is almost always available during salon
+              hours.
             </p>
-            <br/>
+            <br />
             <div style={{ fontSize: "1.8rem" }}>Cuts</div>
-            Whether you're in need of a clean-up, a new style, or a gender-affirming transformation, we've got you covered. Our experienced stylists are here for all your haircut needs. 
-            <br/><br/>
+            Whether you're in need of a clean-up, a new style, or a
+            gender-affirming transformation, we've got you covered. Our
+            experienced stylists are here for all your haircut needs.
+            <br />
+            <br />
             <div style={{ fontSize: "1.8rem" }}>Coloring</div>
-            From subtle to fantasy, our experienced stylists can give you the color you've been dreaming of. Need a little inspiration? Book a color consultation with a stylist and we will help you on your color journey.
-            <br/><br/>
+            From subtle to fantasy, our experienced stylists can give you the
+            color you've been dreaming of. Need a little inspiration? Book a
+            color consultation with a stylist and we will help you on your color
+            journey.
+            <br />
+            <br />
             <div style={{ fontSize: "1.8rem" }}>A-La-Carte</div>
-            We offer a variety of a-la-carte services, from hair treatments and styling to beard care, we have all the cutting-edge services you need!
-          
+            We offer a variety of a-la-carte services, from hair treatments and
+            styling to beard care, we have all the cutting-edge services you
+            need!
+            {contactInfo && (
+              <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Visit Our Salon</h3>
+                  {/* <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p> */}
+                  {contactInfo[0].location}
+                </Col>
 
-          { contactInfo && (
-            
-            <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Call Us</h3>
+                  {/* <p>(503) 305-7152</p> */}
+                  {contactInfo[0].phone}
+                </Col>
 
-              <Col md={3} sm={6} xs={10} className="contact-info-card">
-                <h3>Visit Our Salon</h3>
-                {/* <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p> */}
-                { contactInfo[0].location }
-              </Col>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Email Us</h3>
+                  {/* <p>admin@allabouthair.com</p> */}
+                  {contactInfo[0].email}
+                </Col>
 
-              <Col md={3} sm={6} xs={10} className="contact-info-card">
-                <h3>Call Us</h3>
-                {/* <p>(503) 305-7152</p> */}
-                { contactInfo[0].phone }
-              </Col>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Salon Hours</h3>
+                  <ul>
+                    {contactInfo[0].hours.map((time) => {
+                      return <li key={time}>{time}</li>;
+                    })}
+                  </ul>
+                </Col>
 
-              <Col md={3} sm={6} xs={10} className="contact-info-card">
-                <h3>Email Us</h3>
-                {/* <p>admin@allabouthair.com</p> */}
-                { contactInfo[0].email }
-              </Col>
-
-              <Col md={3} sm={6} xs={10} className="contact-info-card">
-                <h3>Salon Hours</h3>
-                <ul>
-                  { contactInfo[0].hours.map((time) => {
-                    return (
-                      <li key={time}>{ time }</li>
-                    )
-                  })}
-                  {/* <li>Mon: 10:30am - 7:00pm</li>
-                  <li>Tues: Closed</li>
-                  <li>Wed: 10:30am - 7:00pm</li>
-                  <li>Thur: 10:30am - 7:00pm</li>
-                  <li>Fri: 10:30am - 7:00pm</li>
-                  <li>Sat: 10:30am - 7:00pm</li>
-                  <li>Sun: 11:30am - 5:00pm</li> */}
-                </ul>
-              </Col>
-              
-    
-
-            {/* <Col md={3} sm={6} xs={10} className="contact-info-card">
+                {/* <Col md={3} sm={6} xs={10} className="contact-info-card">
               <h3>Visit Our Salon</h3>
               <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
             </Col>
@@ -125,13 +120,11 @@ export const ContactInfo = () => {
                 <li>Sun: 11:30am - 5:00pm</li>
               </ul>
             </Col> */}
-
-          </Row>
-
-        )}
-
+              </Row>
+            )}
+          </Container>
         </Container>
-      </Container>
-    </section>
+      </section>
+    )
   );
 };
