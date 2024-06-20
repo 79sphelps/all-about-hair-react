@@ -24,6 +24,7 @@ export const ServiceEdit = () => {
   };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
+  const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
   // const [resetText, setResetText] = useState('Reset');
   // const [status, setStatus] = useState({});
 
@@ -41,15 +42,38 @@ export const ServiceEdit = () => {
   };
 
   const onFormUpdate = (category, value, idx) => {
-    console.log("cat: ", category);
-    console.log("val: ", value);
-    console.log("idx: ", idx);
+    // console.log("cat: ", category);
+    // console.log("val: ", value);
+    // console.log("idx: ", idx);
 
     if (category === "price" || category === "type" || idx >= 0) {
       if (!formDetails.pricing[idx]) {
-        formDetails.pricing.push({ type: "", price: "", description: "" });
+        // formDetails.pricing.push({ type: "", price: "", description: "" });
+        setFormDetails(...formDetails, formDetails.pricing.push())
       }
-      formDetails.pricing[idx][category] = value;
+      // console.log('-- here --')
+      // console.log(formDetails.pricing[idx][category])
+
+      let newPricingArrayItem = formDetails.pricing[idx];
+      newPricingArrayItem = {...newPricingArrayItem, [category]: value}
+      // console.log('---newPriceItem---')
+      // console.log(newPricingArrayItem)
+
+      let newPriceArray = formDetails.pricing.map((item, idx2) => {
+        if (idx2 === idx) { 
+          return { ...formDetails.pricing[idx], [category]: value}
+        }
+        return item
+      })
+
+      // console.log('--- new array ---')
+      // console.log(newPriceArray)
+
+      let newFormDetails = { ...formDetails, pricing: newPriceArray }
+
+      // console.log('-- new --')
+      // console.log(newFormDetails)
+      setFormDetails(newFormDetails);
     } else {
       setFormDetails({
         ...formDetails,
@@ -57,13 +81,13 @@ export const ServiceEdit = () => {
       });
     }
 
-    console.log("---updated---");
-    console.log(formDetails);
+    // console.log("---updated---");
+    // console.log(formDetails);
   };
 
   const updateFormDetails = (data) => {
-    console.log("--- update data ---");
-    console.log(data);
+    // console.log("--- update data ---");
+    // console.log(data);
     setFormDetails(data)
   };
 
@@ -96,12 +120,10 @@ export const ServiceEdit = () => {
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  //   console.log(serviceDetails)
-  //   console.log(formDetails)
-  if (!formDetails.title) {
+  if (initialUpdateFlag === false) {
+    setInitialUpdateFlag(true);
     updateFormDetails(serviceDetails);
   }
-
 
   return (
     <section className="contact">
@@ -131,8 +153,9 @@ export const ServiceEdit = () => {
                       <div>Title: </div>
                       <input
                         type="text"
-                        value={formDetails.title || serviceDetails.title}
-                        placeholder={serviceDetails && serviceDetails.title}
+                        // value={formDetails.title || serviceDetails.title}
+                        value={formDetails.title}
+                        // placeholder={serviceDetails && serviceDetails.title}
                         onChange={(e) => onFormUpdate("title", e.target.value)}
                       />
                     </Row>
@@ -140,8 +163,9 @@ export const ServiceEdit = () => {
                       <div>Image Path </div>
                       <input
                         type="text"
-                        value={formDetails.image || serviceDetails.image}
-                        placeholder={serviceDetails && serviceDetails.image}
+                        // value={formDetails.image || serviceDetails.image}
+                        value={formDetails.image}
+                        // placeholder={serviceDetails && serviceDetails.image}
                         onChange={(e) => onFormUpdate("image", e.target.value)}
                       />
                     </Row>
@@ -150,12 +174,16 @@ export const ServiceEdit = () => {
                       <textarea
                         style={{ marginTop: "25px" }}
                         rows="6"
+                        // value={
+                        //   formDetails.description || serviceDetails.description
+                        // }
                         value={
-                          formDetails.description || serviceDetails.description
+                          formDetails.description
                         }
-                        placeholder={
-                          serviceDetails && serviceDetails.description
-                        }
+                        // placeholder={
+                        //   // serviceDetails && serviceDetails.description
+                        //   formDetails.description || serviceDetails.description
+                        // }
                         onChange={(e) =>
                           onFormUpdate("description", e.target.value)
                         }
@@ -163,26 +191,34 @@ export const ServiceEdit = () => {
                     </Row>
 
                     {/* {serviceDetails &&
-                      serviceDetails.pricing.map((service, idx) => {
+                      serviceDetails.pricing.map((service, idx) => { */}
+                    {formDetails &&
+                      formDetails.pricing.map((service, idx) => {
                         return (
-                          <Row>
+                          <Row key={service._id}>
                             <div>Type: </div>
                             <input
                               type="text"
-                              value={
-                                formDetails.pricing.length > 0 &&
-                                formDetails.pricing[idx] &&
-                                formDetails.pricing[idx].type
-                                  ? formDetails.pricing[idx].type
-                                  : service.type
-                              }
-                              placeholder={
-                                formDetails.pricing.length > 0 &&
-                                formDetails.pricing[idx] &&
-                                formDetails.pricing[idx].type
-                                  ? formDetails.pricing[idx].type
-                                  : service.type
-                              }
+                              // value={
+                              //   formDetails.pricing.length > 0 &&
+                              //   formDetails.pricing[idx] &&
+                              //   formDetails.pricing[idx].type
+                              //     ? formDetails.pricing[idx].type
+                              //     : service.type
+                              // }
+                              // placeholder={
+                              //   formDetails.pricing.length > 0 &&
+                              //   formDetails.pricing[idx] &&
+                              //   formDetails.pricing[idx].type
+                              //     ? formDetails.pricing[idx].type
+                              //     : service.type
+                              // }
+
+                              value={service.type}
+                              // placeholder={
+                              //     formDetails.pricing[idx].type
+                              // }
+
                               onChange={(e) =>
                                 onFormUpdate("type", e.target.value, idx)
                               }
@@ -191,7 +227,7 @@ export const ServiceEdit = () => {
                             <input
                               type="text"
                               value={service.price}
-                              placeholder={service.price}
+                              // placeholder={service.price}
                               onChange={(e) =>
                                 onFormUpdate("price", e.target.value, idx)
                               }
@@ -200,14 +236,14 @@ export const ServiceEdit = () => {
                             <input
                               type="text"
                               value={service.description}
-                              placeholder={service.description}
+                              // placeholder={service.description}
                               onChange={(e) =>
                                 onFormUpdate("description", e.target.value, idx)
                               }
                             />
                           </Row>
                         );
-                      })} */}
+                      })}
 
                     <Row>
                       <Col size={12} className="px-1">

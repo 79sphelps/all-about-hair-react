@@ -87,7 +87,7 @@ export const ServicesDetails = () => {
                     {servicesInfo &&
                       servicesInfo.map((service, idx) => {
                         return (
-                          <Row>
+                          <Row key={service._id}>
                             <Col lg={2} className="px-1">
                               <div>{service.title}</div>
                               {/* <input placeholder={service.title} /> */}
