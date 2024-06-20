@@ -63,7 +63,7 @@ export const TeamCard = (props) => {
         <Modal show={show} onHide={handleClose} centered
           scrollable={true}
           style={{ 
-            // marginTop: "50px",
+            marginTop: "50px",
             height: "100%",
             // width: "80%" 
           }}
