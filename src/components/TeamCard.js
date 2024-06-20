@@ -65,7 +65,7 @@ export const TeamCard = (props) => {
           style={{ 
             marginTop: "50px",
             height: "100%",
-            // width: "80%" 
+            width: "95%"
           }}
         >
           <Modal.Header closeButton>
