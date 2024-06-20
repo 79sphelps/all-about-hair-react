@@ -79,7 +79,7 @@ export const Gallery = () => {
                     galleryPics && galleryPics.map((pic) => {
                       return (
                         <div key={pic._id} className="item">
-                          <img src={require("../" + pic.path)} alt="Image" />
+                          <img src={require("../" + pic.path)} alt="Image" style={{ width: "100%" }}/>
                         </div>
                       )
                     })

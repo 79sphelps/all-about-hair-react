@@ -1,20 +1,20 @@
 // import meter1 from "../assets/img/meter1.svg";
 // import meter2 from "../assets/img/meter2.svg";
 // import meter3 from "../assets/img/meter3.svg";
-import team1 from "../assets/img/img_5.jpg";
-import team2 from "../assets/img/img_7.jpg";
-import team3 from "../assets/img/person_1.jpg";
-import team4 from "../assets/img/person_4.jpg";
+// import team1 from "../assets/img/img_5.jpg";
+// import team2 from "../assets/img/img_7.jpg";
+// import team3 from "../assets/img/person_1.jpg";
+// import team4 from "../assets/img/person_4.jpg";
 // import team5 from "../assets/img/person_4.jpeg"
 
-import Carousel from "react-multi-carousel";
+// import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import arrow1 from "../assets/img/arrow1.svg";
-import arrow2 from "../assets/img/arrow2.svg";
-import colorSharp from "../assets/img/color-sharp.png";
+// import arrow1 from "../assets/img/arrow1.svg";
+// import arrow2 from "../assets/img/arrow2.svg";
+// import colorSharp from "../assets/img/color-sharp.png";
 
 import { Container, Row, Col } from "react-bootstrap";
-import { TeamCard } from "./TeamCard";
+// import { TeamCard } from "./TeamCard";
 
 import { useQuery } from "@tanstack/react-query";
 import { getContactInfo } from "../api/index.js";
@@ -31,7 +31,6 @@ export const ContactInfo = () => {
   } = useQuery({
     queryKey: ["contactInfo"],
     queryFn: getContactInfo, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   if (isLoading) return <Loading />;
@@ -45,16 +44,17 @@ export const ContactInfo = () => {
           <h1 className="project-heading">Salon Information</h1>
           <p style={{ color: "white", marginTop: "0", marginBottom: "30px" }}>
             An experienced team member is almost always available during salon hours. 
-            <br/><br/>
-            <h3>Cuts</h3>
+            </p>
+            <br/>
+            <div style={{ fontSize: "1.8rem" }}>Cuts</div>
             Whether you're in need of a clean-up, a new style, or a gender-affirming transformation, we've got you covered. Our experienced stylists are here for all your haircut needs. 
             <br/><br/>
-            <h3>Coloring</h3>
+            <div style={{ fontSize: "1.8rem" }}>Coloring</div>
             From subtle to fantasy, our experienced stylists can give you the color you've been dreaming of. Need a little inspiration? Book a color consultation with a stylist and we will help you on your color journey.
             <br/><br/>
-            <h3>A-La-Carte</h3>
+            <div style={{ fontSize: "1.8rem" }}>A-La-Carte</div>
             We offer a variety of a-la-carte services, from hair treatments and styling to beard care, we have all the cutting-edge services you need!
-          </p>
+          
 
           { contactInfo && (
             
@@ -125,7 +125,6 @@ export const ContactInfo = () => {
                 <li>Sun: 11:30am - 5:00pm</li>
               </ul>
             </Col> */}
-
 
           </Row>
 

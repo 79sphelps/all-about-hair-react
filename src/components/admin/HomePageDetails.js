@@ -150,7 +150,17 @@ export const HomePageDetails = () => {
                     </Col>
                     <Col lg={12} className="px-1">
                     <div>About Section Sub Msg</div>
-                      <input type="email" value={formDetails.aboutSubMsg || homepageDetails[0].aboutSubMsg} placeholder={homepageDetails && homepageDetails[0].aboutSubMsg} onChange={(e) => onFormUpdate('aboutSubMsg', e.target.value)} />
+                      {/* <input type="email" value={formDetails.aboutSubMsg || homepageDetails[0].aboutSubMsg} placeholder={homepageDetails && homepageDetails[0].aboutSubMsg} onChange={(e) => onFormUpdate('aboutSubMsg', e.target.value)} /> */}
+                    
+                      <textarea
+                        style={{ marginTop: "3px" }}
+                        rows="6"
+                        value={
+                          formDetails.aboutSubMsg || homepageDetails[0].aboutSubMsg
+                        }
+                        onChange={(e) => onFormUpdate('aboutSubMsg', e.target.value)}
+                      ></textarea>
+                    
                     </Col>
                     <Col lg={12} className="px-1">
                     <div>About Image</div>

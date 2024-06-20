@@ -46,7 +46,6 @@ export async function getContactInfo() {
 
 export async function updateHomepageDetails(data) {
     // const access_token = await data.access_token
-    // console.log(access_token)
 
     const response = await fetch(
         API + `admin/homepage/update/${data.id}`,
@@ -64,7 +63,6 @@ export async function updateHomepageDetails(data) {
 
   export async function updateServiceDetails(data) {
     // const access_token = await data.access_token
-    // console.log(access_token)
 
     const response = await fetch(
         API + `admin/services/update/${data.id}`,
