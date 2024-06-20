@@ -33,11 +33,15 @@ export const ServiceEdit = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
       // navigate("/");
+      setTimeout(() => {
+        setButtonText("Update")
+      }, 2000)
     },
   });
 
   const updateServiceDetailsEdit = () => {
     const id = serviceDetails._id;
+    setButtonText("Updating...")
     updateServiceDetailsMutation.mutate({ id, ...formDetails });
   };
 
@@ -54,8 +58,8 @@ export const ServiceEdit = () => {
       // console.log('-- here --')
       // console.log(formDetails.pricing[idx][category])
 
-      let newPricingArrayItem = formDetails.pricing[idx];
-      newPricingArrayItem = {...newPricingArrayItem, [category]: value}
+      // let newPricingArrayItem = formDetails.pricing[idx];
+      // newPricingArrayItem = {...newPricingArrayItem, [category]: value}
       // console.log('---newPriceItem---')
       // console.log(newPricingArrayItem)
 
@@ -247,7 +251,7 @@ export const ServiceEdit = () => {
 
                     <Row>
                       <Col size={12} className="px-1">
-                        <button onClick={handleSubmit}>
+                        <button onClick={handleSubmit} disabled={buttonText === "Updating..."}>
                           <span>{buttonText}</span>
                         </button>
                         {/* <button onClick={handleReset}><span>{resetText}</span></button> */}

@@ -43,10 +43,6 @@ const providerConfig = {
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
-
   <React.StrictMode>
 
       <Auth0Provider {...providerConfig}>
@@ -54,7 +50,7 @@ root.render(
         <BrowserRouter>
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-          </BrowserRouter>
+        </BrowserRouter>
         </QueryClientProvider>
       </Auth0Provider>
 
