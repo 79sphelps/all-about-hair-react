@@ -61,6 +61,7 @@ export const Services2 = () => {
                       title={service.title}
                       description={service.description}
                       service={service.pricing}
+                      id={service._id}
                     />
                   </Col>
                 );

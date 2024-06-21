@@ -6,7 +6,10 @@ import Modal from "react-bootstrap/Modal";
 // import { BsGithub } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
 
+import { useNavigate } from "react-router-dom";
+
 export const Services2Card = (props) => {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -24,7 +27,8 @@ export const Services2Card = (props) => {
         variant="top"
         src={props.imgPath}
         alt="card-img"
-        onClick={handleShow}
+        // onClick={handleShow}
+        onClick={() => navigate(`/services/${props.id}`, { state: { id: props.id } })}
       />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
@@ -33,9 +37,10 @@ export const Services2Card = (props) => {
         </Card.Text>
         <Button
           variant="primary"
-          href={props.ghLink}
+          // href={props.ghLink}
           target="_blank"
-          onClick={handleShow}
+          // onClick={handleShow}
+          onClick={() => navigate(`/services/${props.id}`, { state: { id: props.id } })}
         >
           {/* <BsGithub /> &nbsp;
           {props.isBlog ? "Blog" : "GitHub"} */}

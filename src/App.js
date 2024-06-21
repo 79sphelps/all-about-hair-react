@@ -27,6 +27,7 @@ import { Loading } from "./components/Loading.js";
 import { HomePageDetails } from "./components/admin/HomePageDetails.js"
 import { ServicesDetails } from './components/admin/ServicesDetails.js';
 import { ServiceEdit } from './components/admin/ServiceEdit.js';
+import { Service } from "./components/Service.js";
 
 function App() {
   const { isLoading, error, isAuthenticated } = useAuth0();
@@ -56,6 +57,7 @@ function App() {
       <Routes>
         {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/services/:id" element={<Service />} />
         {/* <Route exact path="/listings" component={Listings} /> */}
         <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
         <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
