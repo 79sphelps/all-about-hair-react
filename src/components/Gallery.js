@@ -6,7 +6,7 @@
 // import g3 from "../assets/img/g3.jpg";
 // import g4 from "../assets/img/g4.jpg";
 // import g5 from "../assets/img/g5.jpg";
-
+import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 // import arrow1 from "../assets/img/arrow1.svg";
@@ -20,8 +20,23 @@ import { useQuery } from "@tanstack/react-query";
 import { getGalleryImages } from "../api/index.js";
 
 import { Loading } from "./Loading.js";
+import Modal from 'react-bootstrap/Modal';
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 export const Gallery = () => {
+
+  const [imgPath, setImgPath] = useState('');
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setImgPath('');
+    setShow(false);
+  }
+  const handleShow = (imgPath) => {
+    setImgPath(imgPath);
+    setShow(true);
+  }
+
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -74,12 +89,22 @@ export const Gallery = () => {
                   swipeable={true}
                   draggable={true}
                   showDots={false}
+                  // autoPlay={this.props.deviceType !== "mobile" ? true : false}
+                  // autoPlaySpeed={4000}
+                  keyBoardControl={true}
+                  // customTransition="all .5"
+                  // transitionDuration={2000}
+                  containerClass="carousel-container"
+                  // removeArrowOnDeviceType={["tablet", "mobile"]}
+                  // deviceType={this.props.deviceType}
+                  // dotListClass="custom-dot-list-style"
+                  // itemClass="carousel-item-padding-40-px"
                 >
                   {
                     galleryPics && galleryPics.map((pic) => {
                       return (
                         <div key={pic._id} className="item">
-                          <img src={require("../" + pic.path)} alt="Image" style={{ width: "100%" }}/>
+                          <img src={require("../" + pic.path)} alt="Image" style={{ width: "100%" }} onClick={() => handleShow(pic.path)}/>
                         </div>
                       )
                     })
@@ -97,6 +122,40 @@ export const Gallery = () => {
                   <div className="item">
                     <img src={g4} alt="Image" />
                   </div> */}
+
+        <Modal show={show} onHide={handleClose} centered
+          scrollable={true}
+          style={{ 
+            marginTop: "100px",
+            marginBottom: "75px",
+            height: "90%",
+            width: "90%",
+            marginLeft: "5%"
+          }}
+        >
+          {/* <Modal.Header closeButton>
+            <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
+          </Modal.Header> */}
+          <Modal.Body style={{ color: "black" }}>
+            <Card.Img
+              variant="top"
+              src={require("../" + imgPath)}
+              alt="card-img"
+              // className="teamCardAnimation"
+              // style={{ width: "60%" }}
+              centered
+            />
+
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+
+
                 </Carousel>
               </div>
             </div>
