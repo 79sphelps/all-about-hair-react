@@ -169,6 +169,12 @@ filter: brightness(0) saturate(100%) invert(0%) sepia(7%) saturate(98%) hue-rota
 }
 
 
+.service-button {
+  color: white !important;
+  align-content: center !important;
+  width: "30%";
+}
+
 
 .project-card {
   padding-top: 50px !important;
