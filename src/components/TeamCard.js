@@ -20,7 +20,7 @@ export const TeamCard = (props) => {
         src={props.imgPath}
         alt="card-img"
         className="teamCardAnimation"
-        centered
+        centered="true"
       />
       <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
         <Card.Title>{props.title}</Card.Title>
@@ -58,7 +58,7 @@ export const TeamCard = (props) => {
           <a href="#"><img src={navIcon3} alt="" /></a>
         </div>
 
-        <Modal show={show} onHide={handleClose} centered
+        <Modal show={show} onHide={handleClose} centered="true"
           scrollable={true}
           style={{ 
             marginTop: "100px",
@@ -76,7 +76,7 @@ export const TeamCard = (props) => {
               alt="card-img"
               // className="teamCardAnimation"
               style={{ width: "60%" }}
-              centered
+              centered="true"
             />
 
           </Modal.Header>

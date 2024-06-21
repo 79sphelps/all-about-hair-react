@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-// import { CgWebsite } from "react-icons/cg";
-// import { BsGithub } from "react-icons/bs";
 import Table from "react-bootstrap/Table";
-
 import { useNavigate } from "react-router-dom";
 
 export const Services2Card = (props) => {
@@ -13,8 +10,7 @@ export const Services2Card = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  // const handleShow = () => setShow(true);
   const [service, setService] = useState([]);
 
   useEffect(() => {
@@ -28,7 +24,9 @@ export const Services2Card = (props) => {
         src={props.imgPath}
         alt="card-img"
         // onClick={handleShow}
-        onClick={() => navigate(`/services/${props.id}`, { state: { id: props.id } })}
+        onClick={() =>
+          navigate(`/services/${props.id}`, { state: { id: props.id } })
+        }
       />
       <Card.Body>
         <Card.Title>{props.title}</Card.Title>
@@ -40,41 +38,48 @@ export const Services2Card = (props) => {
           // href={props.ghLink}
           target="_blank"
           // onClick={handleShow}
-          onClick={() => navigate(`/services/${props.id}`, { state: { id: props.id } })}
+          onClick={() =>
+            navigate(`/services/${props.id}`, { state: { id: props.id } })
+          }
         >
-          {/* <BsGithub /> &nbsp;
-          {props.isBlog ? "Blog" : "GitHub"} */}
           More Details
         </Button>
         {"\n"}
         {"\n"}
 
-        <Modal 
-          show={show} 
-          onHide={handleClose} 
-          centered 
+        <Modal
+          show={show}
+          onHide={handleClose}
+          centered
           scrollable={true}
           // scrollable
           // dialogClassName="modal-90w"
           style={{ marginTop: "50px" }}
         >
-          <Modal.Header closeButton style={{ paddingTop: "0", paddingBottom: "0" }}>
+          <Modal.Header
+            closeButton
+            style={{ paddingTop: "0", paddingBottom: "0" }}
+          >
             <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
           </Modal.Header>
 
           <Card.Img
             variant="top"
             src={props.imgPath}
-            style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }}
+            style={{
+              height: "150px",
+              width: "150px",
+              paddingTop: "0",
+              paddingBottom: "0",
+            }}
           />
-          
+
           {/* <Modal.Body style={{ color: "black", maxHeight: 'calc(100vh - 210px)', overflowY: 'auto' }}> */}
-          <Modal.Body style={{ color: "black", paddingTop: "0", paddingBottom: "0" }}>
+          <Modal.Body
+            style={{ color: "black", paddingTop: "0", paddingBottom: "0" }}
+          >
+            {/* <img src={props.imgPath} style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }} /> */}
 
-          {/* <img src={props.imgPath} style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }} /> */}
-
-            {/* Woohoo, you are reading this text in a modal!
-             */}
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -100,9 +105,6 @@ export const Services2Card = (props) => {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            {/* <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button> */}
           </Modal.Footer>
         </Modal>
 

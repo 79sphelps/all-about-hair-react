@@ -123,7 +123,7 @@ export const Gallery = () => {
                     <img src={g4} alt="Image" />
                   </div> */}
 
-        <Modal show={show} onHide={handleClose} centered
+        <Modal show={show} onHide={handleClose} centered="true"
           scrollable={true}
           style={{ 
             marginTop: "100px",
@@ -143,7 +143,7 @@ export const Gallery = () => {
               alt="card-img"
               // className="teamCardAnimation"
               // style={{ width: "60%" }}
-              centered
+              centered="true"
             />
 
           </Modal.Body>
