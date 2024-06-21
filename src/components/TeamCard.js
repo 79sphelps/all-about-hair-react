@@ -62,7 +62,10 @@ export const TeamCard = (props) => {
           scrollable={true}
           style={{ 
             marginTop: "100px",
+            marginBottom: "75px",
             height: "90%",
+            width: "90%",
+            marginLeft: "5%"
           }}
         >
           <Modal.Header closeButton>
