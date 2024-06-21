@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 // import { CgWebsite } from "react-icons/cg";
-// import { BsGithub } from "react-icons/bs";
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
 import navIcon3 from '../assets/img/nav-icon3.svg';
@@ -21,6 +20,7 @@ export const TeamCard = (props) => {
         src={props.imgPath}
         alt="card-img"
         className="teamCardAnimation"
+        centered
       />
       <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
         <Card.Title>{props.title}</Card.Title>
@@ -33,8 +33,6 @@ export const TeamCard = (props) => {
           target="_blank"
           onClick={handleShow}
         >
-          {/* <BsGithub /> &nbsp; */}
-          {/* {props.isBlog ? "Blog" : "GitHub"} */}
           Full Profile
         </Button>
         {"\n"}
@@ -63,9 +61,8 @@ export const TeamCard = (props) => {
         <Modal show={show} onHide={handleClose} centered
           scrollable={true}
           style={{ 
-            marginTop: "50px",
-            height: "100%",
-            width: "95%"
+            marginTop: "100px",
+            height: "90%",
           }}
         >
           <Modal.Header closeButton>
@@ -74,7 +71,9 @@ export const TeamCard = (props) => {
               variant="top"
               src={props.imgPath}
               alt="card-img"
-              className="teamCardAnimation"
+              // className="teamCardAnimation"
+              style={{ width: "60%" }}
+              centered
             />
 
           </Modal.Header>

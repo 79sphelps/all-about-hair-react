@@ -5,6 +5,10 @@ import contactImg from "../assets/img/contact-img.svg";
 // import contactImg from "../assets/img/person_0.jpeg";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { Loading } from "./Loading.js";
+
+import { useQuery } from "@tanstack/react-query";
+import { getHomepageDetails } from "../api/index.js";
 
 export const Contact = () => {
   const formInitialDetails = {
@@ -18,6 +22,17 @@ export const Contact = () => {
   const [buttonText, setButtonText] = useState('Send');
   const [resetText, setResetText] = useState('Reset');
   const [status, setStatus] = useState({});
+
+  let {
+    isLoading,
+    isError,
+    data: bannerInfo,
+    error,
+  } = useQuery({
+    queryKey: ["bannerInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
 
   const onFormUpdate = (category, value) => {
       setFormDetails({
@@ -51,6 +66,9 @@ export const Contact = () => {
     setFormDetails(formInitialDetails)
     setButtonText('Send')
   }
+
+  if (isLoading) return <Loading />;
+  if (isError) return `Error: ${error.message}`;
 
   return (
     <section className="contact" id="contact">

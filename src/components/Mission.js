@@ -8,8 +8,27 @@ import Aboutcard from "./AboutCard";
 // import laptopImg from "../../assets/img/about.png";
 import laptopImg from "../assets/img/about-img.jpg";
 // import Toolstack from "./Toolstack";
+import { Loading } from "./Loading.js";
+
+import { useQuery } from "@tanstack/react-query";
+import { getHomepageDetails } from "../api/index.js";
 
 export const Mission = () => {
+
+  let {
+    isLoading,
+    isError,
+    data: bannerInfo,
+    error,
+  } = useQuery({
+    queryKey: ["bannerInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+    // onSuccess: (data) => setBannerDetails(data),
+  });
+
+  if (isLoading) return <Loading />;
+  if (isError) return `Error: ${error.message}`;
+
   return (
     <section id="mission">
     {/* <Container fluid className="about-section"> */}
