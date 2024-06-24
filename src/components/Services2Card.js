@@ -36,7 +36,7 @@ export const Services2Card = (props) => {
         <Button
           variant="primary"
           // href={props.ghLink}
-          target="_blank"
+          // target="_blank"
           // onClick={handleShow}
           onClick={() =>
             navigate(`/services/${props.id}`, { state: { id: props.id } })

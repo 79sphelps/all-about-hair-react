@@ -52,7 +52,8 @@ export const Services2 = () => {
 
           <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
             {servicesInfo &&
-              servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
+              // servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
+              servicesInfo.map((service, idx) => {
                 return (
                   <Col xl={4} lg={4} md={6} sm={6} xm={10} className="project-card" key={service._id}>
                     <Services2Card

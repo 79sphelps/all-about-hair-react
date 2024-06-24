@@ -60,12 +60,17 @@ export const NavBar = () => {
             <Nav className="ms-auto">
               { isAuthenticated && (
                 // <Nav.Link eventKey="1" href="/admin/home-page-details" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home')}>Home</Nav.Link>
-                <Nav.Link eventKey="1" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home', '/admin/home-page-details')}>Home</Nav.Link>
+                <Nav.Link eventKey="1" className={activeLink === 'home' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('home', '/admin/home-page-details')}>Edit Homepage Details</Nav.Link>
               )}
 
               { isAuthenticated && (
                 // <Nav.Link eventKey="1" href="/admin/services-details" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services')}>Services</Nav.Link>
-                <Nav.Link eventKey="1" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services', '/admin/services-details')}>Services</Nav.Link>
+                <Nav.Link eventKey="2" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services', '/admin/services-details')}>Edit Services</Nav.Link>
+              )}
+
+              { isAuthenticated && (
+                // <Nav.Link eventKey="1" href="/admin/services-details" className={activeLink === 'services-details' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services')}>Services</Nav.Link>
+                <Nav.Link eventKey="3" className={activeLink === 'service-add' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('services', '/admin/service-add')}>Add Service</Nav.Link>
               )}
 
               { !isAuthenticated && (

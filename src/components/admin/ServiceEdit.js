@@ -8,12 +8,12 @@ import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getServiceDetail, updateServiceDetails } from "../../api/index.js";
 // import { useAuth0 } from "@auth0/auth0-react";
-
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceEdit = () => {
   const location = useLocation();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   // const access_token = useAuth0().getAccessTokenSilently();
 
   let formInitialDetails = {
@@ -121,6 +121,11 @@ export const ServiceEdit = () => {
     queryFn: () => getServiceDetail(location.state.id), // fetch the posts using the async call
   });
 
+  const handleCancel = () => {
+    setFormDetails(formInitialDetails);
+    navigate('/');
+  }
+
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
@@ -199,7 +204,7 @@ export const ServiceEdit = () => {
                     {formDetails &&
                       formDetails.pricing.map((service, idx) => {
                         return (
-                          <Row key={service._id}>
+                          <Row key={service._id + "." + idx}>
                             <div>Type: </div>
                             <input
                               type="text"
@@ -251,8 +256,11 @@ export const ServiceEdit = () => {
 
                     <Row>
                       <Col size={12} className="px-1">
-                        <button onClick={handleSubmit} disabled={buttonText === "Updating..."}>
+                        <button style={{ marginRight: "20px" }} onClick={handleSubmit} disabled={buttonText === "Updating..."}>
                           <span>{buttonText}</span>
+                        </button>
+                        <button onClick={handleCancel}>
+                          <span>Cancel</span>
                         </button>
                         {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
                       </Col>

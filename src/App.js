@@ -28,6 +28,7 @@ import { HomePageDetails } from "./components/admin/HomePageDetails.js"
 import { ServicesDetails } from './components/admin/ServicesDetails.js';
 import { ServiceEdit } from './components/admin/ServiceEdit.js';
 import { Service } from "./components/Service.js";
+import { CreateService } from './components/admin/CreateService.js';
 
 function App() {
   const { isLoading, error, isAuthenticated } = useAuth0();
@@ -62,6 +63,7 @@ function App() {
         <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
         <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
         <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceEdit /> : <Home />} />
+        <Route exact path="/admin/service-add" element={ isAuthenticated ? <CreateService /> : <Home />} />
         {/* <Route exact path="/rentals/:id" component={Listing} />
         <Route path="/callback" component={CallbackPage} /> */}
       </Routes>

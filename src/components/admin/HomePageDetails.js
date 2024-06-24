@@ -8,7 +8,7 @@ import TrackVisibility from 'react-on-screen';
 
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
-
+import { useNavigate } from "react-router-dom";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
@@ -16,7 +16,7 @@ import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
 
 export const HomePageDetails = () => {
   const queryClient = useQueryClient();
-
+  const navigate = useNavigate();
   // const access_token = useAuth0().getAccessTokenSilently();
 
   const formInitialDetails = {
@@ -36,7 +36,7 @@ export const HomePageDetails = () => {
     contactSubMsg: ''
   }
   const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState('Update');
+  // const [buttonText, setButtonText] = useState('Update');
   // const [resetText, setResetText] = useState('Reset');
   // const [status, setStatus] = useState({});
 
@@ -104,6 +104,10 @@ export const HomePageDetails = () => {
     queryFn: getHomepageDetails, // fetch the posts using the async call
     // onSuccess: (data) => setBannerDetails(data),
   });
+
+  const handleCancel = () => {
+    navigate('/');
+  }
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
@@ -198,8 +202,12 @@ export const HomePageDetails = () => {
                     <Col size={12} className="px-1">
                       {/* <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea> */}
                       {/* <button type="submit"><span>{buttonText}</span></button> */}
-                      <button onClick={handleSubmit}><span>{buttonText}</span></button>
+                      {/* <button onClick={handleSubmit}><span>{buttonText}</span></button> */}
+                      <button style={{ marginRight: "20px" }} onClick={handleSubmit}><span>Update</span></button>
                       {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
+                      <button onClick={handleCancel}>
+                          <span>Cancel</span>
+                        </button>
                     </Col>
                     {/* {
                       status.message &&
