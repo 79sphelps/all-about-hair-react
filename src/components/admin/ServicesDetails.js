@@ -7,7 +7,7 @@ import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
-import { getServiceDetails } from "../../api/index.js";
+import { getServiceDetails, deleteService } from "../../api/index.js";
 
 export const ServicesDetails = () => {
   const queryClient = useQueryClient();
@@ -56,6 +56,19 @@ export const ServicesDetails = () => {
     queryFn: getServiceDetails, // fetch the posts using the async call
     // onSuccess: (data) => setBannerDetails(data),
   });
+
+  const deleteServiceMutation = useMutation({
+    mutationFn: deleteService,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["deleteService"] });
+      // navigate("/");
+    },
+  });
+
+  const handleDelete = (e, id) => {
+    e.preventDefault();
+    deleteServiceMutation.mutate(id);
+  };
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
@@ -115,9 +128,15 @@ export const ServicesDetails = () => {
                               </div>
 
                               <button
+                              style={{ marginRight: "20px" }}
                                 onClick={(e) => handleEdit(e, service._id)}
                               >
                                 <span>{buttonText}</span>
+                              </button>
+                              <button
+                                onClick={(e) => handleDelete(e, service._id)}
+                              >
+                                <span>Delete</span>
                               </button>
                               {/* <button onClick={handleDelete}><span>{deleteBtnText}</span></button> */}
                             </Col>

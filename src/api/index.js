@@ -1,6 +1,6 @@
 
-// const API = "https://all-about-hair-backend.onrender.com/api/"
-const API = "http://localhost:8081/api/";
+const API = "https://all-about-hair-backend.onrender.com/api/"
+// const API = "http://localhost:8081/api/";
 
 
 // const getAuthHeader = () => {
@@ -29,10 +29,6 @@ export async function updateServiceDetail(id) {
 }
 
 export async function createService(service) {
-  console.log('---- creating service ----')
-  console.log(service)
-  // const response = await fetch(API + `admin/services/new`, service);
-
   const response = await fetch(
     API + `admin/services/new`,
   {
@@ -42,6 +38,17 @@ export async function createService(service) {
       // "Authorization": `Bearer ${access_token}`
     },
     body: JSON.stringify(service),
+  }
+);
+  return response.json();
+}
+
+export async function deleteService(id) {
+  const response = await fetch(
+    API + `admin/services/${id}`,
+  {
+    method: "DELETE",
+    body: JSON.stringify(id),
   }
 );
   return response.json();
