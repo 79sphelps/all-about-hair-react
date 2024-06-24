@@ -41,8 +41,8 @@ export const Service = () => {
           }}
           style={{
             border: "1px solid rgba(255, 255, 255, 0.5)",
-            margin: "25px",
-            padding: "25px",
+            margin: "15px",
+            padding: "15px",
             borderRadius: "25px",
           }}
         >
@@ -53,16 +53,15 @@ export const Service = () => {
           className="align-items-center"
           style={{
             border: "1px solid rgba(255, 255, 255, 0.5)",
-            margin: "25px",
-            paddingLeft: "25px",
-            paddingBottom: "25px",
-            paddingTop: "25px",
+            margin: "15px",
+            paddingLeft: "15px",
+            paddingBottom: "15px",
+            paddingTop: "15px",
             borderRadius: "25px",
           }}
         >
           <Col lg={4} md={4} sm={12}>
-            <h2>Service: {serviceDetails.title}</h2>
-
+            <h2>{serviceDetails.title}</h2>
             <div style={{ alignContent: "center", alignItems: "center" }}>
               <img
                 src={require("../" + serviceDetails.image)}
@@ -72,10 +71,25 @@ export const Service = () => {
           </Col>
           <Col>
             {/* <div style={{ fontSize: "1.7rem" }}>Description</div> */}
-            <div style={{ fontSize: "1.5rem" }}>
+            <div style={{ fontSize: "1.2rem", paddingTop: "10px" }}>
               {serviceDetails.description}
             </div>
           </Col>
+        </Row>
+
+        <Row
+          className="align-items-center"
+          style={{
+            // border: "1px solid rgba(255, 255, 255, 0.5)",
+            margin: "15px",
+            // paddingLeft: "15px",
+            // paddingBottom: "15px",
+            paddingTop: "15px",
+            // borderRadius: "25px",
+            fontSize: "1.5rem",
+          }}
+        >
+          Pricing Details:
         </Row>
 
         {serviceDetails &&
@@ -88,9 +102,10 @@ export const Service = () => {
                   border: "1px solid rgba(255, 255, 255, 0.5)",
                   // marginTop: "25px",
                   // marginBottom: "50px",
-                  margin: "25px",
-                  padding: "25px",
+                  margin: "15px",
+                  padding: "15px",
                   borderRadius: "25px",
+                  fontSize: "1.2rem"
                 }}
               >
                 <div>Type: {service.type}</div>
