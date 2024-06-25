@@ -6,9 +6,7 @@ import headerImg from "../assets/img/header-img-min.png";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
-
 import { Loading } from "./Loading.js";
-
 import { useQuery } from "@tanstack/react-query";
 import { getHomepageDetails } from "../api/index.js";
 
@@ -29,14 +27,12 @@ export const Banner = () => {
   } = useQuery({
     queryKey: ["bannerInfo"],
     queryFn: getHomepageDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   useEffect(() => {
     let ticker = setInterval(() => {
       tick();
     }, delta);
-
     return () => { clearInterval(ticker) };
   }, [text])
 

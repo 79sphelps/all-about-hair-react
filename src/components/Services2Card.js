@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const Services2Card = (props) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
   const [service, setService] = useState([]);
@@ -79,7 +78,6 @@ export const Services2Card = (props) => {
             style={{ color: "black", paddingTop: "0", paddingBottom: "0" }}
           >
             {/* <img src={props.imgPath} style={{ height: "150px", width: "150px", paddingTop: "0", paddingBottom: "0" }} /> */}
-
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -107,22 +105,7 @@ export const Services2Card = (props) => {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
-
-        {/* {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
-          </Button>
-        )} */}
       </Card.Body>
     </Card>
   );
 };
-// export default ProjectCards;

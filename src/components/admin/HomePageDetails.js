@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-// import contactImg from "../../assets/img/contact-img.svg";
-// import contactImg from "../assets/img/Female-Hair-Silhouette.svg"
-// import contactImg from "../assets/img/person_0.jpeg";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
-
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +9,9 @@ import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
 // import { useAuth0 } from "@auth0/auth0-react";
+// import contactImg from "../../assets/img/contact-img.svg";
+// import contactImg from "../assets/img/Female-Hair-Silhouette.svg"
+// import contactImg from "../assets/img/person_0.jpeg";
 
 export const HomePageDetails = () => {
   const queryClient = useQueryClient();
@@ -38,7 +37,6 @@ export const HomePageDetails = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   // const [buttonText, setButtonText] = useState('Update');
   // const [resetText, setResetText] = useState('Reset');
-  // const [status, setStatus] = useState({});
 
   const updateHomepageDetailsMutation = useMutation({
     mutationFn: updateHomepageDetails,
@@ -69,23 +67,6 @@ export const HomePageDetails = () => {
       }
     })
     updateHomepageDetailsEdit();
-
-    // setButtonText("Sending...");
-    // let response = await fetch("http://localhost:5000/contact", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json;charset=utf-8",
-    //   },
-    //   body: JSON.stringify(formDetails),
-    // });
-    // setButtonText("Send");
-    // let result = await response.json();
-    // setFormDetails(formInitialDetails);
-    // if (result.code == 200) {
-    //   setStatus({ succes: true, message: 'Message sent successfully'});
-    // } else {
-    //   setStatus({ succes: false, message: 'Something went wrong, please try again later.'});
-    // }
   };
 
   // const handleReset = (e) => {
@@ -102,7 +83,6 @@ export const HomePageDetails = () => {
   } = useQuery({
     queryKey: ["homepageDetails"],
     queryFn: getHomepageDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   const handleCancel = () => {
@@ -224,7 +204,6 @@ export const HomePageDetails = () => {
       </Container>
 
       {/* <Footer /> */}
-
     </section>
   )
 }

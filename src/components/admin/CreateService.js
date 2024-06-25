@@ -4,7 +4,6 @@ import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
-// import { Loading } from "../Loading.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createService } from "../../api/index.js";
 // import { useAuth0 } from "@auth0/auth0-react";
@@ -12,7 +11,6 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 export const CreateService = () => {
-  //   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   // const access_token = useAuth0().getAccessTokenSilently();
@@ -31,10 +29,8 @@ export const CreateService = () => {
   };
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
-
   const [buttonText, setButtonText] = useState("Create");
   // const [resetText, setResetText] = useState('Reset');
-  // const [status, setStatus] = useState({});
   let submitted = false;
 
   const [handleAddPricingDetail, setAddPricingDetailFlag] = useState(false);

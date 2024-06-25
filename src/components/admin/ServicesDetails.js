@@ -12,7 +12,6 @@ import { getServiceDetails, deleteService } from "../../api/index.js";
 export const ServicesDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
   // const access_token = useAuth0().getAccessTokenSilently();
 
   const formInitialDetails = {
@@ -34,13 +33,6 @@ export const ServicesDetails = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Edit");
 
-  const onFormUpdate = (category, value) => {
-    setFormDetails({
-      ...formDetails,
-      [category]: value,
-    });
-  };
-
   const handleEdit = async (e, id) => {
     e.preventDefault();
     navigate(`/admin/service-edit/${id}`, { state: { id: id } });
@@ -54,7 +46,6 @@ export const ServicesDetails = () => {
   } = useQuery({
     queryKey: ["servicesInfo"],
     queryFn: getServiceDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   const deleteServiceMutation = useMutation({
@@ -76,7 +67,6 @@ export const ServicesDetails = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {/* <Col size={12} md={6}>
@@ -103,19 +93,11 @@ export const ServicesDetails = () => {
                           <Row key={service._id}>
                             <Col lg={2} className="px-1">
                               <div>{service.title}</div>
-                              {/* <input placeholder={service.title} /> */}
                               <img
                                 src={require("../../" + service.image)}
                               ></img>
-                              {/* <input type="text" value={f} placeholder={} onChange={(e) => onFormUpdate('headline', e.target.value)} /> */}
                             </Col>
                             <Col size={12} className="px-1">
-                              {/* <textarea
-                              readonly
-                                style={{ marginTop: "25px" }}
-                                rows="6"
-                                placeholder={service.description}
-                              ></textarea> */}
                               <div
                                 style={{
                                   border: "1px solid rgba(255, 255, 255, 0.5)",
@@ -128,7 +110,7 @@ export const ServicesDetails = () => {
                               </div>
 
                               <button
-                              style={{ marginRight: "20px" }}
+                                style={{ marginRight: "20px" }}
                                 onClick={(e) => handleEdit(e, service._id)}
                               >
                                 <span>{buttonText}</span>

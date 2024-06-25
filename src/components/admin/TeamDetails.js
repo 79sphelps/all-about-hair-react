@@ -12,7 +12,6 @@ import { getTeamDetails, deleteTeamMember } from "../../api/index.js";
 export const TeamDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
   // const access_token = useAuth0().getAccessTokenSilently();
 
   const formInitialDetails = {
@@ -23,13 +22,6 @@ export const TeamDetails = () => {
   };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Edit");
-
-  const onFormUpdate = (category, value) => {
-    setFormDetails({
-      ...formDetails,
-      [category]: value,
-    });
-  };
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
@@ -44,7 +36,6 @@ export const TeamDetails = () => {
   } = useQuery({
     queryKey: ["teamInfo"],
     queryFn: getTeamDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   const deleteTeamMemberMutation = useMutation({
@@ -66,7 +57,6 @@ export const TeamDetails = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {/* <Col size={12} md={6}>
@@ -105,7 +95,8 @@ export const TeamDetails = () => {
                                   padding: "20px",
                                 }}
                               >
-                                Bio: <br />{member.bio}
+                                Bio: <br />
+                                {member.bio}
                               </div>
 
                               <button
@@ -131,7 +122,6 @@ export const TeamDetails = () => {
           </Col>
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

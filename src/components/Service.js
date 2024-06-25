@@ -105,9 +105,7 @@ export const Service = () => {
                 }}
               >
                 <div>Type: {service.type}</div>
-
                 <div>Price: {service.price}</div>
-
                 <div>Description: </div>
                 <div>{service.description}</div>
               </Row>

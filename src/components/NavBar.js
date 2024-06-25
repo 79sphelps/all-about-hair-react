@@ -127,13 +127,12 @@ export const NavBar = () => {
                 <a href="#home"><img src={navIcon2} alt="" /></a>
                 <a href="#home"><img src={navIcon3} alt="" /></a>
               </div>
-              {/* <HashLink to='#connect'> */}
+
               { !isAuthenticated && (
               <Nav.Link href="#contact-info">
                 <button className="vvd"><span>Let’s Connect</span></button>
               </Nav.Link>
               )}
-              {/* </HashLink> */}
             </span>
           </Navbar.Collapse>
         </Container>

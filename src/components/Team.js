@@ -31,7 +31,6 @@ export const Team = () => {
   } = useQuery({
     queryKey: ["homepageInfo"],
     queryFn: getHomepageDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   let {
@@ -42,12 +41,10 @@ export const Team = () => {
   } = useQuery({
     queryKey: ["teamInfo"],
     queryFn: getTeamDetails, // fetch the posts using the async call
-    // onSuccess: (data) => setBannerDetails(data),
   });
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5,
     },
@@ -70,61 +67,21 @@ export const Team = () => {
   if (isError2) return `Error: ${error2.message}`;
 
   return (!isLoading && 
-    // <section className="skill" id="team">
-    //     <div className="container">
-    //         <div className="row">
-    //             <div className="col-12">
-    //                 <div className="skill-bx wow zoomIn">
-    //                     <h2>Experienced Stylists</h2>
-    //                     <p>Local stylists who love what they do and are able to service their clients directly from our salon.</p>
-    //                     <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
-    //                         <div className="item">
-    //                             {/* <img src={meter1} alt="Image" /> */}
-    //                             <img src={team1} alt="Image" />
-    //                             <h5>Web Development</h5>
-    //                         </div>
-    //                         <div className="item">
-    //                             {/* <img src={meter2} alt="Image" /> */}
-    //                             <img src={team2} alt="Image" />
-    //                             <h5>Brand Identity</h5>
-    //                         </div>
-    //                         <div className="item">
-    //                             {/* <img src={meter3} alt="Image" /> */}
-    //                             <img src={team3} alt="Image" />
-    //                             <h5>Logo Design</h5>
-    //                         </div>
-    //                         <div className="item">
-    //                             {/* <img src={meter1} alt="Image" /> */}
-    //                             <img src={team4} alt="Image" />
-    //                             <h5>Web Development</h5>
-    //                         </div>
-    //                     </Carousel>
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     </div>
-    //     <img className="background-image-left" src={colorSharp} alt="Image" />
-    // </section>
-
     <section className="skill" id="team" >
     <Container fluid className="team-section" >
-      {/* <Particle /> */}
       <Container>
-
         <div style={{ marginLeft: "7px" }}>
           <h1 className="project-heading">
           {/* Experienced Stylists */}
           { homepageInfo && homepageInfo[0].stylistsHeadline }
           </h1>
           {/* <p style={{ color: "white" }}> */}
-          
           {/* Local stylists who love what they do and are able to service their clients directly from our salon. */}
           { homepageInfo && homepageInfo[0].stylistsSubMsg }
           </div>
           {/* </p> */}
 
         <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-
           { teamInfo && teamInfo.slice(1, teamInfo.length).map((team) => {
             return (<Col lg={3} md={6} sm={6} xm={10} className="project-card" key={team._id}>
               <TeamCard

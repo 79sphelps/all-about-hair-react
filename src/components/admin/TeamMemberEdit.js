@@ -6,7 +6,10 @@ import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getTeamMemberDetail, updateTeamMemberDetails } from "../../api/index.js";
+import {
+  getTeamMemberDetail,
+  updateTeamMemberDetails,
+} from "../../api/index.js";
 // import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -17,16 +20,15 @@ export const TeamMemberEdit = () => {
   // const access_token = useAuth0().getAccessTokenSilently();
 
   let formInitialDetails = {
-    name: '',
-    role: '',
-    bio: '',
-    photo: ''
+    name: "",
+    role: "",
+    bio: "",
+    photo: "",
   };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
   // const [resetText, setResetText] = useState('Reset');
-  // const [status, setStatus] = useState({});
 
   const updateTeamMemberDetailsMutation = useMutation({
     mutationFn: updateTeamMemberDetails,
@@ -34,29 +36,29 @@ export const TeamMemberEdit = () => {
       queryClient.invalidateQueries({ queryKey: ["teamMemberDetails"] });
       // navigate("/");
       setTimeout(() => {
-        setButtonText("Update")
-      }, 2000)
+        setButtonText("Update");
+      }, 2000);
     },
   });
 
   const updateTeamMemberDetailsEdit = () => {
     const id = teamMemberDetails._id;
-    setButtonText("Updating...")
+    setButtonText("Updating...");
     updateTeamMemberDetailsMutation.mutate({ id, ...formDetails });
   };
 
   const onFormUpdate = (category, value, idx) => {
     if (category === "price" || category === "type" || idx >= 0) {
       if (!formDetails.pricing[idx]) {
-        setFormDetails(...formDetails, formDetails.pricing.push())
+        setFormDetails(...formDetails, formDetails.pricing.push());
       }
       let newPriceArray = formDetails.pricing.map((item, idx2) => {
-        if (idx2 === idx) { 
-          return { ...formDetails.pricing[idx], [category]: value}
+        if (idx2 === idx) {
+          return { ...formDetails.pricing[idx], [category]: value };
         }
-        return item
-      })
-      let newFormDetails = { ...formDetails, pricing: newPriceArray }
+        return item;
+      });
+      let newFormDetails = { ...formDetails, pricing: newPriceArray };
       setFormDetails(newFormDetails);
     } else {
       setFormDetails({
@@ -67,7 +69,7 @@ export const TeamMemberEdit = () => {
   };
 
   const updateFormDetails = (data) => {
-    setFormDetails(data)
+    setFormDetails(data);
   };
 
   const handleSubmit = async (e) => {
@@ -93,8 +95,8 @@ export const TeamMemberEdit = () => {
 
   const handleCancel = () => {
     setFormDetails(formInitialDetails);
-    navigate('/admin/team-details');
-  }
+    navigate("/admin/team-details");
+  };
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
@@ -158,18 +160,18 @@ export const TeamMemberEdit = () => {
                       <textarea
                         style={{ marginTop: "25px" }}
                         rows="6"
-                        value={
-                          formDetails.bio
-                        }
-                        onChange={(e) =>
-                          onFormUpdate("bio", e.target.value)
-                        }
+                        value={formDetails.bio}
+                        onChange={(e) => onFormUpdate("bio", e.target.value)}
                       ></textarea>
                     </Row>
 
                     <Row>
                       <Col size={12} className="px-1">
-                        <button style={{ marginRight: "20px" }} onClick={handleSubmit} disabled={buttonText === "Updating..."}>
+                        <button
+                          style={{ marginRight: "20px" }}
+                          onClick={handleSubmit}
+                          disabled={buttonText === "Updating..."}
+                        >
                           <span>{buttonText}</span>
                         </button>
                         <button onClick={handleCancel}>
@@ -185,7 +187,6 @@ export const TeamMemberEdit = () => {
           </Col>
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

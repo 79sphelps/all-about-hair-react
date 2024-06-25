@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 import navIcon1 from '../assets/img/nav-icon1.svg';
 import navIcon2 from '../assets/img/nav-icon2.svg';
 import navIcon3 from '../assets/img/nav-icon3.svg';
-
 import Modal from 'react-bootstrap/Modal';
 
 export const TeamCard = (props) => {
@@ -81,46 +80,15 @@ export const TeamCard = (props) => {
 
           </Modal.Header>
           <Modal.Body style={{ color: "black" }}>
-            {/* Woohoo, you are reading this text in a modal! */}
             {props.bio}
-            {/* <a href="#">
-              {" "}
-              <i class="fa fa-facebook"></i>{" "}
-            </a>
-            <a href="#">
-              {" "}
-              <i class="fa fa-twitter"></i>{" "}
-            </a>
-            <a href="#">
-              {" "}
-              <i class="fa fa-linkedin"></i>{" "}
-            </a> */}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            {/* <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button> */}
           </Modal.Footer>
         </Modal>
-
-        {/* If the component contains Demo link and if it's not a Blog then, it will render the below component  */}
-
-        {/* {!props.isBlog && props.demoLink && (
-          <Button
-            variant="primary"
-            href={props.demoLink}
-            target="_blank"
-            style={{ marginLeft: "10px" }}
-          >
-            <CgWebsite /> &nbsp;
-            {"Demo"}
-          </Button>
-        )} */}
       </Card.Body>
     </Card>
   );
 }
-// export default ProjectCards;

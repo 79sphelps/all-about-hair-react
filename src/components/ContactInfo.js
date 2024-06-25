@@ -6,19 +6,14 @@
 // import team3 from "../assets/img/person_1.jpg";
 // import team4 from "../assets/img/person_4.jpg";
 // import team5 from "../assets/img/person_4.jpeg"
-
 // import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 // import arrow1 from "../assets/img/arrow1.svg";
 // import arrow2 from "../assets/img/arrow2.svg";
 // import colorSharp from "../assets/img/color-sharp.png";
-
+import "react-multi-carousel/lib/styles.css";
 import { Container, Row, Col } from "react-bootstrap";
-// import { TeamCard } from "./TeamCard";
-
 import { useQuery } from "@tanstack/react-query";
 import { getContactInfo } from "../api/index.js";
-
 import { Loading } from "./Loading.js";
 
 export const ContactInfo = () => {
@@ -95,32 +90,32 @@ export const ContactInfo = () => {
                 </Col>
 
                 {/* <Col md={3} sm={6} xs={10} className="contact-info-card">
-              <h3>Visit Our Salon</h3>
-              <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
-            </Col>
+                  <h3>Visit Our Salon</h3>
+                  <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
+                </Col>
 
-            <Col md={3} sm={6} xs={10} className="contact-info-card">
-              <h3>Call Us</h3>
-              <p>(503) 305-7152</p>
-            </Col>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Call Us</h3>
+                  <p>(503) 305-7152</p>
+                </Col>
 
-            <Col md={3} sm={6} xs={10} className="contact-info-card">
-              <h3>Email Us</h3>
-              <p>admin@allabouthair.com</p>
-            </Col>
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Email Us</h3>
+                  <p>admin@allabouthair.com</p>
+                </Col>
 
-            <Col md={3} sm={6} xs={10} className="contact-info-card">
-              <h3>Salon Hours</h3>
-              <ul>
-                <li>Mon: 10:30am - 7:00pm</li>
-                <li>Tues: Closed</li>
-                <li>Wed: 10:30am - 7:00pm</li>
-                <li>Thur: 10:30am - 7:00pm</li>
-                <li>Fri: 10:30am - 7:00pm</li>
-                <li>Sat: 10:30am - 7:00pm</li>
-                <li>Sun: 11:30am - 5:00pm</li>
-              </ul>
-            </Col> */}
+                <Col md={3} sm={6} xs={10} className="contact-info-card">
+                  <h3>Salon Hours</h3>
+                  <ul>
+                    <li>Mon: 10:30am - 7:00pm</li>
+                    <li>Tues: Closed</li>
+                    <li>Wed: 10:30am - 7:00pm</li>
+                    <li>Thur: 10:30am - 7:00pm</li>
+                    <li>Fri: 10:30am - 7:00pm</li>
+                    <li>Sat: 10:30am - 7:00pm</li>
+                    <li>Sun: 11:30am - 5:00pm</li>
+                  </ul>
+                </Col> */}
               </Row>
             )}
           </Container>

@@ -1,15 +1,12 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Services2Card } from "./Services2Card";
-
 import '../style.css';
-
 import { Loading } from "./Loading.js";
 import { useQuery } from "@tanstack/react-query";
 import { getServiceDetails, getHomepageDetails } from "../api/index.js";
 
 export const Services2 = () => {
-
   let {
     isLoading,
     isError,
@@ -69,59 +66,59 @@ export const Services2 = () => {
               })}
 
             {/* 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg1}
-              title="Smoothing Service"
-              description="VoMor Hair Extensions not only add length, but also add volume & fullness. VoMor Extensions are made of high quality Remy hair, collected & manufactured in a humane manner, packaged according to environmental guidelines, and are tape-in & reusable. VoMor Extensions are safe & do not damage the hair."
-              service={serviceDetailsFull.smoothingService}
-            />
-          </Col>
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg1}
+                  title="Smoothing Service"
+                  description="VoMor Hair Extensions not only add length, but also add volume & fullness. VoMor Extensions are made of high quality Remy hair, collected & manufactured in a humane manner, packaged according to environmental guidelines, and are tape-in & reusable. VoMor Extensions are safe & do not damage the hair."
+                  service={serviceDetailsFull.smoothingService}
+                />
+              </Col>
 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg2}
-              title="Waxing"
-              description="At least 3 weeks of growth is recommend for a waxing service. You may be asked to reschedule if the hair length is insufficient in order to effectively perform the service."
-              service={serviceDetailsFull.waxing}
-            />
-          </Col>
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg2}
+                  title="Waxing"
+                  description="At least 3 weeks of growth is recommend for a waxing service. You may be asked to reschedule if the hair length is insufficient in order to effectively perform the service."
+                  service={serviceDetailsFull.waxing}
+                />
+              </Col>
 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg3}
-              title="Hair Extensions"
-              description="VoMor Hair Extensions not only add length, but also add volume & fullness. VoMor Extensions are made of high quality Remy hair, collected & manufactured in a humane manner, packaged according to environmental guidelines, and are tape-in & reusable. VoMor Extensions are safe & do not damage the hair."
-              service={serviceDetailsFull.hairExtensions}           
-            />
-          </Col>
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg3}
+                  title="Hair Extensions"
+                  description="VoMor Hair Extensions not only add length, but also add volume & fullness. VoMor Extensions are made of high quality Remy hair, collected & manufactured in a humane manner, packaged according to environmental guidelines, and are tape-in & reusable. VoMor Extensions are safe & do not damage the hair."
+                  service={serviceDetailsFull.hairExtensions}           
+                />
+              </Col>
 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg4}
-              title="Hair Coloring"
-              description="AVEDA Full Spectrum Color immerses hair in 97% naturally derived formulas for our Permanent Color & 99% naturally derived formulas for our Deposit-Only Demi-Permanent Color. (A Gloss/Toner is included in all Foil, Double Process, All Over Bleach, Balayage & Ombre services. A Gloss/Toner can be added to a Root Touch Up, if appropriate, for an additional price.)"
-              service={serviceDetailsFull.hairColoring}
-            />
-          </Col>
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg4}
+                  title="Hair Coloring"
+                  description="AVEDA Full Spectrum Color immerses hair in 97% naturally derived formulas for our Permanent Color & 99% naturally derived formulas for our Deposit-Only Demi-Permanent Color. (A Gloss/Toner is included in all Foil, Double Process, All Over Bleach, Balayage & Ombre services. A Gloss/Toner can be added to a Root Touch Up, if appropriate, for an additional price.)"
+                  service={serviceDetailsFull.hairColoring}
+                />
+              </Col>
 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg5}
-              title="Haircut & Style"
-              description="Custom cuts use same pricing scale. Enjoy a relaxing head, neck & shoulder massage, shampoo & style."
-              service={serviceDetailsFull.haircutAndStyle}
-            />
-          </Col>
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg5}
+                  title="Haircut & Style"
+                  description="Custom cuts use same pricing scale. Enjoy a relaxing head, neck & shoulder massage, shampoo & style."
+                  service={serviceDetailsFull.haircutAndStyle}
+                />
+              </Col>
 
-          <Col md={4} className="project-card">
-            <Services2Card
-              imgPath={projImg6}
-              title="Lash Extensions"
-              description="Xtreme Lashes Eyelash Extensions are your ultimate answer for longer, thicker, more beautiful looking eyelashes."
-              service={serviceDetailsFull.lashExtensions}
-            />
-          </Col> */}
+              <Col md={4} className="project-card">
+                <Services2Card
+                  imgPath={projImg6}
+                  title="Lash Extensions"
+                  description="Xtreme Lashes Eyelash Extensions are your ultimate answer for longer, thicker, more beautiful looking eyelashes."
+                  service={serviceDetailsFull.lashExtensions}
+                />
+              </Col> */}
           </Row>
         </Container>
       </Container>
