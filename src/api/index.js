@@ -1,6 +1,6 @@
 
-// const API = "https://all-about-hair-backend.onrender.com/api/"
-const API = "http://localhost:8081/api/";
+const API = "https://all-about-hair-backend.onrender.com/api/"
+// const API = "http://localhost:8081/api/";
 
 
 // const getAuthHeader = () => {
