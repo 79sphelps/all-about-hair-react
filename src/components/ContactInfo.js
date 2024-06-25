@@ -42,7 +42,7 @@ export const ContactInfo = () => {
           {/* <Particle /> */}
           <Container>
             <h1 className="project-heading">Salon Information</h1>
-            <p style={{ color: "white", marginTop: "0", marginBottom: "30px" }}>
+            <p style={{ color: "white", marginTop: "0", marginBottom: "20px" }}>
               An experienced team member is almost always available during salon
               hours.
             </p>
@@ -65,7 +65,8 @@ export const ContactInfo = () => {
             styling to beard care, we have all the cutting-edge services you
             need!
             {contactInfo && (
-              <Row style={{ justifyContent: "center", marginBottom: "0px" }}>
+              // <Row style={{ justifyContent: "center", marginBottom: "0px", marginTop: "20px" }}>
+              <Row style={{ marginBottom: "0px", marginTop: "20px" }}>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Visit Our Salon</h3>
                   {/* <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p> */}

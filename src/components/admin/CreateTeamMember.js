@@ -6,28 +6,22 @@ import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 // import { Loading } from "../Loading.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createService } from "../../api/index.js";
+import { createTeamMember } from "../../api/index.js";
 // import { useAuth0 } from "@auth0/auth0-react";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
-export const CreateService = () => {
+export const CreateTeamMember = () => {
   //   const location = useLocation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   // const access_token = useAuth0().getAccessTokenSilently();
 
   let formInitialDetails = {
-    title: "",
-    image: "",
-    description: "",
-    pricing: [],
-  };
-
-  let initialPricingDetails = {
-    type: "",
-    price: "",
-    description: "",
+    name: "",
+    role: "",
+    photo: "",
+    bio: "",
   };
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
@@ -37,26 +31,23 @@ export const CreateService = () => {
   // const [status, setStatus] = useState({});
   let submitted = false;
 
-  const [handleAddPricingDetail, setAddPricingDetailFlag] = useState(false);
-  const [pricingDetails, setPricingDetails] = useState(initialPricingDetails);
-
-  const addServiceMutation = useMutation({
-    mutationFn: createService,
+  const addTeamMemberMutation = useMutation({
+    mutationFn: createTeamMember,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["addService"] });
+      queryClient.invalidateQueries({ queryKey: ["addTeamMember"] });
       console.log("success bro!");
       setTimeout(() => {
         setButtonText("Create");
       }, 2000);
-        navigate("/admin/service-details");
+        navigate("/admin/team-details");
     },
   });
 
-  const handleAddService = (service) => {
+  const handleAddTeamMember = (member) => {
     setButtonText("Creating...");
-    addServiceMutation.mutate({
+    addTeamMemberMutation.mutate({
       id: uuidv4(),
-      ...service,
+      ...member,
     });
   };
 
@@ -74,36 +65,12 @@ export const CreateService = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleAddService(formDetails);
+    handleAddTeamMember(formDetails);
   };
 
-  const newService = () => {
+  const newTeamMember = () => {
     setFormDetails(formInitialDetails);
     submitted = false;
-  };
-
-  const handleAddNewPricingDetail = (e) => {
-    e.preventDefault();
-    setAddPricingDetailFlag(true);
-  };
-
-  const onPricingDetailUpdate = (e) => {
-    e.preventDefault(); // prevent a browser reload/refresh
-    setPricingDetails({
-      ...pricingDetails,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const addPricingDetail = (e) => {
-    e.preventDefault();
-    let priceArray = formDetails.pricing;
-    priceArray.push(pricingDetails);
-    let newFormDetails = { ...formDetails, pricing: priceArray };
-    setFormDetails(newFormDetails);
-    setAddPricingDetailFlag(false);
-    setPricingDetails(initialPricingDetails);
-    setFormDetails(formInitialDetails);
   };
 
   return (
@@ -114,8 +81,11 @@ export const CreateService = () => {
         <Row className="align-items-center">
           {submitted && formDetails ? (
             <div>
-              <h4>The new service was created successfully!</h4>
-              <button className="btn btn-success" onClick={() => newService()}>
+              <h4>The new team member was created successfully!</h4>
+              <button
+                className="btn btn-success"
+                onClick={() => newTeamMember()}
+              >
                 Add
               </button>
             </div>
@@ -128,71 +98,45 @@ export const CreateService = () => {
                       isVisible ? "animate__animated animate__fadeIn" : ""
                     }
                   >
-                    <h2>New Service Details</h2>
+                    <h2>New Team Member Details</h2>
                     <form>
                       <Row>
-                        <div>Title: </div>
+                        <div>Name: </div>
                         <input
                           type="text"
-                          value={formDetails.title}
+                          value={formDetails.name}
+                          onChange={(e) => onFormUpdate("name", e.target.value)}
+                        />
+                      </Row>
+                      <Row>
+                        <div>Role: </div>
+                        <input
+                          type="text"
+                          value={formDetails.role}
                           onChange={(e) =>
-                            onFormUpdate("title", e.target.value)
+                            onFormUpdate("role", e.target.value)
                           }
                         />
                       </Row>
                       <Row>
-                        <div>Image Path </div>
+                        <div>Image Path: </div>
                         <input
                           type="text"
-                          value={formDetails.image}
+                          value={formDetails.photo}
                           onChange={(e) =>
-                            onFormUpdate("image", e.target.value)
+                            onFormUpdate("photo", e.target.value)
                           }
                         />
                       </Row>
                       <Row>
-                        <div>Description</div>
+                        <div>Bio:</div>
                         <textarea
                           style={{ marginTop: "25px" }}
                           rows="6"
-                          value={formDetails.description}
-                          onChange={(e) =>
-                            onFormUpdate("description", e.target.value)
-                          }
+                          value={formDetails.bio}
+                          onChange={(e) => onFormUpdate("bio", e.target.value)}
                         ></textarea>
                       </Row>
-
-                      {handleAddPricingDetail ? (
-                        <form>
-                          <Row>
-                            <div>Type: </div>
-                            <input
-                              type="text"
-                              name="type"
-                              value={pricingDetails.type}
-                              onChange={(e) => onPricingDetailUpdate(e)}
-                            />
-                            <div>Price: </div>
-                            <input
-                              type="text"
-                              name="price"
-                              value={pricingDetails.price}
-                              onChange={(e) => onPricingDetailUpdate(e)}
-                            />
-                            <div>Description: </div>
-                            <input
-                              type="text"
-                              name="description"
-                              value={pricingDetails.description}
-                              onChange={(e) => onPricingDetailUpdate(e)}
-                            />
-
-                            <button onClick={(e) => addPricingDetail(e)}>
-                              <span>Add Detail</span>
-                            </button>
-                          </Row>
-                        </form>
-                      ) : null}
 
                       <Row>
                         <Col size={12} className="px-1">
@@ -210,9 +154,6 @@ export const CreateService = () => {
                             <span>Cancel</span>
                           </button>
                           {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
-                          <button onClick={handleAddNewPricingDetail}>
-                            <span>Add New Pricing Detail</span>
-                          </button>
                         </Col>
                       </Row>
                     </form>

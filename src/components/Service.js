@@ -80,12 +80,8 @@ export const Service = () => {
         <Row
           className="align-items-center"
           style={{
-            // border: "1px solid rgba(255, 255, 255, 0.5)",
             margin: "15px",
-            // paddingLeft: "15px",
-            // paddingBottom: "15px",
             paddingTop: "15px",
-            // borderRadius: "25px",
             fontSize: "1.5rem",
           }}
         >

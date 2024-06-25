@@ -123,7 +123,7 @@ export const ServiceEdit = () => {
 
   const handleCancel = () => {
     setFormDetails(formInitialDetails);
-    navigate('/');
+    navigate('/admin/services-details');
   }
 
   if (isLoading) return <Loading />;
