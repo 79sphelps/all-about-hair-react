@@ -2,11 +2,28 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
+import { Loading } from "./Loading.js";
+import { useQuery } from "@tanstack/react-query";
+import { getHomepageDetails } from "../api/index.js";
 
 export const Footer = () => {
+  let {
+    isLoading,
+    isError,
+    data: bannerInfo,
+    error,
+  } = useQuery({
+    queryKey: ["bannerInfo"],
+    queryFn: getHomepageDetails, // fetch the posts using the async call
+  });
+
+  if (isLoading) return <Loading />;
+  if (isError) return `Error: ${error.message}`;
+
   // let date = new Date();
   // let year = date.getFullYear();
   return (
+    !isLoading && (
     <Container fluid className="footer">
       <Row>
         <Col md="4" className="footer-copywright">
@@ -68,5 +85,5 @@ export const Footer = () => {
         </Col>
       </Row>
     </Container>
-  );
+  ));
 };

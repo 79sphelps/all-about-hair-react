@@ -48,24 +48,24 @@ export const TeamMemberEdit = () => {
   };
 
   const onFormUpdate = (category, value, idx) => {
-    if (category === "price" || category === "type" || idx >= 0) {
-      if (!formDetails.pricing[idx]) {
-        setFormDetails(...formDetails, formDetails.pricing.push());
-      }
-      let newPriceArray = formDetails.pricing.map((item, idx2) => {
-        if (idx2 === idx) {
-          return { ...formDetails.pricing[idx], [category]: value };
-        }
-        return item;
-      });
-      let newFormDetails = { ...formDetails, pricing: newPriceArray };
-      setFormDetails(newFormDetails);
-    } else {
+    // if (category === "price" || category === "type" || idx >= 0) {
+    //   if (!formDetails.pricing[idx]) {
+    //     setFormDetails(...formDetails, formDetails.pricing.push());
+    //   }
+    //   let newPriceArray = formDetails.pricing.map((item, idx2) => {
+    //     if (idx2 === idx) {
+    //       return { ...formDetails.pricing[idx], [category]: value };
+    //     }
+    //     return item;
+    //   });
+    //   let newFormDetails = { ...formDetails, pricing: newPriceArray };
+    //   setFormDetails(newFormDetails);
+    // } else {
       setFormDetails({
         ...formDetails,
         [category]: value,
       });
-    }
+    // }
   };
 
   const updateFormDetails = (data) => {
