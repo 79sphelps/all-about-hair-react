@@ -34,8 +34,7 @@ export const Footer = () => {
             Read more about our B Corp Certification.
           </p>
           <p>
-            Copyright 2018 All About Hair; All rights reserved | This template
-            has been adapted from a template by Colorlib.
+            Copyright 2024 All About Hair; All rights reserved 
           </p>
         </Col>
         <Col md="4" className="footer-copywright">

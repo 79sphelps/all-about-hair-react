@@ -1,9 +1,23 @@
-const API = "https://all-about-hair-backend.onrender.com/api/";
-// const API = "http://localhost:8081/api/";
+// const API = "https://all-about-hair-backend.onrender.com/api/";
+const API = "http://localhost:8081/api/";
 
 // const getAuthHeader = () => {
 //   return `Bearer ${localStorage.getItem('access_token')}`;
 // }
+
+export async function postGeneralRequest(member) {
+  const response = await fetch(API + `requests/new`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // "Authorization": `Bearer ${access_token}`
+    },
+    body: JSON.stringify(member),
+  });
+  return response.json();
+}
+
+
 
 export async function getHomepageDetails() {
   const response = await fetch(API + "admin/homepage");
