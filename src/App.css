@@ -675,7 +675,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 }
 
 
-.contact button {
+.contact-submit button{
   font-weight: 700;
   color: #000;
   background-color: #fff;
@@ -686,14 +686,14 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   position: relative;
   transition: 0.3s ease-in-out;
 }
-.contact button span {
+.contact-submit button span {
   z-index: 1;
   position: relative;
 }
-.contact button:hover {
+.contact-submit button:hover {
   color: #fff;
 }
-.contact button::before {
+.contact-submit button::before {
   content: "";
   background: #121212;
   width: 0;
@@ -704,7 +704,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   z-index: 0;
   transition: 0.3s ease-in-out;
 }
-.contact button:hover::before {
+.contact-submit button:hover::before {
   width: 100%;
 }
 

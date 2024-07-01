@@ -18,7 +18,6 @@ export async function postGeneralRequest(member) {
 }
 
 
-
 export async function getHomepageDetails() {
   const response = await fetch(API + "admin/homepage");
   return response.json();

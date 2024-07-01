@@ -219,9 +219,11 @@ export const Contact = () => {
                           An experienced team member will respond most likely in
                           the next 24 to 48 hours.
                         </p>
-                        <button onClick={handleReset}>
+                        <div className="contact-submit">
+                        <button onClick={handleReset} >
                           <span>{resetText}</span>
                         </button>
+                        </div>
                       </Col>
                     </>
                   )}
