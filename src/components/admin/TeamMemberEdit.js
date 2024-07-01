@@ -129,6 +129,20 @@ export const TeamMemberEdit = () => {
                   }
                 >
                   <h2>Update Team Member Details</h2>
+
+                  <img 
+                    src={require("../../" + formDetails.photo)} 
+                    alt=""
+                    style={{ 
+                      width: "200px", 
+                      marginBottom: "20px", 
+                      boxShadow: "0 3px 3px 5px rgba(155, 88, 173, 0.65)",
+                      // textAlign: "center !important",
+                      display: "block",
+                      margin: "0 auto"
+                    }}
+                  ></img>
+
                   <form>
                     <Row>
                       <div>Name: </div>
@@ -154,6 +168,7 @@ export const TeamMemberEdit = () => {
                         value={formDetails.photo}
                         onChange={(e) => onFormUpdate("photo", e.target.value)}
                       />
+                      
                     </Row>
                     <Row>
                       <div>Description</div>
