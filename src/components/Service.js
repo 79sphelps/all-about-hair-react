@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import { Loading } from "./Loading.js";
 import { useQuery } from "@tanstack/react-query";
 import { getServiceDetail } from "../api/index.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ArrowRightCircle } from "react-bootstrap-icons";
+import "animate.css";
 
 export const Service = () => {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ export const Service = () => {
     error,
   } = useQuery({
     queryKey: ["serviceDetails", location.state.id],
-    queryFn: () => getServiceDetail(location.state.id), // fetch the posts using the async call
+    queryFn: () => getServiceDetail(location.state.id),
   });
 
   if (isLoading) return <Loading />;
@@ -66,11 +66,11 @@ export const Service = () => {
               <img
                 src={require("../" + serviceDetails.image)}
                 style={{ width: "50%" }}
+                alt=""
               ></img>
             </div>
           </Col>
           <Col>
-            {/* <div style={{ fontSize: "1.7rem" }}>Description</div> */}
             <div style={{ fontSize: "1.2rem", paddingTop: "10px" }}>
               {serviceDetails.description}
             </div>
@@ -96,12 +96,10 @@ export const Service = () => {
                 className="align-items-center"
                 style={{
                   border: "1px solid rgba(255, 255, 255, 0.5)",
-                  // marginTop: "25px",
-                  // marginBottom: "50px",
                   margin: "15px",
                   padding: "15px",
                   borderRadius: "25px",
-                  fontSize: "1.2rem"
+                  fontSize: "1.2rem",
                 }}
               >
                 <div>Type: {service.type}</div>

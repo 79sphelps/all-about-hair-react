@@ -1,16 +1,10 @@
-// import meter1 from "../assets/img/meter1.svg";
-// import meter2 from "../assets/img/meter2.svg";
-// import meter3 from "../assets/img/meter3.svg";
 import team1 from "../assets/img/img_5.jpg";
 import team2 from "../assets/img/img_7.jpg";
 import team3 from "../assets/img/person_1.jpg";
 import team4 from "../assets/img/person_4.jpg";
-// import team5 from "../assets/img/person_4.jpeg"
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-// import arrow1 from "../assets/img/arrow1.svg";
-// import arrow2 from "../assets/img/arrow2.svg";
 import colorSharp from "../assets/img/color-sharp.png";
+import "react-multi-carousel/lib/styles.css";
 
 export const ServicesCarousel = () => {
   const responsive = {

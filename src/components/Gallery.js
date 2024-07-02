@@ -1,25 +1,14 @@
-// import meter1 from "../assets/img/meter1.svg";
-// import meter2 from "../assets/img/meter2.svg";
-// import meter3 from "../assets/img/meter3.svg";
-// import g1 from "../assets/img/g1.jpg";
-// import g2 from "../assets/img/g2.jpg";
-// import g3 from "../assets/img/g3.jpg";
-// import g4 from "../assets/img/g4.jpg";
-// import g5 from "../assets/img/g5.jpg";
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-// import arrow1 from "../assets/img/arrow1.svg";
-// import arrow2 from "../assets/img/arrow2.svg";
 import colorSharp from "../assets/img/color-sharp.png";
-import { Container, Row, Col } from "react-bootstrap";
-// import ModalImage from "react-modal-image";
+import { Container } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getGalleryImages } from "../api/index.js";
 import { Loading } from "./Loading.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import "react-multi-carousel/lib/styles.css";
 
 export const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
@@ -59,7 +48,7 @@ export const Gallery = () => {
     error,
   } = useQuery({
     queryKey: ["galleryPics"],
-    queryFn: getGalleryImages, // fetch the posts using the async call
+    queryFn: getGalleryImages,
   });
 
   if (isLoading) return <Loading />;
@@ -68,7 +57,6 @@ export const Gallery = () => {
   return (
     !isLoading && (
       <section className="skill" id="gallery">
-        {/* // <section id="gallery"> */}
         <Container fluid className="gallery-section">
           {/* <Container fluid > */}
           <div className="container">
@@ -76,7 +64,6 @@ export const Gallery = () => {
               <div className="col-12">
                 <div className="skill-bx wow zoomIn">
                   <h2 style={{ paddingBottom: "10px" }}>Stylings and Cuts</h2>
-                  {/* <p>Local stylists who love what they do and are able to service their clients directly from our salon.</p> */}
                   <Carousel
                     responsive={responsive}
                     infinite={true}
@@ -101,26 +88,13 @@ export const Gallery = () => {
                           <div key={pic._id} className="item">
                             <img
                               src={require("../" + pic.path)}
-                              alt="Image"
+                              alt=""
                               style={{ width: "100%" }}
                               onClick={() => handleShow(pic.path)}
                             />
                           </div>
                         );
                       })}
-
-                    {/* <div className="item">
-                      <img src={g1} alt="Image" />
-                    </div>
-                    <div className="item">
-                      <img src={g2} alt="Image" />
-                    </div>
-                    <div className="item">
-                      <img src={g3} alt="Image" />
-                    </div>
-                    <div className="item">
-                      <img src={g4} alt="Image" />
-                    </div> */}
 
                     <Modal
                       show={show}
@@ -159,7 +133,7 @@ export const Gallery = () => {
               </div>
             </div>
           </div>
-          <img className="background-image-left" src={colorSharp} alt="Image" />
+          <img className="background-image-left" src={colorSharp} alt="" />
         </Container>
       </section>
     )

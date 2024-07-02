@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-// import { CgWebsite } from "react-icons/cg";
-import navIcon1 from '../assets/img/nav-icon1.svg';
-import navIcon2 from '../assets/img/nav-icon2.svg';
-import navIcon3 from '../assets/img/nav-icon3.svg';
-import Modal from 'react-bootstrap/Modal';
+import navIcon1 from "../assets/img/nav-icon1.svg";
+import navIcon2 from "../assets/img/nav-icon2.svg";
+import navIcon3 from "../assets/img/nav-icon3.svg";
+import Modal from "react-bootstrap/Modal";
 
 export const TeamCard = (props) => {
   const [show, setShow] = useState(false);
@@ -52,19 +51,28 @@ export const TeamCard = (props) => {
           </a>
         </div> */}
         <div className="team-social-icon">
-          <a href="#"><img src={navIcon1} alt="" /></a>
-          <a href="#"><img src={navIcon2} alt="" /></a>
-          <a href="#"><img src={navIcon3} alt="" /></a>
+          <a href="#">
+            <img src={navIcon1} alt="" />
+          </a>
+          <a href="#">
+            <img src={navIcon2} alt="" />
+          </a>
+          <a href="#">
+            <img src={navIcon3} alt="" />
+          </a>
         </div>
 
-        <Modal show={show} onHide={handleClose} centered="true"
+        <Modal
+          show={show}
+          onHide={handleClose}
+          centered="true"
           scrollable={true}
-          style={{ 
+          style={{
             marginTop: "100px",
             marginBottom: "75px",
             height: "90%",
             width: "90%",
-            marginLeft: "5%"
+            marginLeft: "5%",
           }}
         >
           <Modal.Header closeButton>
@@ -77,11 +85,8 @@ export const TeamCard = (props) => {
               style={{ width: "60%" }}
               centered="true"
             />
-
           </Modal.Header>
-          <Modal.Body style={{ color: "black" }}>
-            {props.bio}
-          </Modal.Body>
+          <Modal.Body style={{ color: "black" }}>{props.bio}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
@@ -91,4 +96,4 @@ export const TeamCard = (props) => {
       </Card.Body>
     </Card>
   );
-}
+};

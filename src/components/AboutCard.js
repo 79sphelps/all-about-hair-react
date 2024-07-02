@@ -13,7 +13,7 @@ function AboutCard() {
     error,
   } = useQuery({
     queryKey: ["homepageInfo"],
-    queryFn: getHomepageDetails, // fetch the posts using the async call
+    queryFn: getHomepageDetails,
   });
 
   if (isLoading) return <Loading />;

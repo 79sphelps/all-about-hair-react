@@ -35,14 +35,13 @@ export const TeamDetails = () => {
     error,
   } = useQuery({
     queryKey: ["teamInfo"],
-    queryFn: getTeamDetails, // fetch the posts using the async call
+    queryFn: getTeamDetails,
   });
 
   const deleteTeamMemberMutation = useMutation({
     mutationFn: deleteTeamMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
-      // navigate("/");
     },
   });
 

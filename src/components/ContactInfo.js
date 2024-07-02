@@ -1,20 +1,8 @@
-// import meter1 from "../assets/img/meter1.svg";
-// import meter2 from "../assets/img/meter2.svg";
-// import meter3 from "../assets/img/meter3.svg";
-// import team1 from "../assets/img/img_5.jpg";
-// import team2 from "../assets/img/img_7.jpg";
-// import team3 from "../assets/img/person_1.jpg";
-// import team4 from "../assets/img/person_4.jpg";
-// import team5 from "../assets/img/person_4.jpeg"
-// import Carousel from "react-multi-carousel";
-// import arrow1 from "../assets/img/arrow1.svg";
-// import arrow2 from "../assets/img/arrow2.svg";
-// import colorSharp from "../assets/img/color-sharp.png";
-import "react-multi-carousel/lib/styles.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { getContactInfo } from "../api/index.js";
 import { Loading } from "./Loading.js";
+import "react-multi-carousel/lib/styles.css";
 
 export const ContactInfo = () => {
   let {
@@ -24,7 +12,7 @@ export const ContactInfo = () => {
     error,
   } = useQuery({
     queryKey: ["contactInfo"],
-    queryFn: getContactInfo, // fetch the posts using the async call
+    queryFn: getContactInfo,
   });
 
   if (isLoading) return <Loading />;
@@ -60,23 +48,19 @@ export const ContactInfo = () => {
             styling to beard care, we have all the cutting-edge services you
             need!
             {contactInfo && (
-              // <Row style={{ justifyContent: "center", marginBottom: "0px", marginTop: "20px" }}>
               <Row style={{ marginBottom: "0px", marginTop: "20px" }}>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Visit Our Salon</h3>
-                  {/* <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p> */}
                   {contactInfo[0].location}
                 </Col>
 
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Call Us</h3>
-                  {/* <p>(503) 305-7152</p> */}
                   {contactInfo[0].phone}
                 </Col>
 
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Email Us</h3>
-                  {/* <p>admin@allabouthair.com</p> */}
                   {contactInfo[0].email}
                 </Col>
 
@@ -88,34 +72,6 @@ export const ContactInfo = () => {
                     })}
                   </ul>
                 </Col>
-
-                {/* <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Visit Our Salon</h3>
-                  <p>9895 SE Sunnyside Rd, Ste B, Happy Valley, OR 97015</p>
-                </Col>
-
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Call Us</h3>
-                  <p>(503) 305-7152</p>
-                </Col>
-
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Email Us</h3>
-                  <p>admin@allabouthair.com</p>
-                </Col>
-
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Salon Hours</h3>
-                  <ul>
-                    <li>Mon: 10:30am - 7:00pm</li>
-                    <li>Tues: Closed</li>
-                    <li>Wed: 10:30am - 7:00pm</li>
-                    <li>Thur: 10:30am - 7:00pm</li>
-                    <li>Fri: 10:30am - 7:00pm</li>
-                    <li>Sat: 10:30am - 7:00pm</li>
-                    <li>Sun: 11:30am - 5:00pm</li>
-                  </ul>
-                </Col> */}
               </Row>
             )}
           </Container>

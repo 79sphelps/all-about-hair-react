@@ -9,7 +9,6 @@ export const Services2Card = (props) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   const [service, setService] = useState([]);
 
   useEffect(() => {
@@ -22,7 +21,6 @@ export const Services2Card = (props) => {
         variant="top"
         src={props.imgPath}
         alt="card-img"
-        // onClick={handleShow}
         onClick={() =>
           navigate(`/services/${props.id}`, { state: { id: props.id } })
         }
@@ -34,9 +32,6 @@ export const Services2Card = (props) => {
         </Card.Text>
         <Button
           variant="primary"
-          // href={props.ghLink}
-          // target="_blank"
-          // onClick={handleShow}
           onClick={() =>
             navigate(`/services/${props.id}`, { state: { id: props.id } })
           }

@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { NavBar } from "../NavBar.js";
 import { Loading } from "../Loading.js";
@@ -8,30 +6,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // import { useAuth0 } from "@auth0/auth0-react";
 import { getServiceDetails, deleteService } from "../../api/index.js";
+import "animate.css";
 
 export const ServicesDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   // const access_token = useAuth0().getAccessTokenSilently();
-
-  const formInitialDetails = {
-    headline: "",
-    headlineSubMsg: "",
-    servicesHeadline: "",
-    servicesSubMsg: "",
-    aboutHeadline: "",
-    aboutSubMsg: "",
-    aboutImage: "",
-    aboutVideoLink: "",
-    stylistsHeadline: "",
-    stylistsSubMsg: "",
-    serviceDetailsHeadline: "",
-    serviceDetailsSubMsg: "",
-    contactHeadline: "",
-    contactSubMsg: "",
-  };
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState("Edit");
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
@@ -45,14 +25,13 @@ export const ServicesDetails = () => {
     error,
   } = useQuery({
     queryKey: ["servicesInfo"],
-    queryFn: getServiceDetails, // fetch the posts using the async call
+    queryFn: getServiceDetails,
   });
 
   const deleteServiceMutation = useMutation({
     mutationFn: deleteService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteService"] });
-      // navigate("/");
     },
   });
 
@@ -69,13 +48,6 @@ export const ServicesDetails = () => {
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
-          </Col> */}
           {/* <Col size={12} md={6}> */}
           <Col>
             <TrackVisibility>
@@ -95,6 +67,7 @@ export const ServicesDetails = () => {
                               <div>{service.title}</div>
                               <img
                                 src={require("../../" + service.image)}
+                                alt=""
                               ></img>
                             </Col>
                             <Col size={12} className="px-1">
@@ -108,19 +81,17 @@ export const ServicesDetails = () => {
                               >
                                 {service.description}
                               </div>
-
                               <button
                                 style={{ marginRight: "20px" }}
                                 onClick={(e) => handleEdit(e, service._id)}
                               >
-                                <span>{buttonText}</span>
+                                <span>Edit</span>
                               </button>
                               <button
                                 onClick={(e) => handleDelete(e, service._id)}
                               >
                                 <span>Delete</span>
                               </button>
-                              {/* <button onClick={handleDelete}><span>{deleteBtnText}</span></button> */}
                             </Col>
                           </Row>
                         );
@@ -132,7 +103,6 @@ export const ServicesDetails = () => {
           </Col>
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
-// import contactImg from "../assets/img/Female-Hair-Silhouette.svg"
-// import contactImg from "../assets/img/person_0.jpeg";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { Loading } from "./Loading.js";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getHomepageDetails, postGeneralRequest } from "../api/index.js";
 import { v4 as uuidv4 } from "uuid";
-// import Button from "react-bootstrap/Button";
+import "animate.css";
 
 export const Contact = () => {
   const queryClient = useQueryClient();
@@ -30,11 +27,11 @@ export const Contact = () => {
   let {
     isLoading,
     isError,
-    data: bannerInfo,
+    // data: bannerInfo,
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    queryFn: getHomepageDetails, // fetch the posts using the async call
+    queryFn: getHomepageDetails,
   });
 
   const postRequestMutation = useMutation({
@@ -56,29 +53,6 @@ export const Contact = () => {
       [category]: value,
     });
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   setButtonText("Sending...");
-  //   let response = await fetch("http://localhost:5000/contact", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json;charset=utf-8",
-  //     },
-  //     body: JSON.stringify(formDetails),
-  //   });
-  //   setButtonText("Send");
-  //   let result = await response.json();
-  //   setFormDetails(formInitialDetails);
-  //   if (result.code == 200) {
-  //     setStatus({ succes: true, message: "Message sent successfully" });
-  //   } else {
-  //     setStatus({
-  //       succes: false,
-  //       message: "Something went wrong, please try again later.",
-  //     });
-  //   }
-  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();

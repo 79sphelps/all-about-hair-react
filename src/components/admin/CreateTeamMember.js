@@ -24,7 +24,6 @@ export const CreateTeamMember = () => {
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Create");
-  // const [resetText, setResetText] = useState('Reset');
   let submitted = false;
 
   const addTeamMemberMutation = useMutation({
@@ -147,7 +146,6 @@ export const CreateTeamMember = () => {
                           >
                             <span>Cancel</span>
                           </button>
-                          {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
                         </Col>
                       </Row>
                     </form>
@@ -158,7 +156,6 @@ export const CreateTeamMember = () => {
           )}
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

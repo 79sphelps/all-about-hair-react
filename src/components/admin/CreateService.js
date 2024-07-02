@@ -30,9 +30,7 @@ export const CreateService = () => {
 
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Create");
-  // const [resetText, setResetText] = useState('Reset');
   let submitted = false;
-
   const [handleAddPricingDetail, setAddPricingDetailFlag] = useState(false);
   const [pricingDetails, setPricingDetails] = useState(initialPricingDetails);
 
@@ -205,7 +203,6 @@ export const CreateService = () => {
                           >
                             <span>Cancel</span>
                           </button>
-                          {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
                           <button onClick={handleAddNewPricingDetail}>
                             <span>Add New Pricing Detail</span>
                           </button>
@@ -219,7 +216,6 @@ export const CreateService = () => {
           )}
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

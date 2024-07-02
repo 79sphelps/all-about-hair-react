@@ -25,14 +25,12 @@ export const ServiceEdit = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
-  // const [resetText, setResetText] = useState('Reset');
   // const [status, setStatus] = useState({});
 
   const updateServiceDetailsMutation = useMutation({
     mutationFn: updateServiceDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
-      // navigate("/");
       setTimeout(() => {
         setButtonText("Update")
       }, 2000)
@@ -110,13 +108,6 @@ export const ServiceEdit = () => {
 
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
-          </Col> */}
           {/* <Col size={12} md={6}> */}
           <Col>
             <TrackVisibility>
@@ -198,7 +189,7 @@ export const ServiceEdit = () => {
                         <button onClick={handleCancel}>
                           <span>Cancel</span>
                         </button>
-                        {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
+
                       </Col>
                     </Row>
                   </form>
@@ -208,7 +199,6 @@ export const ServiceEdit = () => {
           </Col>
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

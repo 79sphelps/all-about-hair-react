@@ -10,18 +10,16 @@ export const Footer = () => {
   let {
     isLoading,
     isError,
-    data: bannerInfo,
+    // data: bannerInfo,
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    queryFn: getHomepageDetails, // fetch the posts using the async call
+    queryFn: getHomepageDetails,
   });
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
-  // let date = new Date();
-  // let year = date.getFullYear();
   return (
     !isLoading && (
     <Container fluid className="footer">
