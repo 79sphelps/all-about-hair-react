@@ -77,12 +77,6 @@ export const TeamMemberEdit = () => {
     updateTeamMemberDetailsEdit();
   };
 
-  // const handleReset = (e) => {
-  //   e.preventDefault();
-  //   setFormDetails(formInitialDetails)
-  //   setButtonText('Send')
-  // }
-
   let {
     isLoading,
     isError,
@@ -90,7 +84,7 @@ export const TeamMemberEdit = () => {
     error,
   } = useQuery({
     queryKey: ["teamMemberDetails", location.state.id],
-    queryFn: () => getTeamMemberDetail(location.state.id), // fetch the posts using the async call
+    queryFn: () => getTeamMemberDetail(location.state.id),
   });
 
   const handleCancel = () => {
@@ -192,7 +186,6 @@ export const TeamMemberEdit = () => {
                         <button onClick={handleCancel}>
                           <span>Cancel</span>
                         </button>
-                        {/* <button onClick={handleReset}><span>{resetText}</span></button> */}
                       </Col>
                     </Row>
                   </form>
