@@ -13,10 +13,12 @@ import "react-multi-carousel/lib/styles.css";
 export const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
   const [show, setShow] = useState(false);
+
   const handleClose = () => {
     setImgPath("");
     setShow(false);
   };
+  
   const handleShow = (imgPath) => {
     setImgPath(imgPath);
     setShow(true);

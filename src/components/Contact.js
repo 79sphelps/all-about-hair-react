@@ -100,7 +100,6 @@ export const Contact = () => {
                   }
                 >
                   <h2>Scheduling or Questions</h2>
-
                   {!requestSubmitted ? (
                     <form onSubmit={handleSubmit}>
                       <Row>

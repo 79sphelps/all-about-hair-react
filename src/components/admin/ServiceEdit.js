@@ -7,21 +7,19 @@ import { NavBar } from "../NavBar.js";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getServiceDetail, updateServiceDetails } from "../../api/index.js";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const ServiceEdit = () => {
-  const location = useLocation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
   let formInitialDetails = {
     title: "",
     image: "",
     description: "",
     pricing: [],
   };
+
+  const location = useLocation();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
@@ -105,7 +103,6 @@ export const ServiceEdit = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {/* <Col size={12} md={6}> */}

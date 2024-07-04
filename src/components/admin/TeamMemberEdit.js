@@ -10,21 +10,19 @@ import {
   getTeamMemberDetail,
   updateTeamMemberDetails,
 } from "../../api/index.js";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export const TeamMemberEdit = () => {
-  const location = useLocation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
   let formInitialDetails = {
     name: "",
     role: "",
     bio: "",
     photo: "",
   };
+
+  const location = useLocation();
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
@@ -103,7 +101,6 @@ export const TeamMemberEdit = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {/* <Col size={12} md={6}>
@@ -123,7 +120,6 @@ export const TeamMemberEdit = () => {
                   }
                 >
                   <h2>Update Team Member Details</h2>
-
                   <img 
                     src={require("../../" + formDetails.photo)} 
                     alt=""
@@ -136,7 +132,6 @@ export const TeamMemberEdit = () => {
                       margin: "0 auto"
                     }}
                   ></img>
-
                   <form>
                     <Row>
                       <div>Name: </div>
@@ -146,7 +141,6 @@ export const TeamMemberEdit = () => {
                         onChange={(e) => onFormUpdate("name", e.target.value)}
                       />
                     </Row>
-
                     <Row>
                       <div>Title: </div>
                       <input
@@ -173,7 +167,6 @@ export const TeamMemberEdit = () => {
                         onChange={(e) => onFormUpdate("bio", e.target.value)}
                       ></textarea>
                     </Row>
-
                     <Row>
                       <Col size={12} className="px-1">
                         <button

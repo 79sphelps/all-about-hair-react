@@ -6,15 +6,10 @@ import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTeamMember } from "../../api/index.js";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
 export const CreateTeamMember = () => {
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
   let formInitialDetails = {
     name: "",
     role: "",
@@ -22,6 +17,8 @@ export const CreateTeamMember = () => {
     bio: "",
   };
 
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Create");
   let submitted = false;
@@ -71,7 +68,6 @@ export const CreateTeamMember = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {submitted && formDetails ? (

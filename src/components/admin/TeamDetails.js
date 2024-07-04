@@ -6,21 +6,19 @@ import { NavBar } from "../NavBar.js";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { getTeamDetails, deleteTeamMember } from "../../api/index.js";
 
 export const TeamDetails = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
   const formInitialDetails = {
     name: "",
     role: "",
     bio: "",
     photo: "",
   };
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  // const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Edit");
 
   const handleEdit = async (e, id) => {

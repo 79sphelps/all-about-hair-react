@@ -4,19 +4,12 @@ import { NavBar } from "../NavBar.js";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-// import { useAuth0 } from "@auth0/auth0-react";
 import { getServiceDetails, deleteService } from "../../api/index.js";
 import "animate.css";
 
 export const ServicesDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
-  const handleEdit = async (e, id) => {
-    e.preventDefault();
-    navigate(`/admin/service-edit/${id}`, { state: { id: id } });
-  };
 
   let {
     isLoading,
@@ -27,6 +20,11 @@ export const ServicesDetails = () => {
     queryKey: ["servicesInfo"],
     queryFn: getServiceDetails,
   });
+
+  const handleEdit = async (e, id) => {
+    e.preventDefault();
+    navigate(`/admin/service-edit/${id}`, { state: { id: id } });
+  };
 
   const deleteServiceMutation = useMutation({
     mutationFn: deleteService,

@@ -8,13 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
-// import { useAuth0 } from "@auth0/auth0-react";
 
 export const HomePageDetails = () => {
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-  // const access_token = useAuth0().getAccessTokenSilently();
-
   const formInitialDetails = {
     headline: "",
     headlineSubMsg: "",
@@ -31,6 +26,9 @@ export const HomePageDetails = () => {
     contactHeadline: "",
     contactSubMsg: "",
   };
+
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   // const [buttonText, setButtonText] = useState('Update');
 
@@ -84,7 +82,6 @@ export const HomePageDetails = () => {
   return (
     <section className="contact">
       <NavBar />
-
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {/* <Col size={12} md={6}> */}
