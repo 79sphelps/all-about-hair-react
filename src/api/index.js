@@ -123,6 +123,7 @@ export async function updateHomepageDetails(data) {
 
 export async function updateServiceDetails(data) {
   // const access_token = await data.access_token
+  // const access_token = getAuthHeader();
 
   const response = await fetch(API + `admin/services/update/${data.id}`, {
     method: "PUT",
