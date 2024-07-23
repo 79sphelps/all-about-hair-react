@@ -132,7 +132,12 @@ export const Contact = () => {
       formErrorObject.lastNameError ||
       formErrorObject.emailError ||
       formErrorObject.phoneError ||
-      formErrorObject.messageError
+      formErrorObject.messageError ||
+      formDetails.firstName === "" ||
+      formDetails.lastName === "" ||
+      formDetails.email === "" ||
+      formDetails.phone === "" ||
+      formDetails.message === ""
     );
   };
 
