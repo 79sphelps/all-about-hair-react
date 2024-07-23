@@ -252,16 +252,21 @@ export const Contact = () => {
                           <textarea
                             rows="6"
                             value={formDetails.message}
-                            placeholder="Message"
+                            placeholder="Message (at least 25 characters)"
                             onChange={(e) =>
                               onFormUpdate("message", e.target.value)
                             }
                           ></textarea>
+                          {formDetails.message.length < 25 && <div>({25 - formDetails.message.length} characters still needed)</div>}
+                          {formErrorObject.messageError && (
+                            <FormError msg={formErrors["message"].error} />
+                          )}
                           <button
                             type="submit"
                             disabled={buttonText === "Sending..."  || doesFormHaveErrors()}
                             style={{
                               color: doesFormHaveErrors() && "lightgrey",
+                              cursor: doesFormHaveErrors() && "not-allowed",
                               marginRight: "20px"
                             }}
                           >
