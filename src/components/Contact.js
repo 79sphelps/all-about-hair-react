@@ -128,16 +128,18 @@ export const Contact = () => {
 
   const doesFormHaveErrors = () => {
     return (
-      formErrorObject.firstNameError ||
-      formErrorObject.lastNameError ||
-      formErrorObject.emailError ||
-      formErrorObject.phoneError ||
-      formErrorObject.messageError ||
-      formDetails.firstName === "" ||
-      formDetails.lastName === "" ||
-      formDetails.email === "" ||
-      formDetails.phone === "" ||
-      formDetails.message === ""
+      // formErrorObject.firstNameError ||
+      // formErrorObject.lastNameError ||
+      // formErrorObject.emailError ||
+      // formErrorObject.phoneError ||
+      // formErrorObject.messageError ||
+      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
+      // formDetails.firstName === "" ||
+      // formDetails.lastName === "" ||
+      // formDetails.email === "" ||
+      // formDetails.phone === "" ||
+      // formDetails.message === ""
+      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true)
     );
   };
 
@@ -169,8 +171,8 @@ export const Contact = () => {
     setFormErrorObject(initialFormErrorObject);
   };
 
-  if (isLoading) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  // if (isLoading) return <Loading />;
+  // if (isError) return `Error: ${error.message}`;
 
   return (
     <section className="contact" id="contact">
