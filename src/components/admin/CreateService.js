@@ -9,6 +9,78 @@ import { createService } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 
+const FormError = (props) => {
+  return (
+    <div
+      style={{
+        color: "red",
+        paddingTop: "5px",
+        paddingBottom: "15px",
+      }}
+    >
+      {props.msg}
+    </div>
+  )
+}
+
+const formErrors = {
+  "title": {
+      required: true,
+      error: "Please provide a valid service title."
+  },
+  "image": {
+      required: true,
+      error: "Please provide a valid image path for the service."
+  },
+  "description": {
+      required: true,
+      error: "Please provide a message describing the service of at least 25 characters."
+  },
+  "type": {
+      required: true,
+      error: "Please provide a valid service pricing detail type."
+  },
+  "price": {
+      required: true,
+      error: "Please provide a valid service pricing detail cost to display."
+  },
+  "description2": {
+    required: true,
+    error: "Please provide a service pricing detail description message to better understand the details."
+},
+}
+
+const getFormErrorObject = (name, value, formErrorObjectRef) => {
+  let formErrorObject = { ...formErrorObjectRef };
+  const status = validateInput(name, value);
+  return { ...formErrorObject, [name + 'Error']: status };
+}
+
+const getPricingDetailErrorObject = (name, value, formErrorObjectRef) => {
+  let formErrorObject = { ...formErrorObjectRef };
+  const status = validateInput(name, value);
+  return { ...formErrorObject, [name + 'Error']: status };
+}
+
+const validateInput = (name, value) => {
+  switch (name) {
+    case "title":
+      return value.length < 2 ? true : false;
+    case "image":
+      return value.length < 10 ? true : false;
+    case "description":
+      return value.length < 25 ? true : false;
+    case "type":
+      return value.length < 10 ? true : false;
+    case "price":
+      return value.length < 2 ? true : false;
+    case "description2":
+      return value.length < 25 ? true : false;
+    default:
+      break;
+  }
+};
+
 export const CreateService = () => {
   let formInitialDetails = {
     title: "",
@@ -20,7 +92,7 @@ export const CreateService = () => {
   let initialPricingDetails = {
     type: "",
     price: "",
-    description: "",
+    description2: "",
   };
 
   const navigate = useNavigate();
@@ -31,6 +103,34 @@ export const CreateService = () => {
   const [pricingDetails, setPricingDetails] = useState(initialPricingDetails);
   let submitted = false;
 
+  let initialFormErrorObject = {
+    titleError: false,
+    imageError: false,
+    descriptionError: false,
+  };
+
+  const [formErrorObject, setFormErrorObject] = useState(
+    initialFormErrorObject
+  );
+
+  let initialPricingDetailErrorObject = {
+    typeError: false,
+    priceError: false,
+    description2Error: false,
+  };
+
+  const [pricingDetailErrorObject, setPricingDetailErrorObject] = useState(
+    initialPricingDetailErrorObject
+  );
+
+  const doesFormHaveErrors = () => {
+    return (
+      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
+      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true) ||
+      formDetails.pricing.length > 0 && Object.values(formDetails.pricing).map((v) => { if (v === "") return true }).includes(true) 
+    );
+  };
+
   const addServiceMutation = useMutation({
     mutationFn: createService,
     onSuccess: () => {
@@ -39,7 +139,7 @@ export const CreateService = () => {
       setTimeout(() => {
         setButtonText("Create");
       }, 2000);
-        navigate("/admin/service-details");
+        navigate("/admin/services-details");
     },
   });
 
@@ -52,6 +152,9 @@ export const CreateService = () => {
   };
 
   const onFormUpdate = (category, value) => {
+    let obj = getFormErrorObject(category, value, formErrorObject);
+    let newObj = { ...formErrorObject, ...obj };
+    setFormErrorObject({ ...formErrorObject, ...newObj });
     setFormDetails({
       ...formDetails,
       [category]: value,
@@ -80,6 +183,9 @@ export const CreateService = () => {
 
   const onPricingDetailUpdate = (e) => {
     e.preventDefault(); // prevent a browser reload/refresh
+    let obj = getPricingDetailErrorObject(e.target.name, e.target.value, formErrorObject);
+    let newObj = { ...pricingDetailErrorObject, ...obj };
+    setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj }); 
     setPricingDetails({
       ...pricingDetails,
       [e.target.name]: e.target.value,
@@ -95,6 +201,7 @@ export const CreateService = () => {
     setAddPricingDetailFlag(false);
     setPricingDetails(initialPricingDetails);
     setFormDetails(formInitialDetails);
+    setPricingDetailErrorObject(initialPricingDetailErrorObject);
   };
 
   return (
@@ -129,6 +236,9 @@ export const CreateService = () => {
                             onFormUpdate("title", e.target.value)
                           }
                         />
+                        {formErrorObject.titleError && (
+                          <FormError msg={formErrors["title"].error} />
+                        )}
                       </Row>
                       <Row>
                         <div>Image Path </div>
@@ -139,6 +249,9 @@ export const CreateService = () => {
                             onFormUpdate("image", e.target.value)
                           }
                         />
+                        {formErrorObject.imageError && (
+                          <FormError msg={formErrors["image"].error} />
+                        )}
                       </Row>
                       <Row>
                         <div>Description</div>
@@ -150,6 +263,9 @@ export const CreateService = () => {
                             onFormUpdate("description", e.target.value)
                           }
                         ></textarea>
+                        {formErrorObject.descriptionError && (
+                          <FormError msg={formErrors["description"].error} />
+                        )}
                       </Row>
 
                       {handleAddPricingDetail ? (
@@ -162,6 +278,9 @@ export const CreateService = () => {
                               value={pricingDetails.type}
                               onChange={(e) => onPricingDetailUpdate(e)}
                             />
+                            {pricingDetailErrorObject.typeError && (
+                              <FormError msg={formErrors["type"].error} />
+                            )}
                             <div>Price: </div>
                             <input
                               type="text"
@@ -169,14 +288,19 @@ export const CreateService = () => {
                               value={pricingDetails.price}
                               onChange={(e) => onPricingDetailUpdate(e)}
                             />
+                            {pricingDetailErrorObject.priceError && (
+                              <FormError msg={formErrors["price"].error} />
+                            )}
                             <div>Description: </div>
                             <input
                               type="text"
-                              name="description"
-                              value={pricingDetails.description}
+                              name="description2"
+                              value={pricingDetails.description2}
                               onChange={(e) => onPricingDetailUpdate(e)}
                             />
-
+                            {pricingDetailErrorObject.description2Error && (
+                              <FormError msg={formErrors["description2"].error} />
+                            )}
                             <button onClick={(e) => addPricingDetail(e)}>
                               <span>Add Detail</span>
                             </button>
@@ -187,9 +311,18 @@ export const CreateService = () => {
                       <Row>
                         <Col size={12} className="px-1">
                           <button
-                            style={{ marginRight: "20px" }}
+                            // style={{ marginRight: "20px" }}
                             onClick={handleSubmit}
-                            disabled={buttonText === "Creating..."}
+                            // disabled={buttonText === "Creating..."}
+
+
+                            disabled={buttonText === "Creating..."  || doesFormHaveErrors()}
+                            style={{
+                              color: doesFormHaveErrors() && "lightgrey",
+                              cursor: doesFormHaveErrors() && "not-allowed",
+                              marginRight: "20px"
+                            }}
+
                           >
                             <span>{buttonText}</span>
                           </button>

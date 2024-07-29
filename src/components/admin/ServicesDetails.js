@@ -29,7 +29,7 @@ export const ServicesDetails = () => {
   const deleteServiceMutation = useMutation({
     mutationFn: deleteService,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["deleteService"] });
+      queryClient.invalidateQueries({ queryKey: ["servicesInfo"], refetchType: 'all' });
     },
   });
 
@@ -40,6 +40,8 @@ export const ServicesDetails = () => {
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
+
+  console.log(servicesInfo)
 
   return (
     <section className="contact">
