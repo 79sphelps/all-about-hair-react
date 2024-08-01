@@ -235,6 +235,11 @@ export const CreateService = () => {
                           onChange={(e) =>
                             onFormUpdate("title", e.target.value)
                           }
+                          onBlur={() => 
+                            formDetails.title === '' ? 
+                              setFormErrorObject({ ...formErrorObject, titleError: true }) :
+                              null
+                          }
                         />
                         {formErrorObject.titleError && (
                           <FormError msg={formErrors["title"].error} />
@@ -247,6 +252,11 @@ export const CreateService = () => {
                           value={formDetails.image}
                           onChange={(e) =>
                             onFormUpdate("image", e.target.value)
+                          }
+                          onBlur={() => 
+                            formDetails.image === '' ? 
+                              setFormErrorObject({ ...formErrorObject, imageError: true }) :
+                              null
                           }
                         />
                         {formErrorObject.imageError && (
@@ -261,6 +271,11 @@ export const CreateService = () => {
                           value={formDetails.description}
                           onChange={(e) =>
                             onFormUpdate("description", e.target.value)
+                          }
+                          onBlur={() => 
+                            formDetails.description === '' ? 
+                              setFormErrorObject({ ...formErrorObject, descriptionError: true }) :
+                              null
                           }
                         ></textarea>
                         {formErrorObject.descriptionError && (
@@ -277,6 +292,11 @@ export const CreateService = () => {
                               name="type"
                               value={pricingDetails.type}
                               onChange={(e) => onPricingDetailUpdate(e)}
+                              onBlur={() => 
+                                pricingDetails.type === '' ? 
+                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, typeError: true }) :
+                                  null
+                              }
                             />
                             {pricingDetailErrorObject.typeError && (
                               <FormError msg={formErrors["type"].error} />
@@ -287,6 +307,11 @@ export const CreateService = () => {
                               name="price"
                               value={pricingDetails.price}
                               onChange={(e) => onPricingDetailUpdate(e)}
+                              onBlur={() => 
+                                pricingDetails.price === '' ? 
+                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, priceError: true }) :
+                                  null
+                              }
                             />
                             {pricingDetailErrorObject.priceError && (
                               <FormError msg={formErrors["price"].error} />
@@ -297,6 +322,11 @@ export const CreateService = () => {
                               name="description2"
                               value={pricingDetails.description2}
                               onChange={(e) => onPricingDetailUpdate(e)}
+                              onBlur={() => 
+                                pricingDetails.description2 === '' ? 
+                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, description2Error: true }) :
+                                  null
+                              }
                             />
                             {pricingDetailErrorObject.description2Error && (
                               <FormError msg={formErrors["description2"].error} />
