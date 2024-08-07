@@ -8,20 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createService } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-
-const FormError = (props) => {
-  return (
-    <div
-      style={{
-        color: "red",
-        paddingTop: "5px",
-        paddingBottom: "15px",
-      }}
-    >
-      {props.msg}
-    </div>
-  )
-}
+import { FormError } from "./common.js";
 
 const formErrors = {
   "title": {
@@ -344,15 +331,12 @@ export const CreateService = () => {
                             // style={{ marginRight: "20px" }}
                             onClick={handleSubmit}
                             // disabled={buttonText === "Creating..."}
-
-
-                            disabled={buttonText === "Creating..."  || doesFormHaveErrors()}
+                            disabled={buttonText === "Creating..." || doesFormHaveErrors()}
                             style={{
                               color: doesFormHaveErrors() && "lightgrey",
                               cursor: doesFormHaveErrors() && "not-allowed",
                               marginRight: "20px"
                             }}
-
                           >
                             <span>{buttonText}</span>
                           </button>

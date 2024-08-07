@@ -8,6 +8,47 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createTeamMember } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import { FormError } from "./common.js";
+
+const formErrors = {
+  "name": {
+      required: true,
+      error: "Please provide a valid team member name."
+  },
+  "role": {
+      required: true,
+      error: "Please provide a valid member role describing what they do."
+  },
+  "photo": {
+      required: true,
+      error: "Please provide a valid image path for the team member."
+  },
+  "bio": {
+      required: true,
+      error: "Please provide a valid message for the biography of at least 25 characters."
+  },
+}
+
+const getFormErrorObject = (name, value, formErrorObjectRef) => {
+  let formErrorObject = { ...formErrorObjectRef };
+  const status = validateInput(name, value);
+  return { ...formErrorObject, [name + 'Error']: status };
+}
+
+const validateInput = (name, value) => {
+  switch (name) {
+    case "name":
+      return value.length < 2 ? true : false;
+    case "photo":
+      return value.length < 10 ? true : false;
+    case "bio":
+      return value.length < 25 ? true : false;
+    case "role":
+      return value.length < 10 ? true : false;
+    default:
+      break;
+  }
+};
 
 export const CreateTeamMember = () => {
   let formInitialDetails = {
@@ -22,6 +63,24 @@ export const CreateTeamMember = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Create");
   let submitted = false;
+
+  let initialFormErrorObject = {
+    nameError: false,
+    photoError: false,
+    roleError: false,
+    bioError: false,
+  };
+
+  const [formErrorObject, setFormErrorObject] = useState(
+    initialFormErrorObject
+  );
+
+  const doesFormHaveErrors = () => {
+    return (
+      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
+      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true)
+    );
+  };
 
   const addTeamMemberMutation = useMutation({
     mutationFn: createTeamMember,
@@ -44,6 +103,9 @@ export const CreateTeamMember = () => {
   };
 
   const onFormUpdate = (category, value) => {
+    let obj = getFormErrorObject(category, value, formErrorObject);
+    let newObj = { ...formErrorObject, ...obj };
+    setFormErrorObject({ ...formErrorObject, ...newObj });
     setFormDetails({
       ...formDetails,
       [category]: value,
@@ -58,6 +120,8 @@ export const CreateTeamMember = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleAddTeamMember(formDetails);
+    setFormDetails(formInitialDetails);
+    setFormErrorObject(initialFormErrorObject);
   };
 
   const newTeamMember = () => {
@@ -97,7 +161,15 @@ export const CreateTeamMember = () => {
                           type="text"
                           value={formDetails.name}
                           onChange={(e) => onFormUpdate("name", e.target.value)}
+                          onBlur={() => 
+                            formDetails.name === '' ? 
+                              setFormErrorObject({ ...formErrorObject, nameError: true }) :
+                              null
+                          }
                         />
+                        {formErrorObject.nameError && (
+                          <FormError msg={formErrors["name"].error} />
+                        )}
                       </Row>
                       <Row>
                         <div>Role: </div>
@@ -105,7 +177,15 @@ export const CreateTeamMember = () => {
                           type="text"
                           value={formDetails.role}
                           onChange={(e) => onFormUpdate("role", e.target.value)}
+                          onBlur={() => 
+                            formDetails.role === '' ? 
+                              setFormErrorObject({ ...formErrorObject, roleError: true }) :
+                              null
+                          }
                         />
+                        {formErrorObject.roleError && (
+                          <FormError msg={formErrors["role"].error} />
+                        )}
                       </Row>
                       <Row>
                         <div>Image Path: </div>
@@ -115,7 +195,15 @@ export const CreateTeamMember = () => {
                           onChange={(e) =>
                             onFormUpdate("photo", e.target.value)
                           }
+                          onBlur={() => 
+                            formDetails.photo === '' ? 
+                              setFormErrorObject({ ...formErrorObject, photoError: true }) :
+                              null
+                          }
                         />
+                        {formErrorObject.photoError && (
+                          <FormError msg={formErrors["photo"].error} />
+                        )}
                       </Row>
                       <Row>
                         <div>Bio:</div>
@@ -124,15 +212,26 @@ export const CreateTeamMember = () => {
                           rows="6"
                           value={formDetails.bio}
                           onChange={(e) => onFormUpdate("bio", e.target.value)}
+                          onBlur={() => 
+                            formDetails.bio === '' ? 
+                              setFormErrorObject({ ...formErrorObject, bioError: true }) :
+                              null
+                          }
                         ></textarea>
+                        {formErrorObject.bioError && (
+                          <FormError msg={formErrors["bio"].error} />
+                        )}
                       </Row>
-
                       <Row>
                         <Col size={12} className="px-1">
                           <button
-                            style={{ marginRight: "20px" }}
                             onClick={handleSubmit}
-                            disabled={buttonText === "Creating..."}
+                            disabled={buttonText === "Creating..." || doesFormHaveErrors()}
+                            style={{
+                              color: doesFormHaveErrors() && "lightgrey",
+                              cursor: doesFormHaveErrors() && "not-allowed",
+                              marginRight: "20px"
+                            }}
                           >
                             <span>{buttonText}</span>
                           </button>
