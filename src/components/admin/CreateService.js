@@ -9,64 +9,12 @@ import { createService } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { FormError } from "./common.js";
+import { 
+  formErrorsCreateService, 
+  getFormErrorObjectCreateService, 
+  getPricingDetailErrorObject  
+} from "./common.js";
 
-const formErrors = {
-  "title": {
-      required: true,
-      error: "Please provide a valid service title."
-  },
-  "image": {
-      required: true,
-      error: "Please provide a valid image path for the service."
-  },
-  "description": {
-      required: true,
-      error: "Please provide a message describing the service of at least 25 characters."
-  },
-  "type": {
-      required: true,
-      error: "Please provide a valid service pricing detail type."
-  },
-  "price": {
-      required: true,
-      error: "Please provide a valid service pricing detail cost to display."
-  },
-  "description2": {
-    required: true,
-    error: "Please provide a service pricing detail description message to better understand the details."
-},
-}
-
-const getFormErrorObject = (name, value, formErrorObjectRef) => {
-  let formErrorObject = { ...formErrorObjectRef };
-  const status = validateInput(name, value);
-  return { ...formErrorObject, [name + 'Error']: status };
-}
-
-const getPricingDetailErrorObject = (name, value, formErrorObjectRef) => {
-  let formErrorObject = { ...formErrorObjectRef };
-  const status = validateInput(name, value);
-  return { ...formErrorObject, [name + 'Error']: status };
-}
-
-const validateInput = (name, value) => {
-  switch (name) {
-    case "title":
-      return value.length < 2 ? true : false;
-    case "image":
-      return value.length < 10 ? true : false;
-    case "description":
-      return value.length < 25 ? true : false;
-    case "type":
-      return value.length < 10 ? true : false;
-    case "price":
-      return value.length < 2 ? true : false;
-    case "description2":
-      return value.length < 25 ? true : false;
-    default:
-      break;
-  }
-};
 
 export const CreateService = () => {
   let formInitialDetails = {
@@ -139,7 +87,7 @@ export const CreateService = () => {
   };
 
   const onFormUpdate = (category, value) => {
-    let obj = getFormErrorObject(category, value, formErrorObject);
+    let obj = getFormErrorObjectCreateService(category, value, formErrorObject);
     let newObj = { ...formErrorObject, ...obj };
     setFormErrorObject({ ...formErrorObject, ...newObj });
     setFormDetails({
@@ -229,7 +177,7 @@ export const CreateService = () => {
                           }
                         />
                         {formErrorObject.titleError && (
-                          <FormError msg={formErrors["title"].error} />
+                          <FormError msg={formErrorsCreateService["title"].error} />
                         )}
                       </Row>
                       <Row>
@@ -247,7 +195,7 @@ export const CreateService = () => {
                           }
                         />
                         {formErrorObject.imageError && (
-                          <FormError msg={formErrors["image"].error} />
+                          <FormError msg={formErrorsCreateService["image"].error} />
                         )}
                       </Row>
                       <Row>
@@ -266,7 +214,7 @@ export const CreateService = () => {
                           }
                         ></textarea>
                         {formErrorObject.descriptionError && (
-                          <FormError msg={formErrors["description"].error} />
+                          <FormError msg={formErrorsCreateService["description"].error} />
                         )}
                       </Row>
 
@@ -286,7 +234,7 @@ export const CreateService = () => {
                               }
                             />
                             {pricingDetailErrorObject.typeError && (
-                              <FormError msg={formErrors["type"].error} />
+                              <FormError msg={formErrorsCreateService["type"].error} />
                             )}
                             <div>Price: </div>
                             <input
@@ -301,7 +249,7 @@ export const CreateService = () => {
                               }
                             />
                             {pricingDetailErrorObject.priceError && (
-                              <FormError msg={formErrors["price"].error} />
+                              <FormError msg={formErrorsCreateService["price"].error} />
                             )}
                             <div>Description: </div>
                             <input
@@ -316,7 +264,7 @@ export const CreateService = () => {
                               }
                             />
                             {pricingDetailErrorObject.description2Error && (
-                              <FormError msg={formErrors["description2"].error} />
+                              <FormError msg={formErrorsCreateService["description2"].error} />
                             )}
                             <button onClick={(e) => addPricingDetail(e)}>
                               <span>Add Detail</span>
