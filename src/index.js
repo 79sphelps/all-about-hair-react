@@ -46,7 +46,7 @@ root.render(
       <Auth0Provider {...providerConfig}>
         <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <App />
+          <App name="claire"/>
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
         </QueryClientProvider>
