@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import TrackVisibility from "react-on-screen";
-import { Loading } from "./Loading.js";
+// import { Loading } from "./Loading.js";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getHomepageDetails, postGeneralRequest } from "../api/index.js";
 import { v4 as uuidv4 } from "uuid";
@@ -51,10 +51,10 @@ const getFormErrorObject = (name, value, formErrorObjectRef) => {
   return { ...formErrorObject, [name + 'Error']: status };
 }
 
-const getErrorElement = (name, value) => {
-  const status = validateInput(name, value);
-  return status ? <FormError msg={formErrors[name].error} /> : null;
-}
+// const getErrorElement = (name, value) => {
+//   const status = validateInput(name, value);
+//   return status ? <FormError msg={formErrors[name].error} /> : null;
+// }
 
 const validateInput = (name, value) => {
   switch (name) {
@@ -87,7 +87,8 @@ export const Contact = () => {
   };
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Send");
-  const [resetText, setResetText] = useState("Reset");
+  // const [resetText, setResetText] = useState("Reset");
+  const resetText = "Reset";
   const [status, setStatus] = useState({});
   const [requestSubmitted, setRequestSubmitted] = useState(false);
 
