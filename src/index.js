@@ -43,14 +43,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
 
-      <Auth0Provider {...providerConfig}>
-        <QueryClientProvider client={queryClient}>
+    <Auth0Provider {...providerConfig}>
+      <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <App name="claire"/>
+          <App />
           <ReactQueryDevtools initialIsOpen={false} />
         </BrowserRouter>
-        </QueryClientProvider>
-      </Auth0Provider>
+      </QueryClientProvider>
+    </Auth0Provider>
 
   </React.StrictMode>
 );
