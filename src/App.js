@@ -32,10 +32,8 @@ function App() {
   return (
     // <Router>
       <Routes>
-        {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/services/:id" element={<Service />} />
-        {/* <Route exact path="/listings" component={Listings} /> */}
         <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
         <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
         <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceEdit /> : <Home />} />
@@ -43,8 +41,8 @@ function App() {
         <Route exact path="/admin/team-member-edit/:id" element={ isAuthenticated ? <TeamMemberEdit /> : <Home />} />
         <Route exact path="/admin/team-details" element={ isAuthenticated ? <TeamDetails /> : <Home />} />
         <Route exact path="/admin/team-member-add" element={ isAuthenticated ? <CreateTeamMember /> : <Home />} />
-        {/* <Route exact path="/rentals/:id" component={Listing} />
-        <Route path="/callback" component={CallbackPage} /> */}
+        {/* <Route path="/callback" component={CallbackPage} /> */}
+        {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
       </Routes>
     // </Router>
   );
