@@ -3,7 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Home } from "./components/Home.js";
 import { 
-  // BrowserRouter as Router, 
+  BrowserRouter as Router, 
   Route, 
   Routes 
 } from "react-router-dom";
@@ -30,7 +30,7 @@ function App() {
   }
 
   return (
-    // <Router>
+    <Router>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/services/:id" element={<Service />} />
@@ -44,7 +44,7 @@ function App() {
         {/* <Route path="/callback" component={CallbackPage} /> */}
         {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
       </Routes>
-    // </Router>
+    </Router>
   );
 }
 

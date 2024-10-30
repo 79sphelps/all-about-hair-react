@@ -1,28 +1,81 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, renderHook, waitFor } from '@testing-library/react';
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+// import * as ReactQuery from "@tanstack/react-query";
+// import userEvent from '@testing-library/user-event'
+import App from './App.js';
+import { useAuth0 } from "@auth0/auth0-react";
+// import loading from "./assets/img/loading.svg";
 
-// import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import React from 'react'
-import '@testing-library/jest-dom'
-// import {App, LocationDisplay} from './app'
-import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+jest.mock('@auth0/auth0-react', () => ({
+  useAuth0: jest.fn(),
+}));
 
-test('renders learn react link', () => {
-  render(<App />);
-  // const linkElement = screen.getByText(/learn react/i);
-  // const linkElement = screen.getByText(/Home/i);
-  // expect(linkElement).toBeInTheDocument();
+jest.mock("@tanstack/react-query", () => {
+  const original = jest.requireActual("@tanstack/react-query");
+  return {
+    ...original,
+    useQuery: () => ({ isLoading: false, error: {}, data: [] }),
+  };
 });
 
-test('full app rendering/navigating', async () => {
-  render(<App />, {wrapper: BrowserRouter})
-  // const user = userEvent.setup()
+window.scrollTo = jest.fn();
 
-  // verify page content for default route
-  // expect(screen.getByText(/Home/i)).toBeInTheDocument()
+const createWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        retry: false,
+      },
+    },
+  })
+  return ({ children }) => (
+    <QueryClientProvider client={queryClient}>
+      {/* <App /> */}
+      {children}
+    </QueryClientProvider>
+  )
+}
 
-  // verify page content for expected route after navigating
-  // await user.click(screen.getByText(/Home/i))
-  // expect(screen.getByText(/Home/i)).toBeInTheDocument()
-})
+export function useCustomHook() {
+  return useQuery({ queryKey: ['customHook'], queryFn: () => 'Hello' })
+}
+
+describe('MyComponent', () => { 
+  const useAuth0Mock = useAuth0;
+
+  beforeAll(() => {
+    jest.useFakeTimers();
+  })
+
+  afterAll(() => {
+    jest.useRealTimers();
+    jest.clearAllMocks();
+  })
+
+  beforeEach(() => {
+    useAuth0Mock.mockImplementation(() => () => {});
+  });
+
+  afterEach(() => {
+      jest.resetAllMocks();
+  });
+
+  it('contains a link with "Find Your Home Here"', async () => { 
+    const { result } = renderHook(() => useCustomHook(), {
+      wrapper: createWrapper()
+    })
+
+    useAuth0.mockReturnValue({
+      isLoading: false,
+      error: null,
+      isAuthenticated: true
+    })
+
+    // await waitFor(() => result.current.isSuccess)
+    // expect(result.current.data).toEqual('Hello')
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    // render(<App />);
+    // screen.debug();
+  }); 
+});

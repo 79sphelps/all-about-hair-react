@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserHistory } from "history";
 import { getConfig } from "./config";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { BrowserRouter } from "react-router-dom";
+// import { BrowserRouter } from "react-router-dom";
 
 // create a client
 const queryClient = new QueryClient();
@@ -45,10 +45,10 @@ root.render(
 
     <Auth0Provider {...providerConfig}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        {/* <BrowserRouter> */}
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-        </BrowserRouter>
+        {/* </BrowserRouter> */}
       </QueryClientProvider>
     </Auth0Provider>
 
