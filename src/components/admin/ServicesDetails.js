@@ -1,11 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getServiceDetails, deleteService } from "../../api/index.js";
 import "animate.css";
+import { NavBar } from "../NavBar.js";
+import { Loading } from "../Loading.js";
+// import { getServiceDetails, deleteService } from "../../api/index.js";
+import ServicesService from "../../api/services.service.js";
 
 export const ServicesDetails = () => {
   const queryClient = useQueryClient();
@@ -18,7 +19,8 @@ export const ServicesDetails = () => {
     error,
   } = useQuery({
     queryKey: ["servicesInfo"],
-    queryFn: getServiceDetails,
+    // queryFn: getServiceDetails,
+    queryFn: ServicesService.getServiceDetails,
   });
 
   const handleEdit = async (e, id) => {
@@ -27,7 +29,8 @@ export const ServicesDetails = () => {
   };
 
   const deleteServiceMutation = useMutation({
-    mutationFn: deleteService,
+    // mutationFn: deleteService,
+    mutationFn: ServicesService.deleteService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["servicesInfo"], refetchType: 'all' });
     },

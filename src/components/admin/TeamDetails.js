@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { getTeamDetails, deleteTeamMember } from "../../api/index.js";
+import { NavBar } from "../NavBar.js";
+import { Loading } from "../Loading.js";
+// import { getTeamDetails, deleteTeamMember } from "../../api/index.js";
+import TeamService from "../../api/team.service.js";
 
 export const TeamDetails = () => {
   const formInitialDetails = {
@@ -33,11 +34,13 @@ export const TeamDetails = () => {
     error,
   } = useQuery({
     queryKey: ["teamInfo"],
-    queryFn: getTeamDetails,
+    // queryFn: getTeamDetails,
+    queryFn: TeamService.getTeamDetails,
   });
 
   const deleteTeamMemberMutation = useMutation({
-    mutationFn: deleteTeamMember,
+    // mutationFn: deleteTeamMember,
+    mutationFn: TeamService.deleteTeamMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
     },

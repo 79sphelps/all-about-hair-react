@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { Loading } from "./Loading.js";
 import { useQuery } from "@tanstack/react-query";
-import { getServiceDetail } from "../api/index.js";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
+import { Loading } from "./Loading.js";
+// import { getServiceDetail } from "../api/index.js";
+import ServicesService from "../api/services.service.js";
 
 export const Service = () => {
   const navigate = useNavigate();
@@ -23,7 +24,8 @@ export const Service = () => {
     error,
   } = useQuery({
     queryKey: ["serviceDetails", location.state.id],
-    queryFn: () => getServiceDetail(location.state.id),
+    // queryFn: () => getServiceDetail(location.state.id),
+    queryFn: () => ServicesService.getServiceDetail(location.state.id),
   });
 
   if (isLoading) return <Loading />;

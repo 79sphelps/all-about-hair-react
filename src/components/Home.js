@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavBar } from "./NavBar";
 import { Banner } from "./Banner";
 import { Services2 } from "./Services2";
@@ -9,7 +10,6 @@ import { Footer } from "./Footer";
 import { Gallery } from "./Gallery";
 import { ContactInfo } from "./ContactInfo";
 import '../App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const Home = () => {
   useEffect(() => {

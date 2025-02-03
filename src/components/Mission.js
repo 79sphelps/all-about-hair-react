@@ -1,10 +1,11 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useQuery } from "@tanstack/react-query";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../assets/img/about-img.jpg";
 import { Loading } from "./Loading.js";
-import { useQuery } from "@tanstack/react-query";
-import { getHomepageDetails } from "../api/index.js";
+// import { getHomepageDetails } from "../api/index.js";
+import HomepageService from "../api/homepage.service.js";
 
 export const Mission = () => {
   let {
@@ -14,7 +15,8 @@ export const Mission = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   if (isLoading) return <Loading />;

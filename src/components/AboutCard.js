@@ -2,7 +2,8 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
 import { useQuery } from "@tanstack/react-query";
-import { getHomepageDetails } from "../api/index.js";
+// import { getHomepageDetails } from "../api/index.js";
+import HomepageService from "../api/homepage.service.js";
 import { Loading } from "./Loading.js";
 
 function AboutCard() {
@@ -13,7 +14,8 @@ function AboutCard() {
     error,
   } = useQuery({
     queryKey: ["homepageInfo"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   if (isLoading) return <Loading />;

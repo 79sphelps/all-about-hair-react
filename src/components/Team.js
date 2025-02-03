@@ -1,9 +1,11 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { TeamCard } from "./TeamCard";
 import { useQuery } from "@tanstack/react-query";
-import { getTeamDetails, getHomepageDetails } from "../api/index.js";
-import { Loading } from "./Loading.js";
 import "react-multi-carousel/lib/styles.css";
+import { TeamCard } from "./TeamCard";
+// import { getTeamDetails, getHomepageDetails } from "../api/index.js";
+import TeamService from "../api/team.service.js";
+import HomepageService from "../api/homepage.service.js";
+import { Loading } from "./Loading.js";
 
 export const Team = () => {
   let {
@@ -13,7 +15,8 @@ export const Team = () => {
     error,
   } = useQuery({
     queryKey: ["homepageInfo"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   let {
@@ -23,7 +26,8 @@ export const Team = () => {
     error2,
   } = useQuery({
     queryKey: ["teamInfo"],
-    queryFn: getTeamDetails,
+    // queryFn: getTeamDetails,
+    queryFn: TeamService.getTeamDetails,
   });
 
   if (isLoading || isLoading2) return <Loading />;

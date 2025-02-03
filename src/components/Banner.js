@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import headerImg from "../assets/img/header-img-min.png";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-import { Loading } from "./Loading.js";
 import { useQuery } from "@tanstack/react-query";
-import { getHomepageDetails } from "../api/index.js";
+import headerImg from "../assets/img/header-img-min.png";
+// import { getHomepageDetails } from "../api/index.js";
+import HomepageService from "../api/homepage.service.js";
+import { Loading } from "./Loading.js";
 
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -28,7 +29,8 @@ export const Banner = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   useEffect(() => {

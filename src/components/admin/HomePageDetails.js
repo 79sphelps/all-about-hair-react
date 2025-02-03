@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { Loading } from "../Loading.js";
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
-import { useNavigate } from "react-router-dom";
-import { Loading } from "../Loading.js";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
+// import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
+import HomepageService from "../../api/homepage.service.js";
 
 export const HomePageDetails = () => {
   const formInitialDetails = {
@@ -33,7 +34,8 @@ export const HomePageDetails = () => {
   // const [buttonText, setButtonText] = useState('Update');
 
   const updateHomepageDetailsMutation = useMutation({
-    mutationFn: updateHomepageDetails,
+    // mutationFn: updateHomepageDetails,
+    mutationFn: HomepageService.updateHomepageDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["homepageDetails"] });
     },
@@ -69,7 +71,8 @@ export const HomePageDetails = () => {
     error,
   } = useQuery({
     queryKey: ["homepageDetails"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   const handleCancel = () => {

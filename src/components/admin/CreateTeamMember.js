@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createTeamMember } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+// import { createTeamMember } from "../../api/index.js";
+import TeamService from "../../api/team.service.js";
 import { FormError } from "./common.js";
+import { NavBar } from "../NavBar.js";
+// import { Footer } from "../Footer.js";
 
 const formErrors = {
   "name": {
@@ -83,7 +84,8 @@ export const CreateTeamMember = () => {
   };
 
   const addTeamMemberMutation = useMutation({
-    mutationFn: createTeamMember,
+    // mutationFn: createTeamMember,
+    mutationFn: TeamService.createTeamMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addTeamMember"] });
       console.log("success bro!");

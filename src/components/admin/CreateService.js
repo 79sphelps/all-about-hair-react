@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
-import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createService } from "../../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import { 
@@ -14,6 +11,10 @@ import {
   getFormErrorObjectCreateService, 
   getPricingDetailErrorObject  
 } from "./common.js";
+import { NavBar } from "../NavBar.js";
+// import { Footer } from "../Footer.js";
+// import { createService } from "../../api/index.js";
+import ServicesService from "../../api/services.service.js";
 
 
 export const CreateService = () => {
@@ -67,7 +68,8 @@ export const CreateService = () => {
   };
 
   const addServiceMutation = useMutation({
-    mutationFn: createService,
+    // mutationFn: createService,
+    mutationFn: ServicesService.createService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addService"] });
       console.log("success bro!");

@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { getServiceDetail, updateServiceDetails } from "../../api/index.js";
+import ServicesService from "../../api/services.service.js";
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 import { Loading } from "../Loading.js";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getServiceDetail, updateServiceDetails } from "../../api/index.js";
-import { useLocation, useNavigate } from "react-router-dom";
 import { 
   FormError,
   formErrorsCreateService, 
@@ -60,7 +61,8 @@ export const ServiceEdit = () => {
   };
 
   const updateServiceDetailsMutation = useMutation({
-    mutationFn: updateServiceDetails,
+    // mutationFn: updateServiceDetails,
+    mutationFn: ServicesService.updateServiceDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
       setTimeout(() => {
@@ -131,7 +133,8 @@ export const ServiceEdit = () => {
     error,
   } = useQuery({
     queryKey: ["serviceDetails", location.state.id],
-    queryFn: () => getServiceDetail(location.state.id), // fetch the posts using the async call
+    // queryFn: () => getServiceDetail(location.state.id), // fetch the posts using the async call
+    queryFn: () => ServicesService.getServiceDetail(location.state.id), // fetch the posts using the async call
   });
 
   const handleCancel = () => {

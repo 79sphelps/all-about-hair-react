@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Carousel from "react-multi-carousel";
-import colorSharp from "../assets/img/color-sharp.png";
 import { Container } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
-import { getGalleryImages } from "../api/index.js";
-import { Loading } from "./Loading.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
+import colorSharp from "../assets/img/color-sharp.png";
+// import { getGalleryImages } from "../api/index.js";
+import ImageService from "../api/gallery.service.js";
+import { Loading } from "./Loading.js";
 
 export const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
@@ -50,7 +51,8 @@ export const Gallery = () => {
     error,
   } = useQuery({
     queryKey: ["galleryPics"],
-    queryFn: getGalleryImages,
+    // queryFn: getGalleryImages,
+    queryFn: ImageService.getGalleryImages,
   });
 
   if (isLoading) return <Loading />;

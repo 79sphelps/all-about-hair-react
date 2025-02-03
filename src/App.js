@@ -1,13 +1,12 @@
 // import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Home } from "./components/Home.js";
 import { 
   BrowserRouter as Router, 
   Route, 
   Routes 
 } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Home } from "./components/Home.js";
 import { Loading } from "./components/Loading.js";
 import { HomePageDetails } from "./components/admin/HomePageDetails.js"
 import { ServicesDetails } from './components/admin/ServicesDetails.js';
@@ -17,6 +16,7 @@ import { CreateService } from './components/admin/CreateService.js';
 import { TeamMemberEdit } from './components/admin/TeamMemberEdit.js';
 import { TeamDetails } from './components/admin/TeamDetails.js';
 import { CreateTeamMember } from './components/admin/CreateTeamMember.js';
+import './App.css';
 
 function App() {
   const { isLoading, error, isAuthenticated } = useAuth0();

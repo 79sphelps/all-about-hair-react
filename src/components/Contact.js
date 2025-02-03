@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import contactImg from "../assets/img/contact-img.svg";
 import TrackVisibility from "react-on-screen";
-// import { Loading } from "./Loading.js";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getHomepageDetails, postGeneralRequest } from "../api/index.js";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import contactImg from "../assets/img/contact-img.svg";
+// import { getHomepageDetails, postGeneralRequest } from "../api/index.js";
+// import { Loading } from "./Loading.js";
+import HomepageService from "../api/homepage.service";
+import RequestsService from "../api/requests.service";
+
 
 const FormError = (props) => {
   return (
@@ -111,11 +114,13 @@ export const Contact = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    queryFn: getHomepageDetails,
+    // queryFn: getHomepageDetails,
+    queryFn: HomepageService.getHomepageDetails,
   });
 
   const postRequestMutation = useMutation({
-    mutationFn: postGeneralRequest,
+    // mutationFn: postGeneralRequest,
+    mutationFn: RequestsService.postGeneralRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["postGeneralRequest"] });
       console.log("success bro!");

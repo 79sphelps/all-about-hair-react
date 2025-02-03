@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavBar } from "../NavBar.js";
 // import { Footer } from "../Footer.js";
 import { Loading } from "../Loading.js";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  getTeamMemberDetail,
-  updateTeamMemberDetails,
-} from "../../api/index.js";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { getTeamMemberDetail, updateTeamMemberDetails } from "../../api/index.js";
+import TeamService from "../../api/team.service.js";
+
 
 export const TeamMemberEdit = () => {
   let formInitialDetails = {
@@ -29,7 +28,8 @@ export const TeamMemberEdit = () => {
   // const [resetText, setResetText] = useState('Reset');
 
   const updateTeamMemberDetailsMutation = useMutation({
-    mutationFn: updateTeamMemberDetails,
+    // mutationFn: updateTeamMemberDetails,
+    mutationFn: TeamService.updateTeamMemberDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["teamMemberDetails"] });
       // navigate("/");
@@ -82,7 +82,8 @@ export const TeamMemberEdit = () => {
     error,
   } = useQuery({
     queryKey: ["teamMemberDetails", location.state.id],
-    queryFn: () => getTeamMemberDetail(location.state.id),
+    // queryFn: () => getTeamMemberDetail(location.state.id),
+    queryFn: () => TeamService.getTeamMemberDetail(location.state.id),
   });
 
   const handleCancel = () => {
