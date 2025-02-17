@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
 import colorSharp from "../assets/img/color-sharp.png";
-// import { getGalleryImages } from "../api/index.js";
 import ImageService from "../api/gallery.service.js";
 import { Loading } from "./Loading.js";
 
@@ -51,7 +50,6 @@ export const Gallery = () => {
     error,
   } = useQuery({
     queryKey: ["galleryPics"],
-    // queryFn: getGalleryImages,
     queryFn: ImageService.getGalleryImages,
   });
 

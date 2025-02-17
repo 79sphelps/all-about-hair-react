@@ -4,7 +4,6 @@ import { useQuery } from "@tanstack/react-query";
 import Aboutcard from "./AboutCard";
 import laptopImg from "../assets/img/about-img.jpg";
 import { Loading } from "./Loading.js";
-// import { getHomepageDetails } from "../api/index.js";
 import HomepageService from "../api/homepage.service.js";
 
 export const Mission = () => {
@@ -15,7 +14,6 @@ export const Mission = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 

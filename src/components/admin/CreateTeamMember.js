@@ -5,11 +5,9 @@ import TrackVisibility from "react-on-screen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-// import { createTeamMember } from "../../api/index.js";
 import TeamService from "../../api/team.service.js";
 import { FormError } from "./common.js";
 import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
 
 const formErrors = {
   "name": {
@@ -77,14 +75,12 @@ export const CreateTeamMember = () => {
   );
 
   const doesFormHaveErrors = () => {
-    return (
-      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
-      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true)
-    );
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
+    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
+    return formErrorObjectAry.includes(true) || formDetailsAry.includes(true);
   };
 
   const addTeamMemberMutation = useMutation({
-    // mutationFn: createTeamMember,
     mutationFn: TeamService.createTeamMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addTeamMember"] });

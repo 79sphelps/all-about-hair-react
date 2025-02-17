@@ -5,7 +5,6 @@ import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useQuery } from "@tanstack/react-query";
 import headerImg from "../assets/img/header-img-min.png";
-// import { getHomepageDetails } from "../api/index.js";
 import HomepageService from "../api/homepage.service.js";
 import { Loading } from "./Loading.js";
 
@@ -15,12 +14,12 @@ export const Banner = () => {
   const [text, setText] = useState("");
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   // const [index, setIndex] = useState(1);
+  const period = 2000;
   const toRotate = [
     "Special Occasions",
     "All Occasions",
     "Defining Unique You!",
   ];
-  const period = 2000;
 
   let {
     isLoading,
@@ -29,7 +28,6 @@ export const Banner = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 
@@ -40,6 +38,7 @@ export const Banner = () => {
     return () => {
       clearInterval(ticker);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   const tick = () => {

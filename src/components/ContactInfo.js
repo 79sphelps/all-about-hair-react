@@ -1,7 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-// import { getContactInfo } from "../api/index.js";
 import ContactService from "../api/contact.service.js";
 import { Loading } from "./Loading.js";
 
@@ -14,7 +13,6 @@ export const ContactInfo = () => {
     error,
   } = useQuery({
     queryKey: ["contactInfo"],
-    // queryFn: getContactInfo,
     queryFn: ContactService.getContactInfo,
   });
 

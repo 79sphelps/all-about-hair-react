@@ -40,7 +40,6 @@ export const Services2Card = (props) => {
         </Button>
         {"\n"}
         {"\n"}
-
         <Modal
           show={show}
           onHide={handleClose}
@@ -56,7 +55,6 @@ export const Services2Card = (props) => {
           >
             <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
           </Modal.Header>
-
           <Card.Img
             variant="top"
             src={props.imgPath}
@@ -67,7 +65,6 @@ export const Services2Card = (props) => {
               paddingBottom: "0",
             }}
           />
-
           {/* <Modal.Body style={{ color: "black", maxHeight: 'calc(100vh - 210px)', overflowY: 'auto' }}> */}
           <Modal.Body
             style={{ color: "black", paddingTop: "0", paddingBottom: "0" }}

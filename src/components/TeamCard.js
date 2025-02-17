@@ -35,7 +35,6 @@ export const TeamCard = (props) => {
         </Button>
         {"\n"}
         {"\n"}
-
         {/* <div className="text">
           <a href="#">
             {" "}
@@ -51,17 +50,16 @@ export const TeamCard = (props) => {
           </a>
         </div> */}
         <div className="team-social-icon">
-          <a href="#">
+          {/* <a href="#"> */}
             <img src={navIcon1} alt="" />
-          </a>
-          <a href="#">
+          {/* </a> */}
+          {/* <a href="#"> */}
             <img src={navIcon2} alt="" />
-          </a>
-          <a href="#">
+          {/* </a> */}
+          {/* <a href="#"> */}
             <img src={navIcon3} alt="" />
-          </a>
+          {/* </a> */}
         </div>
-
         <Modal
           show={show}
           onHide={handleClose}

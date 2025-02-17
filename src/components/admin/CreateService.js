@@ -12,8 +12,6 @@ import {
   getPricingDetailErrorObject  
 } from "./common.js";
 import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
-// import { createService } from "../../api/index.js";
 import ServicesService from "../../api/services.service.js";
 
 
@@ -60,15 +58,13 @@ export const CreateService = () => {
   );
 
   const doesFormHaveErrors = () => {
-    return (
-      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
-      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true) ||
-      formDetails.pricing.length > 0 && Object.values(formDetails.pricing).map((v) => { if (v === "") return true }).includes(true) 
-    );
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
+    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
+    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) => !v ? true : false);
+    return formErrorObjectAry.includes(true) || formDetailsAry.includes(true) || (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true));
   };
 
   const addServiceMutation = useMutation({
-    // mutationFn: createService,
     mutationFn: ServicesService.createService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addService"] });
@@ -119,7 +115,7 @@ export const CreateService = () => {
   };
 
   const onPricingDetailUpdate = (e) => {
-    e.preventDefault(); // prevent a browser reload/refresh
+    e.preventDefault();
     let obj = getPricingDetailErrorObject(e.target.name, e.target.value, formErrorObject);
     let newObj = { ...pricingDetailErrorObject, ...obj };
     setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj }); 

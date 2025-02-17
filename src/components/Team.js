@@ -2,7 +2,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
 import { TeamCard } from "./TeamCard";
-// import { getTeamDetails, getHomepageDetails } from "../api/index.js";
 import TeamService from "../api/team.service.js";
 import HomepageService from "../api/homepage.service.js";
 import { Loading } from "./Loading.js";
@@ -15,7 +14,6 @@ export const Team = () => {
     error,
   } = useQuery({
     queryKey: ["homepageInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 
@@ -26,7 +24,6 @@ export const Team = () => {
     error2,
   } = useQuery({
     queryKey: ["teamInfo"],
-    // queryFn: getTeamDetails,
     queryFn: TeamService.getTeamDetails,
   });
 
@@ -45,7 +42,6 @@ export const Team = () => {
               </h1>
               {homepageInfo && homepageInfo[0].stylistsSubMsg}
             </div>
-
             <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
               {teamInfo &&
                 teamInfo.slice(1, teamInfo.length).map((team) => {

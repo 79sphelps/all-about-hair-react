@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-// import { getHomepageDetails } from "../api/index.js";
 import HomepageService from "../api/homepage.service.js";
 import { Loading } from "./Loading.js";
 
@@ -16,7 +15,6 @@ export const Footer = () => {
     error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 

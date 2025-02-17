@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
@@ -6,21 +5,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { NavBar } from "../NavBar.js";
 import { Loading } from "../Loading.js";
-// import { getTeamDetails, deleteTeamMember } from "../../api/index.js";
 import TeamService from "../../api/team.service.js";
 
 export const TeamDetails = () => {
-  const formInitialDetails = {
-    name: "",
-    role: "",
-    bio: "",
-    photo: "",
-  };
-
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // const [formDetails, setFormDetails] = useState(formInitialDetails);
-  const [buttonText, setButtonText] = useState("Edit");
+  // const [buttonText, setButtonText] = useState("Edit");
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
@@ -34,12 +24,10 @@ export const TeamDetails = () => {
     error,
   } = useQuery({
     queryKey: ["teamInfo"],
-    // queryFn: getTeamDetails,
     queryFn: TeamService.getTeamDetails,
   });
 
   const deleteTeamMemberMutation = useMutation({
-    // mutationFn: deleteTeamMember,
     mutationFn: TeamService.deleteTeamMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
@@ -84,7 +72,7 @@ export const TeamDetails = () => {
                             <Col lg={2} className="px-1">
                               <div>Name: {member.name}</div>
                               <div>Role: {member.role}</div>
-                              <img src={require("../../" + member.photo)}></img>
+                              <img src={require("../../" + member.photo)} alt=""></img>
                             </Col>
                             <Col size={12} className="px-1">
                               <div
@@ -103,7 +91,8 @@ export const TeamDetails = () => {
                                 style={{ marginRight: "20px" }}
                                 onClick={(e) => handleEdit(e, member._id)}
                               >
-                                <span>{buttonText}</span>
+                                {/* <span>{buttonText}</span> */}
+                                <span>Edit</span>
                               </button>
                               <button
                                 onClick={(e) => handleDelete(e, member._id)}

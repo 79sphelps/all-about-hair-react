@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import { Loading } from "./Loading.js";
-// import { getServiceDetail } from "../api/index.js";
 import ServicesService from "../api/services.service.js";
 
 export const Service = () => {
@@ -24,7 +23,6 @@ export const Service = () => {
     error,
   } = useQuery({
     queryKey: ["serviceDetails", location.state.id],
-    // queryFn: () => getServiceDetail(location.state.id),
     queryFn: () => ServicesService.getServiceDetail(location.state.id),
   });
 
@@ -50,7 +48,6 @@ export const Service = () => {
         >
           <span>Back to Home</span> <ArrowRightCircle size={25} />
         </button>
-
         <Row
           className="align-items-center"
           style={{
@@ -78,7 +75,6 @@ export const Service = () => {
             </div>
           </Col>
         </Row>
-
         <Row
           className="align-items-center"
           style={{
@@ -89,7 +85,6 @@ export const Service = () => {
         >
           Pricing Details:
         </Row>
-
         {serviceDetails &&
           serviceDetails.pricing.map((service, idx) => {
             return (

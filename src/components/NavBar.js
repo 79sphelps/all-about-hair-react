@@ -73,7 +73,6 @@ export const NavBar = () => {
                 Edit Homepage Details
               </Nav.Link>
             )}
-
             {isAuthenticated && (
               <Nav.Link
                 eventKey="2"
@@ -89,7 +88,6 @@ export const NavBar = () => {
                 Edit Services
               </Nav.Link>
             )}
-
             {isAuthenticated && (
               <Nav.Link
                 eventKey="3"
@@ -105,7 +103,6 @@ export const NavBar = () => {
                 Add Service
               </Nav.Link>
             )}
-
             {isAuthenticated && (
               <Nav.Link
                 eventKey="4"
@@ -121,7 +118,6 @@ export const NavBar = () => {
                 Edit Team
               </Nav.Link>
             )}
-
             {isAuthenticated && (
               <Nav.Link
                 eventKey="5"
@@ -137,7 +133,6 @@ export const NavBar = () => {
                 Add Team Member
               </Nav.Link>
             )}
-
             {!isAuthenticated && (
               <Nav.Link
                 eventKey="1"
@@ -150,7 +145,6 @@ export const NavBar = () => {
                 Home
               </Nav.Link>
             )}
-
             {!isAuthenticated && (
               <Nav.Link
                 eventKey="2"
@@ -165,7 +159,6 @@ export const NavBar = () => {
                 Services
               </Nav.Link>
             )}
-
             {!isAuthenticated && (
               <Nav.Link
                 eventKey="3"
@@ -206,7 +199,6 @@ export const NavBar = () => {
                 Gallery
               </Nav.Link>
             )}
-
             {!isAuthenticated && (
               <Nav.Link
                 eventKey="5"
@@ -235,7 +227,6 @@ export const NavBar = () => {
                 Log Out
               </Nav.Link>
             )}
-
             {/* <Nav.Link href="#prices" className={activeLink === 'prices' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('prices')}>Prices</Nav.Link> */}
             {/* <Nav.Link href="#contact" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}>Contact</Nav.Link> */}
           </Nav>
@@ -251,7 +242,6 @@ export const NavBar = () => {
                 <img src={navIcon3} alt="" />
               </a>
             </div>
-
             {!isAuthenticated && (
               <Nav.Link href="#contact-info">
                 <button className="vvd">

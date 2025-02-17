@@ -5,11 +5,9 @@ import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import contactImg from "../assets/img/contact-img.svg";
-// import { getHomepageDetails, postGeneralRequest } from "../api/index.js";
 // import { Loading } from "./Loading.js";
 import HomepageService from "../api/homepage.service";
 import RequestsService from "../api/requests.service";
-
 
 const FormError = (props) => {
   return (
@@ -108,18 +106,16 @@ export const Contact = () => {
   );
 
   let {
-    isLoading,
-    isError,
+    // isLoading,
+    // isError,
     // data: bannerInfo,
-    error,
+    // error,
   } = useQuery({
     queryKey: ["bannerInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 
   const postRequestMutation = useMutation({
-    // mutationFn: postGeneralRequest,
     mutationFn: RequestsService.postGeneralRequest,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["postGeneralRequest"] });
@@ -134,18 +130,8 @@ export const Contact = () => {
 
   const doesFormHaveErrors = () => {
     return (
-      // formErrorObject.firstNameError ||
-      // formErrorObject.lastNameError ||
-      // formErrorObject.emailError ||
-      // formErrorObject.phoneError ||
-      // formErrorObject.messageError ||
-      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
-      // formDetails.firstName === "" ||
-      // formDetails.lastName === "" ||
-      // formDetails.email === "" ||
-      // formDetails.phone === "" ||
-      // formDetails.message === ""
-      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true)
+      Object.values(formErrorObject).map((v) => v ? true : false).includes(true) || 
+      Object.values(formDetails).map((v) => !v ? true : false).includes(true)
     );
   };
 

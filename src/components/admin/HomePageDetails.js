@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loading } from "../Loading.js";
 import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
-// import { getHomepageDetails, updateHomepageDetails } from "../../api/index.js";
 import HomepageService from "../../api/homepage.service.js";
 
 export const HomePageDetails = () => {
@@ -31,10 +29,8 @@ export const HomePageDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
-  // const [buttonText, setButtonText] = useState('Update');
 
   const updateHomepageDetailsMutation = useMutation({
-    // mutationFn: updateHomepageDetails,
     mutationFn: HomepageService.updateHomepageDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["homepageDetails"] });
@@ -71,7 +67,6 @@ export const HomePageDetails = () => {
     error,
   } = useQuery({
     queryKey: ["homepageDetails"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 

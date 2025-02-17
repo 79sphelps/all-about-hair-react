@@ -4,10 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-// import { getServiceDetail, updateServiceDetails } from "../../api/index.js";
 import ServicesService from "../../api/services.service.js";
 import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
 import { Loading } from "../Loading.js";
 import { 
   FormError,
@@ -30,7 +28,6 @@ export const ServiceEdit = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
-  // const [status, setStatus] = useState({});
 
   let initialFormErrorObject = {
     titleError: false,
@@ -53,15 +50,13 @@ export const ServiceEdit = () => {
   );
 
   const doesFormHaveErrors = () => {
-    return (
-      Object.values(formErrorObject).map((v) => { if (v) return true }).includes(true) || 
-      Object.values(formDetails).map((v) => { if (v === "") return true }).includes(true) ||
-      formDetails.pricing.length > 0 && Object.values(formDetails.pricing).map((v) => { if (v === "") return true }).includes(true) 
-    );
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
+    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
+    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) => !v ? true : false);
+    return formErrorObjectAry.includes(true) || formDetailsAry.includes(true) || (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true));
   };
 
   const updateServiceDetailsMutation = useMutation({
-    // mutationFn: updateServiceDetails,
     mutationFn: ServicesService.updateServiceDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
@@ -133,7 +128,6 @@ export const ServiceEdit = () => {
     error,
   } = useQuery({
     queryKey: ["serviceDetails", location.state.id],
-    // queryFn: () => getServiceDetail(location.state.id), // fetch the posts using the async call
     queryFn: () => ServicesService.getServiceDetail(location.state.id), // fetch the posts using the async call
   });
 

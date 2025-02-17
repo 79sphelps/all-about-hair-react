@@ -43,19 +43,19 @@ export const ServicesCarousel = () => {
                 className="owl-carousel owl-theme skill-slider"
               >
                 <div className="item">
-                  <img src={team1} alt="Image" />
+                  <img src={team1} alt="Web Development" />
                   <h5>Web Development</h5>
                 </div>
                 <div className="item">
-                  <img src={team2} alt="Image" />
+                  <img src={team2} alt="Brand Identity" />
                   <h5>Brand Identity</h5>
                 </div>
                 <div className="item">
-                  <img src={team3} alt="Image" />
+                  <img src={team3} alt="Logo Design" />
                   <h5>Logo Design</h5>
                 </div>
                 <div className="item">
-                  <img src={team4} alt="Image" />
+                  <img src={team4} alt="Web Development" />
                   <h5>Web Development</h5>
                 </div>
               </Carousel>
@@ -63,7 +63,7 @@ export const ServicesCarousel = () => {
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="Image" />
+      <img className="background-image-left" src={colorSharp} alt="Color Sharp" />
     </section>
   );
 };

@@ -5,9 +5,7 @@ import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { NavBar } from "../NavBar.js";
-// import { Footer } from "../Footer.js";
 import { Loading } from "../Loading.js";
-// import { getTeamMemberDetail, updateTeamMemberDetails } from "../../api/index.js";
 import TeamService from "../../api/team.service.js";
 
 
@@ -28,7 +26,6 @@ export const TeamMemberEdit = () => {
   // const [resetText, setResetText] = useState('Reset');
 
   const updateTeamMemberDetailsMutation = useMutation({
-    // mutationFn: updateTeamMemberDetails,
     mutationFn: TeamService.updateTeamMemberDetails,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["teamMemberDetails"] });
@@ -82,7 +79,6 @@ export const TeamMemberEdit = () => {
     error,
   } = useQuery({
     queryKey: ["teamMemberDetails", location.state.id],
-    // queryFn: () => getTeamMemberDetail(location.state.id),
     queryFn: () => TeamService.getTeamMemberDetail(location.state.id),
   });
 

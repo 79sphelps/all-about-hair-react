@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { Services2Card } from "./Services2Card";
 import { Loading } from "./Loading.js";
-// import { getServiceDetails, getHomepageDetails } from "../api/index.js";
 import ServicesService from "../api/services.service.js";
 import HomepageService from "../api/homepage.service.js";
 import "../style.css";
@@ -16,7 +15,6 @@ export const Services2 = () => {
     error,
   } = useQuery({
     queryKey: ["homepageInfo"],
-    // queryFn: getHomepageDetails,
     queryFn: HomepageService.getHomepageDetails,
   });
 
@@ -27,7 +25,6 @@ export const Services2 = () => {
     error2,
   } = useQuery({
     queryKey: ["servicesInfo"],
-    // queryFn: getServiceDetails, 
     queryFn: ServicesService.getServiceDetails, 
   });
 
@@ -50,7 +47,6 @@ export const Services2 = () => {
               {/* Services are subject to stylist availability and may change at any time. */}
               {homepageInfo && homepageInfo[0].serviceDetailsSubMsg}
             </p>
-
             <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
               {servicesInfo &&
                 // servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
