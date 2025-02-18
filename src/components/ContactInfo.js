@@ -2,10 +2,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
 import ContactService from "../api/contact.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 
-
-export const ContactInfo = () => {
+const ContactInfo = () => {
   let {
     isLoading,
     isError,
@@ -81,3 +80,5 @@ export const ContactInfo = () => {
     )
   );
 };
+
+export default ContactInfo;

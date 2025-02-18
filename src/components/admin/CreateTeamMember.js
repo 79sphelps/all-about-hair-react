@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import "animate.css";
 import TeamService from "../../api/team.service.js";
 import { FormError } from "./common.js";
-import { NavBar } from "../NavBar.js";
+import NavBar from "../NavBar";
 
 const formErrors = {
   "name": {
@@ -49,7 +49,7 @@ const validateInput = (name, value) => {
   }
 };
 
-export const CreateTeamMember = () => {
+const CreateTeamMember = () => {
   let formInitialDetails = {
     name: "",
     role: "",
@@ -253,3 +253,5 @@ export const CreateTeamMember = () => {
     </section>
   );
 };
+
+export default CreateTeamMember;

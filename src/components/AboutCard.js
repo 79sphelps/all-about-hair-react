@@ -3,9 +3,9 @@ import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
 import { useQuery } from "@tanstack/react-query";
 import HomepageService from "../api/homepage.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 
-function AboutCard() {
+const AboutCard = () => {
   let {
     isLoading,
     isError,

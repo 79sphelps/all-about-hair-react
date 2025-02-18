@@ -1,12 +1,12 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-import { TeamCard } from "./TeamCard";
+import TeamCard from "./TeamCard";
 import TeamService from "../api/team.service.js";
 import HomepageService from "../api/homepage.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 
-export const Team = () => {
+const Team = () => {
   let {
     isLoading,
     isError,
@@ -70,3 +70,5 @@ export const Team = () => {
     )
   );
 };
+
+export default Team;

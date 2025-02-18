@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
-import { useNavigate } from "react-router-dom";
 
-export const Services2Card = (props) => {
+const Services2Card = (props) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -101,3 +101,5 @@ export const Services2Card = (props) => {
     </Card>
   );
 };
+
+export default Services2Card;

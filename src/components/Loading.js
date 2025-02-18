@@ -1,6 +1,6 @@
 // import LoadingImage from "../assets/img/gif-loading-images-2.gif"
 
-export const Loading = () => {
+const Loading = () => {
   return (
     // <img
     //   src={require("../assets/img/gif-loading-images-2.gif")}
@@ -13,3 +13,5 @@ export const Loading = () => {
     <div className="loader" />
   );
 };
+
+export default Loading;

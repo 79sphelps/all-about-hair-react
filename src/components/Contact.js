@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import contactImg from "../assets/img/contact-img.svg";
-// import { Loading } from "./Loading.js";
 import HomepageService from "../api/homepage.service";
 import RequestsService from "../api/requests.service";
+import contactImg from "../assets/img/contact-img.svg";
 
 const FormError = (props) => {
   return (
@@ -76,7 +75,7 @@ const validateInput = (name, value) => {
   }
 };
 
-export const Contact = () => {
+const Contact = () => {
   const queryClient = useQueryClient();
 
   const formInitialDetails = {
@@ -321,3 +320,5 @@ export const Contact = () => {
     </section>
   );
 };
+
+export default Contact;

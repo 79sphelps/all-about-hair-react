@@ -1,21 +1,20 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
-import { useNavigate } from "react-router-dom";
+import "animate.css";
 import { 
   FormError,
   formErrorsCreateService, 
   getFormErrorObjectCreateService, 
   getPricingDetailErrorObject  
 } from "./common.js";
-import { NavBar } from "../NavBar.js";
+import NavBar from "../NavBar";
 import ServicesService from "../../api/services.service.js";
 
-
-export const CreateService = () => {
+const CreateService = () => {
   let formInitialDetails = {
     title: "",
     image: "",
@@ -309,3 +308,5 @@ export const CreateService = () => {
     </section>
   );
 };
+
+export default CreateService;

@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import Aboutcard from "./AboutCard";
-import laptopImg from "../assets/img/about-img.jpg";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 import HomepageService from "../api/homepage.service.js";
+import laptopImg from "../assets/img/about-img.jpg";
 
-export const Mission = () => {
+const Mission = () => {
   let {
     isLoading,
     isError,
@@ -54,3 +54,5 @@ export const Mission = () => {
     </section>
   );
 };
+
+export default Mission;

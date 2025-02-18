@@ -6,7 +6,7 @@ import navIcon1 from "../assets/img/nav-icon1.svg";
 import navIcon2 from "../assets/img/nav-icon2.svg";
 import navIcon3 from "../assets/img/nav-icon3.svg";
 
-export const TeamCard = (props) => {
+const TeamCard = (props) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -50,15 +50,15 @@ export const TeamCard = (props) => {
           </a>
         </div> */}
         <div className="team-social-icon">
-          {/* <a href="#"> */}
+          <a href="#">
             <img src={navIcon1} alt="" />
-          {/* </a> */}
-          {/* <a href="#"> */}
+          </a>
+          <a href="#">
             <img src={navIcon2} alt="" />
-          {/* </a> */}
-          {/* <a href="#"> */}
+          </a>
+          <a href="#">
             <img src={navIcon3} alt="" />
-          {/* </a> */}
+          </a>
         </div>
         <Modal
           show={show}
@@ -95,3 +95,5 @@ export const TeamCard = (props) => {
     </Card>
   );
 };
+
+export default TeamCard;

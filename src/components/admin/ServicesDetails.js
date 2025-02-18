@@ -1,13 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import "animate.css";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
+import NavBar from "../NavBar";
+import Loading from "../Loading";
 import ServicesService from "../../api/services.service.js";
 
-export const ServicesDetails = () => {
+const ServicesDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -105,3 +105,5 @@ export const ServicesDetails = () => {
     </section>
   );
 };
+
+export default ServicesDetails;

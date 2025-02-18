@@ -1,13 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
+import "animate.css";
+import NavBar from "../NavBar";
+import Loading from "../Loading";
 import TeamService from "../../api/team.service.js";
 
-export const TeamDetails = () => {
+const TeamDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   // const [buttonText, setButtonText] = useState("Edit");
@@ -115,3 +115,5 @@ export const TeamDetails = () => {
     </section>
   );
 };
+
+export default TeamDetails;

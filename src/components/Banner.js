@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useQuery } from "@tanstack/react-query";
-import headerImg from "../assets/img/header-img-min.png";
+import "animate.css";
 import HomepageService from "../api/homepage.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
+import headerImg from "../assets/img/header-img-min.png";
 
-export const Banner = () => {
+const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState("");
@@ -130,3 +130,5 @@ export const Banner = () => {
     )
   );
 };
+
+export default Banner;

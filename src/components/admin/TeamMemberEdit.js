@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
+import "animate.css";
+import NavBar from "../NavBar";
+import Loading from "../Loading";
 import TeamService from "../../api/team.service.js";
 
-
-export const TeamMemberEdit = () => {
+const TeamMemberEdit = () => {
   let formInitialDetails = {
     name: "",
     role: "",
@@ -189,3 +188,5 @@ export const TeamMemberEdit = () => {
     </section>
   );
 };
+
+export default TeamMemberEdit;

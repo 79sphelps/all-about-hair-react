@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+import React, { Suspense, lazy } from 'react';
 import { 
   BrowserRouter as Router, 
   Route, 
@@ -6,17 +6,18 @@ import {
 } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Home } from "./components/Home.js";
-import { Loading } from "./components/Loading.js";
-import { HomePageDetails } from "./components/admin/HomePageDetails.js"
-import { ServicesDetails } from './components/admin/ServicesDetails.js';
-import { ServiceEdit } from './components/admin/ServiceEdit.js';
-import { Service } from "./components/Service.js";
-import { CreateService } from './components/admin/CreateService.js';
-import { TeamMemberEdit } from './components/admin/TeamMemberEdit.js';
-import { TeamDetails } from './components/admin/TeamDetails.js';
-import { CreateTeamMember } from './components/admin/CreateTeamMember.js';
+import Loading from "./components/Loading";
 import './App.css';
+
+const Home = lazy(() => import("./components/Home"));
+const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
+const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"));
+const ServiceEdit = lazy(() => import("./components/admin/ServiceEdit"));
+const Service = lazy(() => import("./components/Service"));
+const CreateService = lazy(() => import("./components/admin/CreateService"));
+const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit"));
+const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
+const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember"));
 
 function App() {
   const { isLoading, error, isAuthenticated } = useAuth0();
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <Router>
+      <Suspense fallback={<Loading />}>
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/services/:id" element={<Service />} />
@@ -44,6 +46,7 @@ function App() {
         {/* <Route path="/callback" component={CallbackPage} /> */}
         {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
       </Routes>
+      </Suspense>
     </Router>
   );
 }

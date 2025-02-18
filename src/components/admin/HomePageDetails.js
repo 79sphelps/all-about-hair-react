@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import "animate.css";
-import TrackVisibility from "react-on-screen";
 import { useNavigate } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Loading } from "../Loading.js";
-import { NavBar } from "../NavBar.js";
+import "animate.css";
+import Loading from "../Loading";
+import NavBar from "../NavBar";
 import HomepageService from "../../api/homepage.service.js";
 
-export const HomePageDetails = () => {
+const HomePageDetails = () => {
   const formInitialDetails = {
     headline: "",
     headlineSubMsg: "",
@@ -346,3 +346,5 @@ export const HomePageDetails = () => {
     </section>
   );
 };
+
+export default HomePageDetails;

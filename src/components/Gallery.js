@@ -6,11 +6,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
-import colorSharp from "../assets/img/color-sharp.png";
 import ImageService from "../api/gallery.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
+import colorSharp from "../assets/img/color-sharp.png";
 
-export const Gallery = () => {
+const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
   const [show, setShow] = useState(false);
 
@@ -141,3 +141,5 @@ export const Gallery = () => {
     )
   );
 };
+
+export default Gallery;

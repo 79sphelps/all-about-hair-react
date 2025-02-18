@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
-import { Services2Card } from "./Services2Card";
-import { Loading } from "./Loading.js";
+import Services2Card from "./Services2Card";
+import Loading from "./Loading";
 import ServicesService from "../api/services.service.js";
 import HomepageService from "../api/homepage.service.js";
 import "../style.css";
 
-export const Services2 = () => {
+const Services2 = () => {
   let {
     isLoading,
     isError,
@@ -79,3 +79,5 @@ export const Services2 = () => {
     )
   );
 };
+
+export default Services2;

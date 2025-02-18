@@ -4,10 +4,9 @@ import { AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import HomepageService from "../api/homepage.service.js";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 
-
-export const Footer = () => {
+const Footer = () => {
   let {
     isLoading,
     isError,
@@ -85,3 +84,5 @@ export const Footer = () => {
     </Container>
   ));
 };
+
+export default Footer;

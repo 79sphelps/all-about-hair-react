@@ -5,7 +5,7 @@ import {
 } from "@auth0/auth0-react";
 // import { Section } from "../components";
 
-export const CallbackPage = () => {
+const CallbackPage = () => {
   const { user } = useAuth0();
   return (
     <div>
@@ -34,3 +34,5 @@ export const CallbackPage = () => {
 // export default withAuthenticationRequired(CallbackPage, {
 //     onRedirecting: () => <Loading />,
 //   });
+
+export default CallbackPage;

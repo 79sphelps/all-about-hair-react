@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Container, Row, Col } from "react-bootstrap";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
-import { Loading } from "./Loading.js";
+import Loading from "./Loading";
 import ServicesService from "../api/services.service.js";
 
-export const Service = () => {
+const Service = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -110,3 +110,5 @@ export const Service = () => {
     </section>
   );
 };
+
+export default Service;

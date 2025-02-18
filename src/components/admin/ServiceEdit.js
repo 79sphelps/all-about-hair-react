@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
-import "animate.css";
+import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import "animate.css";
 import ServicesService from "../../api/services.service.js";
-import { NavBar } from "../NavBar.js";
-import { Loading } from "../Loading.js";
+import NavBar from "../NavBar";
+import Loading from "../Loading";
 import { 
   FormError,
   formErrorsCreateService, 
@@ -14,7 +14,7 @@ import {
   getPricingDetailErrorObject  
 } from "./common.js";
 
-export const ServiceEdit = () => {
+const ServiceEdit = () => {
   let formInitialDetails = {
     title: "",
     image: "",
@@ -300,3 +300,5 @@ export const ServiceEdit = () => {
     </section>
   );
 };
+
+export default ServiceEdit;
