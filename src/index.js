@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createBrowserHistory } from "history";
 import { Auth0Provider } from "@auth0/auth0-react";
-// import { BrowserRouter } from "react-router-dom";
 import { getConfig } from "./config";
 import "./index.css";
 import App from "./App";
@@ -30,8 +29,6 @@ const providerConfig = {
   domain: config.domain,
   clientId: config.clientId,
   ...(config.audience ? { audience: config.audience } : null),
-  // redirectUri: window.location.origin,
-  // redirectUri: window.location.origin + '/callback',
   authorizationParams: {
     redirect_uri: window.location.origin,
   },
@@ -42,16 +39,12 @@ const providerConfig = {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-
     <Auth0Provider {...providerConfig}>
       <QueryClientProvider client={queryClient}>
-        {/* <BrowserRouter> */}
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-        {/* </BrowserRouter> */}
       </QueryClientProvider>
     </Auth0Provider>
-
   </React.StrictMode>
 );
 

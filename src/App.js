@@ -17,13 +17,13 @@ const Service = lazy(() => import("./components/Service"));
 const CreateService = lazy(() => import("./components/admin/CreateService"));
 const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
-const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember"));
+const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember2"));
 
 function App() {
   const { isLoading, error, isAuthenticated } = useAuth0();
 
   if (error) {
-    return <div>Oops... {error.message}</div>;
+    return <div>There was an error getting auth status...{error.message}</div>;
   }
 
   if (isLoading) {
@@ -33,19 +33,19 @@ function App() {
   return (
     <Router>
       <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/services/:id" element={<Service />} />
-        <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
-        <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
-        <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceEdit /> : <Home />} />
-        <Route exact path="/admin/service-add" element={ isAuthenticated ? <CreateService /> : <Home />} />
-        <Route exact path="/admin/team-member-edit/:id" element={ isAuthenticated ? <TeamMemberEdit /> : <Home />} />
-        <Route exact path="/admin/team-details" element={ isAuthenticated ? <TeamDetails /> : <Home />} />
-        <Route exact path="/admin/team-member-add" element={ isAuthenticated ? <CreateTeamMember /> : <Home />} />
-        {/* <Route path="/callback" component={CallbackPage} /> */}
-        {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
-      </Routes>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/services/:id" element={<Service />} />
+          <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
+          <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
+          <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceEdit /> : <Home />} />
+          <Route exact path="/admin/service-add" element={ isAuthenticated ? <CreateService /> : <Home />} />
+          <Route exact path="/admin/team-member-edit/:id" element={ isAuthenticated ? <TeamMemberEdit /> : <Home />} />
+          <Route exact path="/admin/team-details" element={ isAuthenticated ? <TeamDetails /> : <Home />} />
+          <Route exact path="/admin/team-member-add" element={ isAuthenticated ? <CreateTeamMember /> : <Home />} />
+          {/* <Route path="/callback" component={CallbackPage} /> */}
+          {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
+        </Routes>
       </Suspense>
     </Router>
   );
