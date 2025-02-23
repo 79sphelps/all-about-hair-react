@@ -68,10 +68,10 @@ const TeamDetails = () => {
                     {teamInfo &&
                       teamInfo.map((member, idx) => {
                         return (
-                          <Row key={member._id}>
+                          <Row key={member._id} style={{ marginBottom: 15, padding: 15, border: 'solid 1px white', borderRadius: 15 }}>
                             <Col lg={2} className="px-1">
-                              <div>Name: {member.name}</div>
-                              <div>Role: {member.role}</div>
+                              <div><strong>Name</strong>: {member.name}</div>
+                              <div><strong>Role</strong>: {member.role}</div>
                               <img
                                 src={require("../../" + member.photo)}
                                 alt=""
@@ -80,13 +80,13 @@ const TeamDetails = () => {
                             <Col size={12} className="px-1">
                               <div
                                 style={{
-                                  border: "1px solid rgba(255, 255, 255, 0.5)",
-                                  marginTop: "25px",
-                                  borderRadius: "25px",
-                                  padding: "20px",
+                                  // border: "1px solid rgba(255, 255, 255, 0.5)",
+                                  // marginTop: "25px",
+                                  // borderRadius: "25px",
+                                  // padding: "20px",
                                 }}
                               >
-                                Bio: <br />
+                                <strong>Bio</strong>: <br />
                                 {member.bio}
                               </div>
                               <button
