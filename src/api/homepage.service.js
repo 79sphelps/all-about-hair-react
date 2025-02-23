@@ -5,9 +5,8 @@ const GET_HOMEPAGE_INFO_ENDPOINT = API + "admin/homepage";
 class HomepageService {
     async getHomepageDetails() {
         try {
-
             const response = await fetch(GET_HOMEPAGE_INFO_ENDPOINT);
-            if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -15,7 +14,7 @@ class HomepageService {
     }
 
     async updateHomepageDetails(data) {
-        // const access_token = await data.access_token
+        // const access_token = await data.access_token;
         try {
             const response = await fetch(API + `admin/homepage/update/${data.id}`, {
                 method: "PUT",
@@ -25,7 +24,7 @@ class HomepageService {
                 },
                 body: JSON.stringify(data),
             });
-            if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);

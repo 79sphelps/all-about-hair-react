@@ -1,6 +1,6 @@
 import { API } from "./index";
 
-const POST_REQUESTS_ENDPOINT = API + `requests/new`;
+const POST_REQUESTS_ENDPOINT = API + "requests/new";
 
 class RequestsService {
     async postGeneralRequest(member) {
@@ -13,7 +13,7 @@ class RequestsService {
                 },
                 body: JSON.stringify(member),
               });
-            if (!response.ok) throw new Error('The fetch for requests info failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for requests info failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);

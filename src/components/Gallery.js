@@ -97,7 +97,6 @@ const Gallery = () => {
                           </div>
                         );
                       })}
-
                     <Modal
                       show={show}
                       onHide={handleClose}

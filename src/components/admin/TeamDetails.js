@@ -36,6 +36,7 @@ const TeamDetails = () => {
 
   const handleDelete = (e, id) => {
     e.preventDefault();
+    console.log('id: ', id);
     deleteTeamMemberMutation.mutate(id);
   };
 

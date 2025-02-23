@@ -1,14 +1,13 @@
 import { API } from "./index";
 
 const GET_SERVICES_ENDPOINT = API + "admin/services";
-const POST_SERVICE_ENDPOINT = API + `admin/services/new`;
+const POST_SERVICE_ENDPOINT = API + "admin/services/new";
 
 class ServicesService {
     async getServiceDetails() {
         try {
-
             const response = await fetch(GET_SERVICES_ENDPOINT);
-            if (!response.ok) throw new Error('The fetch for service details info failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for service details info failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -17,9 +16,8 @@ class ServicesService {
 
     async getServiceDetail(id) {
         try {
-
             const response = await fetch(API + `admin/services/${id}`);
-            if (!response.ok) throw new Error('The fetch for service detail by ID failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for service detail by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -28,12 +26,11 @@ class ServicesService {
 
     async deleteService(id) {
         try {
-
             const response = await fetch(API + `admin/services/${id}`, {
                 method: "DELETE",
                 body: JSON.stringify(id),
               });
-            if (!response.ok) throw new Error('The fetch for deleting service by ID failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for deleting service by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -50,7 +47,7 @@ class ServicesService {
                 },
                 body: JSON.stringify(service),
               });
-            if (!response.ok) throw new Error('The fetch for service creation failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for service creation failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -67,7 +64,7 @@ class ServicesService {
                 },
                 body: JSON.stringify(data),
               });
-            if (!response.ok) throw new Error('The fetch for service update by ID failed for some reason.')
+            if (!response.ok) throw new Error('The fetch for service update by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
             console.error('Error fetching data:', error);
