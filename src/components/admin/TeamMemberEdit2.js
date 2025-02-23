@@ -155,8 +155,8 @@ const TeamMemberEdit = () => {
                           required:
                             "Please provide a valid member role describing what they do",
                           minLength: {
-                            value: 10,
-                            message: "Role must be at least 10 characters",
+                            value: 5,
+                            message: "Role must be at least 5 characters",
                           },
                         })}
                       />
