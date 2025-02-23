@@ -6,7 +6,7 @@ import Banner from "./Banner";
 import Services2 from "./Services2";
 import Mission from "./Mission";
 import Team from "./Team";
-import Contact from "./Contact";
+import Contact2 from "./Contact2";
 import Footer from "./Footer";
 import Gallery from "./Gallery";
 import ContactInfo from "./ContactInfo";
@@ -29,7 +29,7 @@ const Home = () => {
       { !isAuthenticated ? <Team /> : null }
       { !isAuthenticated ? <Gallery /> : null }
       { !isAuthenticated ? <ContactInfo /> : null }
-      { !isAuthenticated ? <Contact /> : null }
+      { !isAuthenticated ? <Contact2 /> : null }
       { isAuthenticated ? <HomePageDetails /> : null }
       <Footer />
     </div>
