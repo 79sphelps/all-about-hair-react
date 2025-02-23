@@ -1,7 +1,7 @@
 import React from "react";
-import { 
-  useAuth0, 
-  // withAuthenticationRequired 
+import {
+  useAuth0,
+  // withAuthenticationRequired
 } from "@auth0/auth0-react";
 
 const CallbackPage = () => {
@@ -10,7 +10,7 @@ const CallbackPage = () => {
     <div>
       {user && user.name !== null && user.name !== "" && user.email ? (
         <div>
-          <h3>Signed in as { user.name }</h3>      
+          <h3>Signed in as {user.name}</h3>
         </div>
       ) : null}
     </div>

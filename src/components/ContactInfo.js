@@ -53,17 +53,14 @@ const ContactInfo = () => {
                   <h3>Visit Our Salon</h3>
                   {contactInfo[0].location}
                 </Col>
-
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Call Us</h3>
                   {contactInfo[0].phone}
                 </Col>
-
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Email Us</h3>
                   {contactInfo[0].email}
                 </Col>
-
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
                   <h3>Salon Hours</h3>
                   <ul>

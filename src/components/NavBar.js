@@ -43,7 +43,6 @@ const NavBar = () => {
         Nav.Link elements for the collapse on click to work in mobile view.
         */
   return (
-    // <Router>
     <Navbar
       collapseOnSelect
       expand="md"
@@ -253,7 +252,6 @@ const NavBar = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-    // </Router>
   );
 };
 

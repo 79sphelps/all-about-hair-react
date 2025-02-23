@@ -7,11 +7,11 @@ import "animate.css";
 import ServicesService from "../../api/services.service.js";
 import NavBar from "../NavBar";
 import Loading from "../Loading";
-import { 
+import {
   FormError,
-  formErrorsCreateService, 
-  getFormErrorObjectCreateService, 
-  getPricingDetailErrorObject  
+  formErrorsCreateService,
+  getFormErrorObjectCreateService,
+  getPricingDetailErrorObject,
 } from "./common.js";
 
 const ServiceEdit = () => {
@@ -50,10 +50,20 @@ const ServiceEdit = () => {
   );
 
   const doesFormHaveErrors = () => {
-    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
-    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
-    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) => !v ? true : false);
-    return formErrorObjectAry.includes(true) || formDetailsAry.includes(true) || (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true));
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) =>
+      v ? true : false
+    );
+    const formDetailsAry = Object.values(formDetails).map((v) =>
+      !v ? true : false
+    );
+    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) =>
+      !v ? true : false
+    );
+    return (
+      formErrorObjectAry.includes(true) ||
+      formDetailsAry.includes(true) ||
+      (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true))
+    );
   };
 
   const updateServiceDetailsMutation = useMutation({
@@ -61,43 +71,47 @@ const ServiceEdit = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
       setTimeout(() => {
-        setButtonText("Update")
-      }, 2000)
+        setButtonText("Update");
+      }, 2000);
     },
   });
 
   const updateServiceDetailsEdit = () => {
     const id = serviceDetails._id;
-    setButtonText("Updating...")
+    setButtonText("Updating...");
     updateServiceDetailsMutation.mutate({ id, ...formDetails });
   };
 
   const onFormUpdate = (category, value, idx) => {
     if (category === "price" || category === "type" || idx >= 0) {
-
-      let obj = getPricingDetailErrorObject(category, value, pricingDetailErrorObject);
+      let obj = getPricingDetailErrorObject(
+        category,
+        value,
+        pricingDetailErrorObject
+      );
       let newObj = { ...pricingDetailErrorObject, ...obj };
-      setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj }); 
-
+      setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj });
 
       if (!formDetails.pricing[idx]) {
-        setFormDetails(...formDetails, formDetails.pricing.push())
+        setFormDetails(...formDetails, formDetails.pricing.push());
       }
       let newPriceArray = formDetails.pricing.map((item, idx2) => {
-        if (idx2 === idx) { 
-          return { ...formDetails.pricing[idx], [category]: value}
+        if (idx2 === idx) {
+          return { ...formDetails.pricing[idx], [category]: value };
         }
-        return item
-      })
-      let newFormDetails = { ...formDetails, pricing: newPriceArray }
+        return item;
+      });
+      let newFormDetails = { ...formDetails, pricing: newPriceArray };
       setFormDetails(newFormDetails);
     } else {
-
-      let obj = getFormErrorObjectCreateService(category, value, formErrorObject);
+      let obj = getFormErrorObjectCreateService(
+        category,
+        value,
+        formErrorObject
+      );
       let newObj = { ...formErrorObject, ...obj };
       console.log(newObj);
       setFormErrorObject({ ...formErrorObject, ...newObj });
-
 
       setFormDetails({
         ...formDetails,
@@ -107,7 +121,7 @@ const ServiceEdit = () => {
   };
 
   const updateFormDetails = (data) => {
-    setFormDetails(data)
+    setFormDetails(data);
   };
 
   const handleSubmit = async (e) => {
@@ -133,8 +147,8 @@ const ServiceEdit = () => {
 
   const handleCancel = () => {
     setFormDetails(formInitialDetails);
-    navigate('/admin/services-details');
-  }
+    navigate("/admin/services-details");
+  };
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
@@ -166,14 +180,19 @@ const ServiceEdit = () => {
                         type="text"
                         value={formDetails.title}
                         onChange={(e) => onFormUpdate("title", e.target.value)}
-                        onBlur={() => 
-                          formDetails.title === '' ? 
-                            setFormErrorObject({ ...formErrorObject, titleError: true }) :
-                            null
+                        onBlur={() =>
+                          formDetails.title === ""
+                            ? setFormErrorObject({
+                                ...formErrorObject,
+                                titleError: true,
+                              })
+                            : null
                         }
                       />
                       {formErrorObject.titleError && (
-                        <FormError msg={formErrorsCreateService["title"].error} />
+                        <FormError
+                          msg={formErrorsCreateService["title"].error}
+                        />
                       )}
                     </Row>
                     <Row>
@@ -182,14 +201,19 @@ const ServiceEdit = () => {
                         type="text"
                         value={formDetails.image}
                         onChange={(e) => onFormUpdate("image", e.target.value)}
-                        onBlur={() => 
-                          formDetails.image === '' ? 
-                            setFormErrorObject({ ...formErrorObject, imageError: true }) :
-                            null
+                        onBlur={() =>
+                          formDetails.image === ""
+                            ? setFormErrorObject({
+                                ...formErrorObject,
+                                imageError: true,
+                              })
+                            : null
                         }
                       />
                       {formErrorObject.imageError && (
-                        <FormError msg={formErrorsCreateService["image"].error} />
+                        <FormError
+                          msg={formErrorsCreateService["image"].error}
+                        />
                       )}
                     </Row>
                     <Row>
@@ -197,18 +221,23 @@ const ServiceEdit = () => {
                       <textarea
                         style={{ marginTop: "25px" }}
                         rows="6"
-                        value={
-                          formDetails.description
+                        value={formDetails.description}
+                        onChange={(e) =>
+                          onFormUpdate("description", e.target.value)
                         }
-                        onChange={(e) => onFormUpdate("description", e.target.value)}
-                        onBlur={() => 
-                          formDetails.description === '' ? 
-                            setFormErrorObject({ ...formErrorObject, descriptionError: true }) :
-                            null
+                        onBlur={() =>
+                          formDetails.description === ""
+                            ? setFormErrorObject({
+                                ...formErrorObject,
+                                descriptionError: true,
+                              })
+                            : null
                         }
                       ></textarea>
                       {formErrorObject.descriptionError && (
-                        <FormError msg={formErrorsCreateService["description"].error} />
+                        <FormError
+                          msg={formErrorsCreateService["description"].error}
+                        />
                       )}
                     </Row>
 
@@ -223,14 +252,19 @@ const ServiceEdit = () => {
                               onChange={(e) =>
                                 onFormUpdate("type", e.target.value, idx)
                               }
-                              onBlur={() => 
-                                service.type === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, typeError: true }) :
-                                  null
+                              onBlur={() =>
+                                service.type === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      typeError: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.typeError && (
-                              <FormError msg={formErrorsCreateService["type"].error} />
+                              <FormError
+                                msg={formErrorsCreateService["type"].error}
+                              />
                             )}
                             <div>Price: </div>
                             <input
@@ -239,14 +273,19 @@ const ServiceEdit = () => {
                               onChange={(e) =>
                                 onFormUpdate("price", e.target.value, idx)
                               }
-                              onBlur={() => 
-                                service.price === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, priceError: true }) :
-                                  null
+                              onBlur={() =>
+                                service.price === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      priceError: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.priceError && (
-                              <FormError msg={formErrorsCreateService["price"].error} />
+                              <FormError
+                                msg={formErrorsCreateService["price"].error}
+                              />
                             )}
                             <div>Description: </div>
                             <input
@@ -255,38 +294,44 @@ const ServiceEdit = () => {
                               onChange={(e) =>
                                 onFormUpdate("description", e.target.value, idx)
                               }
-                              onBlur={() => 
-                                service.description2 === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, description2Error: true }) :
-                                  null
+                              onBlur={() =>
+                                service.description2 === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      description2Error: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.description2Error && (
-                              <FormError msg={formErrorsCreateService["description2"].error} />
+                              <FormError
+                                msg={
+                                  formErrorsCreateService["description2"].error
+                                }
+                              />
                             )}
                           </Row>
                         );
                       })}
-
                     <Row>
                       <Col size={12} className="px-1">
-                        <button 
-                        // style={{ marginRight: "20px" }} 
-                        onClick={handleSubmit} 
-                        // disabled={buttonText === "Updating..."}
-                        disabled={buttonText === "Updating..." || doesFormHaveErrors()}
-                        style={{
-                          color: doesFormHaveErrors() && "lightgrey",
-                          cursor: doesFormHaveErrors() && "not-allowed",
-                          marginRight: "20px"
-                        }}
+                        <button
+                          // style={{ marginRight: "20px" }}
+                          onClick={handleSubmit}
+                          disabled={
+                            buttonText === "Updating..." || doesFormHaveErrors()
+                          }
+                          style={{
+                            color: doesFormHaveErrors() && "lightgrey",
+                            cursor: doesFormHaveErrors() && "not-allowed",
+                            marginRight: "20px",
+                          }}
                         >
                           <span>{buttonText}</span>
                         </button>
                         <button onClick={handleCancel}>
                           <span>Cancel</span>
                         </button>
-
                       </Col>
                     </Row>
                   </form>

@@ -22,7 +22,6 @@ const TeamMemberEdit = () => {
   const [formDetails, setFormDetails] = useState(formInitialDetails);
   const [buttonText, setButtonText] = useState("Update");
   const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
-  // const [resetText, setResetText] = useState('Reset');
 
   const updateTeamMemberDetailsMutation = useMutation({
     mutationFn: TeamService.updateTeamMemberDetails,
@@ -55,10 +54,10 @@ const TeamMemberEdit = () => {
     //   let newFormDetails = { ...formDetails, pricing: newPriceArray };
     //   setFormDetails(newFormDetails);
     // } else {
-      setFormDetails({
-        ...formDetails,
-        [category]: value,
-      });
+    setFormDetails({
+      ...formDetails,
+      [category]: value,
+    });
     // }
   };
 
@@ -116,16 +115,16 @@ const TeamMemberEdit = () => {
                   }
                 >
                   <h2>Update Team Member Details</h2>
-                  <img 
-                    src={require("../../" + formDetails.photo)} 
+                  <img
+                    src={require("../../" + formDetails.photo)}
                     alt=""
-                    style={{ 
-                      width: "200px", 
-                      marginBottom: "20px", 
+                    style={{
+                      width: "200px",
+                      marginBottom: "20px",
                       boxShadow: "0 3px 3px 5px rgba(155, 88, 173, 0.65)",
                       // textAlign: "center !important",
                       display: "block",
-                      margin: "0 auto"
+                      margin: "0 auto",
                     }}
                   ></img>
                   <form>
@@ -152,7 +151,6 @@ const TeamMemberEdit = () => {
                         value={formDetails.photo}
                         onChange={(e) => onFormUpdate("photo", e.target.value)}
                       />
-                      
                     </Row>
                     <Row>
                       <div>Description</div>

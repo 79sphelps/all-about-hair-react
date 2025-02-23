@@ -11,7 +11,7 @@ const ProjectCard = ({ title, description, imgUrl }) => {
         </div>
       </div>
     </Col>
-  )
-}
+  );
+};
 
 export default ProjectCard;

@@ -10,29 +10,30 @@ import { FormError } from "./common.js";
 import NavBar from "../NavBar";
 
 const formErrors = {
-  "name": {
-      required: true,
-      error: "Please provide a valid team member name."
+  name: {
+    required: true,
+    error: "Please provide a valid team member name.",
   },
-  "role": {
-      required: true,
-      error: "Please provide a valid member role describing what they do."
+  role: {
+    required: true,
+    error: "Please provide a valid member role describing what they do.",
   },
-  "photo": {
-      required: true,
-      error: "Please provide a valid image path for the team member."
+  photo: {
+    required: true,
+    error: "Please provide a valid image path for the team member.",
   },
-  "bio": {
-      required: true,
-      error: "Please provide a valid message for the biography of at least 25 characters."
+  bio: {
+    required: true,
+    error:
+      "Please provide a valid message for the biography of at least 25 characters.",
   },
-}
+};
 
 const getFormErrorObject = (name, value, formErrorObjectRef) => {
   let formErrorObject = { ...formErrorObjectRef };
   const status = validateInput(name, value);
-  return { ...formErrorObject, [name + 'Error']: status };
-}
+  return { ...formErrorObject, [name + "Error"]: status };
+};
 
 const validateInput = (name, value) => {
   switch (name) {
@@ -75,8 +76,12 @@ const CreateTeamMember = () => {
   );
 
   const doesFormHaveErrors = () => {
-    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
-    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) =>
+      v ? true : false
+    );
+    const formDetailsAry = Object.values(formDetails).map((v) =>
+      !v ? true : false
+    );
     return formErrorObjectAry.includes(true) || formDetailsAry.includes(true);
   };
 
@@ -159,10 +164,13 @@ const CreateTeamMember = () => {
                           type="text"
                           value={formDetails.name}
                           onChange={(e) => onFormUpdate("name", e.target.value)}
-                          onBlur={() => 
-                            formDetails.name === '' ? 
-                              setFormErrorObject({ ...formErrorObject, nameError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.name === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  nameError: true,
+                                })
+                              : null
                           }
                         />
                         {formErrorObject.nameError && (
@@ -175,10 +183,13 @@ const CreateTeamMember = () => {
                           type="text"
                           value={formDetails.role}
                           onChange={(e) => onFormUpdate("role", e.target.value)}
-                          onBlur={() => 
-                            formDetails.role === '' ? 
-                              setFormErrorObject({ ...formErrorObject, roleError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.role === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  roleError: true,
+                                })
+                              : null
                           }
                         />
                         {formErrorObject.roleError && (
@@ -193,10 +204,13 @@ const CreateTeamMember = () => {
                           onChange={(e) =>
                             onFormUpdate("photo", e.target.value)
                           }
-                          onBlur={() => 
-                            formDetails.photo === '' ? 
-                              setFormErrorObject({ ...formErrorObject, photoError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.photo === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  photoError: true,
+                                })
+                              : null
                           }
                         />
                         {formErrorObject.photoError && (
@@ -210,10 +224,13 @@ const CreateTeamMember = () => {
                           rows="6"
                           value={formDetails.bio}
                           onChange={(e) => onFormUpdate("bio", e.target.value)}
-                          onBlur={() => 
-                            formDetails.bio === '' ? 
-                              setFormErrorObject({ ...formErrorObject, bioError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.bio === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  bioError: true,
+                                })
+                              : null
                           }
                         ></textarea>
                         {formErrorObject.bioError && (
@@ -224,11 +241,14 @@ const CreateTeamMember = () => {
                         <Col size={12} className="px-1">
                           <button
                             onClick={handleSubmit}
-                            disabled={buttonText === "Creating..." || doesFormHaveErrors()}
+                            disabled={
+                              buttonText === "Creating..." ||
+                              doesFormHaveErrors()
+                            }
                             style={{
                               color: doesFormHaveErrors() && "lightgrey",
                               cursor: doesFormHaveErrors() && "not-allowed",
-                              marginRight: "20px"
+                              marginRight: "20px",
                             }}
                           >
                             <span>{buttonText}</span>

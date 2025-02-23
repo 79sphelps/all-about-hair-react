@@ -5,11 +5,11 @@ import TrackVisibility from "react-on-screen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
-import { 
+import {
   FormError,
-  formErrorsCreateService, 
-  getFormErrorObjectCreateService, 
-  getPricingDetailErrorObject  
+  formErrorsCreateService,
+  getFormErrorObjectCreateService,
+  getPricingDetailErrorObject,
 } from "./common.js";
 import NavBar from "../NavBar";
 import ServicesService from "../../api/services.service.js";
@@ -57,10 +57,20 @@ const CreateService = () => {
   );
 
   const doesFormHaveErrors = () => {
-    const formErrorObjectAry = Object.values(formErrorObject).map((v) => v ? true : false);
-    const formDetailsAry = Object.values(formDetails).map((v) => !v ? true : false);
-    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) => !v ? true : false);
-    return formErrorObjectAry.includes(true) || formDetailsAry.includes(true) || (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true));
+    const formErrorObjectAry = Object.values(formErrorObject).map((v) =>
+      v ? true : false
+    );
+    const formDetailsAry = Object.values(formDetails).map((v) =>
+      !v ? true : false
+    );
+    const formDetailsPricingAry = Object.values(formDetails.pricing).map((v) =>
+      !v ? true : false
+    );
+    return (
+      formErrorObjectAry.includes(true) ||
+      formDetailsAry.includes(true) ||
+      (formDetails.pricing.length > 0 && formDetailsPricingAry.includes(true))
+    );
   };
 
   const addServiceMutation = useMutation({
@@ -71,7 +81,7 @@ const CreateService = () => {
       setTimeout(() => {
         setButtonText("Create");
       }, 2000);
-        navigate("/admin/services-details");
+      navigate("/admin/services-details");
     },
   });
 
@@ -115,9 +125,13 @@ const CreateService = () => {
 
   const onPricingDetailUpdate = (e) => {
     e.preventDefault();
-    let obj = getPricingDetailErrorObject(e.target.name, e.target.value, formErrorObject);
+    let obj = getPricingDetailErrorObject(
+      e.target.name,
+      e.target.value,
+      formErrorObject
+    );
     let newObj = { ...pricingDetailErrorObject, ...obj };
-    setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj }); 
+    setPricingDetailErrorObject({ ...pricingDetailErrorObject, ...newObj });
     setPricingDetails({
       ...pricingDetails,
       [e.target.name]: e.target.value,
@@ -167,14 +181,19 @@ const CreateService = () => {
                           onChange={(e) =>
                             onFormUpdate("title", e.target.value)
                           }
-                          onBlur={() => 
-                            formDetails.title === '' ? 
-                              setFormErrorObject({ ...formErrorObject, titleError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.title === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  titleError: true,
+                                })
+                              : null
                           }
                         />
                         {formErrorObject.titleError && (
-                          <FormError msg={formErrorsCreateService["title"].error} />
+                          <FormError
+                            msg={formErrorsCreateService["title"].error}
+                          />
                         )}
                       </Row>
                       <Row>
@@ -185,14 +204,19 @@ const CreateService = () => {
                           onChange={(e) =>
                             onFormUpdate("image", e.target.value)
                           }
-                          onBlur={() => 
-                            formDetails.image === '' ? 
-                              setFormErrorObject({ ...formErrorObject, imageError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.image === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  imageError: true,
+                                })
+                              : null
                           }
                         />
                         {formErrorObject.imageError && (
-                          <FormError msg={formErrorsCreateService["image"].error} />
+                          <FormError
+                            msg={formErrorsCreateService["image"].error}
+                          />
                         )}
                       </Row>
                       <Row>
@@ -204,14 +228,19 @@ const CreateService = () => {
                           onChange={(e) =>
                             onFormUpdate("description", e.target.value)
                           }
-                          onBlur={() => 
-                            formDetails.description === '' ? 
-                              setFormErrorObject({ ...formErrorObject, descriptionError: true }) :
-                              null
+                          onBlur={() =>
+                            formDetails.description === ""
+                              ? setFormErrorObject({
+                                  ...formErrorObject,
+                                  descriptionError: true,
+                                })
+                              : null
                           }
                         ></textarea>
                         {formErrorObject.descriptionError && (
-                          <FormError msg={formErrorsCreateService["description"].error} />
+                          <FormError
+                            msg={formErrorsCreateService["description"].error}
+                          />
                         )}
                       </Row>
 
@@ -224,14 +253,19 @@ const CreateService = () => {
                               name="type"
                               value={pricingDetails.type}
                               onChange={(e) => onPricingDetailUpdate(e)}
-                              onBlur={() => 
-                                pricingDetails.type === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, typeError: true }) :
-                                  null
+                              onBlur={() =>
+                                pricingDetails.type === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      typeError: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.typeError && (
-                              <FormError msg={formErrorsCreateService["type"].error} />
+                              <FormError
+                                msg={formErrorsCreateService["type"].error}
+                              />
                             )}
                             <div>Price: </div>
                             <input
@@ -239,14 +273,19 @@ const CreateService = () => {
                               name="price"
                               value={pricingDetails.price}
                               onChange={(e) => onPricingDetailUpdate(e)}
-                              onBlur={() => 
-                                pricingDetails.price === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, priceError: true }) :
-                                  null
+                              onBlur={() =>
+                                pricingDetails.price === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      priceError: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.priceError && (
-                              <FormError msg={formErrorsCreateService["price"].error} />
+                              <FormError
+                                msg={formErrorsCreateService["price"].error}
+                              />
                             )}
                             <div>Description: </div>
                             <input
@@ -254,14 +293,21 @@ const CreateService = () => {
                               name="description2"
                               value={pricingDetails.description2}
                               onChange={(e) => onPricingDetailUpdate(e)}
-                              onBlur={() => 
-                                pricingDetails.description2 === '' ? 
-                                  setPricingDetailErrorObject({ ...pricingDetailErrorObject, description2Error: true }) :
-                                  null
+                              onBlur={() =>
+                                pricingDetails.description2 === ""
+                                  ? setPricingDetailErrorObject({
+                                      ...pricingDetailErrorObject,
+                                      description2Error: true,
+                                    })
+                                  : null
                               }
                             />
                             {pricingDetailErrorObject.description2Error && (
-                              <FormError msg={formErrorsCreateService["description2"].error} />
+                              <FormError
+                                msg={
+                                  formErrorsCreateService["description2"].error
+                                }
+                              />
                             )}
                             <button onClick={(e) => addPricingDetail(e)}>
                               <span>Add Detail</span>
@@ -276,11 +322,14 @@ const CreateService = () => {
                             // style={{ marginRight: "20px" }}
                             onClick={handleSubmit}
                             // disabled={buttonText === "Creating..."}
-                            disabled={buttonText === "Creating..." || doesFormHaveErrors()}
+                            disabled={
+                              buttonText === "Creating..." ||
+                              doesFormHaveErrors()
+                            }
                             style={{
                               color: doesFormHaveErrors() && "lightgrey",
                               cursor: doesFormHaveErrors() && "not-allowed",
-                              marginRight: "20px"
+                              marginRight: "20px",
                             }}
                           >
                             <span>{buttonText}</span>

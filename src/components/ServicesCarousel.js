@@ -63,7 +63,11 @@ const ServicesCarousel = () => {
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="Color Sharp" />
+      <img
+        className="background-image-left"
+        src={colorSharp}
+        alt="Color Sharp"
+      />
     </section>
   );
 };

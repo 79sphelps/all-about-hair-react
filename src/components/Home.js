@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import NavBar from "./NavBar";
 import Banner from "./Banner";
@@ -11,7 +11,7 @@ import Footer from "./Footer";
 import Gallery from "./Gallery";
 import ContactInfo from "./ContactInfo";
 import HomePageDetails from "./admin/HomePageDetails";
-import '../App.css';
+import "../App.css";
 
 const Home = () => {
   const { isAuthenticated } = useAuth0();
@@ -23,17 +23,17 @@ const Home = () => {
   return (
     <div className="App">
       <NavBar />
-      { !isAuthenticated ? <Banner /> : null }
-      { !isAuthenticated ? <Services2 /> : null }
-      { !isAuthenticated ? <Mission /> : null }
-      { !isAuthenticated ? <Team /> : null }
-      { !isAuthenticated ? <Gallery /> : null }
-      { !isAuthenticated ? <ContactInfo /> : null }
-      { !isAuthenticated ? <Contact2 /> : null }
-      { isAuthenticated ? <HomePageDetails /> : null }
+      {!isAuthenticated ? <Banner /> : null}
+      {!isAuthenticated ? <Services2 /> : null}
+      {!isAuthenticated ? <Mission /> : null}
+      {!isAuthenticated ? <Team /> : null}
+      {!isAuthenticated ? <Gallery /> : null}
+      {!isAuthenticated ? <ContactInfo /> : null}
+      {!isAuthenticated ? <Contact2 /> : null}
+      {isAuthenticated ? <HomePageDetails /> : null}
       <Footer />
     </div>
   );
-}
+};
 
 export default Home;

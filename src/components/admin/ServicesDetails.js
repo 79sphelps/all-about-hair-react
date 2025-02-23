@@ -29,7 +29,10 @@ const ServicesDetails = () => {
   const deleteServiceMutation = useMutation({
     mutationFn: ServicesService.deleteService,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["servicesInfo"], refetchType: 'all' });
+      queryClient.invalidateQueries({
+        queryKey: ["servicesInfo"],
+        refetchType: "all",
+      });
     },
   });
 

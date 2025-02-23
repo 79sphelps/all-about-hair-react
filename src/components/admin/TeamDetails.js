@@ -10,7 +10,6 @@ import TeamService from "../../api/team.service.js";
 const TeamDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // const [buttonText, setButtonText] = useState("Edit");
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
@@ -36,7 +35,7 @@ const TeamDetails = () => {
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log('id: ', id);
+    console.log("id: ", id);
     deleteTeamMemberMutation.mutate(id);
   };
 
@@ -73,7 +72,10 @@ const TeamDetails = () => {
                             <Col lg={2} className="px-1">
                               <div>Name: {member.name}</div>
                               <div>Role: {member.role}</div>
-                              <img src={require("../../" + member.photo)} alt=""></img>
+                              <img
+                                src={require("../../" + member.photo)}
+                                alt=""
+                              ></img>
                             </Col>
                             <Col size={12} className="px-1">
                               <div
@@ -87,12 +89,10 @@ const TeamDetails = () => {
                                 Bio: <br />
                                 {member.bio}
                               </div>
-
                               <button
                                 style={{ marginRight: "20px" }}
                                 onClick={(e) => handleEdit(e, member._id)}
                               >
-                                {/* <span>{buttonText}</span> */}
                                 <span>Edit</span>
                               </button>
                               <button
@@ -100,7 +100,6 @@ const TeamDetails = () => {
                               >
                                 <span>Delete</span>
                               </button>
-                              {/* <button onClick={handleDelete}><span>{deleteBtnText}</span></button> */}
                             </Col>
                           </Row>
                         );

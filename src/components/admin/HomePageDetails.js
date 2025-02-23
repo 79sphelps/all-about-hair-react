@@ -163,8 +163,6 @@ const HomePageDetails = () => {
                       </Col>
                       <Col lg={12} className="px-1">
                         <div>About Section Sub Msg</div>
-                        {/* <input type="email" value={formDetails.aboutSubMsg || homepageDetails[0].aboutSubMsg} placeholder={homepageDetails && homepageDetails[0].aboutSubMsg} onChange={(e) => onFormUpdate('aboutSubMsg', e.target.value)} /> */}
-
                         <textarea
                           style={{ marginTop: "3px" }}
                           rows="6"
@@ -312,7 +310,6 @@ const HomePageDetails = () => {
                           }
                         />
                       </Col>
-
                       <Col size={12} className="px-1">
                         {/* <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea> */}
                         {/* <button type="submit"><span>{buttonText}</span></button> */}
@@ -341,7 +338,6 @@ const HomePageDetails = () => {
           </Col>
         </Row>
       </Container>
-
       {/* <Footer /> */}
     </section>
   );

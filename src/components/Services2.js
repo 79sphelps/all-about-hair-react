@@ -25,7 +25,7 @@ const Services2 = () => {
     error2,
   } = useQuery({
     queryKey: ["servicesInfo"],
-    queryFn: ServicesService.getServiceDetails, 
+    queryFn: ServicesService.getServiceDetails,
   });
 
   if (isLoading || isLoading2) return <Loading />;

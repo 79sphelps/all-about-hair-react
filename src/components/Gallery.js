@@ -18,7 +18,7 @@ const Gallery = () => {
     setImgPath("");
     setShow(false);
   };
-  
+
   const handleShow = (imgPath) => {
     setImgPath(imgPath);
     setShow(true);
