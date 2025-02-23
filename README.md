@@ -1,3 +1,3 @@
 # All About Hair
 
-This is a React.js application that was built for a local hair salon business in Happy Valley, OR. the app leverages the TanStack Query (React Query) library for fetching, caching, synchronizing and updating server state in the application. The app leverages the react-bootstrap library for UI. The app includes APIs for authorized CRUD operations, authentication and access management (via OAuth), and simple/complex forms with custom validation.
+This is a React.js application that was built for a local hair salon business in Happy Valley, OR. the app leverages the TanStack Query (React Query) library for fetching, caching, synchronizing and updating server state in the application. The app leverages the react-bootstrap library for UI. The app includes APIs for authorized CRUD operations, authentication and access management (via OAuth), and simple/complex forms with custom validation using the react-hook-form library.

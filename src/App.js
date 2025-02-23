@@ -15,7 +15,7 @@ const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"))
 const ServiceEdit = lazy(() => import("./components/admin/ServiceEdit"));
 const Service = lazy(() => import("./components/Service"));
 const CreateService = lazy(() => import("./components/admin/CreateService"));
-const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit"));
+const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit2"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
 const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember2"));
 

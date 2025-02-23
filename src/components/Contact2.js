@@ -61,7 +61,7 @@ const Contact2 = () => {
     setRequestSubmitted(false);
   };
 
-  function getEditorStyle(fieldError) {
+  const getEditorStyle = (fieldError) => {
     return fieldError ? "border: solid 1px red" : "";
   }
 
