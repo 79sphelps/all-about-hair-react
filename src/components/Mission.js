@@ -7,7 +7,7 @@ import HomepageService from "../api/homepage.service.js";
 import laptopImg from "../assets/img/about-img.jpg";
 
 const Mission = () => {
-  let {
+  const {
     isLoading,
     isError,
     // data: bannerInfo,

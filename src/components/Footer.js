@@ -7,7 +7,7 @@ import HomepageService from "../api/homepage.service.js";
 import Loading from "./Loading";
 
 const Footer = () => {
-  let {
+  const {
     isLoading,
     isError,
     // data: bannerInfo,

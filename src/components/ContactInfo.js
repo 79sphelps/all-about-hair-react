@@ -5,7 +5,7 @@ import ContactService from "../api/contact.service.js";
 import Loading from "./Loading";
 
 const ContactInfo = () => {
-  let {
+  const {
     isLoading,
     isError,
     data: contactInfo,

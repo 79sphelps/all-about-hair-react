@@ -8,7 +8,7 @@ import HomepageService from "../api/homepage.service.js";
 import "../style.css";
 
 const Services2 = () => {
-  let {
+  const {
     isLoading,
     isError,
     data: homepageInfo,
@@ -18,7 +18,7 @@ const Services2 = () => {
     queryFn: HomepageService.getHomepageDetails,
   });
 
-  let {
+  const {
     isLoading2,
     isError2,
     data: servicesInfo,

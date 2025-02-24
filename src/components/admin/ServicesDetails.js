@@ -11,7 +11,7 @@ const ServicesDetails = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
-  let {
+  const {
     isLoading,
     isError,
     data: servicesInfo,

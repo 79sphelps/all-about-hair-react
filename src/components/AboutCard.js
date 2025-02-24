@@ -6,7 +6,7 @@ import HomepageService from "../api/homepage.service.js";
 import Loading from "./Loading";
 
 const AboutCard = () => {
-  let {
+  const {
     isLoading,
     isError,
     data: homepageInfo,

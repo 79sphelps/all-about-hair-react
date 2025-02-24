@@ -16,7 +16,7 @@ const Service = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  let {
+  const {
     isLoading,
     isError,
     data: serviceDetails,

@@ -16,7 +16,7 @@ const TeamDetails = () => {
     navigate(`/admin/team-member-edit/${id}`, { state: { id: id } });
   };
 
-  let {
+  const {
     isLoading,
     isError,
     data: teamInfo,

@@ -43,7 +43,7 @@ const Gallery = () => {
     },
   };
 
-  let {
+  const {
     isLoading,
     isError,
     data: galleryPics,

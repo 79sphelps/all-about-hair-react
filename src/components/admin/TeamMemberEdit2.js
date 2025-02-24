@@ -62,7 +62,7 @@ const TeamMemberEdit = () => {
     updateTeamMemberDetailsEdit(e);
   };
 
-  let {
+  const {
     isLoading,
     isError,
     data: teamMemberDetails,

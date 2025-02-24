@@ -7,7 +7,7 @@ import HomepageService from "../api/homepage.service.js";
 import Loading from "./Loading";
 
 const Team = () => {
-  let {
+  const {
     isLoading,
     isError,
     data: homepageInfo,
@@ -17,7 +17,7 @@ const Team = () => {
     queryFn: HomepageService.getHomepageDetails,
   });
 
-  let {
+  const {
     isLoading2,
     isError2,
     data: teamInfo,

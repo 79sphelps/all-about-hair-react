@@ -21,7 +21,7 @@ const Banner = () => {
     "Defining Unique You!",
   ];
 
-  let {
+  const {
     isLoading,
     isError,
     data: bannerInfo,

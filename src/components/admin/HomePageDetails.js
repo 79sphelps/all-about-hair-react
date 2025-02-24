@@ -60,7 +60,7 @@ const HomePageDetails = () => {
     updateHomepageDetailsEdit();
   };
 
-  let {
+  const {
     isLoading,
     isError,
     data: homepageDetails,
