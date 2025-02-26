@@ -74,7 +74,7 @@ const HomePageDetails = () => {
     navigate("/");
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || homepageDetails === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

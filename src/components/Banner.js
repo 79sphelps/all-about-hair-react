@@ -68,7 +68,7 @@ const Banner = () => {
     }
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || bannerInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

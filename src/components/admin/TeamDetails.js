@@ -39,7 +39,7 @@ const TeamDetails = () => {
     deleteTeamMemberMutation.mutate(id);
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || teamInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

@@ -26,7 +26,7 @@ const Service = () => {
     queryFn: () => ServicesService.getServiceDetail(location.state.id),
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || serviceDetails === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

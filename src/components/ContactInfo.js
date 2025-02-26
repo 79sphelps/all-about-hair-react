@@ -15,7 +15,7 @@ const ContactInfo = () => {
     queryFn: ContactService.getContactInfo,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || contactInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

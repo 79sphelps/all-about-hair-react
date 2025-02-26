@@ -53,7 +53,7 @@ const Gallery = () => {
     queryFn: ImageService.getGalleryImages,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || galleryPics === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

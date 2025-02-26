@@ -16,7 +16,7 @@ const AboutCard = () => {
     queryFn: HomepageService.getHomepageDetails,
   });
 
-  if (isLoading) return <Loading />;
+  if (isLoading || homepageInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (

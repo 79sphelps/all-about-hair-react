@@ -27,7 +27,7 @@ const Team = () => {
     queryFn: TeamService.getTeamDetails,
   });
 
-  if (isLoading || isLoading2) return <Loading />;
+  if (isLoading || isLoading2 || homepageInfo === undefined || teamInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
   if (isError2) return `Error: ${error2.message}`;
 

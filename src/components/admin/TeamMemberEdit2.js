@@ -76,7 +76,7 @@ const TeamMemberEdit = () => {
     navigate("/admin/team-details");
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || teamMemberDetails === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   if (initialUpdateFlag === false) {

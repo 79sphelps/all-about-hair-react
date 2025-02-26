@@ -41,7 +41,7 @@ const ServicesDetails = () => {
     deleteServiceMutation.mutate(id);
   };
 
-  if (isLoading) return <Loading />;
+  if (isLoading || servicesInfo === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (
