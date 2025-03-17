@@ -6,10 +6,16 @@ class ContactService {
     async getContactInfo() {
         try {
             const response = await fetch(GET_ADMIN_CONTACT_ENDPOINT);
-            if (!response.ok) throw new Error('The fetch for contact info failed for some reason.');
+            if (!response.ok) {
+                throw new Error('The fetch for contact info failed for some reason.');
+            }
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 }

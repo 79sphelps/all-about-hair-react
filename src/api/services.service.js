@@ -10,7 +10,11 @@ class ServicesService {
             if (!response.ok) throw new Error('The fetch for service details info failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 
@@ -20,7 +24,11 @@ class ServicesService {
             if (!response.ok) throw new Error('The fetch for service detail by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 
@@ -33,7 +41,11 @@ class ServicesService {
             if (!response.ok) throw new Error('The fetch for deleting service by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 
@@ -50,7 +62,11 @@ class ServicesService {
             if (!response.ok) throw new Error('The fetch for service creation failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 
@@ -67,7 +83,11 @@ class ServicesService {
             if (!response.ok) throw new Error('The fetch for service update by ID failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 }

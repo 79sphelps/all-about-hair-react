@@ -9,7 +9,11 @@ class HomepageService {
             if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 
@@ -27,7 +31,11 @@ class HomepageService {
             if (!response.ok) throw new Error('The fetch for homepage info failed for some reason.');
             return response.json(); 
         } catch (error) {
-            console.error('Error fetching data:', error);
+            if (error instanceof Error) {
+                console.error('An error occurred while fetching data:', error);
+            } else {
+                console.error('An unknown error occurred');
+            }
         }
     }
 }
