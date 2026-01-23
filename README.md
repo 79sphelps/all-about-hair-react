@@ -17,6 +17,7 @@ Salon owners and staff managing site content
 <li>
 Customers viewing services, hours, and contact information
 </li>
+</ul>
 </p>
 
 <p>
