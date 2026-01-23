@@ -6,7 +6,6 @@ import App from './App.js';
 import { useAuth0 } from "@auth0/auth0-react";
 // import loading from "./assets/img/loading.svg";
 
-
 // if you're using jest 27.4.0+ and ts-jest 28.0.0+
 // import { mocked } from "jest-mock";
 // import { cleanup } from '@testing-library/react';
@@ -32,7 +31,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 // jest.mock("./components/admin/TeamDetails.js");
 // jest.mock("./components/admin/CreateTeamMember2.js");
 // jest.mock("./components/Loading");
-
 
 jest.mock('@auth0/auth0-react', () => ({
   useAuth0: jest.fn(),
