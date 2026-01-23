@@ -22,10 +22,11 @@ const Home = () => {
   }, []);
 
   useEffect(
-    () =>
+    () => {
       toast(
         "Because the backend uses the free tier of Render.com, it may take up to 30+ seconds to wake up the server on the first request. Annoying, yes, but...free has a cost, LOL."
-      ),
+      )
+    },
     []
   );
 
