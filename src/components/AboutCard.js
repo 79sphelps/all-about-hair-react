@@ -4,6 +4,11 @@ import { ImPointRight } from "react-icons/im";
 import { useQuery } from "@tanstack/react-query";
 import HomepageService from "../api/homepage.service.js";
 import Loading from "./Loading";
+import {
+  ABOUT_QUALITIES_ARY,
+  ABOUT_MISSION_STATEMENT_TEXT,
+  ABOUT_MISSION_STATEMENT_SUBTEXT,
+} from "./data.js";
 
 const AboutCard = () => {
   const {
@@ -28,20 +33,24 @@ const AboutCard = () => {
               {homepageInfo && homepageInfo[0].aboutSubMsg}
             </p>
             <ul>
-              <li className="about-activity">
-                <ImPointRight /> Great Customer Service
-              </li>
-              <li className="about-activity">
-                <ImPointRight /> Professional Cuts and Styles
-              </li>
-              <li className="about-activity">
-                <ImPointRight /> Flexible Scheduling
-              </li>
+              {ABOUT_QUALITIES_ARY.map((item, idx) => (
+                <li className="about-activity" key={idx}>
+                  <ImPointRight /> {item}
+                </li>
+              ))}
             </ul>
-            <p style={{ color: "rgb(155 126 172)", marginBottom: 15, marginTop: 15 }}>
-              "Styling hair that makes a difference!"{" "}
+            <p
+              style={{
+                color: "rgb(155 126 172)",
+                marginBottom: 15,
+                marginTop: 15,
+              }}
+            >
+              "{ABOUT_MISSION_STATEMENT_TEXT}"
             </p>
-            <footer className="blockquote-footer">mission statement</footer>
+            <footer className="blockquote-footer">
+              {ABOUT_MISSION_STATEMENT_SUBTEXT}
+            </footer>
           </blockquote>
         </Card.Body>
       </Card>

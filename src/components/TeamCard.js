@@ -50,13 +50,13 @@ const TeamCard = (props) => {
           </a>
         </div> */}
         <div className="team-social-icon">
-          <a href="#">
+          <a href="#home">
             <img src={navIcon1} alt="" />
           </a>
-          <a href="#">
+          <a href="#home">
             <img src={navIcon2} alt="" />
           </a>
-          <a href="#">
+          <a href="#home">
             <img src={navIcon3} alt="" />
           </a>
         </div>

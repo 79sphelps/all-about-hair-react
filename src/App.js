@@ -8,6 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Loading from "./components/Loading";
 import './App.css';
+import './style.css';
 
 const Home = lazy(() => import("./components/Home"));
 const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
@@ -19,7 +20,7 @@ const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit2"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
 const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember2"));
 
-function App() {
+const App = () => {
   const { isLoading, error, isAuthenticated } = useAuth0();
 
   if (error) {
@@ -31,7 +32,9 @@ function App() {
   }
 
   return (
-    <Router>
+    <Router future={{
+        v7_startTransition: true,
+      }}>
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route exact path="/" element={<Home />} />

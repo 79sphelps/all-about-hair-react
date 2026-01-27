@@ -5,7 +5,7 @@ import Services2Card from "./Services2Card";
 import Loading from "./Loading";
 import ServicesService from "../api/services.service.js";
 import HomepageService from "../api/homepage.service.js";
-import "../style.css";
+// import "../style.css";
 
 const Services2 = () => {
   const {
@@ -50,7 +50,7 @@ const Services2 = () => {
             <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
               {servicesInfo &&
                 // servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
-                servicesInfo.map((service, idx) => {
+                servicesInfo.map((service) => {
                   return (
                     <Col
                       xl={4}

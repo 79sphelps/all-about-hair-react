@@ -8,6 +8,12 @@ import { useForm } from "react-hook-form";
 import RequestsService from "../api/requests.service";
 import contactImg from "../assets/img/contact-img.svg";
 
+import {
+  CONTACT_FORM_INPUTS_ARY,
+  CONTACT_FORM_SUCCESS_TEXT,
+  CONTACT_FORM_SUCCESS_SUBTEXT,
+} from "./data";
+
 const ValidationError = ({ fieldError }) => {
   if (!fieldError) return null;
   return (
@@ -63,7 +69,14 @@ const Contact2 = () => {
 
   const getEditorStyle = (fieldError) => {
     return fieldError ? "border: solid 1px red" : "";
-  }
+  };
+
+  const ERRORS_OBJ = {
+    firstName: errors.firstName,
+    lastName: errors.lastName,
+    email: errors.email,
+    phone: errors.phone,
+  };
 
   return (
     <section className="contact" id="contact">
@@ -94,75 +107,23 @@ const Contact2 = () => {
                   {!requestSubmitted ? (
                     <form noValidate onSubmit={handleSubmit(handleSubmit2)}>
                       <Row>
-                        <Col size={12} sm={6} className="px-1">
-                          <input
-                            className={getEditorStyle(errors.firstName)}
-                            type="text"
-                            id="firstName"
-                            placeholder="First Name"
-                            {...register("firstName", {
-                              required: "You must enter a valid first name",
-                              minLength: {
-                                value: 2,
-                                message:
-                                  "First name must be at least 2 characters",
-                              },
-                            })}
-                          />
-                          <ValidationError fieldError={errors.firstName} />
-                        </Col>
-                        <Col size={12} sm={6} className="px-1">
-                          <input
-                            className={getEditorStyle(errors.lastName)}
-                            type="text"
-                            id="lastName"
-                            placeholder="Last Name"
-                            {...register("lastName", {
-                              required: "You must enter a valid last name",
-                              minLength: {
-                                value: 2,
-                                message:
-                                  "Last name must be at least 2 characters",
-                              },
-                            })}
-                          />
-                          <ValidationError fieldError={errors.lastName} />
-                        </Col>
-                        <Col size={12} sm={6} className="px-1">
-                          <input
-                            className={getEditorStyle(errors.email)}
-                            type="email"
-                            id="email"
-                            placeholder="Email Address"
-                            {...register("email", {
-                              required: "You must enter a valid email",
-                              pattern: {
-                                value: /\S+@\S+\.\S+/,
-                                message:
-                                  "Entered value does not match email format",
-                              },
-                            })}
-                          />
-                          <ValidationError fieldError={errors.email} />
-                        </Col>
-                        <Col size={12} sm={6} className="px-1">
-                          <input
-                            className={getEditorStyle(errors.phone)}
-                            type="tel"
-                            id="phone"
-                            placeholder="Phone No."
-                            {...register("phone", {
-                              required: "You must enter a valid phone number",
-                              pattern: {
-                                value:
-                                  /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/,
-                                message:
-                                  "Entered value does not match phone format",
-                              },
-                            })}
-                          />
-                          <ValidationError fieldError={errors.phone} />
-                        </Col>
+                        {CONTACT_FORM_INPUTS_ARY.map((item, idx) => (
+                          <Col size={12} sm={6} className="px-1" key={idx}>
+                            <input
+                              className={getEditorStyle(ERRORS_OBJ[item.class])}
+                              type="text"
+                              id={item.id}
+                              placeholder={item.placeholder}
+                              {...register(
+                                item.register_obj.register_txt,
+                                item.register_obj,
+                              )}
+                            />
+                            <ValidationError
+                              fieldError={ERRORS_OBJ[item.class]}
+                            />
+                          </Col>
+                        ))}
                         <Col size={12} className="px-1">
                           <textarea
                             className={getEditorStyle(errors.message)}
@@ -213,7 +174,7 @@ const Contact2 = () => {
                     <>
                       <Col size={12} className="px-1">
                         <h1 className="project-heading">
-                          Thank you for your request
+                          {CONTACT_FORM_SUCCESS_TEXT}
                         </h1>
                         <p
                           style={{
@@ -222,8 +183,7 @@ const Contact2 = () => {
                             marginBottom: "20px",
                           }}
                         >
-                          An experienced team member will respond most likely in
-                          the next 24 to 48 hours.
+                          {CONTACT_FORM_SUCCESS_SUBTEXT}
                         </p>
                         <div className="contact-submit">
                           <button

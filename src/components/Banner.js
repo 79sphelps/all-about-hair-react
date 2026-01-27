@@ -7,6 +7,12 @@ import "animate.css";
 import HomepageService from "../api/homepage.service.js";
 import Loading from "./Loading";
 import headerImg from "../assets/img/header-img-min.png";
+import {
+  BANNER_TITLE_TEXT,
+  BANNER_HEADLINE_TEXT,
+  BANNER_CONNECT_TEXT,
+  BANNER_ROTATING_TEXT_ARY,
+} from "./data.js";
 
 const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -15,11 +21,6 @@ const Banner = () => {
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   // const [index, setIndex] = useState(1);
   const period = 2000;
-  const toRotate = [
-    "Special Occasions",
-    "All Occasions",
-    "Defining Unique You!",
-  ];
 
   const {
     isLoading,
@@ -42,8 +43,8 @@ const Banner = () => {
   }, [text]);
 
   const tick = () => {
-    let i = loopNum % toRotate.length;
-    let fullText = toRotate[i];
+    let i = loopNum % BANNER_ROTATING_TEXT_ARY.length;
+    let fullText = BANNER_ROTATING_TEXT_ARY[i];
     let updatedText = isDeleting
       ? fullText.substring(0, text.length - 1)
       : fullText.substring(0, text.length + 1);
@@ -85,19 +86,18 @@ const Banner = () => {
                     }
                   >
                     <span className="tagline animate__animated animate__bounce">
-                      All About Hair
+                      {BANNER_TITLE_TEXT}
                     </span>
-                    {/* <h1>{`Hair Styling is a Must Try Fashion for`} <span className="txt-rotate" dataPeriod="1000" data-rotate='[ "Special Occasions", "All Occasions", "Going to the Dentist" ]'><span className="wrap">{text}</span></span></h1> */}
                     <h1>
-                      {`Hair Styling is a Must Try Fashion for`}{" "}
+                      {BANNER_HEADLINE_TEXT}{" "}
                       <span
                         className="txt-rotate"
-                        data-rotate='[ "Special Occasions", "All Occasions", "Defining Unique You!" ]'
+                        // dataPeriod="1000"
+                        data-rotate={ BANNER_ROTATING_TEXT_ARY }
                       >
                         <span className="wrap">{text}</span>
                       </span>
                     </h1>
-                    {/* <p>At All About Hair, we provide custom salon care at an affordable price.</p> */}
                     <p>{bannerInfo && bannerInfo[0].headlineSubMsg}</p>
                     <button
                       className="animate__animated animate__backInLeft"
@@ -105,7 +105,7 @@ const Banner = () => {
                         document.getElementById("contact").scrollIntoView();
                       }}
                     >
-                      Let’s Connect <ArrowRightCircle size={25} />
+                      {BANNER_CONNECT_TEXT} <ArrowRightCircle size={25} />
                     </button>
                   </div>
                 )}

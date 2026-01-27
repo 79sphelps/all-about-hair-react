@@ -3,6 +3,22 @@ import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
 import ContactService from "../api/contact.service.js";
 import Loading from "./Loading";
+import Contact2 from "./Contact2";
+import {
+  CONTACT_INFO_TITLE_TEXT,
+  CONTACT_INFO_SUBTITLE_TEXT,
+  CONTACT_INFO_TITLE2_TEXT,
+  CONTACT_INFO_TITLE2_SUBTEXT,
+  CONTACT_INFO_TITLE3_TEXT,
+  CONTACT_INFO_TITLE3_SUBTEXT,
+  CONTACT_INFO_TITLE4_TEXT,
+  CONTACT_INFO_TITLE4_SUBTEXT,
+  CONTACT_INFO_VISIT_LOCATION_TEXT,
+  CONTACT_INFO_CALL_US_TEXT,
+  CONTACT_INFO_EMAIL_US_TEXT,
+  CONTACT_INFO_SALON_HOURS_TEXT,
+} from './data';
+
 
 const ContactInfo = () => {
   const {
@@ -24,45 +40,37 @@ const ContactInfo = () => {
         <Container fluid className="contact-info-section">
           {/* <Particle /> */}
           <Container>
-            <h1 className="project-heading">Salon Information</h1>
+            <h1 className="project-heading">{ CONTACT_INFO_TITLE_TEXT }</h1>
             <p style={{ color: "white", marginTop: "0", marginBottom: "20px" }}>
-              An experienced team member is almost always available during salon
-              hours.
+              { CONTACT_INFO_SUBTITLE_TEXT }
             </p>
             <br />
-            <div style={{ fontSize: "1.8rem" }}>Cuts</div>
-            Whether you're in need of a clean-up, a new style, or a
-            gender-affirming transformation, we've got you covered. Our
-            experienced stylists are here for all your haircut needs.
+            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE2_TEXT }</div>
+            { CONTACT_INFO_TITLE2_SUBTEXT }
             <br />
             <br />
-            <div style={{ fontSize: "1.8rem" }}>Coloring</div>
-            From subtle to fantasy, our experienced stylists can give you the
-            color you've been dreaming of. Need a little inspiration? Book a
-            color consultation with a stylist and we will help you on your color
-            journey.
+            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE3_TEXT }</div>
+            { CONTACT_INFO_TITLE3_SUBTEXT }
             <br />
             <br />
-            <div style={{ fontSize: "1.8rem" }}>A-La-Carte</div>
-            We offer a variety of a-la-carte services, from hair treatments and
-            styling to beard care, we have all the cutting-edge services you
-            need!
+            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE4_TEXT }</div>
+            { CONTACT_INFO_TITLE4_SUBTEXT }
             {contactInfo && (
               <Row style={{ marginBottom: "0px", marginTop: "20px" }}>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Visit Our Salon</h3>
+                  <h3>{ CONTACT_INFO_VISIT_LOCATION_TEXT }</h3>
                   {contactInfo[0].location}
                 </Col>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Call Us</h3>
+                  <h3>{ CONTACT_INFO_CALL_US_TEXT }</h3>
                   {contactInfo[0].phone}
                 </Col>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Email Us</h3>
+                  <h3>{ CONTACT_INFO_EMAIL_US_TEXT }</h3>
                   {contactInfo[0].email}
                 </Col>
                 <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>Salon Hours</h3>
+                  <h3>{ CONTACT_INFO_SALON_HOURS_TEXT }</h3>
                   <ul>
                     {contactInfo[0].hours.map((time) => {
                       return <li key={time}>{time}</li>;
@@ -73,6 +81,9 @@ const ContactInfo = () => {
             )}
           </Container>
         </Container>
+        <div style={{ marginTop: '20px' }}>
+          <Contact2 />
+        </div>
       </section>
     )
   );
