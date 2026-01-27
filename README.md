@@ -49,7 +49,7 @@ Avoided ongoing CMS or platform subscription costs
 <p>
 <ul>
 <li>
-<b>MEAN stack (Angular + Node/Express + MongoDB)</b> for a single-language JavaScript stack
+<b>MERN stack (React.js + Node/Express + MongoDB)</b> for a single-language JavaScript stack
 </li>
 <li>
 <b>JWT-based OAuth authentication</b> with automatic token renewal for secure admin access
@@ -58,7 +58,7 @@ Avoided ongoing CMS or platform subscription costs
 <b>RESTful APIs</b> to support CRUD operations for site content
 </li>
 <li>
-<b>Bootstrap 4</b> for responsive layouts and rapid UI development
+<b>Bootstrap</b> for responsive layouts and rapid UI development
 </li>
 <li>
 <b>Google Calendar API integration</b> to surface scheduling data
