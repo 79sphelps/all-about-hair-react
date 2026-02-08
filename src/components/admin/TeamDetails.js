@@ -63,7 +63,7 @@ const TeamDetails = () => {
                     isVisible ? "animate__animated animate__fadeIn" : ""
                   }
                 >
-                  <h2>Update Services Details</h2>
+                  <h2>Update Team Details</h2>
                   <form>
                     {teamInfo &&
                       teamInfo.map((member, idx) => {

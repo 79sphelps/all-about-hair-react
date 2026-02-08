@@ -21,14 +21,11 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(
-    () => {
-      toast(
-        "Because the backend uses the free tier of Render.com, it may take up to 30+ seconds to wake up the server on the first request. Annoying, yes, but...free has a cost, LOL."
-      )
-    },
-    []
-  );
+  useEffect(() => {
+    toast(
+      "Because the backend uses the free tier of Render.com, it may take up to 30+ seconds to wake up the server on the first request. Annoying, yes, but...free has a cost, LOL.",
+    );
+  }, []);
 
   return (
     <div className="App">
@@ -45,13 +42,16 @@ const Home = () => {
         pauseOnHover
         theme="light"
       />
-      {!isAuthenticated ? <Banner /> : null}
-      {!isAuthenticated ? <Services2 /> : null}
-      {!isAuthenticated ? <Mission /> : null}
-      {!isAuthenticated ? <Team /> : null}
-      {!isAuthenticated ? <Gallery /> : null}
-      {!isAuthenticated ? <ContactInfo /> : null}
-      {/* {!isAuthenticated ? <Contact2 /> : null} */}
+      {!isAuthenticated && (
+        <>
+          <Banner />
+          <Services2 />
+          <Mission />
+          <Team />
+          <Gallery />
+          <ContactInfo />
+        </>
+      )}
       {isAuthenticated ? <HomePageDetails /> : null}
       <Footer />
     </div>

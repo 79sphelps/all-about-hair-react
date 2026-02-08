@@ -1,70 +1,41 @@
-# Overview - Small Business Site - All About Hair
+# Overview – Small Business Site: All About Hair
 
-This is a React.js application that was built for a local hair salon business in Happy Valley, OR. the app leverages the TanStack Query (React Query) library for fetching, caching, synchronizing and updating server state in the application. The app leverages the react-bootstrap library for UI. The app includes APIs for authorized CRUD operations, authentication and access management (via OAuth), and simple/complex forms with custom validation using the react-hook-form library.
+This is a **React.js** application built for a local hair salon business in Happy Valley, OR.
 
-<p>
-<b>All About Hair</b> is a full-stack web application built for a small business salon to manage its public website and internal content through a secure admin interface.
-</p>
+The app leverages:
+- **TanStack Query (React Query)** for fetching, caching, synchronizing, and updating server state
+- **react-bootstrap** for UI components and responsive layouts
+- Secure APIs supporting authorized CRUD operations
+- **OAuth-based authentication and access management**
+- **react-hook-form** for simple and complex forms with custom validation
 
-<p>
-<b>Who This Is For</b>
-</p>
-<p>
-<ul>
-<li>
-Salon owners and staff managing site content
-</li>
-<li>
-Customers viewing services, hours, and contact information
-</li>
-</ul>
-</p>
+**All About Hair** is a full-stack web application designed to manage both a public-facing website and internal salon content through a secure admin interface.
 
-<p>
-<b>Problem It Solves</b>
-</p>
-<p>
-<ul>
-<li>
+---
+
+## Who This Is For
+
+- Salon owners and staff managing site content
+- Customers viewing services, hours, and contact information
+
+---
+
+## Problem It Solves
+
 The business needed a custom website that:
-</li>
-<li>
-Allowed non-technical users to update content
-</li>
-<li>
-Secured administrative access
-</li>
-<li>
-Integrated scheduling tools
-</li>
-<li>
-Avoided ongoing CMS or platform subscription costs
-</li>
-</ul>
-</p>
 
-<p>
-<b>Architecture & Technical Decisions</b>
-</p>
-<p>
-<ul>
-<li>
-<b>MERN stack (React.js + Node/Express + MongoDB)</b> for a single-language JavaScript stack
-</li>
-<li>
-<b>JWT-based OAuth authentication</b> with automatic token renewal for secure admin access
-</li>
-<li>
-<b>RESTful APIs</b> to support CRUD operations for site content
-</li>
-<li>
-<b>Bootstrap</b> for responsive layouts and rapid UI development
-</li>
-<li>
-<b>Google Calendar API integration</b> to surface scheduling data
-</li>
-<li>
-<b>MongoDB Atlas</b> for cloud-hosted document storage
-</li>
-</ul>
-</p>
+- Allows non-technical users to update content
+- Secures administrative access
+- Integrates scheduling tools
+- Avoids ongoing CMS or platform subscription costs
+
+---
+
+## Architecture & Technical Decisions
+
+- **MERN stack (React.js + Node.js/Express + MongoDB)** for a single-language JavaScript ecosystem
+- **JWT-based OAuth authentication** with automatic token renewal for secure admin access
+- **RESTful APIs** supporting full CRUD operations for site content
+- **Bootstrap** for responsive layouts and rapid UI development
+- **Google Calendar API integration** to surface scheduling data
+- **MongoDB Atlas** for cloud-hosted document storage

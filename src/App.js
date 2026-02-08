@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Loading from "./components/Loading";
 import './App.css';
 import './style.css';
+import NotFound from './components/NotFound';
 
 const Home = lazy(() => import("./components/Home"));
 const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
@@ -48,6 +49,7 @@ const App = () => {
           <Route exact path="/admin/team-member-add" element={ isAuthenticated ? <CreateTeamMember /> : <Home />} />
           {/* <Route path="/callback" component={CallbackPage} /> */}
           {/* <Route exact path="/" component={isAuthenticated ? CallbackPage : Home} /> */}
+          <Route exact path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </Router>

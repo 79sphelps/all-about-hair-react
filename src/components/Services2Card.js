@@ -30,16 +30,17 @@ const Services2Card = (props) => {
         <Card.Text style={{ textAlign: "justify" }}>
           {props.description}
         </Card.Text>
-        <Button
-          variant="primary"
-          onClick={() =>
-            navigate(`/services/${props.id}`, { state: { id: props.id } })
-          }
-        >
-          More Details
-        </Button>
-        {"\n"}
-        {"\n"}
+        <div className="service-button-container">
+          <Button
+          className="service-button"
+            variant="primary"
+            onClick={() =>
+              navigate(`/services/${props.id}`, { state: { id: props.id } })
+            }
+          >
+            More Details
+          </Button>
+        </div>
         <Modal
           show={show}
           onHide={handleClose}

@@ -25,16 +25,17 @@ const TeamCard = (props) => {
         <Card.Text style={{ textAlign: "justify", marginBottom: "14px" }}>
           {props.description}
         </Card.Text>
-        <Button
-          variant="primary"
-          href={props.ghLink}
-          target="_blank"
-          onClick={handleShow}
-        >
-          Full Profile
-        </Button>
-        {"\n"}
-        {"\n"}
+        <div className="team-profile-button-container">
+          <Button
+            variant="primary"
+            href={props.ghLink}
+            target="_blank"
+            onClick={handleShow}
+            className="team-profile-button"
+          >
+            Full Profile
+          </Button>
+        </div>
         {/* <div className="text">
           <a href="#">
             {" "}
@@ -49,16 +50,18 @@ const TeamCard = (props) => {
             <i className="fa fa-linkedin"></i>{" "}
           </a>
         </div> */}
-        <div className="team-social-icon">
-          <a href="#home">
-            <img src={navIcon1} alt="" />
-          </a>
-          <a href="#home">
-            <img src={navIcon2} alt="" />
-          </a>
-          <a href="#home">
-            <img src={navIcon3} alt="" />
-          </a>
+        <div className="team-social-icons-container">
+          <div className="team-social-icon">
+            <a href="#home">
+              <img src={navIcon1} alt="" />
+            </a>
+            <a href="#home">
+              <img src={navIcon2} alt="" />
+            </a>
+            <a href="#home">
+              <img src={navIcon3} alt="" />
+            </a>
+          </div>
         </div>
         <Modal
           show={show}
