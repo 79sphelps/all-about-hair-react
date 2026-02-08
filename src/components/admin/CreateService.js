@@ -10,9 +10,9 @@ import {
   formErrorsCreateService,
   getFormErrorObjectCreateService,
   getPricingDetailErrorObject,
-} from "./common.js";
-import NavBar from "../NavBar";
-import ServicesService from "../../api/services.service.js";
+} from "../../lib/common.js";
+import NavBar from "../../ui/NavBar";
+import ServicesService from "../../services/services.service.js";
 
 const CreateService = () => {
   let formInitialDetails = {

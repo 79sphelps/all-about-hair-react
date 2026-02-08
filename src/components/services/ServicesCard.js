@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Table from "react-bootstrap/Table";
 
-const Services2Card = (props) => {
+const ServicesCard = (props) => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -103,4 +103,4 @@ const Services2Card = (props) => {
   );
 };
 
-export default Services2Card;
+export default ServicesCard;

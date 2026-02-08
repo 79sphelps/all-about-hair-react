@@ -15,7 +15,7 @@ const Home = lazy(() => import("./components/Home"));
 const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
 const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"));
 const ServiceEdit = lazy(() => import("./components/admin/ServiceEdit"));
-const Service = lazy(() => import("./components/Service"));
+const Service = lazy(() => import("./components/services/Service"));
 const CreateService = lazy(() => import("./components/admin/CreateService"));
 const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit2"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));

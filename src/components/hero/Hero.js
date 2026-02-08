@@ -4,17 +4,17 @@ import { ArrowRightCircle } from "react-bootstrap-icons";
 import TrackVisibility from "react-on-screen";
 import { useQuery } from "@tanstack/react-query";
 import "animate.css";
-import HomepageService from "../api/homepage.service.js";
-import Loading from "./Loading";
-import headerImg from "../assets/img/header-img-min.png";
+import HomepageService from "../../services/homepage.service.js";
+import Loading from "../Loading.js";
+import headerImg from "../../assets/img/header-img-min.png";
 import {
   BANNER_TITLE_TEXT,
   BANNER_HEADLINE_TEXT,
   BANNER_CONNECT_TEXT,
   BANNER_ROTATING_TEXT_ARY,
-} from "./data.js";
+} from "../../lib/data.js";
 
-const Banner = () => {
+const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [text, setText] = useState("");
@@ -131,4 +131,4 @@ const Banner = () => {
   );
 };
 
-export default Banner;
+export default Hero;

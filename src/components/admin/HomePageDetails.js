@@ -5,8 +5,8 @@ import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import Loading from "../Loading";
-import NavBar from "../NavBar";
-import HomepageService from "../../api/homepage.service.js";
+import NavBar from "../../ui/NavBar";
+import HomepageService from "../../services/homepage.service.js";
 
 const HomePageDetails = () => {
   const formInitialDetails = {
@@ -43,11 +43,9 @@ const HomePageDetails = () => {
     updateHomepageDetailsMutation.mutate({ id, ...formDetails });
   };
 
-  const onFormUpdate = (category, value) => {
-    setFormDetails({
-      ...formDetails,
-      [category]: value,
-    });
+  const onFormUpdate = (e) => {
+    const { name, value } = e.target;
+    setFormDetails(values => ({...values, [name]: value}));
   };
 
   const handleSubmit = async (e) => {
@@ -77,12 +75,92 @@ const HomePageDetails = () => {
   if (isLoading || homepageDetails === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
+  const FORM_INPUTS_ARRAY = [
+    {
+      title: "Headline",
+      name: "headline",
+      value: formDetails.headline || homepageDetails[0].headline,
+      placeholder: homepageDetails && homepageDetails[0].headline,
+    },
+    {
+      title: "Headline Sub M",
+      name: "headlineSubMsg",
+      value: formDetails.headlineSubMsg || homepageDetails[0].headlineSubMsg,
+      placeholder: homepageDetails && homepageDetails[0].headlineSubMsg,
+    },
+    {
+      title: "Services Headline",
+      name: "servicesHeadline",
+      value:
+        formDetails.servicesHeadline || homepageDetails[0].servicesHeadline,
+      placeholder: homepageDetails && homepageDetails[0].servicesHeadline,
+    },
+    {
+      title: "About Section Headline",
+      name: "aboutHeadline",
+      value: formDetails.aboutHeadline || homepageDetails[0].aboutHeadline,
+      placeholder: homepageDetails && homepageDetails[0].aboutHeadline,
+    },
+    {
+      title: "About Image",
+      name: "aboutImage",
+      value: formDetails.aboutImage || homepageDetails[0].aboutImage,
+      placeholder: homepageDetails && homepageDetails[0].aboutImage,
+    },
+    {
+      title: "About Section Video Link",
+      name: "aboutVideoLink",
+      value: formDetails.aboutVideoLink || homepageDetails[0].aboutVideoLink,
+      placeholder: homepageDetails && homepageDetails[0].aboutVideoLink,
+    },
+    {
+      title: "Stylists Section Headline",
+      name: "stylistsHeadline",
+      value:
+        formDetails.stylistsHeadline || homepageDetails[0].stylistsHeadline,
+      placeholder: homepageDetails && homepageDetails[0].stylistsHeadline,
+    },
+    {
+      title: "Stylists Section Sub Msg",
+      name: "stylistsSubMsg",
+      value: formDetails.stylistsSubMsg || homepageDetails[0].stylistsSubMsg,
+      placeholder: homepageDetails && homepageDetails[0].stylistsSubMsg,
+    },
+    {
+      title: "Service Details Section Headline",
+      name: "serviceDetailsHeadline",
+      value:
+        formDetails.serviceDetailsHeadline ||
+        homepageDetails[0].serviceDetailsHeadline,
+      placeholder: homepageDetails && homepageDetails[0].stylistsSubMsg,
+    },
+    {
+      title: "Service Details Section Sub Msg",
+      name: "serviceDetailsSubMsg",
+      value:
+        formDetails.serviceDetailsSubMsg ||
+        homepageDetails[0].serviceDetailsSubMsg,
+      placeholder: homepageDetails && homepageDetails[0].serviceDetailsSubMsg,
+    },
+    {
+      title: "Contact Section Headline",
+      name: "contactHeadline",
+      value: formDetails.contactHeadline || homepageDetails[0].contactHeadline,
+      placeholder: homepageDetails && homepageDetails[0].contactHeadline,
+    },
+    {
+      title: "Contact Section Sub Msg",
+      name: "contactSubMsg",
+      value: formDetails.contactSubMsg || homepageDetails[0].contactSubMsg,
+      placeholder: homepageDetails && homepageDetails[0].contactSubMsg,
+    },
+  ];
+
   return (
     <section className="contact">
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}> */}
           <Col>
             <TrackVisibility>
               {({ isVisible }) => (
@@ -94,226 +172,34 @@ const HomePageDetails = () => {
                   <h2>Update Homepage Details</h2>
                   <form onSubmit={handleSubmit}>
                     <Row>
-                      {/* <Col size={12} sm={6} className="px-1"> */}
-                      {/* <Col lg={12} className="px-1" style={{ display: "flex"}}> */}
-                      <Col lg={12} className="px-1">
-                        {/* <div style={{ marginRight: "10px", position: "relative", top: "25%" }}>Headline: </div> */}
-                        <div>Headline: </div>
-                        <input
-                          type="text"
-                          value={
-                            formDetails.headline || homepageDetails[0].headline
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].headline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("headline", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Headline Sub M: </div>
-                        <input
-                          type="text"
-                          value={
-                            formDetails.headlineSubMsg ||
-                            homepageDetails[0].headlineSubMsg
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].headlineSubMsg
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("headlineSubMsg", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Services Headline</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.servicesHeadline ||
-                            homepageDetails[0].servicesHeadline
-                          }
-                          placeholder={
-                            homepageDetails &&
-                            homepageDetails[0].servicesHeadline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("servicesHeadline", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>About Section Headline</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.aboutHeadline ||
-                            homepageDetails[0].aboutHeadline
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].aboutHeadline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("aboutHeadline", e.target.value)
-                          }
-                        />
-                      </Col>
+                      {FORM_INPUTS_ARRAY.map((item, idx) => (
+                        <Col lg={12} className="px-1" key={idx}>
+                          <div>{item.title}: </div>
+                          <input
+                            type="text"
+                            name={item.name}
+                            value={item.value}
+                            placeholder={item.placeholder}
+                            onChange={onFormUpdate}
+                          />
+                        </Col>
+                      ))}
+
                       <Col lg={12} className="px-1">
                         <div>About Section Sub Msg</div>
                         <textarea
                           style={{ marginTop: "3px" }}
+                          name="aboutSubMsg"
                           rows="6"
                           value={
                             formDetails.aboutSubMsg ||
                             homepageDetails[0].aboutSubMsg
                           }
-                          onChange={(e) =>
-                            onFormUpdate("aboutSubMsg", e.target.value)
-                          }
+                          onChange={onFormUpdate}
                         ></textarea>
                       </Col>
-                      <Col lg={12} className="px-1">
-                        <div>About Image</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.aboutImage ||
-                            homepageDetails[0].aboutImage
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].aboutImage
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("aboutImage", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>About Section Video Link</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.aboutVideoLink ||
-                            homepageDetails[0].aboutVideoLink
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].aboutVideoLink
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("aboutVideoLink", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Stylists Section Headline</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.stylistsHeadline ||
-                            homepageDetails[0].stylistsHeadline
-                          }
-                          placeholder={
-                            homepageDetails &&
-                            homepageDetails[0].stylistsHeadline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("stylistsHeadline", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Stylists Section Sub Msg</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.stylistsSubMsg ||
-                            homepageDetails[0].stylistsSubMsg
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].stylistsSubMsg
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("stylistsSubMsg", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Service Details Section Headline</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.serviceDetailsHeadline ||
-                            homepageDetails[0].serviceDetailsHeadline
-                          }
-                          placeholder={
-                            homepageDetails &&
-                            homepageDetails[0].serviceDetailsHeadline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate(
-                              "serviceDetailsHeadline",
-                              e.target.value
-                            )
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Service Details Section Sub Msg</div>
-                        <input
-                          type="email"
-                          value={
-                            formDetails.serviceDetailsSubMsg ||
-                            homepageDetails[0].serviceDetailsSubMsg
-                          }
-                          placeholder={
-                            homepageDetails &&
-                            homepageDetails[0].serviceDetailsSubMsg
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("serviceDetailsSubMsg", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Contact Section Headline</div>
-                        <input
-                          type="tel"
-                          value={
-                            formDetails.contactHeadline ||
-                            homepageDetails[0].contactHeadline
-                          }
-                          placeholder={
-                            homepageDetails &&
-                            homepageDetails[0].contactHeadline
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("contactHeadline", e.target.value)
-                          }
-                        />
-                      </Col>
-                      <Col lg={12} className="px-1">
-                        <div>Contact Section Sub Msg</div>
-                        <input
-                          type="tel"
-                          value={
-                            formDetails.contactSubMsg ||
-                            homepageDetails[0].contactSubMsg
-                          }
-                          placeholder={
-                            homepageDetails && homepageDetails[0].contactSubMsg
-                          }
-                          onChange={(e) =>
-                            onFormUpdate("contactSubMsg", e.target.value)
-                          }
-                        />
-                      </Col>
+
                       <Col size={12} className="px-1">
-                        {/* <textarea rows="6" value={formDetails.message} placeholder="Message" onChange={(e) => onFormUpdate('message', e.target.value)}></textarea> */}
-                        {/* <button type="submit"><span>{buttonText}</span></button> */}
-                        {/* <button onClick={handleSubmit}><span>{buttonText}</span></button> */}
                         <button
                           style={{ marginRight: "20px" }}
                           onClick={handleSubmit}
@@ -324,6 +210,7 @@ const HomePageDetails = () => {
                           <span>Cancel</span>
                         </button>
                       </Col>
+
                       {/* {
                       status.message &&
                       <Col>

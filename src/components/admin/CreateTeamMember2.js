@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useForm } from "react-hook-form";
-import TeamService from "../../api/team.service.js";
-import NavBar from "../NavBar";
+import TeamService from "../../services/team.service.js";
+import NavBar from "../../ui/NavBar";
 
 const ValidationError = ({ fieldError }) => {
   if (!fieldError) return null;

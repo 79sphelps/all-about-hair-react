@@ -5,8 +5,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
-import Loading from "./Loading";
-import ServicesService from "../api/services.service.js";
+import Loading from "../Loading.js";
+import ServicesService from "../../services/services.service.js";
 
 const Service = () => {
   const navigate = useNavigate();

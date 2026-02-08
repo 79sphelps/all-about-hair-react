@@ -1,13 +1,13 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
-import Services2Card from "./Services2Card";
-import Loading from "./Loading";
-import ServicesService from "../api/services.service.js";
-import HomepageService from "../api/homepage.service.js";
+import ServicesCard from "./ServicesCard";
+import Loading from "../Loading.js";
+import ServicesService from "../../services/services.service.js";
+import HomepageService from "../../services/homepage.service.js";
 // import "../style.css";
 
-const Services2 = () => {
+const Services = () => {
   const {
     isLoading,
     isError,
@@ -61,8 +61,8 @@ const Services2 = () => {
                       className="project-card"
                       key={service._id}
                     >
-                      <Services2Card
-                        imgPath={require("../" + service.image)}
+                      <ServicesCard
+                        imgPath={require("../../" + service.image)}
                         // imgPath={projImg1}
                         title={service.title}
                         description={service.description}
@@ -80,4 +80,4 @@ const Services2 = () => {
   );
 };
 
-export default Services2;
+export default Services;

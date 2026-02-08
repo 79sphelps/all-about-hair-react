@@ -1,9 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-import ContactService from "../api/contact.service.js";
-import Loading from "./Loading";
-import Contact2 from "./Contact2";
+import ContactService from "../../services/contact.service.js";
+import Loading from "../Loading.js";
+import ContactForm from "./ContactForm.js";
 import {
   CONTACT_INFO_TITLE_TEXT,
   CONTACT_INFO_SUBTITLE_TEXT,
@@ -17,10 +17,10 @@ import {
   CONTACT_INFO_CALL_US_TEXT,
   CONTACT_INFO_EMAIL_US_TEXT,
   CONTACT_INFO_SALON_HOURS_TEXT,
-} from './data';
+} from '../../lib/data.js';
 
 
-const ContactInfo = () => {
+const Contact = () => {
   const {
     isLoading,
     isError,
@@ -36,7 +36,7 @@ const ContactInfo = () => {
 
   return (
     !isLoading && (
-      <section className="skill" id="contact-info">
+      <section className="skill" id="contact">
         <Container fluid className="contact-info-section">
           {/* <Particle /> */}
           <Container>
@@ -82,11 +82,11 @@ const ContactInfo = () => {
           </Container>
         </Container>
         <div style={{ marginTop: '20px' }}>
-          <Contact2 />
+          <ContactForm />
         </div>
       </section>
     )
   );
 };
 
-export default ContactInfo;
+export default Contact;

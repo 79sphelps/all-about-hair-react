@@ -1,10 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-import TeamCard from "./TeamCard";
-import TeamService from "../api/team.service.js";
-import HomepageService from "../api/homepage.service.js";
-import Loading from "./Loading";
+import TeamCard from "./TeamCard.js";
+import TeamService from "../../services/team.service.js";
+import HomepageService from "../../services/homepage.service.js";
+import Loading from "../Loading.js";
 
 const Team = () => {
   const {
@@ -55,7 +55,7 @@ const Team = () => {
                       key={team._id}
                     >
                       <TeamCard
-                        imgPath={require("../" + team.photo)}
+                        imgPath={require("../../" + team.photo)}
                         title={team.name}
                         description={team.role.split(" ").join("-")}
                         bio={team.bio}

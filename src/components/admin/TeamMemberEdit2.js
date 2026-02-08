@@ -5,9 +5,9 @@ import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import { useForm } from "react-hook-form";
-import NavBar from "../NavBar";
+import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-import TeamService from "../../api/team.service.js";
+import TeamService from "../../services/team.service.js";
 
 const ValidationError = ({ fieldError }) => {
   if (!fieldError) return null;

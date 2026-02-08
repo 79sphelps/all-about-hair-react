@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@tanstack/react-query";
-import Aboutcard from "./AboutCard";
-import Loading from "./Loading";
-import HomepageService from "../api/homepage.service.js";
-import laptopImg from "../assets/img/about-img.jpg";
+import MissionAbout from "./MissionAbout.js";
+import Loading from "../Loading.js";
+import HomepageService from "../../services/homepage.service.js";
+import laptopImg from "../../assets/img/about-img.jpg";
 
 const Mission = () => {
   const {
@@ -39,7 +39,7 @@ const Mission = () => {
               >
                 We Believe that Interior Beautifies the Total Architecture
               </h1>
-              <Aboutcard />
+              <MissionAbout />
             </Col>
             <Col
               md={5}

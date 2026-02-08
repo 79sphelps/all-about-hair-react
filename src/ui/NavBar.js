@@ -194,7 +194,7 @@ const NavBar = () => {
                   <img src={navIcon3} alt="" />
                 </a>
               </div>
-              <Nav.Link href="#contact-info">
+              <Nav.Link href="#contact">
                 <button className="vvd">
                   <span>Let’s Connect</span>
                 </button>

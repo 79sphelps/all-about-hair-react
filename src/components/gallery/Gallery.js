@@ -6,9 +6,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
-import ImageService from "../api/gallery.service.js";
-import Loading from "./Loading";
-import colorSharp from "../assets/img/color-sharp.png";
+import ImageService from "../../services/gallery.service.js";
+import Loading from "../Loading";
+import colorSharp from "../../assets/img/color-sharp.png";
 
 const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
@@ -89,7 +89,7 @@ const Gallery = () => {
                         return (
                           <div key={pic._id} className="item">
                             <img
-                              src={require("../" + pic.path)}
+                              src={require("../../" + pic.path)}
                               alt=""
                               style={{ width: "100%" }}
                               onClick={() => handleShow(pic.path)}
@@ -116,7 +116,7 @@ const Gallery = () => {
                       <Modal.Body style={{ color: "black" }}>
                         <Card.Img
                           variant="top"
-                          src={require("../" + imgPath)}
+                          src={require("../../" + imgPath)}
                           alt="card-img"
                           // className="teamCardAnimation"
                           // style={{ width: "60%" }}

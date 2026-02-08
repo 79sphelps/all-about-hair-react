@@ -3,9 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
-import NavBar from "../NavBar";
+import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-import ServicesService from "../../api/services.service.js";
+import ServicesService from "../../services/services.service.js";
 
 const ServicesDetails = () => {
   const queryClient = useQueryClient();

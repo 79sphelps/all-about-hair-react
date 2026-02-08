@@ -2,15 +2,15 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
 import { useQuery } from "@tanstack/react-query";
-import HomepageService from "../api/homepage.service.js";
-import Loading from "./Loading";
+import HomepageService from "../../services/homepage.service.js";
+import Loading from "../Loading.js";
 import {
   ABOUT_QUALITIES_ARY,
   ABOUT_MISSION_STATEMENT_TEXT,
   ABOUT_MISSION_STATEMENT_SUBTEXT,
-} from "./data.js";
+} from "../../lib/data.js";
 
-const AboutCard = () => {
+const MissionAbout = () => {
   const {
     isLoading,
     isError,
@@ -58,4 +58,4 @@ const AboutCard = () => {
   );
 };
 
-export default AboutCard;
+export default MissionAbout;

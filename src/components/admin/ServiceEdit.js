@@ -4,15 +4,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
-import ServicesService from "../../api/services.service.js";
-import NavBar from "../NavBar";
+import ServicesService from "../../services/services.service.js";
+import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
 import {
   FormError,
   formErrorsCreateService,
   getFormErrorObjectCreateService,
   getPricingDetailErrorObject,
-} from "./common.js";
+} from "../../lib/common.js";
 
 const ServiceEdit = () => {
   let formInitialDetails = {

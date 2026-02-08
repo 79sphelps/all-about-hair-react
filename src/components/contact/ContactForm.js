@@ -5,14 +5,14 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useForm } from "react-hook-form";
-import RequestsService from "../api/requests.service";
-import contactImg from "../assets/img/contact-img.svg";
+import RequestsService from "../../services/requests.service";
+import contactImg from "../../assets/img/contact-img.svg";
 
 import {
   CONTACT_FORM_INPUTS_ARY,
   CONTACT_FORM_SUCCESS_TEXT,
   CONTACT_FORM_SUCCESS_SUBTEXT,
-} from "./data";
+} from "../../lib/data";
 
 const ValidationError = ({ fieldError }) => {
   if (!fieldError) return null;
@@ -23,7 +23,7 @@ const ValidationError = ({ fieldError }) => {
   );
 };
 
-const Contact2 = () => {
+const ContactForm = () => {
   const defaultValues = {
     firstName: "",
     lastName: "",
@@ -210,4 +210,4 @@ const Contact2 = () => {
   );
 };
 
-export default Contact2;
+export default ContactForm;

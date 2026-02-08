@@ -2,17 +2,15 @@ import { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ToastContainer, toast } from "react-toastify";
-import NavBar from "./NavBar";
-import Banner from "./Banner";
-import Services2 from "./Services2";
-import Mission from "./Mission";
-import Team from "./Team";
-// import Contact2 from "./Contact2";
-import Footer from "./Footer";
-import Gallery from "./Gallery";
-import ContactInfo from "./ContactInfo";
+import NavBar from "../ui/NavBar";
+import Hero from "./hero/Hero";
+import Services from "./services/Services";
+import Mission from "./mission/Mission";
+import Team from "./team/Team";
+import Footer from "./footer/Footer";
+import Gallery from "./gallery/Gallery";
+import ContactForm from "./contact/ContactForm";
 import HomePageDetails from "./admin/HomePageDetails";
-// import "../App.css";
 
 const Home = () => {
   const { isAuthenticated } = useAuth0();
@@ -44,12 +42,12 @@ const Home = () => {
       />
       {!isAuthenticated && (
         <>
-          <Banner />
-          <Services2 />
+          <Hero />
+          <Services />
           <Mission />
           <Team />
           <Gallery />
-          <ContactInfo />
+          <ContactForm />
         </>
       )}
       {isAuthenticated ? <HomePageDetails /> : null}
