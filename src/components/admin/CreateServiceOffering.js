@@ -8,8 +8,6 @@ import "animate.css";
 import {
   FormError,
   formErrorsCreateService,
-//   getFormErrorObjectCreateService,
-//   getPricingDetailErrorObject,
 } from "../../lib/common.js";
 import NavBar from "../../ui/NavBar";
 import ServicesService from "../../services/services.service.js";
@@ -29,8 +27,6 @@ const CreateServiceOffering = () => {
     errors: {},
   };
   const [formData, setFormData] = useState(formInitialDetails);
-//   const [errors, setErrors] = useState({});
-//   const [pricingErrors, setPricingErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [touched2, setTouched2] = useState({});
   const [handleAddPricingDetail, setAddPricingDetailFlag] = useState(false);
@@ -47,17 +43,6 @@ const CreateServiceOffering = () => {
     mutationFn: ServicesService.createService,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["addService"] });
-    //   setTimeout(() => {
-    //     setButtonText("Create New Service");
-    //     setSubmitted(false);
-    //     setFormData(formInitialDetails);
-    //     setFormPricingDetails(initialFormPricingDetails);
-    //     // navigate("/admin/services-details");
-    //   }, 5000);
-    //   setButtonText("Create New Service");
-        // setSubmitted(false);
-        // setFormData(formInitialDetails);
-        // setFormPricingDetails(initialFormPricingDetails);
     },
   });
 
@@ -89,8 +74,6 @@ const CreateServiceOffering = () => {
     const { name, value } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
     validate(name, value);
-    // const error = validate(name, value);
-    // setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const toggleAddNewPricingDetail = () => {
@@ -107,8 +90,6 @@ const CreateServiceOffering = () => {
     const { name, value } = e.target;
     setTouched2((prev) => ({ ...prev, [name]: true }));
     validatePricingDetail(name, value);
-    // const error = validatePricingDetail(name, value);
-    // setPricingErrors((prev) => ({ ...prev, [name]: error }));
   };
 
   const handleAddFormPricingDetail = () => {
@@ -149,7 +130,6 @@ const CreateServiceOffering = () => {
     }
 
     setFormData((values) => ({ ...values, errors: errors }));
-    // setErrors(Object.keys(errors).length > 0);
   };
 
   const validatePricingDetail = (name, value) => {
@@ -178,7 +158,6 @@ const CreateServiceOffering = () => {
     }
 
     setFormPricingDetails((values) => ({ ...values, errors: errors }));
-    // setPricingErrors(Object.keys(errors).length > 0);
   };
 
   const titleIsValid = (value) => /^[A-Za-z0-9_ ']{5,}$/g.test(value);
