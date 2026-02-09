@@ -14,7 +14,7 @@ import NotFound from './components/NotFound';
 const Home = lazy(() => import("./components/Home"));
 const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
 const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"));
-const ServiceEdit = lazy(() => import("./components/admin/ServiceEdit"));
+const ServiceOfferingEdit = lazy(() => import("./components/admin/ServiceOfferingEdit"));
 const Service = lazy(() => import("./components/services/Service"));
 const CreateServiceOffering = lazy(() => import("./components/admin/CreateServiceOffering"));
 const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit2"));
@@ -42,7 +42,7 @@ const App = () => {
           <Route exact path="/services/:id" element={<Service />} />
           <Route exact path="/admin/home-page-details" element={ isAuthenticated ? <HomePageDetails /> : <Home />} />
           <Route exact path="/admin/services-details" element={ isAuthenticated ? <ServicesDetails /> : <Home />} />
-          <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceEdit /> : <Home />} />
+          <Route exact path="/admin/service-edit/:id" element={ isAuthenticated ? <ServiceOfferingEdit /> : <Home />} />
           <Route exact path="/admin/service-add" element={ isAuthenticated ? <CreateServiceOffering /> : <Home />} />
           <Route exact path="/admin/team-member-edit/:id" element={ isAuthenticated ? <TeamMemberEdit /> : <Home />} />
           <Route exact path="/admin/team-details" element={ isAuthenticated ? <TeamDetails /> : <Home />} />

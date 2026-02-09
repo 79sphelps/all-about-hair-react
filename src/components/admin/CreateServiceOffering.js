@@ -5,10 +5,7 @@ import TrackVisibility from "react-on-screen";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
-import {
-  FormError,
-  formErrorsCreateService,
-} from "../../lib/common.js";
+import { FormError, formErrorsCreateService } from "../../lib/common.js";
 import NavBar from "../../ui/NavBar";
 import ServicesService from "../../services/services.service.js";
 
@@ -48,7 +45,7 @@ const CreateServiceOffering = () => {
 
   const handleAddService = () => {
     if (formData) {
-        setSubmitted(true);
+      setSubmitted(true);
       setButtonText("Creating Service...");
       addServiceMutation.mutate({
         id: uuidv4(),
@@ -161,13 +158,16 @@ const CreateServiceOffering = () => {
   };
 
   const titleIsValid = (value) => /^[A-Za-z0-9_ ']{5,}$/g.test(value);
-  const imagePathIsValid = (value) => /^[A-Za-z0-9_ \/\.']{5,}$/g.test(value);
-  const descriptionIsValid = (value) => /^[A-Za-z0-9_ \.']{10,}$/g.test(value);
+  const imagePathIsValid = (value) => /^[A-Za-z0-9_ /.']{5,}$/g.test(value);
+  const descriptionIsValid = (value) => /^[A-Za-z0-9_ .']{10,}$/g.test(value);
 
-  const pricingDetailTypeIsValid = (value) => /^[A-Za-z0-9_ ']{5,}$/g.test(value);
-  const pricingDetailPriceIsValid = (value) => /^-?\d+(,\d{3})*(\.\d{1,2})?$/g.test(value);
+  const pricingDetailTypeIsValid = (value) =>
+    /^[A-Za-z0-9_ ']{5,}$/g.test(value);
+  //   const pricingDetailPriceIsValid = (value) => /^-?\d+(,\d{3})*(\.\d{1,2})?$/g.test(value);  // WAIT ON THIS STRICT FORM
+  const pricingDetailPriceIsValid = (value) =>
+    /^[A-Za-z0-9_ .$\-']{3,}$/g.test(value); // ALLOW STRING DESCRIPTION FOR NOW
   const pricingDetailDescriptionIsValid = (value) =>
-    /^[A-Za-z0-9_ \.']{5,}$/g.test(value);
+    /^[A-Za-z0-9_ .']{5,}$/g.test(value);
 
   const handleCancel = () => {
     setFormData(formInitialDetails);
@@ -249,7 +249,7 @@ const CreateServiceOffering = () => {
                             type="text"
                             name={item.name}
                             placeholder={item.placeholder}
-                            value={formData.value}
+                            value={formData[item.name]}
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
@@ -284,7 +284,7 @@ const CreateServiceOffering = () => {
                                 className="admin-add-service-form-input"
                                 type="text"
                                 name={item.name}
-                                value={item.value}
+                                value={formPricingDetails[item.name]}
                                 onChange={handleFormPricingDetailChange}
                                 onBlur={handlePricingBlur}
                               />
@@ -292,7 +292,7 @@ const CreateServiceOffering = () => {
                             </Row>
                           ))}
                           <button
-                            className="admin-add-service-add-detail-btn"
+                            className="admin-btn"
                             onClick={handleAddFormPricingDetail}
                           >
                             <span>Add Detail</span>
@@ -306,19 +306,19 @@ const CreateServiceOffering = () => {
                           className="px-1 admin-add-service-btn-container"
                         >
                           <button
-                            className="admin-add-service-cancel-btn"
+                            className="admin-btn"
                             onClick={handleCancel}
                           >
                             <span>Cancel</span>
                           </button>
                           <button
-                            className="admin-add-service-add-pricing-detail-btn"
+                            className="admin-btn"
                             onClick={toggleAddNewPricingDetail}
                           >
                             <span>Add New Pricing Detail</span>
                           </button>
                           <button
-                            className="admin-add-service-create-btn"
+                            className="admin-btn"
                             onClick={handleAddService}
                           >
                             <span>{buttonText}</span>

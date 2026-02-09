@@ -496,7 +496,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   padding: 10px;
 }
 
-.admin-add-service-btn-container {
+.admin-add-service-btn-container,
+.admin-edit-service-btn-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -504,10 +505,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-top: 20px !important;
 }
 
-.admin-add-service-cancel-btn,
-.admin-add-service-add-pricing-detail-btn,
-.admin-add-service-create-btn,
-.admin-add-service-add-detail-btn {
+.admin-btn {
   background-color: dodgerblue;
   border-radius: 20px;
   color: whitesmoke;
@@ -516,18 +514,12 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-right: 20px;
 }
 
-.admin-add-service-cancel-btn:hover,
-.admin-add-service-add-pricing-detail-btn:hover,
-.admin-add-service-create-btn:hover,
-.admin-add-service-add-detail-btn:hover {
+.admin-btn:hover {
   background-color: dodgerblue;
   opacity: 0.9;
 }
 
-.admin-add-service-cancel-btn:active,
-.admin-add-service-add-pricing-detail-btn:active,
-.admin-add-service-create-btn:active,
-.admin-add-service-add-detail-btn:active {
+.admin-btn:active {
   scale: 98%;
 }
 
