@@ -1,82 +1,66 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import ServicesCard from "./ServicesCard";
-import Loading from "../Loading.js";
-import ServicesService from "../../services/services.service.js";
-import HomepageService from "../../services/homepage.service.js";
-// import "../style.css";
+import Loading from "../Loading";
+import { useHomePageDetails } from "../admin/hooks/useHomePageDetails";
+import { useServices } from "../admin/hooks/useServices";
 
 const Services = () => {
   const {
-    isLoading,
-    isError,
     data: homepageInfo,
-    error,
-  } = useQuery({
-    queryKey: ["homepageInfo"],
-    queryFn: HomepageService.getHomepageDetails,
-  });
+    isLoading: isHomepageLoading,
+    isError: isHomepageError,
+    error: homepageError,
+  } = useHomePageDetails();
 
   const {
-    isLoading2,
-    isError2,
     data: servicesInfo,
-    error2,
-  } = useQuery({
-    queryKey: ["servicesInfo"],
-    queryFn: ServicesService.getServiceDetails,
-  });
+    isLoading: isServicesLoading,
+    isError: isServicesError,
+    error: servicesError,
+  } = useServices();
 
-  if (isLoading || isLoading2 || servicesInfo === undefined || homepageInfo === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
-  if (isError2) return `Error: ${error2.message}`;
+  if (isHomepageLoading || isServicesLoading) return <Loading />;
+  if (isHomepageError) return `Error: ${homepageError.message}`;
+  if (isServicesError) return `Error: ${servicesError.message}`;
+
+  const homepage = homepageInfo?.[0];
 
   return (
-    !isLoading &&
-    !isLoading2 && (
-      <section id="services">
-        <Container fluid className="services-section">
-          {/* <Particle /> */}
-          <Container>
-            <h1 className="project-heading animate__animated animate__fadeInRight">
-              {/* Choose from Among Our Custom Services */}
-              {homepageInfo && homepageInfo[0].serviceDetailsHeadline}
-            </h1>
-            <p style={{ color: "white" }}>
-              {/* Services are subject to stylist availability and may change at any time. */}
-              {homepageInfo && homepageInfo[0].serviceDetailsSubMsg}
-            </p>
-            <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-              {servicesInfo &&
-                // servicesInfo.slice(0, servicesInfo.length-1).map((service, idx) => {
-                servicesInfo.map((service) => {
-                  return (
-                    <Col
-                      xl={4}
-                      lg={4}
-                      md={6}
-                      sm={6}
-                      xm={10}
-                      className="project-card"
-                      key={service._id}
-                    >
-                      <ServicesCard
-                        imgPath={require("../../" + service.image)}
-                        // imgPath={projImg1}
-                        title={service.title}
-                        description={service.description}
-                        service={service.pricing}
-                        id={service._id}
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
-          </Container>
+    <section id="services">
+      <Container fluid className="services-section">
+        <Container>
+          <h1 className="project-heading animate__animated animate__fadeInRight">
+            {homepage?.serviceDetailsHeadline}
+          </h1>
+          <p style={{ color: "white" }}>
+            {homepage?.serviceDetailsSubMsg}
+          </p>
+
+          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+            {servicesInfo.map((service) => (
+              <Col
+                key={service._id}
+                xl={4}
+                lg={4}
+                md={6}
+                sm={6}
+                xs={10}
+                className="project-card"
+              >
+                <ServicesCard
+                  imgPath={require("../../" + service.image)}
+                  title={service.title}
+                  description={service.description}
+                  service={service.pricing}
+                  id={service._id}
+                />
+              </Col>
+            ))}
+          </Row>
         </Container>
-      </section>
-    )
+      </Container>
+    </section>
   );
 };
 

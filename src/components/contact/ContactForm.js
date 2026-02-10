@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useForm } from "react-hook-form";
-import RequestsService from "../../services/requests.service";
+import { usePostGeneralRequest } from "./hooks/usePostGeneralRequest";
 import contactImg from "../../assets/img/contact-img.svg";
-
 import {
   CONTACT_FORM_INPUTS_ARY,
   CONTACT_FORM_SUCCESS_TEXT,
@@ -31,6 +29,7 @@ const ContactForm = () => {
     phone: "",
     message: "",
   };
+
   const {
     register,
     reset,
@@ -41,35 +40,37 @@ const ContactForm = () => {
   } = useForm({ mode: "onBlur", reValidateMode: "onBlur" });
 
   const [message] = watch(["message"]);
-  const queryClient = useQueryClient();
   const [buttonText, setButtonText] = useState("Send");
   const [requestSubmitted, setRequestSubmitted] = useState(false);
 
-  const postRequestMutation = useMutation({
-    mutationFn: RequestsService.postGeneralRequest,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["postGeneralRequest"] });
-      setTimeout(() => setButtonText("Create"), 2000);
-    },
-  });
+  const { postRequestMutation, isPending } = usePostGeneralRequest();
 
-  const handleSubmit2 = (e) => {
+  const handleSubmit2 = (formData) => {
     setRequestSubmitted(true);
     setButtonText("Sending...");
-    postRequestMutation.mutate({
-      id: uuidv4(),
-      ...e,
-    });
+
+    postRequestMutation.mutate(
+      { id: uuidv4(), ...formData },
+      {
+        onSuccess: () => {
+          setButtonText("Send");
+          // We can optionally reset form here if we want
+          // reset(defaultValues);
+        },
+        onError: () => {
+          setButtonText("Send");
+          setRequestSubmitted(false);
+        },
+      }
+    );
   };
 
-  const handleReset = (e) => {
+  const handleReset = () => {
     setButtonText("Send");
     setRequestSubmitted(false);
   };
 
-  const getEditorStyle = (fieldError) => {
-    return fieldError ? "border: solid 1px red" : "";
-  };
+  const getEditorStyle = (fieldError) => (fieldError ? "border: solid 1px red" : "");
 
   const ERRORS_OBJ = {
     firstName: errors.firstName,
@@ -86,9 +87,7 @@ const ContactForm = () => {
             <TrackVisibility>
               {({ isVisible }) => (
                 <img
-                  className={
-                    isVisible ? "animate__animated animate__zoomIn" : ""
-                  }
+                  className={isVisible ? "animate__animated animate__zoomIn" : ""}
                   src={contactImg}
                   alt="Contact Us"
                 />
@@ -98,12 +97,9 @@ const ContactForm = () => {
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) => (
-                <div
-                  className={
-                    isVisible ? "animate__animated animate__fadeIn" : ""
-                  }
-                >
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <h2>Scheduling or Questions</h2>
+
                   {!requestSubmitted ? (
                     <form noValidate onSubmit={handleSubmit(handleSubmit2)}>
                       <Row>
@@ -114,14 +110,9 @@ const ContactForm = () => {
                               type="text"
                               id={item.id}
                               placeholder={item.placeholder}
-                              {...register(
-                                item.register_obj.register_txt,
-                                item.register_obj,
-                              )}
+                              {...register(item.register_obj.register_txt, item.register_obj)}
                             />
-                            <ValidationError
-                              fieldError={ERRORS_OBJ[item.class]}
-                            />
+                            <ValidationError fieldError={ERRORS_OBJ[item.class]} />
                           </Col>
                         ))}
                         <Col size={12} className="px-1">
@@ -130,33 +121,29 @@ const ContactForm = () => {
                             rows="6"
                             placeholder="Message (at least 25 characters)"
                             {...register("message", {
-                              required:
-                                "You must enter a reason for contacting",
+                              required: "You must enter a reason for contacting",
                               minLength: {
                                 value: 25,
-                                message:
-                                  "Message must be at least 25 characters",
+                                message: "Message must be at least 25 characters",
                               },
                             })}
-                          ></textarea>
-                          {message && message?.length < 25 && (
-                            <div>
-                              ({25 - message?.length} message characters still
-                              needed)
-                            </div>
+                          />
+                          {message && message.length < 25 && (
+                            <div>({25 - message.length} message characters still needed)</div>
                           )}
                           <ValidationError fieldError={errors.message} />
                           <button
                             type="submit"
-                            disabled={!isValid}
+                            disabled={!isValid || isPending}
                             style={{
-                              color: !isValid && "lightgrey",
-                              cursor: !isValid && "not-allowed",
+                              color: !isValid ? "lightgrey" : undefined,
+                              cursor: !isValid ? "not-allowed" : undefined,
                               marginRight: "20px",
                             }}
                           >
-                            {buttonText}
+                            {isPending ? "Sending..." : "Send"}
                           </button>
+
                           <button
                             type="button"
                             onClick={() => {
@@ -171,34 +158,24 @@ const ContactForm = () => {
                       </Row>
                     </form>
                   ) : (
-                    <>
-                      <Col size={12} className="px-1">
-                        <h1 className="project-heading">
-                          {CONTACT_FORM_SUCCESS_TEXT}
-                        </h1>
-                        <p
-                          style={{
-                            color: "white",
-                            marginTop: "0",
-                            marginBottom: "20px",
+                    <Col size={12} className="px-1">
+                      <h1 className="project-heading">{CONTACT_FORM_SUCCESS_TEXT}</h1>
+                      <p style={{ color: "white", marginTop: 0, marginBottom: "20px" }}>
+                        {CONTACT_FORM_SUCCESS_SUBTEXT}
+                      </p>
+                      <div className="contact-submit">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            reset(defaultValues);
+                            clearErrors();
+                            handleReset();
                           }}
                         >
-                          {CONTACT_FORM_SUCCESS_SUBTEXT}
-                        </p>
-                        <div className="contact-submit">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              reset(defaultValues);
-                              clearErrors();
-                              handleReset();
-                            }}
-                          >
-                            <span>Reset</span>
-                          </button>
-                        </div>
-                      </Col>
-                    </>
+                          <span>Reset</span>
+                        </button>
+                      </div>
+                    </Col>
                   )}
                 </div>
               )}

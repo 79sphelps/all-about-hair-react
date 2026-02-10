@@ -2,12 +2,15 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
-import ServicesService from "../../services/services.service.js";
+// import ServicesService from "../../api/services.service.js";
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
 import { FormError, formErrorsCreateService } from "../../lib/common.js";
+
+import { useService } from "./hooks/useService";
+import { useUpdateService } from "./hooks/useUpdateService";
 
 const ServiceOfferingEdit = () => {
   let formInitialDetails = {
@@ -32,42 +35,67 @@ const ServiceOfferingEdit = () => {
   );
   const [buttonText, setButtonText] = useState("Update");
   const [submitted, setSubmitted] = useState(false);
+  
+
   const location = useLocation();
-  const queryClient = useQueryClient();
+  const serviceId = location.state?.id;
+
+  const { data: service, isLoading, error } = useService(serviceId);
+  const updateService = useUpdateService();
+
+
+  // const queryClient = useQueryClient();
+
+  
   const navigate = useNavigate();
 
-  let {
-    isLoading,
-    isError,
-    data: serviceDetails,
-    error,
-  } = useQuery({
-    queryKey: ["serviceDetails", location.state.id],
-    queryFn: () => ServicesService.getServiceDetail(location.state.id), // fetch the posts using the async call
-  });
 
+
+  // let {
+  //   isLoading,
+  //   isError,
+  //   data: serviceDetails,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["serviceDetails", location.state.id],
+  //   queryFn: () => ServicesService.getServiceDetail(location.state.id), // fetch the posts using the async call
+  // });
+
+
+
+  // useEffect(() => {
+  //   if (serviceDetails) {
+  //     setFormData(serviceDetails);
+  //   }
+  // }, [serviceDetails]);
   useEffect(() => {
-    if (serviceDetails) {
-      setFormData(serviceDetails);
+    if (service) {
+      setFormData(service);
     }
-  }, [serviceDetails]);
+  }, [service]);
 
-  const updateServiceDetailsMutation = useMutation({
-    mutationFn: ServicesService.updateServiceDetails,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
-      setTimeout(() => {
-        setButtonText("Update");
-      }, 3000);
-    },
-  });
+
+
+  // const updateServiceDetailsMutation = useMutation({
+  //   mutationFn: ServicesService.updateServiceDetails,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["serviceDetails"] });
+  //     setTimeout(() => {
+  //       setButtonText("Update");
+  //     }, 3000);
+  //   },
+  // });
+
+
 
   const updateServiceDetailsEdit = () => {
     if (formData) {
       setSubmitted(true);
       const id = formData._id;
       setButtonText("Updating service details...");
-      updateServiceDetailsMutation.mutate({ id, ...formData });
+      // updateServiceDetailsMutation.mutate({ id, ...formData });
+      updateService.mutate({ id, ...formData });
+      navigate("/admin/services-details");
     }
   };
 
@@ -175,7 +203,7 @@ const ServiceOfferingEdit = () => {
     {
       title: "Title",
       name: "title",
-      errorMsg: touched && touched.title && formData.errors.title && (
+      errorMsg: touched && ("title" in touched) && touched.title && formData.errors.title && (
         <FormError msg={formErrorsCreateService["title"].error} />
       ),
     },
@@ -214,7 +242,7 @@ const ServiceOfferingEdit = () => {
   ];
 
   if (isLoading) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (error) return `Error: ${error.message}`;
 
   return (
     <section className="contact">
@@ -264,7 +292,9 @@ const ServiceOfferingEdit = () => {
                         />
                       )}
                     </Row>
-                    <div>
+
+                    {formData && formData.pricing && formData.pricing.length > 0 && (
+                      <div>
                       <h2>Services Details</h2>
                       <div className="edit-service-detail-group">
                         {formData.pricing.map((item, idx) => (
@@ -288,7 +318,13 @@ const ServiceOfferingEdit = () => {
                           </div>
                         ))}
                       </div>
-                    </div>
+                    </div> 
+                    )}
+
+
+
+
+
                     <Row>
                       <Col
                         size={12}

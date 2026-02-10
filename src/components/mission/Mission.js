@@ -1,21 +1,18 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import MissionAbout from "./MissionAbout.js";
 import Loading from "../Loading.js";
-import HomepageService from "../../services/homepage.service.js";
 import laptopImg from "../../assets/img/about-img.jpg";
+
+import { useHomePageDetails } from "../admin/hooks/useHomePageDetails"; // Adjust the import path as needed
 
 const Mission = () => {
   const {
     isLoading,
     isError,
-    // data: bannerInfo,
+    data: bannerInfo,
     error,
-  } = useQuery({
-    queryKey: ["bannerInfo"],
-    queryFn: HomepageService.getHomepageDetails,
-  });
+  } = useHomePageDetails();
 
   if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;

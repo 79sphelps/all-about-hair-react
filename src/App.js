@@ -19,7 +19,7 @@ const Service = lazy(() => import("./components/services/Service"));
 const CreateServiceOffering = lazy(() => import("./components/admin/CreateServiceOffering"));
 const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit2"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
-const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember2"));
+const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember"));
 
 const App = () => {
   const { isLoading, error, isAuthenticated } = useAuth0();

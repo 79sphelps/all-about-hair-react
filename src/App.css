@@ -817,6 +817,8 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   border-radius: 0;
   position: relative;
   transition: 0.3s ease-in-out;
+  min-height: 44px;
+  min-width: 44px;
 }
 
 .contact form button span {

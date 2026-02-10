@@ -1,9 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-import ContactService from "../../services/contact.service.js";
-import Loading from "../Loading.js";
-import ContactForm from "./ContactForm.js";
+import Loading from "../Loading";
+import ContactForm from "./ContactForm";
+import { useContactInfo } from "./hooks/useContactInfo";
 import {
   CONTACT_INFO_TITLE_TEXT,
   CONTACT_INFO_SUBTITLE_TEXT,
@@ -17,75 +16,73 @@ import {
   CONTACT_INFO_CALL_US_TEXT,
   CONTACT_INFO_EMAIL_US_TEXT,
   CONTACT_INFO_SALON_HOURS_TEXT,
-} from '../../lib/data.js';
-
+} from "../../lib/data";
 
 const Contact = () => {
-  const {
-    isLoading,
-    isError,
-    data: contactInfo,
-    error,
-  } = useQuery({
-    queryKey: ["contactInfo"],
-    queryFn: ContactService.getContactInfo,
-  });
+  const { data, isLoading, isError, error } = useContactInfo();
 
-  if (isLoading || contactInfo === undefined) return <Loading />;
+  if (isLoading) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
+  const contact = data[0];
+
   return (
-    !isLoading && (
-      <section className="skill" id="contact">
-        <Container fluid className="contact-info-section">
-          {/* <Particle /> */}
-          <Container>
-            <h1 className="project-heading">{ CONTACT_INFO_TITLE_TEXT }</h1>
-            <p style={{ color: "white", marginTop: "0", marginBottom: "20px" }}>
-              { CONTACT_INFO_SUBTITLE_TEXT }
-            </p>
-            <br />
-            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE2_TEXT }</div>
-            { CONTACT_INFO_TITLE2_SUBTEXT }
-            <br />
-            <br />
-            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE3_TEXT }</div>
-            { CONTACT_INFO_TITLE3_SUBTEXT }
-            <br />
-            <br />
-            <div style={{ fontSize: "1.8rem" }}>{ CONTACT_INFO_TITLE4_TEXT }</div>
-            { CONTACT_INFO_TITLE4_SUBTEXT }
-            {contactInfo && (
-              <Row style={{ marginBottom: "0px", marginTop: "20px" }}>
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>{ CONTACT_INFO_VISIT_LOCATION_TEXT }</h3>
-                  {contactInfo[0].location}
-                </Col>
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>{ CONTACT_INFO_CALL_US_TEXT }</h3>
-                  {contactInfo[0].phone}
-                </Col>
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>{ CONTACT_INFO_EMAIL_US_TEXT }</h3>
-                  {contactInfo[0].email}
-                </Col>
-                <Col md={3} sm={6} xs={10} className="contact-info-card">
-                  <h3>{ CONTACT_INFO_SALON_HOURS_TEXT }</h3>
-                  <ul>
-                    {contactInfo[0].hours.map((time) => {
-                      return <li key={time}>{time}</li>;
-                    })}
-                  </ul>
-                </Col>
-              </Row>
-            )}
-          </Container>
+    <section className="skill" id="contact">
+      <Container fluid className="contact-info-section">
+        <Container>
+          <h1 className="project-heading">{CONTACT_INFO_TITLE_TEXT}</h1>
+
+          <p style={{ color: "white", marginBottom: "20px" }}>
+            {CONTACT_INFO_SUBTITLE_TEXT}
+          </p>
+
+          <div style={{ fontSize: "1.8rem" }}>{CONTACT_INFO_TITLE2_TEXT}</div>
+          {CONTACT_INFO_TITLE2_SUBTEXT}
+
+          <br />
+          <br />
+
+          <div style={{ fontSize: "1.8rem" }}>{CONTACT_INFO_TITLE3_TEXT}</div>
+          {CONTACT_INFO_TITLE3_SUBTEXT}
+
+          <br />
+          <br />
+
+          <div style={{ fontSize: "1.8rem" }}>{CONTACT_INFO_TITLE4_TEXT}</div>
+          {CONTACT_INFO_TITLE4_SUBTEXT}
+
+          <Row style={{ marginTop: "20px" }}>
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
+              <h3>{CONTACT_INFO_VISIT_LOCATION_TEXT}</h3>
+              {contact.location}
+            </Col>
+
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
+              <h3>{CONTACT_INFO_CALL_US_TEXT}</h3>
+              {contact.phone}
+            </Col>
+
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
+              <h3>{CONTACT_INFO_EMAIL_US_TEXT}</h3>
+              {contact.email}
+            </Col>
+
+            <Col md={3} sm={6} xs={10} className="contact-info-card">
+              <h3>{CONTACT_INFO_SALON_HOURS_TEXT}</h3>
+              <ul>
+                {contact.hours.map((time) => (
+                  <li key={time}>{time}</li>
+                ))}
+              </ul>
+            </Col>
+          </Row>
         </Container>
-        <div style={{ marginTop: '20px' }}>
-          <ContactForm />
-        </div>
-      </section>
-    )
+      </Container>
+
+      <div style={{ marginTop: "20px" }}>
+        <ContactForm />
+      </div>
+    </section>
   );
 };
 

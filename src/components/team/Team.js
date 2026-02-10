@@ -1,73 +1,67 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import "react-multi-carousel/lib/styles.css";
-import TeamCard from "./TeamCard.js";
-import TeamService from "../../services/team.service.js";
-import HomepageService from "../../services/homepage.service.js";
-import Loading from "../Loading.js";
+import TeamCard from "./TeamCard";
+import Loading from "../Loading";
+
+import { useHomePageDetails } from "../admin/hooks/useHomePageDetails";
+import { useTeamMembers } from "../admin/hooks/useTeamMember";
 
 const Team = () => {
   const {
-    isLoading,
-    isError,
     data: homepageInfo,
-    error,
-  } = useQuery({
-    queryKey: ["homepageInfo"],
-    queryFn: HomepageService.getHomepageDetails,
-  });
+    isLoading: isHomepageLoading,
+    isError: isHomepageError,
+    error: homepageError,
+  } = useHomePageDetails();
 
   const {
-    isLoading2,
-    isError2,
     data: teamInfo,
-    error2,
-  } = useQuery({
-    queryKey: ["teamInfo"],
-    queryFn: TeamService.getTeamDetails,
-  });
+    isLoading: isTeamLoading,
+    isError: isTeamError,
+    error: teamError,
+  } = useTeamMembers();
 
-  if (isLoading || isLoading2 || homepageInfo === undefined || teamInfo === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
-  if (isError2) return `Error: ${error2.message}`;
+  if (isHomepageLoading || isTeamLoading) return <Loading />;
+  if (isHomepageError) return `Error: ${homepageError.message}`;
+  if (isTeamError) return `Error: ${teamError.message}`;
+
+  const homepage = homepageInfo?.[0];
 
   return (
-    !isLoading && (
-      <section className="skill" id="team">
-        <Container fluid className="team-section">
-          <Container>
-            <div style={{ marginLeft: "7px" }}>
-              <h1 className="project-heading">
-                {homepageInfo && homepageInfo[0].stylistsHeadline}
-              </h1>
-              {homepageInfo && homepageInfo[0].stylistsSubMsg}
-            </div>
-            <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-              {teamInfo &&
-                teamInfo.slice(1, teamInfo.length).map((team) => {
-                  return (
-                    <Col
-                      lg={3}
-                      md={6}
-                      sm={6}
-                      xm={10}
-                      className="project-card"
-                      key={team._id}
-                    >
-                      <TeamCard
-                        imgPath={require("../../" + team.photo)}
-                        title={team.name}
-                        description={team.role.split(" ").join("-")}
-                        bio={team.bio}
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
-          </Container>
+    <section className="skill" id="team">
+      <Container fluid className="team-section">
+        <Container>
+          <div style={{ marginLeft: "7px" }}>
+            <h1 className="project-heading">
+              {homepage?.stylistsHeadline}
+            </h1>
+            {homepage?.stylistsSubMsg}
+          </div>
+
+          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+            {teamInfo
+              ?.slice(1)
+              .map((team) => (
+                <Col
+                  key={team._id}
+                  lg={3}
+                  md={6}
+                  sm={6}
+                  xs={10}
+                  className="project-card"
+                >
+                  <TeamCard
+                    imgPath={require("../../" + team.photo)}
+                    title={team.name}
+                    description={team.role.split(" ").join("-")}
+                    bio={team.bio}
+                  />
+                </Col>
+              ))}
+          </Row>
         </Container>
-      </section>
-    )
+      </Container>
+    </section>
   );
 };
 

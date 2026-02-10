@@ -1,48 +1,66 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-import ServicesService from "../../services/services.service.js";
+// import ServicesService from "../../api/services.service.js";
+
+import { useServices } from "./hooks/useServices";
+import { useDeleteService } from "./hooks/useDeleteService";
 
 const ServicesDetails = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
+
+
   const navigate = useNavigate();
 
-  const {
-    isLoading,
-    isError,
-    data: servicesInfo,
-    error,
-  } = useQuery({
-    queryKey: ["servicesInfo"],
-    queryFn: ServicesService.getServiceDetails,
-  });
+
+
+  const { data: services, isLoading, error } = useServices();
+  const deleteService = useDeleteService();
+
+
+
+  // const {
+  //   isLoading,
+  //   isError,
+  //   data: servicesInfo,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["servicesInfo"],
+  //   queryFn: ServicesService.getServiceDetails,
+  // });
+
+
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
     navigate(`/admin/service-edit/${id}`, { state: { id: id } });
   };
 
-  const deleteServiceMutation = useMutation({
-    mutationFn: ServicesService.deleteService,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["servicesInfo"],
-        refetchType: "all",
-      });
-    },
-  });
+  // const deleteServiceMutation = useMutation({
+  //   mutationFn: ServicesService.deleteService,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ["servicesInfo"],
+  //       refetchType: "all",
+  //     });
+  //   },
+  // });
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    deleteServiceMutation.mutate(id);
+    // deleteServiceMutation.mutate(id);
+    deleteService.mutate(id);
   };
 
-  if (isLoading || servicesInfo === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  // if (isLoading || servicesInfo === undefined) return <Loading />;
+  // if (isError) return `Error: ${error.message}`;
+
+  if (isLoading || services === undefined) return <Loading />;
+  if (error) return `Error: ${error.message}`;
 
   return (
     <section className="contact">
@@ -60,8 +78,8 @@ const ServicesDetails = () => {
                 >
                   <h2>Update Services Details</h2>
                   <form>
-                    {servicesInfo &&
-                      servicesInfo.map((service, idx) => {
+                    {services &&
+                      services.map((service, idx) => {
                         return (
                           <Row key={service._id}>
                             <Col lg={2} className="px-1">

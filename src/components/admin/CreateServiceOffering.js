@@ -2,12 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { v4 as uuidv4 } from "uuid";
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
+// import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { FormError, formErrorsCreateService } from "../../lib/common.js";
 import NavBar from "../../ui/NavBar";
-import ServicesService from "../../services/services.service.js";
+// import ServicesService from "../../services/services.service.js";
+
+// import { useServices } from "./hooks/useServices";
+import { useCreateService } from "./hooks/useCreateService";
 
 const CreateServiceOffering = () => {
   let formInitialDetails = {
@@ -33,24 +36,38 @@ const CreateServiceOffering = () => {
 
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+
+
+
+  // const queryClient = useQueryClient();
+  // const { data: services, isLoading, error } = useServices();
+  const createService = useCreateService();
+
+
+
   const [buttonText, setButtonText] = useState("Create New Service");
 
-  const addServiceMutation = useMutation({
-    mutationFn: ServicesService.createService,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["addService"] });
-    },
-  });
+
+
+
+  // const addServiceMutation = useMutation({
+  //   mutationFn: ServicesService.createService,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["addService"] });
+  //   },
+  // });
+
+
 
   const handleAddService = () => {
     if (formData) {
       setSubmitted(true);
       setButtonText("Creating Service...");
-      addServiceMutation.mutate({
-        id: uuidv4(),
-        ...formData,
-      });
+      // addServiceMutation.mutate({
+      //   id: uuidv4(),
+      //   ...formData,
+      // });
+      createService.mutate(formData);
     }
   };
 

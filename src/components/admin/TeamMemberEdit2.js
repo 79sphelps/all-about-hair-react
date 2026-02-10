@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import { useForm } from "react-hook-form";
+
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-import TeamService from "../../services/team.service.js";
+
+import { useTeamMember } from "./hooks/useTeamMember";
+import { useUpdateTeamMember } from "./hooks/useUpdateTeamMember";
 
 const ValidationError = ({ fieldError }) => {
   if (!fieldError) return null;
@@ -19,88 +21,77 @@ const ValidationError = ({ fieldError }) => {
 };
 
 const TeamMemberEdit = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const teamMemberId = location.state?.id;
+
   const {
     register,
     handleSubmit,
     watch,
-    getValues,
     setValue,
+    getValues,
     formState: { errors, isValid },
   } = useForm({ mode: "onBlur", reValidateMode: "onBlur" });
+
   const [bio] = watch(["bio"]);
-  const location = useLocation();
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
   const [buttonText, setButtonText] = useState("Update");
-  const [initialUpdateFlag, setInitialUpdateFlag] = useState(false);
 
-  const updateTeamMemberDetailsMutation = useMutation({
-    mutationFn: TeamService.updateTeamMemberDetails,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["teamMemberDetails"] });
-      // navigate("/");
-      setTimeout(() => {
-        setButtonText("Update");
-      }, 2000);
-    },
-  });
-
-  const updateTeamMemberDetailsEdit = (e) => {
-    const id = teamMemberDetails._id;
-    setButtonText("Updating...");
-    updateTeamMemberDetailsMutation.mutate({ id, ...e });
-  };
-
-  const updateFormDetails = (data) => {
-    setValue("name", data.name);
-    setValue("role", data.role);
-    setValue("photo", data.photo);
-    setValue("bio", data.bio);
-  };
-
-  const handleSubmit2 = async (e) => {
-    updateTeamMemberDetailsEdit(e);
-  };
-
+  /** Fetch team member */
   const {
+    data: teamMember,
     isLoading,
     isError,
-    data: teamMemberDetails,
     error,
-  } = useQuery({
-    queryKey: ["teamMemberDetails", location.state.id],
-    queryFn: () => TeamService.getTeamMemberDetail(location.state.id),
-  });
+  } = useTeamMember(teamMemberId);
+
+  /** Update mutation */
+  const updateTeamMember = useUpdateTeamMember();
+
+  /** Populate form once data loads */
+  useEffect(() => {
+    if (teamMember) {
+      setValue("name", teamMember.name);
+      setValue("role", teamMember.role);
+      setValue("photo", teamMember.photo);
+      setValue("bio", teamMember.bio);
+    }
+  }, [teamMember, setValue]);
+
+  const onSubmit = (formData) => {
+    setButtonText("Updating...");
+
+    updateTeamMember.mutate(
+      {
+        id: teamMemberId,
+        ...formData,
+      },
+      {
+        onSuccess: () => {
+          setButtonText("Update");
+          navigate("/admin/team-details");
+        },
+      }
+    );
+  };
 
   const handleCancel = () => {
     navigate("/admin/team-details");
   };
 
-  if (isLoading || teamMemberDetails === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
-
-  if (initialUpdateFlag === false) {
-    setInitialUpdateFlag(true);
-    updateFormDetails(teamMemberDetails);
-  }
-
   const getEditorStyle = (fieldError) => {
     return fieldError ? "border: solid 1px red" : "";
-  }
+  };
+
+  if (isLoading) return <Loading />;
+  if (isError) return `Error: ${error.message}`;
+  if (!teamMember) return null;
 
   return (
     <section className="contact">
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
-          </Col> */}
-          {/* <Col size={12} md={6}> */}
           <Col>
             <TrackVisibility>
               {({ isVisible }) => (
@@ -110,30 +101,28 @@ const TeamMemberEdit = () => {
                   }
                 >
                   <h2>Update Team Member Details</h2>
-                  <img
-                    src={
-                      getValues("photo")
-                        ? require("../../" + getValues("photo"))
-                        : null
-                    }
-                    alt=""
-                    style={{
-                      width: "200px",
-                      marginBottom: "20px",
-                      boxShadow: "0 3px 3px 5px rgba(155, 88, 173, 0.65)",
-                      // textAlign: "center !important",
-                      display: "block",
-                      margin: "0 auto",
-                    }}
-                  ></img>
-                  <form noValidate onSubmit={handleSubmit(handleSubmit2)}>
+
+                  {getValues("photo") && (
+                    <img
+                      src={require("../../" + getValues("photo"))}
+                      alt=""
+                      style={{
+                        width: "200px",
+                        marginBottom: "20px",
+                        boxShadow: "0 3px 3px 5px rgba(155, 88, 173, 0.65)",
+                        display: "block",
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                    />
+                  )}
+
+                  <form noValidate onSubmit={handleSubmit(onSubmit)}>
                     <Row>
-                      <div>Name: </div>
+                      <div>Name:</div>
                       <input
                         className={getEditorStyle(errors.name)}
                         type="text"
-                        id="name"
-                        placeholder="Name"
                         {...register("name", {
                           required: "Please provide a valid team member name",
                           minLength: {
@@ -144,13 +133,12 @@ const TeamMemberEdit = () => {
                       />
                       <ValidationError fieldError={errors.name} />
                     </Row>
+
                     <Row>
-                      <div>Role: </div>
+                      <div>Role:</div>
                       <input
                         className={getEditorStyle(errors.role)}
                         type="text"
-                        id="role"
-                        placeholder="Role"
                         {...register("role", {
                           required:
                             "Please provide a valid member role describing what they do",
@@ -162,13 +150,12 @@ const TeamMemberEdit = () => {
                       />
                       <ValidationError fieldError={errors.role} />
                     </Row>
+
                     <Row>
-                      <div>Image Path: </div>
+                      <div>Image Path:</div>
                       <input
                         className={getEditorStyle(errors.photo)}
                         type="text"
-                        id="photo"
-                        placeholder="Photo"
                         {...register("photo", {
                           required:
                             "Please provide a valid image path for the team member",
@@ -181,47 +168,45 @@ const TeamMemberEdit = () => {
                       />
                       <ValidationError fieldError={errors.photo} />
                     </Row>
+
                     <Row>
                       <div>Bio:</div>
                       <textarea
                         className={getEditorStyle(errors.bio)}
                         rows="6"
-                        placeholder="Bio (at least 25 characters)"
                         {...register("bio", {
                           required:
-                            "Please provide a valid message for the biography of at least 25 characters",
+                            "Please provide a valid biography (min 25 chars)",
                           minLength: {
                             value: 25,
                             message: "Bio must be at least 25 characters",
                           },
                         })}
-                      ></textarea>
-                      {bio && bio?.length < 25 && (
-                        <div>
-                          ({25 - bio?.length} bio characters still needed)
-                        </div>
+                      />
+                      {bio && bio.length < 25 && (
+                        <div>({25 - bio.length} characters remaining)</div>
                       )}
                       <ValidationError fieldError={errors.bio} />
                     </Row>
+
                     <Row>
-                      <Col size={12} className="px-1">
+                      <Col className="px-1">
                         <button
                           type="submit"
-                          disabled={!isValid}
+                          disabled={!isValid || updateTeamMember.isLoading}
                           style={{
-                            color: !isValid && "lightgrey",
-                            cursor: !isValid && "not-allowed",
                             marginRight: "20px",
+                            cursor:
+                              !isValid || updateTeamMember.isLoading
+                                ? "not-allowed"
+                                : "pointer",
                           }}
                         >
                           {buttonText}
                         </button>
-                        <button
-                          type="button"
-                          style={{ marginRight: "20px" }}
-                          onClick={handleCancel}
-                        >
-                          <span>Cancel</span>
+
+                        <button type="button" onClick={handleCancel}>
+                          Cancel
                         </button>
                       </Col>
                     </Row>
@@ -232,7 +217,6 @@ const TeamMemberEdit = () => {
           </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };

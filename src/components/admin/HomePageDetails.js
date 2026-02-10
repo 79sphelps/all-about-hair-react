@@ -2,11 +2,14 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import Loading from "../Loading";
 import NavBar from "../../ui/NavBar";
-import HomepageService from "../../services/homepage.service.js";
+// import HomepageService from "../../api/homepage.service.js";
+
+import { useHomePageDetails } from "./hooks/useHomePageDetails";
+import { useUpdateHomePageDetails } from "./hooks/useUpdateHomePageDetails";
 
 const HomePageDetails = () => {
   const formInitialDetails = {
@@ -26,16 +29,22 @@ const HomePageDetails = () => {
     contactSubMsg: "",
   };
 
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
+  const { data: homepageDetails, isLoading, isError, error } =
+    useHomePageDetails();
+
+  const updateHomepageDetailsMutation = useUpdateHomePageDetails();
+
+
   const navigate = useNavigate();
   const [formDetails, setFormDetails] = useState(formInitialDetails);
 
-  const updateHomepageDetailsMutation = useMutation({
-    mutationFn: HomepageService.updateHomepageDetails,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["homepageDetails"] });
-    },
-  });
+  // const updateHomepageDetailsMutation = useMutation({
+  //   mutationFn: HomepageService.updateHomepageDetails,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["homepageDetails"] });
+  //   },
+  // });
 
   const updateHomepageDetailsEdit = () => {
     const id = homepageDetails[0]._id;
@@ -58,15 +67,15 @@ const HomePageDetails = () => {
     updateHomepageDetailsEdit();
   };
 
-  const {
-    isLoading,
-    isError,
-    data: homepageDetails,
-    error,
-  } = useQuery({
-    queryKey: ["homepageDetails"],
-    queryFn: HomepageService.getHomepageDetails,
-  });
+  // const {
+  //   isLoading,
+  //   isError,
+  //   data: homepageDetails,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["homepageDetails"],
+  //   queryFn: HomepageService.getHomepageDetails,
+  // });
 
   const handleCancel = () => {
     navigate("/");

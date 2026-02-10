@@ -2,11 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { useQuery } from "@tanstack/react-query";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import Loading from "../Loading.js";
-import ServicesService from "../../services/services.service.js";
+import { useService } from "../admin/hooks/useService"; // Adjust path as needed
 
 const Service = () => {
   const navigate = useNavigate();
@@ -16,23 +15,14 @@ const Service = () => {
     window.scrollTo(0, 0);
   }, [location]);
 
-  const {
-    isLoading,
-    isError,
-    data: serviceDetails,
-    error,
-  } = useQuery({
-    queryKey: ["serviceDetails", location.state.id],
-    queryFn: () => ServicesService.getServiceDetail(location.state.id),
-  });
+  // Use the useService hook, passing the id from location.state
+  const { isLoading, isError, data: serviceDetails, error } = useService(location.state.id);
 
   if (isLoading || serviceDetails === undefined) return <Loading />;
   if (isError) return `Error: ${error.message}`;
 
   return (
     <section className="contact">
-      {/* <NavBar /> */}
-      {/* <Container style={{ marginTop: "100px" }}> */}
       <Container>
         <button
           className="service-button animate__animated animate__backInLeft"
@@ -63,10 +53,10 @@ const Service = () => {
             <h2>{serviceDetails.title}</h2>
             <div style={{ alignContent: "center", alignItems: "center" }}>
               <img
-                src={require("../" + serviceDetails.image)}
+                src={require("../../" + serviceDetails.image)}
                 style={{ width: "50%" }}
                 alt=""
-              ></img>
+              />
             </div>
           </Col>
           <Col>
@@ -85,27 +75,24 @@ const Service = () => {
         >
           Pricing Details:
         </Row>
-        {serviceDetails &&
-          serviceDetails.pricing.map((service, idx) => {
-            return (
-              <Row
-                key={service._id + "." + idx}
-                className="align-items-center"
-                style={{
-                  border: "1px solid rgba(255, 255, 255, 0.5)",
-                  margin: "15px",
-                  padding: "15px",
-                  borderRadius: "25px",
-                  fontSize: "1.2rem",
-                }}
-              >
-                <div>Type: {service.type}</div>
-                <div>Price: {service.price}</div>
-                <div>Description: </div>
-                <div>{service.description}</div>
-              </Row>
-            );
-          })}
+        {serviceDetails.pricing.map((service, idx) => (
+          <Row
+            key={service._id + "." + idx}
+            className="align-items-center"
+            style={{
+              border: "1px solid rgba(255, 255, 255, 0.5)",
+              margin: "15px",
+              padding: "15px",
+              borderRadius: "25px",
+              fontSize: "1.2rem",
+            }}
+          >
+            <div>Type: {service.type}</div>
+            <div>Price: {service.price}</div>
+            <div>Description: </div>
+            <div>{service.description}</div>
+          </Row>
+        ))}
       </Container>
     </section>
   );

@@ -1,46 +1,54 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-import TeamService from "../../services/team.service.js";
+// import TeamService from "../../api/team.service.js";
+
+import {  useTeamMembers } from "./hooks/useTeamMember";
+import { useDeleteTeamMember } from "./hooks/useDeleteTeamMember";
 
 const TeamDetails = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
   const navigate = useNavigate();
+
+  const { data: team, isLoading, error } = useTeamMembers();
+  const deleteTeamMember = useDeleteTeamMember();
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
     navigate(`/admin/team-member-edit/${id}`, { state: { id: id } });
   };
 
-  const {
-    isLoading,
-    isError,
-    data: teamInfo,
-    error,
-  } = useQuery({
-    queryKey: ["teamInfo"],
-    queryFn: TeamService.getTeamDetails,
-  });
+  // const {
+  //   isLoading,
+  //   isError,
+  //   data: teamInfo,
+  //   error,
+  // } = useQuery({
+  //   queryKey: ["teamInfo"],
+  //   queryFn: TeamService.getTeamDetails,
+  // });
 
-  const deleteTeamMemberMutation = useMutation({
-    mutationFn: TeamService.deleteTeamMember,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
-    },
-  });
+  // const deleteTeamMemberMutation = useMutation({
+  //   mutationFn: TeamService.deleteTeamMember,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
+  //   },
+  // });
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    console.log("id: ", id);
-    deleteTeamMemberMutation.mutate(id);
+ 
+    // deleteTeamMemberMutation.mutate(id);
+    deleteTeamMember.mutate(id);
+
   };
 
-  if (isLoading || teamInfo === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isLoading || team === undefined) return <Loading />;
+  if (error) return `Error: ${error.message}`;
 
   return (
     <section className="contact">
@@ -65,8 +73,8 @@ const TeamDetails = () => {
                 >
                   <h2>Update Team Details</h2>
                   <form>
-                    {teamInfo &&
-                      teamInfo.map((member, idx) => {
+                    {team &&
+                      team.map((member, idx) => {
                         return (
                           <Row key={member._id} style={{ marginBottom: 15, padding: 15, border: 'solid 1px white', borderRadius: 15 }}>
                             <Col lg={2} className="px-1">
