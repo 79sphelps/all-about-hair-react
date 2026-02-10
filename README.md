@@ -1,4 +1,4 @@
-# Overview – Small Business Site: All About Hair
+# Overview – Small Business Site: All About Hair (Frontend Only)
 
 This is a **React.js** application built for a local hair salon business in Happy Valley, OR.
 
@@ -9,7 +9,7 @@ The app leverages:
 - **OAuth-based authentication and access management**
 - **react-hook-form** for simple and complex forms with custom validation
 
-**All About Hair** is a full-stack web application designed to manage both a public-facing website and internal salon content through a secure admin interface.
+**All About Hair** is a Reac.js application designed to manage both a public-facing website and internal salon content through a secure admin interface.
 
 ---
 
@@ -20,7 +20,7 @@ The app leverages:
 
 ---
 
-## Problem It Solves
+## Usage
 
 The business needed a custom website that:
 
@@ -31,11 +31,10 @@ The business needed a custom website that:
 
 ---
 
-## Architecture & Technical Decisions
+## Architecture & Technical Decisions (The Node.js/Express backend is in an alternate repo)
 
 - **MERN stack (React.js + Node.js/Express + MongoDB)** for a single-language JavaScript ecosystem
 - **JWT-based OAuth authentication** with automatic token renewal for secure admin access
 - **RESTful APIs** supporting full CRUD operations for site content
 - **Bootstrap** for responsive layouts and rapid UI development
-- **Google Calendar API integration** to surface scheduling data
 - **MongoDB Atlas** for cloud-hosted document storage
