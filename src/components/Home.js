@@ -1,53 +1,55 @@
-/*
-Pattern
-- NavBar & Footer load instantly
-- - They are not blocked by API calls or lazy chunks.
-
-Sections stream independently
-
-If:
-- Services is slow
-- Team API is cold
-- Gallery images are heavy
-
-…the rest of the page still renders.
-*/
-import { useEffect, Suspense } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ToastContainer, toast } from "react-toastify";
 import NavBar from "../ui/NavBar";
 import Footer from "./footer/Footer";
-import HomeContent from "./HomeContent";
 import FullPageLoader from "./FullPageLoader";
+import { lazy } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useHomePageBootstrap } from "./useHomePageBootstrap";
+import ErrorState from "../ui/ErrorState";
+
+// Lazy sections
+const Hero = lazy(() => import("./hero/Hero"));
+const Services = lazy(() => import("./services/Services"));
+const Mission = lazy(() => import("./mission/Mission"));
+const Team = lazy(() => import("./team/Team"));
+const Gallery = lazy(() => import("./gallery/Gallery"));
+const ContactForm = lazy(() => import("./contact/ContactForm"));
+const HomePageDetails = lazy(() => import("./admin/HomePageDetails"));
 
 const Home = () => {
   const { isAuthenticated } = useAuth0();
+  const { isLoading, isError, errors } = useHomePageBootstrap();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    toast(
-      "Because the backend uses the free tier of Render.com, it may take up to 30+ seconds to wake up the server on the first request."
+  if (isLoading) {
+    return (
+      <FullPageLoader
+        title="Waking up the server…"
+        subtitle="This can take up to 45 seconds on first load."
+      />
     );
-  }, []);
+  }
+
+  if (isError) {
+    return <ErrorState errors={errors} />;
+  }
 
   return (
     <div className="App">
       <NavBar />
 
-      <ToastContainer
-        position="top-center"
-        autoClose={30000}
-        closeOnClick={false}
-        pauseOnHover
-      />
-
-      <Suspense fallback={<FullPageLoader />}>
-        <HomeContent isAuthenticated={isAuthenticated} />
-      </Suspense>
+      {!isAuthenticated ? (
+        <>
+          <Hero />
+          <Services />
+          <Mission />
+          <Team />
+          <Gallery />
+          <ContactForm />
+        </>
+      ) : (
+        <HomePageDetails />
+      )}
 
       <Footer />
     </div>

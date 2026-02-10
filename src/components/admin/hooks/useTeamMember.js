@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-// import TeamService from "../../../api/team.service.js";
 import { getTeamMemberById, getTeamMembers } from "../../../api/team.api";
 import { teamMembersQueryKey, teamMemberQueryKey } from "./queryKeys";
 

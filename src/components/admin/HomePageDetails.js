@@ -1,177 +1,100 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
-import Loading from "../Loading";
+
 import NavBar from "../../ui/NavBar";
-// import HomepageService from "../../api/homepage.service.js";
+import Loading from "../Loading";
 
 import { useHomePageDetails } from "./hooks/useHomePageDetails";
 import { useUpdateHomePageDetails } from "./hooks/useUpdateHomePageDetails";
 
+const EMPTY_FORM = {
+  headline: "",
+  headlineSubMsg: "",
+  servicesHeadline: "",
+  servicesSubMsg: "",
+  aboutHeadline: "",
+  aboutSubMsg: "",
+  aboutImage: "",
+  aboutVideoLink: "",
+  stylistsHeadline: "",
+  stylistsSubMsg: "",
+  serviceDetailsHeadline: "",
+  serviceDetailsSubMsg: "",
+  contactHeadline: "",
+  contactSubMsg: "",
+};
+
 const HomePageDetails = () => {
-  const formInitialDetails = {
-    headline: "",
-    headlineSubMsg: "",
-    servicesHeadline: "",
-    servicesSubMsg: "",
-    aboutHeadline: "",
-    aboutSubMsg: "",
-    aboutImage: "",
-    aboutVideoLink: "",
-    stylistsHeadline: "",
-    stylistsSubMsg: "",
-    serviceDetailsHeadline: "",
-    serviceDetailsSubMsg: "",
-    contactHeadline: "",
-    contactSubMsg: "",
-  };
-
-  // const queryClient = useQueryClient();
-  const { data: homepageDetails, isLoading, isError, error } =
-    useHomePageDetails();
-
-  const updateHomepageDetailsMutation = useUpdateHomePageDetails();
-
-
   const navigate = useNavigate();
-  const [formDetails, setFormDetails] = useState(formInitialDetails);
 
-  // const updateHomepageDetailsMutation = useMutation({
-  //   mutationFn: HomepageService.updateHomepageDetails,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["homepageDetails"] });
-  //   },
-  // });
+  const {
+    data: homepageDetails,
+    isLoading,
+    isError,
+    error,
+  } = useHomePageDetails();
 
-  const updateHomepageDetailsEdit = () => {
-    const id = homepageDetails[0]._id;
-    // updateHomepageDetailsMutation.mutate({ id, access_token, ...formDetails });  // **AUTH0 access token not functional yet**
-    updateHomepageDetailsMutation.mutate({ id, ...formDetails });
-  };
+  const updateHomepageDetails = useUpdateHomePageDetails();
 
-  const onFormUpdate = (e) => {
+  const [formDetails, setFormDetails] = useState(EMPTY_FORM);
+
+  useEffect(() => {
+    if (homepageDetails?.[0]) {
+      setFormDetails(homepageDetails[0]);
+    }
+  }, [homepageDetails]);
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormDetails(values => ({...values, [name]: value}));
+    setFormDetails((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    Object.entries(formDetails).forEach(([key, value]) => {
-      if (!value) {
-        formDetails[key] = homepageDetails[0][key];
-      }
-    });
-    updateHomepageDetailsEdit();
-  };
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: homepageDetails,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["homepageDetails"],
-  //   queryFn: HomepageService.getHomepageDetails,
-  // });
+    const id = homepageDetails[0]._id;
+
+    updateHomepageDetails.mutate({
+      id,
+      ...formDetails,
+    });
+  };
 
   const handleCancel = () => {
     navigate("/");
   };
 
-  if (isLoading || homepageDetails === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isLoading) return <Loading />;
+  if (isError) return <div>Error: {error.message}</div>;
+  if (!homepageDetails?.length) return null;
 
-  const FORM_INPUTS_ARRAY = [
-    {
-      title: "Headline",
-      name: "headline",
-      value: formDetails.headline || homepageDetails[0].headline,
-      placeholder: homepageDetails && homepageDetails[0].headline,
-    },
-    {
-      title: "Headline Sub M",
-      name: "headlineSubMsg",
-      value: formDetails.headlineSubMsg || homepageDetails[0].headlineSubMsg,
-      placeholder: homepageDetails && homepageDetails[0].headlineSubMsg,
-    },
-    {
-      title: "Services Headline",
-      name: "servicesHeadline",
-      value:
-        formDetails.servicesHeadline || homepageDetails[0].servicesHeadline,
-      placeholder: homepageDetails && homepageDetails[0].servicesHeadline,
-    },
-    {
-      title: "About Section Headline",
-      name: "aboutHeadline",
-      value: formDetails.aboutHeadline || homepageDetails[0].aboutHeadline,
-      placeholder: homepageDetails && homepageDetails[0].aboutHeadline,
-    },
-    {
-      title: "About Image",
-      name: "aboutImage",
-      value: formDetails.aboutImage || homepageDetails[0].aboutImage,
-      placeholder: homepageDetails && homepageDetails[0].aboutImage,
-    },
-    {
-      title: "About Section Video Link",
-      name: "aboutVideoLink",
-      value: formDetails.aboutVideoLink || homepageDetails[0].aboutVideoLink,
-      placeholder: homepageDetails && homepageDetails[0].aboutVideoLink,
-    },
-    {
-      title: "Stylists Section Headline",
-      name: "stylistsHeadline",
-      value:
-        formDetails.stylistsHeadline || homepageDetails[0].stylistsHeadline,
-      placeholder: homepageDetails && homepageDetails[0].stylistsHeadline,
-    },
-    {
-      title: "Stylists Section Sub Msg",
-      name: "stylistsSubMsg",
-      value: formDetails.stylistsSubMsg || homepageDetails[0].stylistsSubMsg,
-      placeholder: homepageDetails && homepageDetails[0].stylistsSubMsg,
-    },
-    {
-      title: "Service Details Section Headline",
-      name: "serviceDetailsHeadline",
-      value:
-        formDetails.serviceDetailsHeadline ||
-        homepageDetails[0].serviceDetailsHeadline,
-      placeholder: homepageDetails && homepageDetails[0].stylistsSubMsg,
-    },
-    {
-      title: "Service Details Section Sub Msg",
-      name: "serviceDetailsSubMsg",
-      value:
-        formDetails.serviceDetailsSubMsg ||
-        homepageDetails[0].serviceDetailsSubMsg,
-      placeholder: homepageDetails && homepageDetails[0].serviceDetailsSubMsg,
-    },
-    {
-      title: "Contact Section Headline",
-      name: "contactHeadline",
-      value: formDetails.contactHeadline || homepageDetails[0].contactHeadline,
-      placeholder: homepageDetails && homepageDetails[0].contactHeadline,
-    },
-    {
-      title: "Contact Section Sub Msg",
-      name: "contactSubMsg",
-      value: formDetails.contactSubMsg || homepageDetails[0].contactSubMsg,
-      placeholder: homepageDetails && homepageDetails[0].contactSubMsg,
-    },
+  const FIELDS = [
+    { label: "Headline", name: "headline" },
+    { label: "Headline Sub Msg", name: "headlineSubMsg" },
+    { label: "Services Headline", name: "servicesHeadline" },
+    { label: "Services Sub Msg", name: "servicesSubMsg" },
+    { label: "About Section Headline", name: "aboutHeadline" },
+    { label: "About Image", name: "aboutImage" },
+    { label: "About Video Link", name: "aboutVideoLink" },
+    { label: "Stylists Section Headline", name: "stylistsHeadline" },
+    { label: "Stylists Section Sub Msg", name: "stylistsSubMsg" },
+    { label: "Service Details Headline", name: "serviceDetailsHeadline" },
+    { label: "Service Details Sub Msg", name: "serviceDetailsSubMsg" },
+    { label: "Contact Section Headline", name: "contactHeadline" },
+    { label: "Contact Section Sub Msg", name: "contactSubMsg" },
   ];
 
   return (
     <section className="contact">
       <NavBar />
+
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           <Col>
-            <TrackVisibility>
+            <TrackVisibility once>
               {({ isVisible }) => (
                 <div
                   className={
@@ -179,53 +102,50 @@ const HomePageDetails = () => {
                   }
                 >
                   <h2>Update Homepage Details</h2>
+
                   <form onSubmit={handleSubmit}>
                     <Row>
-                      {FORM_INPUTS_ARRAY.map((item, idx) => (
-                        <Col lg={12} className="px-1" key={idx}>
-                          <div>{item.title}: </div>
+                      {FIELDS.map(({ label, name }) => (
+                        <Col lg={12} className="px-1" key={name}>
+                          <label>{label}</label>
                           <input
                             type="text"
-                            name={item.name}
-                            value={item.value}
-                            placeholder={item.placeholder}
-                            onChange={onFormUpdate}
+                            name={name}
+                            value={formDetails[name] ?? ""}
+                            onChange={handleChange}
                           />
                         </Col>
                       ))}
 
+                      {/* About Sub Message */}
                       <Col lg={12} className="px-1">
-                        <div>About Section Sub Msg</div>
+                        <label>About Section Sub Msg</label>
                         <textarea
-                          style={{ marginTop: "3px" }}
                           name="aboutSubMsg"
                           rows="6"
-                          value={
-                            formDetails.aboutSubMsg ||
-                            homepageDetails[0].aboutSubMsg
-                          }
-                          onChange={onFormUpdate}
-                        ></textarea>
+                          value={formDetails.aboutSubMsg ?? ""}
+                          onChange={handleChange}
+                        />
                       </Col>
 
-                      <Col size={12} className="px-1">
+                      {/* Actions */}
+                      <Col lg={12} className="px-1 admin-btn-container">
                         <button
+                          type="submit"
+                          className="admin-btn"
                           style={{ marginRight: "20px" }}
-                          onClick={handleSubmit}
                         >
-                          <span>Update</span>
+                          Update
                         </button>
-                        <button onClick={handleCancel}>
-                          <span>Cancel</span>
-                        </button>
-                      </Col>
 
-                      {/* {
-                      status.message &&
-                      <Col>
-                        <p className={status.success === false ? "danger" : "success"}>{status.message}</p>
+                        <button
+                          type="button"
+                          className="admin-btn"
+                          onClick={handleCancel}
+                        >
+                          Cancel
+                        </button>
                       </Col>
-                    } */}
                     </Row>
                   </form>
                 </div>
@@ -234,7 +154,6 @@ const HomePageDetails = () => {
           </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };

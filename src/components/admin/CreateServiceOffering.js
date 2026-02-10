@@ -2,355 +2,215 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-// import { v4 as uuidv4 } from "uuid";
 import "animate.css";
-import { FormError, formErrorsCreateService } from "../../lib/common.js";
-import NavBar from "../../ui/NavBar";
-// import ServicesService from "../../services/services.service.js";
 
-// import { useServices } from "./hooks/useServices";
+import NavBar from "../../ui/NavBar";
+import { FormError, formErrorsCreateService } from "../../lib/common.js";
 import { useCreateService } from "./hooks/useCreateService";
 
+const EMPTY_SERVICE = {
+  title: "",
+  image: "",
+  description: "",
+  pricing: [],
+};
+
+const EMPTY_PRICING = {
+  type: "",
+  price: "",
+  description: "",
+};
+
+const validators = {
+  title: (v) => /^[A-Za-z0-9_ ']{5,}$/.test(v),
+  image: (v) => /^[A-Za-z0-9_ /.']{5,}$/.test(v),
+  description: (v) => /^[A-Za-z0-9_ .']{10,}$/.test(v),
+  type: (v) => /^[A-Za-z0-9_ ']{5,}$/.test(v),
+  price: (v) => /^[A-Za-z0-9_ .$\-']{3,}$/.test(v),
+};
+
 const CreateServiceOffering = () => {
-  let formInitialDetails = {
-    title: "",
-    image: "",
-    description: "",
-    pricing: [],
-    errors: {},
-  };
-  let initialFormPricingDetails = {
-    type: "",
-    price: "",
-    description2: "",
-    errors: {},
-  };
-  const [formData, setFormData] = useState(formInitialDetails);
-  const [touched, setTouched] = useState({});
-  const [touched2, setTouched2] = useState({});
-  const [handleAddPricingDetail, setAddPricingDetailFlag] = useState(false);
-  const [formPricingDetails, setFormPricingDetails] = useState(
-    initialFormPricingDetails,
-  );
-
-  const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
-
-
-
-  // const queryClient = useQueryClient();
-  // const { data: services, isLoading, error } = useServices();
   const createService = useCreateService();
 
-
-
+  const [service, setService] = useState(EMPTY_SERVICE);
+  const [pricingDraft, setPricingDraft] = useState(EMPTY_PRICING);
+  const [showPricingForm, setShowPricingForm] = useState(false);
+  const [touched, setTouched] = useState({});
+  const [submitted, setSubmitted] = useState(false);
   const [buttonText, setButtonText] = useState("Create New Service");
 
-
-
-
-  // const addServiceMutation = useMutation({
-  //   mutationFn: ServicesService.createService,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["addService"] });
-  //   },
-  // });
-
-
-
-  const handleAddService = () => {
-    if (formData) {
-      setSubmitted(true);
-      setButtonText("Creating Service...");
-      // addServiceMutation.mutate({
-      //   id: uuidv4(),
-      //   ...formData,
-      // });
-      createService.mutate(formData);
+  const getError = (name, value) => {
+    if (!validators[name]?.(value)) {
+      return formErrorsCreateService[name]?.error;
     }
-  };
-
-  const newService = () => {
-    setFormData(formInitialDetails);
-    setFormPricingDetails(initialFormPricingDetails);
-    setSubmitted(false);
-    setButtonText("Create New Service");
+    return null;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((values) => ({ ...values, [name]: value }));
-    validate(name, value);
+    setService((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleBlur = (e) => {
-    const { name, value } = e.target;
+    const { name } = e.target;
     setTouched((prev) => ({ ...prev, [name]: true }));
-    validate(name, value);
   };
 
-  const toggleAddNewPricingDetail = () => {
-    setAddPricingDetailFlag((v) => !v);
-  };
-
-  const handleFormPricingDetailChange = (e) => {
+  const handlePricingChange = (e) => {
     const { name, value } = e.target;
-    setFormPricingDetails((values) => ({ ...values, [name]: value }));
-    validatePricingDetail(name, value);
+    setPricingDraft((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handlePricingBlur = (e) => {
-    const { name, value } = e.target;
-    setTouched2((prev) => ({ ...prev, [name]: true }));
-    validatePricingDetail(name, value);
+  const addPricingDetail = () => {
+    setService((prev) => ({
+      ...prev,
+      pricing: [...prev.pricing, pricingDraft],
+    }));
+    setPricingDraft(EMPTY_PRICING);
+    setShowPricingForm(false);
   };
 
-  const handleAddFormPricingDetail = () => {
-    if (formPricingDetails) {
-      const o = {
-        ...formData,
-        pricing: [...formData.pricing, formPricingDetails],
-      };
-      setFormData(o);
-      setFormPricingDetails(initialFormPricingDetails);
-      setAddPricingDetailFlag(false);
-    }
+  const submitService = () => {
+    setButtonText("Creating Service...");
+    createService.mutate(service, {
+      onSuccess: () => setSubmitted(true),
+      onError: () => setButtonText("Create New Service"),
+    });
   };
 
-  const validate = (name, value) => {
-    const errors = formData.errors;
-
-    if (name === "title") {
-      if (!titleIsValid(value)) {
-        errors.title = "The title is not valid.";
-      } else {
-        errors.title = "";
-      }
-    }
-    if (name === "image") {
-      if (!imagePathIsValid(value)) {
-        errors.image = "The image path is not valid.";
-      } else {
-        errors.image = "";
-      }
-    }
-    if (name === "description") {
-      if (!descriptionIsValid(value)) {
-        errors.description = "The description is not valid.";
-      } else {
-        errors.description = "";
-      }
-    }
-
-    setFormData((values) => ({ ...values, errors: errors }));
+  const resetForm = () => {
+    setService(EMPTY_SERVICE);
+    setPricingDraft(EMPTY_PRICING);
+    setTouched({});
+    setSubmitted(false);
+    setButtonText("Create New Service");
   };
-
-  const validatePricingDetail = (name, value) => {
-    const errors = formPricingDetails.errors;
-
-    if (name === "type") {
-      if (!pricingDetailTypeIsValid(value)) {
-        errors.type = "The pricing detail type is not valid.";
-      } else {
-        errors.type = "";
-      }
-    }
-    if (name === "price") {
-      if (!pricingDetailPriceIsValid(value)) {
-        errors.price = "The pricing detail price is not valid.";
-      } else {
-        errors.price = "";
-      }
-    }
-    if (name === "description2") {
-      if (!pricingDetailDescriptionIsValid(value)) {
-        errors.description2 = "The pricing detail description is not valid.";
-      } else {
-        errors.description2 = "";
-      }
-    }
-
-    setFormPricingDetails((values) => ({ ...values, errors: errors }));
-  };
-
-  const titleIsValid = (value) => /^[A-Za-z0-9_ ']{5,}$/g.test(value);
-  const imagePathIsValid = (value) => /^[A-Za-z0-9_ /.']{5,}$/g.test(value);
-  const descriptionIsValid = (value) => /^[A-Za-z0-9_ .']{10,}$/g.test(value);
-
-  const pricingDetailTypeIsValid = (value) =>
-    /^[A-Za-z0-9_ ']{5,}$/g.test(value);
-  //   const pricingDetailPriceIsValid = (value) => /^-?\d+(,\d{3})*(\.\d{1,2})?$/g.test(value);  // WAIT ON THIS STRICT FORM
-  const pricingDetailPriceIsValid = (value) =>
-    /^[A-Za-z0-9_ .$\-']{3,}$/g.test(value); // ALLOW STRING DESCRIPTION FOR NOW
-  const pricingDetailDescriptionIsValid = (value) =>
-    /^[A-Za-z0-9_ .']{5,}$/g.test(value);
 
   const handleCancel = () => {
-    setFormData(formInitialDetails);
-    setFormPricingDetails(initialFormPricingDetails);
-    setSubmitted(false);
+    resetForm();
     navigate("/");
   };
 
-  const SERVICE_FORM_INPUTS_ARRAY = [
-    {
-      title: "Title",
-      name: "title",
-      errorMsg: touched.title && formData.errors.title && (
-        <FormError msg={formErrorsCreateService["title"].error} />
-      ),
-    },
-    {
-      title: "Image Path",
-      name: "image",
-      errorMsg: touched.image && formData.errors.image && (
-        <FormError msg={formErrorsCreateService["image"].error} />
-      ),
-    },
-  ];
-
-  const PRICING_DETAIL_FORM_INPUTS_ARRAY = [
-    {
-      title: "Type",
-      name: "type",
-      errorMsg: touched2.type && formPricingDetails.errors.type && (
-        <FormError msg={formErrorsCreateService["type"].error} />
-      ),
-    },
-    {
-      title: "Price",
-      name: "price",
-      errorMsg: touched2.price && formPricingDetails.errors.price && (
-        <FormError msg={formErrorsCreateService["price"].error} />
-      ),
-    },
-    {
-      title: "Description",
-      name: "description2",
-      errorMsg: touched2.description2 &&
-        formPricingDetails.errors.description2 && (
-          <FormError msg={formErrorsCreateService["description2"].error} />
-        ),
-    },
-  ];
+  if (submitted) {
+    return (
+      <section className="contact">
+        <NavBar />
+        <Container style={{ marginTop: 100 }}>
+          <div className="admin-add-service-success-container">
+            <h4>The new service was created successfully!</h4>
+            <button className="btn btn-success" onClick={resetForm}>
+              Add Another
+            </button>
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="contact">
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {submitted && formData ? (
-            <div className="admin-add-service-success-container">
-              <h4>The new service was created successfully!</h4>
-              <button className="btn btn-success" onClick={newService}>
-                Add
-              </button>
-            </div>
-          ) : (
-            <Col>
-              <TrackVisibility>
-                {({ isVisible }) => (
-                  <div
-                    className={
-                      isVisible ? "animate__animated animate__fadeIn" : ""
-                    }
-                  >
-                    <h2>New Service Details</h2>
-                    <div>
-                      {SERVICE_FORM_INPUTS_ARRAY.map((item, idx) => (
-                        <Row key={idx}>
-                          <div>{item.title}: </div>
+          <Col>
+            <TrackVisibility>
+              {({ isVisible }) => (
+                <div
+                  className={
+                    isVisible ? "animate__animated animate__fadeIn" : ""
+                  }
+                >
+                  <h2>New Service Details</h2>
+
+                  {/* Title + Image */}
+                  {["title", "image"].map((field) => (
+                    <Row key={field}>
+                      <div>{field.toUpperCase()}</div>
+                      <input
+                        name={field}
+                        value={service[field]}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="admin-add-service-form-input"
+                      />
+                      {touched[field] && (
+                        <FormError msg={getError(field, service[field])} />
+                      )}
+                    </Row>
+                  ))}
+
+                  {/* Description */}
+                  <Row>
+                    <div>Description</div>
+                    <textarea
+                      name="description"
+                      rows={6}
+                      value={service.description}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="admin-add-service-form-input"
+                      style={{ marginTop: "20px" }}
+                    />
+                    {touched.description && (
+                      <FormError
+                        msg={getError("description", service.description)}
+                      />
+                    )}
+                  </Row>
+
+                  {/* Pricing Form */}
+                  {showPricingForm && (
+                    <>
+                      <h4 style={{ marginTop: "30px" }}>
+                        Add Pricing Detail
+                      </h4>
+
+                      {["type", "price", "description"].map((field) => (
+                        <Row key={field}>
+                          <div>{field.toUpperCase()}</div>
                           <input
+                            name={field}
+                            value={pricingDraft[field]}
+                            onChange={handlePricingChange}
                             className="admin-add-service-form-input"
-                            type="text"
-                            name={item.name}
-                            placeholder={item.placeholder}
-                            value={formData[item.name]}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
                           />
-                          {item.errorMsg}
                         </Row>
                       ))}
 
-                      <Row>
-                        <div>Description</div>
-                        <textarea
-                          className="admin-add-service-form-input"
-                          name="description"
-                          style={{ marginTop: "25px" }}
-                          rows="6"
-                          value={formData.description}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                        ></textarea>
-                        {touched.description && formData.errors.description && (
-                          <FormError
-                            msg={formErrorsCreateService["description"].error}
-                          />
-                        )}
-                      </Row>
+                      <button
+                        className="admin-btn"
+                        onClick={addPricingDetail}
+                      >
+                        Add Detail
+                      </button>
+                    </>
+                  )}
 
-                      {handleAddPricingDetail ? (
-                        <div>
-                          {PRICING_DETAIL_FORM_INPUTS_ARRAY.map((item, idx) => (
-                            <Row key={idx}>
-                              <div>{item.title}: </div>
-                              <input
-                                className="admin-add-service-form-input"
-                                type="text"
-                                name={item.name}
-                                value={formPricingDetails[item.name]}
-                                onChange={handleFormPricingDetailChange}
-                                onBlur={handlePricingBlur}
-                              />
-                              {item.errorMsg}
-                            </Row>
-                          ))}
-                          <button
-                            className="admin-btn"
-                            onClick={handleAddFormPricingDetail}
-                          >
-                            <span>Add Detail</span>
-                          </button>
-                        </div>
-                      ) : null}
-
-                      <Row>
-                        <Col
-                          size={12}
-                          className="px-1 admin-add-service-btn-container"
-                        >
-                          <button
-                            className="admin-btn"
-                            onClick={handleCancel}
-                          >
-                            <span>Cancel</span>
-                          </button>
-                          <button
-                            className="admin-btn"
-                            onClick={toggleAddNewPricingDetail}
-                          >
-                            <span>Add New Pricing Detail</span>
-                          </button>
-                          <button
-                            className="admin-btn"
-                            onClick={handleAddService}
-                          >
-                            <span>{buttonText}</span>
-                          </button>
-                        </Col>
-                      </Row>
-                    </div>
-                  </div>
-                )}
-              </TrackVisibility>
-            </Col>
-          )}
+                  {/* Buttons */}
+                  <Row className="admin-add-service-btn-container">
+                    <button className="admin-btn" onClick={handleCancel}>
+                      Cancel
+                    </button>
+                    <button
+                      className="admin-btn"
+                      onClick={() => setShowPricingForm(true)}
+                    >
+                      Add Pricing Detail
+                    </button>
+                    <button
+                      className="admin-btn"
+                      onClick={submitService}
+                    >
+                      {buttonText}
+                    </button>
+                  </Row>
+                </div>
+              )}
+            </TrackVisibility>
+          </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };

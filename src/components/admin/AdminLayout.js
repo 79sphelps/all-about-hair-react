@@ -1,15 +1,15 @@
 /*
-Why?
+Notes:
 - Auth logic lives once
 - Every admin route is automatically protected
 - Layout changes affect all admin pages
 
 Architecture:
-✔ One auth gate
-✔ One admin shell
-✔ Clean route tree
-✔ Scales effortlessly
-✔ React Router v6/v7 compliant
+- One auth gate
+- One admin shell
+- Clean route tree
+- Scales effortlessly
+- React Router v6/v7 compliant
 */
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";

@@ -1,125 +1,96 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
+
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-// import TeamService from "../../api/team.service.js";
 
-import {  useTeamMembers } from "./hooks/useTeamMember";
+import { useTeamMembers } from "./hooks/useTeamMember";
 import { useDeleteTeamMember } from "./hooks/useDeleteTeamMember";
 
 const TeamDetails = () => {
-  // const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { data: team, isLoading, error } = useTeamMembers();
   const deleteTeamMember = useDeleteTeamMember();
 
-  const handleEdit = async (e, id) => {
-    e.preventDefault();
-    navigate(`/admin/team-member-edit/${id}`, { state: { id: id } });
+  const handleEdit = (memberId) => {
+    navigate(`/admin/team-member-edit/${memberId}`, { state: { id: memberId } });
   };
 
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: teamInfo,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["teamInfo"],
-  //   queryFn: TeamService.getTeamDetails,
-  // });
-
-  // const deleteTeamMemberMutation = useMutation({
-  //   mutationFn: TeamService.deleteTeamMember,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["deleteTeamMember"] });
-  //   },
-  // });
-
-  const handleDelete = (e, id) => {
-    e.preventDefault();
- 
-    // deleteTeamMemberMutation.mutate(id);
-    deleteTeamMember.mutate(id);
-
+  const handleDelete = (memberId) => {
+    if (window.confirm("Are you sure you want to delete this team member?")) {
+      deleteTeamMember.mutate(memberId);
+    }
   };
 
-  if (isLoading || team === undefined) return <Loading />;
-  if (error) return `Error: ${error.message}`;
+  if (isLoading || !team) return <Loading />;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <section className="contact">
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}>
-            <TrackVisibility>
-              {({ isVisible }) =>
-                <img className={isVisible ? "animate__animated animate__zoomIn" : ""} src={contactImg} alt="Contact Us"/>
-              }
-            </TrackVisibility>
-          </Col> */}
-          {/* <Col size={12} md={6}> */}
           <Col>
-            <TrackVisibility>
+            <TrackVisibility once>
               {({ isVisible }) => (
-                <div
-                  className={
-                    isVisible ? "animate__animated animate__fadeIn" : ""
-                  }
-                >
-                  <h2>Update Team Details</h2>
-                  <form>
-                    {team &&
-                      team.map((member, idx) => {
-                        return (
-                          <Row key={member._id} style={{ marginBottom: 15, padding: 15, border: 'solid 1px white', borderRadius: 15 }}>
-                            <Col lg={2} className="px-1">
-                              <div><strong>Name</strong>: {member.name}</div>
-                              <div><strong>Role</strong>: {member.role}</div>
-                              <img
-                                src={require("../../" + member.photo)}
-                                alt=""
-                              ></img>
-                            </Col>
-                            <Col size={12} className="px-1">
-                              <div
-                                style={{
-                                  // border: "1px solid rgba(255, 255, 255, 0.5)",
-                                  // marginTop: "25px",
-                                  // borderRadius: "25px",
-                                  // padding: "20px",
-                                }}
-                              >
-                                <strong>Bio</strong>: <br />
-                                {member.bio}
-                              </div>
-                              <button
-                                style={{ marginRight: "20px" }}
-                                onClick={(e) => handleEdit(e, member._id)}
-                              >
-                                <span>Edit</span>
-                              </button>
-                              <button
-                                onClick={(e) => handleDelete(e, member._id)}
-                              >
-                                <span>Delete</span>
-                              </button>
-                            </Col>
-                          </Row>
-                        );
-                      })}
-                  </form>
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                  <h2>Team Members</h2>
+                  {team.map((member) => (
+                    <Row
+                      key={member._id}
+                      style={{
+                        marginBottom: 20,
+                        padding: 15,
+                        border: "1px solid white",
+                        borderRadius: 15,
+                      }}
+                    >
+                      {/* Name, Role & Photo */}
+                      <Col lg={2} className="px-1">
+                        <div><strong>Name:</strong> {member.name}</div>
+                        <div><strong>Role:</strong> {member.role}</div>
+                        {member.photo && (
+                          <img
+                            src={require(`../../${member.photo}`)}
+                            alt={member.name}
+                            style={{ width: "100%", borderRadius: "8px", marginTop: "5px" }}
+                          />
+                        )}
+                      </Col>
+
+                      {/* Bio & Actions */}
+                      <Col lg={10} className="px-1">
+                        <div style={{ marginTop: "5px" }}>
+                          <strong>Bio:</strong>
+                          <p>{member.bio}</p>
+                        </div>
+
+                        <div>
+                          <button
+                            className="admin-btn me-2"
+                            onClick={() => handleEdit(member._id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="admin-btn"
+                            onClick={() => handleDelete(member._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </Col>
+                    </Row>
+                  ))}
                 </div>
               )}
             </TrackVisibility>
           </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };

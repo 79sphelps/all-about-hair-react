@@ -1,128 +1,93 @@
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-// import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import "animate.css";
+
 import NavBar from "../../ui/NavBar";
 import Loading from "../Loading";
-// import ServicesService from "../../api/services.service.js";
 
 import { useServices } from "./hooks/useServices";
 import { useDeleteService } from "./hooks/useDeleteService";
 
 const ServicesDetails = () => {
-  // const queryClient = useQueryClient();
-
-
   const navigate = useNavigate();
-
-
 
   const { data: services, isLoading, error } = useServices();
   const deleteService = useDeleteService();
 
-
-
-  // const {
-  //   isLoading,
-  //   isError,
-  //   data: servicesInfo,
-  //   error,
-  // } = useQuery({
-  //   queryKey: ["servicesInfo"],
-  //   queryFn: ServicesService.getServiceDetails,
-  // });
-
-
-
-  const handleEdit = async (e, id) => {
-    e.preventDefault();
-    navigate(`/admin/service-edit/${id}`, { state: { id: id } });
+  const handleEdit = (serviceId) => {
+    navigate(`/admin/service-edit/${serviceId}`, { state: { id: serviceId } });
   };
 
-  // const deleteServiceMutation = useMutation({
-  //   mutationFn: ServicesService.deleteService,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["servicesInfo"],
-  //       refetchType: "all",
-  //     });
-  //   },
-  // });
-
-  const handleDelete = (e, id) => {
-    e.preventDefault();
-    // deleteServiceMutation.mutate(id);
-    deleteService.mutate(id);
+  const handleDelete = (serviceId) => {
+    if (window.confirm("Are you sure you want to delete this service?")) {
+      deleteService.mutate(serviceId);
+    }
   };
 
-  // if (isLoading || servicesInfo === undefined) return <Loading />;
-  // if (isError) return `Error: ${error.message}`;
-
-  if (isLoading || services === undefined) return <Loading />;
-  if (error) return `Error: ${error.message}`;
+  if (isLoading || !services) return <Loading />;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <section className="contact">
       <NavBar />
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
-          {/* <Col size={12} md={6}> */}
           <Col>
-            <TrackVisibility>
+            <TrackVisibility once>
               {({ isVisible }) => (
-                <div
-                  className={
-                    isVisible ? "animate__animated animate__fadeIn" : ""
-                  }
-                >
-                  <h2>Update Services Details</h2>
-                  <form>
-                    {services &&
-                      services.map((service, idx) => {
-                        return (
-                          <Row key={service._id}>
-                            <Col lg={2} className="px-1">
-                              <div>{service.title}</div>
-                              <img
-                                src={require("../../" + service.image)}
-                                alt=""
-                              ></img>
-                            </Col>
-                            <Col size={12} className="px-1">
-                              <div
-                                style={{
-                                  border: "1px solid rgba(255, 255, 255, 0.5)",
-                                  marginTop: "25px",
-                                  borderRadius: "25px",
-                                  padding: "20px",
-                                }}
-                              >
-                                {service.description}
-                              </div>
-                              <button
-                                style={{ marginRight: "20px" }}
-                                onClick={(e) => handleEdit(e, service._id)}
-                              >
-                                <span>Edit</span>
-                              </button>
-                              <button
-                                onClick={(e) => handleDelete(e, service._id)}
-                              >
-                                <span>Delete</span>
-                              </button>
-                            </Col>
-                          </Row>
-                        );
-                      })}
-                  </form>
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                  <h2>Services Details</h2>
+                  {services.map((service) => (
+                    <Row key={service._id} className="service-row mb-4">
+                      {/* Image & Title */}
+                      <Col lg={2} className="px-1">
+                        <div>{service.title}</div>
+                        {service.image && (
+                          <img
+                            src={require(`../../${service.image}`)}
+                            alt={service.title}
+                            style={{ width: "100%", borderRadius: "8px" }}
+                          />
+                        )}
+                      </Col>
+
+                      {/* Description & Actions */}
+                      <Col lg={10} className="px-1">
+                        <div
+                          style={{
+                            border: "1px solid rgba(255, 255, 255, 0.5)",
+                            marginTop: "15px",
+                            borderRadius: "15px",
+                            padding: "15px",
+                          }}
+                        >
+                          {service.description}
+                        </div>
+
+                        <div style={{ marginTop: "10px" }}>
+                          <button
+                            className="admin-btn me-2"
+                            onClick={() => handleEdit(service._id)}
+                          >
+                            Edit
+                          </button>
+                          <button
+                            className="admin-btn"
+                            onClick={() => handleDelete(service._id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </Col>
+                    </Row>
+                  ))}
                 </div>
               )}
             </TrackVisibility>
           </Col>
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };

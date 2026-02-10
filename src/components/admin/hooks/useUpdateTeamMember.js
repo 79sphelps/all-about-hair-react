@@ -5,16 +5,6 @@ import { teamMemberQueryKey, teamMembersQueryKey } from "./queryKeys";
 export const useUpdateTeamMember = () => {
   const queryClient = useQueryClient();
 
-  // return useMutation({
-  //   mutationFn: ({ id, ...data }) =>
-  //     TeamService.updateTeamMember(id, data),
-  //   onSuccess: (_, variables) => {
-  //     queryClient.invalidateQueries({ queryKey: ["teamMembers"] });
-  //     queryClient.invalidateQueries({
-  //       queryKey: ["teamMembers", variables.id],
-  //     });
-  //   },
-  // });
   return useMutation({
       mutationFn: updateTeamMember,
       onSuccess: (updatedMember) => {

@@ -2,103 +2,85 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { v4 as uuidv4 } from "uuid";
-import "animate.css";
 import { useForm } from "react-hook-form";
-// import TeamService from "../../api/team.service.js";
-import NavBar from "../../ui/NavBar.js";
+import "animate.css";
 
+import NavBar from "../../ui/NavBar";
 import { useCreateTeamMember } from "./hooks/useCreateTeamMember";
 
-const ValidationError = ({ fieldError }) => {
-  if (!fieldError) return null;
+const ValidationError = ({ error }) => {
+  if (!error) return null;
   return (
-    <div role="alert" style={{ color: "red", marginTop: 2, marginBottom: 2 }}>
-      {fieldError.message}
+    <div
+      role="alert"
+      style={{ color: "red", marginTop: 4, marginBottom: 8 }}
+    >
+      {error.message}
     </div>
   );
 };
 
+const inputErrorStyle = (error) =>
+  error ? { border: "1px solid red" } : undefined;
+
 const CreateTeamMember = () => {
+  const navigate = useNavigate();
+  const createTeamMember = useCreateTeamMember();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm({ mode: "onBlur", reValidateMode: "onBlur" });
-  const [bio] = watch(["bio"]);
-  const navigate = useNavigate();
+    reset,
+  } = useForm({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
 
+  const bio = watch("bio");
 
-  // const queryClient = useQueryClient();
-  const createTeamMember = useCreateTeamMember();
-
-  const [buttonText, setButtonText] = useState("Create New Team Member");
   const [submitted, setSubmitted] = useState(false);
+  const [buttonText, setButtonText] = useState("Create New Team Member");
 
+  const onSubmit = (formData) => {
+    setSubmitted(true);
+    setButtonText("Creating Team Member…");
 
-  // const addTeamMemberMutation = useMutation({
-  //   mutationFn: TeamService.createTeamMember,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["addTeamMember"] });
-  //     setTimeout(() => {
-  //       setButtonText("Create New Team Member");
-  //     }, 3000);
-  //     navigate("/admin/team-details");
-  //   },
-  // });
-
-  const handleAddTeamMember = (member) => {
-    if (member) {
-      setSubmitted(true);
-      setButtonText("Creating New Team Member...");
-      
-
-      // addTeamMemberMutation.mutate({
-      //   id: uuidv4(),
-      //   ...member,
-      // });
-      createTeamMember.mutate(member);
-    }
+    createTeamMember.mutate(formData, {
+      onSuccess: () => {
+        setButtonText("Create New Team Member");
+      },
+    });
   };
 
   const handleCancel = () => {
-    setSubmitted(false);
+    reset();
     navigate("/");
   };
 
-  const submitHandler = (formData) => {
-    handleAddTeamMember(formData);
-  };
-
-  const newTeamMember = () => {
+  const handleAddAnother = () => {
+    reset();
     setSubmitted(false);
     setButtonText("Create New Team Member");
-  };
-
-  const getEditorStyle = (fieldError) => {
-    return fieldError ? "border: solid 1px red" : "";
   };
 
   return (
     <section className="contact">
       <NavBar />
+
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           {submitted ? (
-            <div>
+            <div className="admin-add-success-container">
               <h4>The new team member was created successfully!</h4>
-              <button
-                className="btn btn-success"
-                onClick={() => newTeamMember()}
-              >
-                Add New Team Member
+              <button className="btn btn-success" onClick={handleAddAnother}>
+                Add Another Team Member
               </button>
             </div>
           ) : (
             <Col>
-              <TrackVisibility>
+              <TrackVisibility once>
                 {({ isVisible }) => (
                   <div
                     className={
@@ -106,102 +88,110 @@ const CreateTeamMember = () => {
                     }
                   >
                     <h2>New Team Member Details</h2>
-                    <form noValidate onSubmit={handleSubmit(submitHandler)}>
+
+                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                      {/* Name */}
                       <Row>
-                        <div>Name: </div>
+                        <label>Name</label>
                         <input
-                          className={getEditorStyle(errors.name)}
                           type="text"
-                          id="name"
                           placeholder="Name"
+                          style={inputErrorStyle(errors.name)}
                           {...register("name", {
-                            required: "Please provide a valid team member name",
+                            required: "Please provide a team member name",
                             minLength: {
                               value: 2,
                               message: "Name must be at least 2 characters",
                             },
                           })}
                         />
-                        <ValidationError fieldError={errors.name} />
+                        <ValidationError error={errors.name} />
                       </Row>
+
+                      {/* Role */}
                       <Row>
-                        <div>Role: </div>
+                        <label>Role</label>
                         <input
-                          className={getEditorStyle(errors.role)}
                           type="text"
-                          id="role"
                           placeholder="Role"
+                          style={inputErrorStyle(errors.role)}
                           {...register("role", {
-                            required:
-                              "Please provide a valid member role describing what they do",
+                            required: "Please provide a role description",
                             minLength: {
                               value: 5,
                               message: "Role must be at least 5 characters",
                             },
                           })}
                         />
-                        <ValidationError fieldError={errors.role} />
+                        <ValidationError error={errors.role} />
                       </Row>
+
+                      {/* Photo */}
                       <Row>
-                        <div>Image Path: </div>
+                        <label>Image Path</label>
                         <input
-                          className={getEditorStyle(errors.photo)}
                           type="text"
-                          id="photo"
-                          placeholder="Photo"
+                          placeholder="Image path"
+                          style={inputErrorStyle(errors.photo)}
                           {...register("photo", {
-                            required:
-                              "Please provide a valid image path for the team member",
+                            required: "Please provide a valid image path",
                             minLength: {
                               value: 10,
                               message:
-                                "Photo path must be at least 10 characters",
+                                "Image path must be at least 10 characters",
                             },
                           })}
                         />
-                        <ValidationError fieldError={errors.photo} />
+                        <ValidationError error={errors.photo} />
                       </Row>
+
+                      {/* Bio */}
                       <Row>
-                        <div>Bio:</div>
+                        <label>Bio</label>
                         <textarea
-                          className={getEditorStyle(errors.bio)}
                           rows="6"
-                          placeholder="Bio (at least 25 characters)"
+                          placeholder="Bio (minimum 25 characters)"
+                          style={inputErrorStyle(errors.bio)}
                           {...register("bio", {
-                            required:
-                              "Please provide a valid message for the biography of at least 25 characters",
+                            required: "Please provide a team member bio",
                             minLength: {
                               value: 25,
                               message: "Bio must be at least 25 characters",
                             },
                           })}
-                        ></textarea>
-                        {bio && bio?.length < 25 && (
-                          <div>
-                            ({25 - bio?.length} bio characters still needed)
+                        />
+                        {bio && bio.length < 25 && (
+                          <div style={{ fontSize: "0.85rem" }}>
+                            {25 - bio.length} characters remaining
                           </div>
                         )}
-                        <ValidationError fieldError={errors.bio} />
+                        <ValidationError error={errors.bio} />
                       </Row>
+
+                      {/* Actions */}
                       <Row>
-                        <Col size={12} className="px-1">
+                        <Col className="px-1 admin-btn-container">
                           <button
                             type="submit"
                             disabled={!isValid}
+                            className="admin-btn"
                             style={{
-                              color: !isValid && "lightgrey",
-                              cursor: !isValid && "not-allowed",
-                              marginRight: "20px",
+                              opacity: !isValid ? 0.5 : 1,
+                              cursor: !isValid
+                                ? "not-allowed"
+                                : "pointer",
+                              marginRight: "16px",
                             }}
                           >
                             {buttonText}
                           </button>
+
                           <button
                             type="button"
-                            style={{ marginRight: "20px" }}
+                            className="admin-btn"
                             onClick={handleCancel}
                           >
-                            <span>Cancel</span>
+                            Cancel
                           </button>
                         </Col>
                       </Row>
@@ -213,7 +203,6 @@ const CreateTeamMember = () => {
           )}
         </Row>
       </Container>
-      {/* <Footer /> */}
     </section>
   );
 };
