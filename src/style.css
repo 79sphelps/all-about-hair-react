@@ -182,23 +182,23 @@
 
 .footer-copywright {
   text-align: center !important;
-  font-size: 36px;
+  font-size: 2.25rem; /* 36px */
 }
 
 .footer-body {
   z-index: 1;
   text-align: center !important;
-  font-size: 36px;
+  font-size: 2.25rem; /* 36px */
 }
 
 @media (max-width: 768px) {
   .footer-copywright {
     /* text-align: center !important; */
-    font-size: 20px;
+    font-size: 1.25rem; /* 20px */
   }
 
   .footer-body {
-    font-size: 20px;
+    font-size: 1.25rem; /* 20px */
   }
 }
 
@@ -233,7 +233,7 @@
 }
 
 .footer h3 {
-  font-size: 1em;
+  font-size: 1rem;
   color: white !important;
   margin-top: 0.5em !important;
   margin-bottom: 0.5em !important;
