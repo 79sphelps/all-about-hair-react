@@ -6,6 +6,7 @@ import "animate.css";
 import { useForm } from "react-hook-form";
 import { usePostGeneralRequest } from "./hooks/usePostGeneralRequest";
 import contactImg from "../../assets/img/contact-img.svg";
+import AccessibleFormField from "./AccessibleFormField";
 import {
   CONTACT_FORM_INPUTS_ARY,
   CONTACT_FORM_SUCCESS_TEXT,
@@ -122,32 +123,26 @@ const ContactForm = () => {
                     >
                       <Row>
                         {CONTACT_FORM_INPUTS_ARY.map((item, idx) => (
-                          <Col size={12} sm={6} className="px-1" key={idx}>
-                            <label htmlFor={item.id}>{item.placeholder}</label>
-                            <input
-                              className={getEditorStyle(ERRORS_OBJ[item.class])}
+                          <Col sm={6} className="px-1" key={idx}>
+                            <AccessibleFormField
+                              id={item.register_obj.register_txt}
+                              label={item.placeholder}
                               type="text"
-                              id={item.id}
-                              placeholder={item.placeholder}
-                              {...register(
-                                item.register_obj.register_txt,
-                                item.register_obj,
-                              )}
-                            />
-                            <ValidationError
-                              fieldError={ERRORS_OBJ[item.class]}
+                              register={register}
+                              registerOptions={item.register_obj}
+                              error={errors[item.register_obj.register_txt]}
+                              required={item.register_obj?.required}
                             />
                           </Col>
                         ))}
-                        <Col size={12} className="px-1">
-                          <label htmlFor="message">
-                            Message (at least 25 characters)
-                          </label>
-                          <textarea
-                            className={getEditorStyle(errors.message)}
-                            rows="6"
-                            placeholder="Message (at least 25 characters)"
-                            {...register("message", {
+                        <Col className="px-1">
+                          <AccessibleFormField
+                            id="message"
+                            label="Message"
+                            as="textarea"
+                            rows={6}
+                            register={register}
+                            registerOptions={{
                               required:
                                 "You must enter a reason for contacting",
                               minLength: {
@@ -155,30 +150,20 @@ const ContactForm = () => {
                                 message:
                                   "Message must be at least 25 characters",
                               },
-                            })}
+                            }}
+                            error={errors.message}
+                            required
+                            showCharCount
+                            currentLength={message?.length || 0}
+                            minLength={25}
                           />
-                          {message && message.length < 25 && (
-                            <div aria-live="polite">
-                              ({25 - message.length} characters still needed)
-                            </div>
-                          )}
-                          <ValidationError fieldError={errors.message} />
                           <button
                             type="submit"
                             disabled={!isValid || isPending}
-                            style={{
-                              color: !isValid ? "lightgrey" : undefined,
-                              cursor: !isValid ? "not-allowed" : undefined,
-                              marginRight: "20px",
-                            }}
                           >
                             {isPending ? "Sending..." : "Send"}
                           </button>
-
-                          <button
-                            type="button"
-                            onClick={handleReset}
-                          >
+                          <button type="button" onClick={handleReset}>
                             Reset
                           </button>
                         </Col>
