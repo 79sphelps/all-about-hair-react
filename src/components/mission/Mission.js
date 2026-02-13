@@ -10,15 +10,35 @@ const Mission = () => {
   const {
     isLoading,
     isError,
-    data: bannerInfo,
+    data: homepageInfo,
     error,
   } = useHomePageDetails();
 
-  if (isLoading) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+if (isLoading) {
+    return (
+      <Loading
+        role="status"
+        aria-live="polite"
+        aria-label="Loading mission content"
+      />
+    );
+  }
+
+if (isLoading) {
+    return (
+      <Loading
+        role="status"
+        aria-live="polite"
+        aria-label="Loading mission content"
+      />
+    );
+  }
 
   return (
-    <section id="mission">
+    <section 
+          id="mission"
+      aria-labelledby="mission-heading"
+    >
       <Container fluid className="mission-section">
         <Container>
           <Row style={{ justifyContent: "center", padding: "10px" }}>
@@ -30,12 +50,17 @@ const Mission = () => {
                 paddingBottom: "50px",
               }}
             >
-              <h1
-                style={{ fontSize: "2.1em", paddingBottom: "20px" }}
-                className="animate__animated animate__fadeInLeft"
-              >
-                We Believe that Interior Beautifies the Total Architecture
-              </h1>
+              <header>
+                <h2
+                  id="mission-heading"
+                  className="animate__animated animate__fadeInLeft"
+                  style={{ fontSize: "2.1em", paddingBottom: "20px" }}
+                >
+                  We Believe that Interior Beautifies the Total Architecture
+                </h2>
+              </header>
+
+              {/* Mission description */}
               <MissionAbout />
             </Col>
             <Col
@@ -43,7 +68,15 @@ const Mission = () => {
               style={{ paddingTop: "120px", paddingBottom: "50px" }}
               className="about-img"
             >
-              <img src={laptopImg} alt="about" className="img-fluid" />
+              {/* <img src={laptopImg} alt="about" className="img-fluid" /> */}
+              <figure>
+                <img
+                  src={laptopImg}
+                  alt="Interior design workspace showcasing architectural planning"
+                  className="img-fluid"
+                  loading="lazy"
+                />
+              </figure>
             </Col>
           </Row>
         </Container>

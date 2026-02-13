@@ -20,26 +20,46 @@ const Services = () => {
     error: servicesError,
   } = useServices();
 
-  if (isHomepageLoading || isServicesLoading) return <Loading />;
-  if (isHomepageError) return `Error: ${homepageError.message}`;
-  if (isServicesError) return `Error: ${servicesError.message}`;
+  if (isHomepageLoading || isServicesLoading) {
+    return <Loading />;
+  }
+
+  if (isHomepageError) {
+    return (
+      <p role="alert">
+        Error loading homepage data: {homepageError.message}
+      </p>
+    );
+  }
+
+  if (isServicesError) {
+    return (
+      <p role="alert">
+        Error loading services: {servicesError.message}
+      </p>
+    );
+  }
 
   const homepage = homepageInfo?.[0];
 
   return (
-    <section id="services">
+    <section id="services" aria-labelledby="services-heading">
       <Container fluid className="services-section">
         <Container>
-          <h1 className="project-heading animate__animated animate__fadeInRight">
+          <h2 id="services-heading" className="project-heading animate__animated animate__fadeInRight">
             {homepage?.serviceDetailsHeadline}
-          </h1>
-          <p style={{ color: "white" }}>
+          </h2>
+          
+          {/* Section description */}
+          <p id="services-description" style={{ color: "white" }}>
             {homepage?.serviceDetailsSubMsg}
           </p>
 
-          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
+          <Row as="ul" role="list" aria-describedby="services-description" style={{ justifyContent: "center", paddingBottom: "10px" }}>
             {servicesInfo.map((service) => (
               <Col
+                as="li"
+                role="listitem"
                 key={service._id}
                 xl={4}
                 lg={4}

@@ -4,7 +4,6 @@ import FooterAboutUsCol from "./FooterAboutUsCol.js";
 import FooterFollowUsCol from "./FooterFollowUsCol.js";
 import FooterNewsletterCol from "./FooterNewsletterCol.js";
 // import FooterCopyrightCol from "./FooterCopyrightCol.js";
-
 import { useHomePageDetails } from "../admin/hooks/useHomePageDetails"; // adjust the path as needed
 
 const Footer = () => {

@@ -11,7 +11,6 @@ import {
   BANNER_CONNECT_TEXT,
   BANNER_ROTATING_TEXT_ARY,
 } from "../../lib/data.js";
-
 import { useHomePageDetails } from "../admin/hooks/useHomePageDetails"; // Adjust path as needed
 
 const Hero = () => {
@@ -21,20 +20,15 @@ const Hero = () => {
   const [delta, setDelta] = useState(300 - Math.random() * 100);
   const period = 2000;
 
-  const {
-    isLoading,
-    isError,
-    data: bannerInfo,
-    error,
-  } = useHomePageDetails();
+  const { isLoading, isError, data: bannerInfo, error } = useHomePageDetails();
 
   useEffect(() => {
-    let ticker = setInterval(() => {
+    const ticker = setInterval(() => {
       tick();
     }, delta);
 
     return () => clearInterval(ticker);
-  }, [text]); // Only re-run when `text` changes
+  }, [text, delta]); // include delta to avoid stale interval timing
 
   const tick = () => {
     let i = loopNum % BANNER_ROTATING_TEXT_ARY.length;
@@ -46,7 +40,7 @@ const Hero = () => {
     setText(updatedText);
 
     if (isDeleting) {
-      setDelta((prevDelta) => prevDelta / 2);
+      setDelta((prev) => prev / 2);
     }
 
     if (!isDeleting && updatedText === fullText) {
@@ -54,26 +48,30 @@ const Hero = () => {
       setDelta(period);
     } else if (isDeleting && updatedText === "") {
       setIsDeleting(false);
-      setLoopNum(loopNum + 1);
+      setLoopNum((prev) => prev + 1);
       setDelta(500);
     }
   };
 
   if (isLoading || bannerInfo === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isError) return <p role="alert">Error: {error.message}</p>;
 
   return (
-    <section className="banner" id="home">
+    <section className="banner" id="home" aria-labelledby="hero-heading">
       <Container>
         <Row className="aligh-items-center">
           <Col xs={12} md={6} xl={7}>
             <TrackVisibility>
               {({ isVisible }) => (
-                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+                <div
+                  className={
+                    isVisible ? "animate__animated animate__fadeIn" : ""
+                  }
+                >
                   <span className="tagline animate__animated animate__bounce">
                     {BANNER_TITLE_TEXT}
                   </span>
-                  <h1>
+                  {/* <h1>
                     {BANNER_HEADLINE_TEXT}{" "}
                     <span
                       className="txt-rotate"
@@ -81,15 +79,37 @@ const Hero = () => {
                     >
                       <span className="wrap">{text}</span>
                     </span>
+                  </h1> */}
+                  <h1 id="hero-heading">
+                    {BANNER_HEADLINE_TEXT}{" "}
+                    <span className="txt-rotate" aria-hidden="true">
+                      <span className="wrap">{text}</span>
+                    </span>
                   </h1>
+
+                  {/* Screen-reader-only static version of rotating text */}
+                  <span className="visually-hidden">
+                    {BANNER_HEADLINE_TEXT} {BANNER_ROTATING_TEXT_ARY.join(", ")}
+                  </span>
+
                   <p>{bannerInfo[0].headlineSubMsg}</p>
+
                   <button
+                    type="button"
                     className="animate__animated animate__backInLeft"
-                    onClick={() => {
-                      document.getElementById("contact").scrollIntoView();
-                    }}
+                    onClick={() =>
+                      document
+                        .getElementById("contact")
+                        ?.scrollIntoView({ behavior: "smooth" })
+                    }
+                    aria-label="Scroll to contact section"
                   >
-                    {BANNER_CONNECT_TEXT} <ArrowRightCircle size={25} />
+                    {BANNER_CONNECT_TEXT}
+                    <ArrowRightCircle
+                      size={25}
+                      aria-hidden="true"
+                      focusable="false"
+                    />
                   </button>
                 </div>
               )}
@@ -98,8 +118,16 @@ const Hero = () => {
           <Col xs={12} md={6} xl={5}>
             <TrackVisibility>
               {({ isVisible }) => (
-                <div className={isVisible ? "animate__animated animate__zoomIn" : ""}>
-                  <img src={headerImg} alt="Header Img" />
+                <div
+                  className={
+                    isVisible ? "animate__animated animate__zoomIn" : ""
+                  }
+                >
+                  <img
+                    src={headerImg}
+                    alt="Illustration representing our services"
+                    loading="eager"
+                  />
                 </div>
               )}
             </TrackVisibility>

@@ -10,8 +10,7 @@ import NavLink from "./NavLink";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const { logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
 
@@ -30,7 +29,6 @@ const NavBar = () => {
     };
 
     window.addEventListener("scroll", onScroll);
-
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -130,40 +128,45 @@ const NavBar = () => {
         */
   return (
     <Navbar
+      as="nav"
+      aria-label="Primary navigation"
       collapseOnSelect
       expand="md"
       className={scrolled ? "scrolled" : ""}
       id="#navbar_id"
     >
       <Container>
-        <Navbar.Brand href="/">
+        <Navbar.Brand href="/" aria-label="All About Hair home">
           {/* <img src={logo} alt="Logo" /> */}
-          <img src={logo} alt="All About Hair" />
+          <img src={logo} alt="All About Hair logo" />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav">
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" aria-label="Toggle navigation menu">
           <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
+
+        {/* <Navbar.Collapse id="basic-navbar-nav"> */}
+        <Navbar.Collapse id="primary-navigation">
+          <Nav className="ms-auto" role="menubar">
             {isAuthenticated && (
-              <>
-                {AdminNavLinksAry.map((item, idx) => (
+                AdminNavLinksAry.map((item, idx) => (
                   <div key={idx}>
                     <NavLink
                       activeLink={activeLink}
                       title={item.title}
                       eventKey={item.eventKey}
                       onClick={item.onClick}
+                      aria-current={
+                        activeLink === item.title ? "page" : undefined
+                      }
                     >
                       {item.text}
                     </NavLink>
                   </div>
-                ))}
-              </>
+                ))
             )}
             {!isAuthenticated && (
-              <>
-                {NavLinksAry.map((item, idx) => (
+              NavLinksAry.map((item, idx) => (
                   <div key={idx}>
                     <NavLink
                       activeLink={activeLink}
@@ -171,31 +174,33 @@ const NavBar = () => {
                       eventKey={item.eventKey}
                       onClick={item.onClick}
                       href={item.href}
+                      aria-current={
+                        activeLink === item.title ? "page" : undefined
+                      }
                     >
                       {item.text}
                     </NavLink>
                   </div>
-                ))}
-              </>
+                ))
             )}
             {/* <Nav.Link href="#prices" className={activeLink === 'prices' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('prices')}>Prices</Nav.Link> */}
             {/* <Nav.Link href="#contact" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}>Contact</Nav.Link> */}
           </Nav>
           {!isAuthenticated && (
             <span className="navbar-text">
-              <div className="social-icon">
-                <a href="#home">
-                  <img src={navIcon1} alt="" />
+              <div className="social-icon" aria-label="Social media links">
+                <a href="#home" aria-label="Visit our Facebook">
+                  <img src={navIcon1} alt="" aria-hidden="true" />
                 </a>
-                <a href="#home">
-                  <img src={navIcon2} alt="" />
+                <a href="#home" aria-label="Visit our Instagram">
+                  <img src={navIcon2} alt="" aria-hidden="true" />
                 </a>
-                <a href="#home">
-                  <img src={navIcon3} alt="" />
+                <a href="#home" aria-label="Visit our Twitter">
+                  <img src={navIcon3} alt="" aria-hidden="true" />
                 </a>
               </div>
-              <Nav.Link href="#contact">
-                <button className="vvd">
+              <Nav.Link href="#contact" className="navbar-lets-connect-btn">
+                <button type="button" className="vvd">
                   <span>Let’s Connect</span>
                 </button>
               </Nav.Link>
