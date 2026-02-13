@@ -14,7 +14,7 @@ const Services = lazy(() => import("./services/Services"));
 const Mission = lazy(() => import("./mission/Mission"));
 const Team = lazy(() => import("./team/Team"));
 const Gallery = lazy(() => import("./gallery/Gallery"));
-const ContactForm = lazy(() => import("./contact/ContactForm"));
+const Contact = lazy(() => import("./contact/Contact"));
 const HomePageDetails = lazy(() => import("./admin/HomePageDetails"));
 
 const Home = () => {
@@ -45,7 +45,7 @@ const Home = () => {
           <Mission />
           <Team />
           <Gallery />
-          <ContactForm />
+          <Contact />
         </>
       ) : (
         <HomePageDetails />

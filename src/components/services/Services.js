@@ -55,7 +55,7 @@ const Services = () => {
             {homepage?.serviceDetailsSubMsg}
           </p>
 
-          <Row as="ul" role="list" aria-describedby="services-description" style={{ justifyContent: "center", paddingBottom: "10px" }}>
+          <Row as="ul" role="list" aria-describedby="services-description" style={{ listStyleType: "none", justifyContent: "center", paddingBottom: "10px" }}>
             {servicesInfo.map((service) => (
               <Col
                 as="li"

@@ -27,37 +27,34 @@ const ServicesCarousel = () => {
   };
 
   return (
-    <section className="skill" id="prices">
+    <section className="skill" id="prices" aria-labelledby="services-carousel-heading">
       <div className="container">
         <div className="row">
           <div className="col-12">
             <div className="skill-bx wow zoomIn">
-              <h2>Experienced Stylists</h2>
+              <h2 id="services-carousel-heading">
+                Experienced Stylists
+              </h2>
               <p>
                 Local stylists who love what they do and are able to service
                 their clients directly from our salon.
               </p>
               <Carousel
                 responsive={responsive}
-                infinite={true}
+                infinite
                 className="owl-carousel owl-theme skill-slider"
+                keyBoardControl
+                aria-label="Stylists showcase carousel"
               >
-                <div className="item">
-                  <img src={team1} alt="Web Development" />
-                  <h5>Web Development</h5>
-                </div>
-                <div className="item">
-                  <img src={team2} alt="Brand Identity" />
-                  <h5>Brand Identity</h5>
-                </div>
-                <div className="item">
-                  <img src={team3} alt="Logo Design" />
-                  <h5>Logo Design</h5>
-                </div>
-                <div className="item">
-                  <img src={team4} alt="Web Development" />
-                  <h5>Web Development</h5>
-                </div>
+                {[team1, team2, team3, team4].map((img, index) => (
+                  <div key={index} className="item">
+                    <img
+                      src={img}
+                      alt={`Stylist showcase ${index + 1}`}
+                    />
+                    <h3>Stylist {index + 1}</h3>
+                  </div>
+                ))}
               </Carousel>
             </div>
           </div>
@@ -66,7 +63,8 @@ const ServicesCarousel = () => {
       <img
         className="background-image-left"
         src={colorSharp}
-        alt="Color Sharp"
+        alt=""
+        aria-hidden="true"
       />
     </section>
   );

@@ -21,43 +21,56 @@ const Team = () => {
     error: teamError,
   } = useTeamMembers();
 
-  if (isHomepageLoading || isTeamLoading) return <Loading />;
-  if (isHomepageError) return `Error: ${homepageError.message}`;
-  if (isTeamError) return `Error: ${teamError.message}`;
+  if (isHomepageLoading || isTeamLoading) {
+    return <Loading role="status" aria-live="polite" />;
+  }
+
+  if (isHomepageError) {
+    return <div role="alert">Error: {homepageError.message}</div>;
+  }
+
+  if (isTeamError) {
+    return <div role="alert">Error: {teamError.message}</div>;
+  }
 
   const homepage = homepageInfo?.[0];
 
   return (
-    <section className="skill" id="team">
+    <section className="skill" id="team" aria-labelledby="team-heading">
       <Container fluid className="team-section">
         <Container>
-          <div style={{ marginLeft: "7px" }}>
-            <h1 className="project-heading">
+          <header style={{ marginLeft: "7px" }}>
+            <h2 id="team-heading" className="project-heading">
               {homepage?.stylistsHeadline}
-            </h1>
-            {homepage?.stylistsSubMsg}
-          </div>
+            </h2>
+            <p id="team-description">{homepage?.stylistsSubMsg}</p>
+          </header>
 
-          <Row style={{ justifyContent: "center", paddingBottom: "10px" }}>
-            {teamInfo
-              ?.slice(1)
-              .map((team) => (
-                <Col
-                  key={team._id}
-                  lg={3}
-                  md={6}
-                  sm={6}
-                  xs={10}
-                  className="project-card"
-                >
-                  <TeamCard
-                    imgPath={require("../../" + team.photo)}
-                    title={team.name}
-                    description={team.role.split(" ").join("-")}
-                    bio={team.bio}
-                  />
-                </Col>
-              ))}
+          <Row
+            as="ul"
+            role="list"
+            aria-describedby="team-description"
+            style={{ listStyleType: "none", justifyContent: "center", paddingBottom: "10px" }}
+          >
+            {teamInfo?.slice(1).map((team) => (
+              <Col
+                as="li"
+                role="listitem"
+                key={team._id}
+                lg={3}
+                md={6}
+                sm={6}
+                xs={10}
+                className="project-card"
+              >
+                <TeamCard
+                  imgPath={require("../../" + team.photo)}
+                  title={team.name}
+                  description={team.role.split(" ").join("-")}
+                  bio={team.bio}
+                />
+              </Col>
+            ))}
           </Row>
         </Container>
       </Container>

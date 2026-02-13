@@ -12,10 +12,14 @@ import {
   CONTACT_FORM_SUCCESS_SUBTEXT,
 } from "../../lib/data";
 
-const ValidationError = ({ fieldError }) => {
+const ValidationError = ({ fieldError, id }) => {
   if (!fieldError) return null;
   return (
-    <div role="alert" style={{ color: "red", marginTop: 2, marginBottom: 2 }}>
+    <div
+      id={id}
+      role="alert"
+      style={{ color: "red", marginTop: 2, marginBottom: 2 }}
+    >
       {fieldError.message}
     </div>
   );
@@ -61,16 +65,19 @@ const ContactForm = () => {
           setButtonText("Send");
           setRequestSubmitted(false);
         },
-      }
+      },
     );
   };
 
   const handleReset = () => {
     setButtonText("Send");
+    reset(defaultValues);
+    clearErrors();
     setRequestSubmitted(false);
   };
 
-  const getEditorStyle = (fieldError) => (fieldError ? "border: solid 1px red" : "");
+  const getEditorStyle = (fieldError) =>
+    fieldError ? "border: solid 1px red" : "";
 
   const ERRORS_OBJ = {
     firstName: errors.firstName,
@@ -80,16 +87,19 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact" id="contact">
+    <section className="contact" aria-labelledby="contact-form-heading">
       <Container>
         <Row className="align-items-center">
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) => (
                 <img
-                  className={isVisible ? "animate__animated animate__zoomIn" : ""}
+                  className={
+                    isVisible ? "animate__animated animate__zoomIn" : ""
+                  }
                   src={contactImg}
-                  alt="Contact Us"
+                  alt=""
+                  aria-hidden="true"
                 />
               )}
             </TrackVisibility>
@@ -97,39 +107,60 @@ const ContactForm = () => {
           <Col size={12} md={6}>
             <TrackVisibility>
               {({ isVisible }) => (
-                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-                  <h2>Scheduling or Questions</h2>
+                <div
+                  className={
+                    isVisible ? "animate__animated animate__fadeIn" : ""
+                  }
+                >
+                  <h2 id="contact-form-heading">Scheduling or Questions</h2>
 
                   {!requestSubmitted ? (
-                    <form noValidate onSubmit={handleSubmit(handleSubmit2)}>
+                    <form
+                      noValidate
+                      onSubmit={handleSubmit(handleSubmit2)}
+                      aria-busy={isPending}
+                    >
                       <Row>
                         {CONTACT_FORM_INPUTS_ARY.map((item, idx) => (
                           <Col size={12} sm={6} className="px-1" key={idx}>
+                            <label htmlFor={item.id}>{item.placeholder}</label>
                             <input
                               className={getEditorStyle(ERRORS_OBJ[item.class])}
                               type="text"
                               id={item.id}
                               placeholder={item.placeholder}
-                              {...register(item.register_obj.register_txt, item.register_obj)}
+                              {...register(
+                                item.register_obj.register_txt,
+                                item.register_obj,
+                              )}
                             />
-                            <ValidationError fieldError={ERRORS_OBJ[item.class]} />
+                            <ValidationError
+                              fieldError={ERRORS_OBJ[item.class]}
+                            />
                           </Col>
                         ))}
                         <Col size={12} className="px-1">
+                          <label htmlFor="message">
+                            Message (at least 25 characters)
+                          </label>
                           <textarea
                             className={getEditorStyle(errors.message)}
                             rows="6"
                             placeholder="Message (at least 25 characters)"
                             {...register("message", {
-                              required: "You must enter a reason for contacting",
+                              required:
+                                "You must enter a reason for contacting",
                               minLength: {
                                 value: 25,
-                                message: "Message must be at least 25 characters",
+                                message:
+                                  "Message must be at least 25 characters",
                               },
                             })}
                           />
                           {message && message.length < 25 && (
-                            <div>({25 - message.length} message characters still needed)</div>
+                            <div aria-live="polite">
+                              ({25 - message.length} characters still needed)
+                            </div>
                           )}
                           <ValidationError fieldError={errors.message} />
                           <button
@@ -146,11 +177,7 @@ const ContactForm = () => {
 
                           <button
                             type="button"
-                            onClick={() => {
-                              reset(defaultValues);
-                              clearErrors();
-                              handleReset();
-                            }}
+                            onClick={handleReset}
                           >
                             Reset
                           </button>
@@ -158,24 +185,31 @@ const ContactForm = () => {
                       </Row>
                     </form>
                   ) : (
-                    <Col size={12} className="px-1">
-                      <h1 className="project-heading">{CONTACT_FORM_SUCCESS_TEXT}</h1>
-                      <p style={{ color: "white", marginTop: 0, marginBottom: "20px" }}>
-                        {CONTACT_FORM_SUCCESS_SUBTEXT}
-                      </p>
-                      <div className="contact-submit">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            reset(defaultValues);
-                            clearErrors();
-                            handleReset();
-                          }}
-                        >
-                          <span>Reset</span>
-                        </button>
-                      </div>
-                    </Col>
+                    // <Col size={12} className="px-1">
+                    //   <h1 className="project-heading">{CONTACT_FORM_SUCCESS_TEXT}</h1>
+                    //   <p style={{ color: "white", marginTop: 0, marginBottom: "20px" }}>
+                    //     {CONTACT_FORM_SUCCESS_SUBTEXT}
+                    //   </p>
+                    //   <div className="contact-submit">
+                    //     <button
+                    //       type="button"
+                    //       onClick={() => {
+                    //         reset(defaultValues);
+                    //         clearErrors();
+                    //         handleReset();
+                    //       }}
+                    //     >
+                    //       <span>Reset</span>
+                    //     </button>
+                    //   </div>
+                    // </Col>
+                    <div role="status" aria-live="assertive">
+                      <h3>{CONTACT_FORM_SUCCESS_TEXT}</h3>
+                      <p>{CONTACT_FORM_SUCCESS_SUBTEXT}</p>
+                      <button type="button" onClick={handleReset}>
+                        Reset
+                      </button>
+                    </div>
                   )}
                 </div>
               )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -8,34 +8,45 @@ import navIcon3 from "../../assets/img/nav-icon3.svg";
 
 const TeamCard = (props) => {
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
+  const buttonRef = useRef(null);
+
+  const handleClose = () => {
+    setShow(false);
+    buttonRef.current?.focus(); // return focus after modal closes
+  };
+
   const handleShow = () => setShow(true);
+
+  const modalId = `team-modal-${props.title.replace(/\s+/g, "-").toLowerCase()}`;
 
   return (
     <Card className="project-card-view">
       <Card.Img
         variant="top"
         src={props.imgPath}
-        alt="card-img"
+        alt={`Portrait of ${props.title}`}
         className="teamCardAnimation"
         centered="true"
+        onClick={handleShow}
       />
       <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
-        <Card.Title>{props.title}</Card.Title>
+        <Card.Title as="h3">{props.title}</Card.Title>
         <Card.Text style={{ textAlign: "justify", marginBottom: "14px" }}>
           {props.description}
         </Card.Text>
         <div className="team-profile-button-container">
           <Button
+            ref={buttonRef}
+            aria-haspopup="dialog"
+            aria-controls={modalId}
             variant="primary"
-            href={props.ghLink}
-            target="_blank"
             onClick={handleShow}
             className="team-profile-button"
           >
-            Full Profile
+            View Full Profile
           </Button>
         </div>
+
         {/* <div className="text">
           <a href="#">
             {" "}
@@ -50,24 +61,29 @@ const TeamCard = (props) => {
             <i className="fa fa-linkedin"></i>{" "}
           </a>
         </div> */}
+
+        {/* Social Links */}
         <div className="team-social-icons-container">
           <div className="team-social-icon">
-            <a href="#home">
-              <img src={navIcon1} alt="" />
+            <a href="#home" aria-label={`${props.title} Facebook profile`}>
+              <img src={navIcon1} alt="" aria-hidden="true" />
             </a>
-            <a href="#home">
-              <img src={navIcon2} alt="" />
+            <a href="#home" aria-label={`${props.title} Twitter profile`}>
+              <img src={navIcon2} alt="" aria-hidden="true" />
             </a>
-            <a href="#home">
-              <img src={navIcon3} alt="" />
+            <a href="#home" aria-label={`${props.title} LinkedIn profile`}>
+              <img src={navIcon3} alt="" aria-hidden="true" />
             </a>
           </div>
         </div>
+
         <Modal
+          aria-labelledby={`${modalId}-title`}
+          aria-describedby={`${modalId}-description`}
           show={show}
           onHide={handleClose}
-          centered="true"
-          scrollable={true}
+          centered
+          scrollable
           style={{
             marginTop: "100px",
             marginBottom: "75px",
@@ -76,15 +92,30 @@ const TeamCard = (props) => {
             marginLeft: "5%",
           }}
         >
-          <Modal.Header closeButton>
-            <Modal.Title style={{ color: "black" }}>{props.title}</Modal.Title>
+          <Modal.Header
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <Modal.Title
+              id={`${modalId}-title`}
+              style={{
+                color: "black",
+                borderBottom: "1px solid grey",
+                width: "100%",
+                marginBottom: "10px",
+              }}
+            >
+              {props.title}
+            </Modal.Title>
             <Card.Img
               variant="top"
               src={props.imgPath}
-              alt="card-img"
-              // className="teamCardAnimation"
-              style={{ width: "60%" }}
-              centered="true"
+              alt={`Portrait of ${props.title}`}
+              style={{ width: "60%", boxShadow: "10px 10px 20px grey" }}
+              centered
             />
           </Modal.Header>
           <Modal.Body style={{ color: "black" }}>{props.bio}</Modal.Body>

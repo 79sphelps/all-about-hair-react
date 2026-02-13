@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Carousel from "react-multi-carousel";
 import { Container } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
@@ -12,17 +12,19 @@ import colorSharp from "../../assets/img/color-sharp.png";
 const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
   const [show, setShow] = useState(false);
+  const triggerRef = useRef(null);
 
-  const { data: galleryPics, isLoading, isError, error } =
-    useGalleryImages();
+  const { data: galleryPics, isLoading, isError, error } = useGalleryImages();
 
   const handleClose = () => {
     setImgPath("");
     setShow(false);
+    triggerRef.current?.focus(); // return focus
   };
 
-  const handleShow = (path) => {
+  const handleShow = (path, buttonRef) => {
     setImgPath(path);
+    triggerRef.current = buttonRef;
     setShow(true);
   };
 
@@ -45,15 +47,24 @@ const Gallery = () => {
     },
   };
 
-  if (isLoading) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isLoading) {
+    return <Loading role="status" aria-live="polite" />;
+  }
+
+  if (isError) {
+    return <div role="alert">Error: {error.message}</div>;
+  }
 
   return (
-    <section className="skill" id="gallery">
+    <section className="skill" id="gallery" aria-labelledby="gallery-heading">
       <Container fluid className="gallery-section">
         <div className="container">
           <div className="skill-bx wow zoomIn">
-            <h2 style={{ paddingBottom: "10px" }}>Stylings and Cuts</h2>
+            <header>
+              <h2 id="gallery-heading" style={{ paddingBottom: "10px" }}>
+                Stylings and Cuts
+              </h2>
+            </header>
 
             <Carousel
               responsive={responsive}
@@ -62,20 +73,37 @@ const Gallery = () => {
               draggable
               keyBoardControl
               className="owl-carousel owl-theme skill-slider"
+              containerClass="carousel-container"
+              itemClass="carousel-item-padding-40-px"
+              aria-label="Gallery image carousel"
             >
-              {galleryPics.map((pic) => (
+              {galleryPics.map((pic, index) => (
                 <div key={pic._id} className="item">
-                  <img
-                    src={require("../../" + pic.path)}
-                    alt=""
-                    style={{ width: "100%" }}
-                    onClick={() => handleShow(pic.path)}
-                  />
+                  <button
+                    type="button"
+                    onClick={(e) => handleShow(pic.path, e.currentTarget)}
+                    style={{
+                      border: "none",
+                      background: "none",
+                      padding: 0,
+                      width: "100%",
+                    }}
+                    aria-label={`View gallery image ${index + 1}`}
+                  >
+                    <img
+                      src={require("../../" + pic.path)}
+                      alt={`Gallery styling ${index + 1}`}
+                      style={{ width: "100%" }}
+                    />
+                  </button>
                 </div>
               ))}
             </Carousel>
 
+            {/* Accessible Modal */}
             <Modal
+              aria-labelledby="gallery-modal-title"
+              aria-describedby="gallery-modal-description"
               show={show}
               onHide={handleClose}
               centered
@@ -88,12 +116,19 @@ const Gallery = () => {
                 marginLeft: "5%",
               }}
             >
-              <Modal.Body>
-                <Card.Img
-                  variant="top"
-                  src={require("../../" + imgPath)}
-                  alt="gallery"
-                />
+              <Modal.Header closeButton>
+                <Modal.Title id="gallery-modal-title" style={{ color: "grey" }}>
+                  Gallery Image Preview
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body id="gallery-modal-description">
+                {imgPath && (
+                  <Card.Img
+                    variant="top"
+                    src={require("../../" + imgPath)}
+                    alt="Enlarged gallery image"
+                  />
+                )}
               </Modal.Body>
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
@@ -104,7 +139,13 @@ const Gallery = () => {
           </div>
         </div>
 
-        <img className="background-image-left" src={colorSharp} alt="" />
+        {/* Decorative background image */}
+        <img
+          className="background-image-left"
+          src={colorSharp}
+          alt=""
+          aria-hidden="true"
+        />
       </Container>
     </section>
   );

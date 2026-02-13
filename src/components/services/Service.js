@@ -18,13 +18,19 @@ const Service = () => {
   // Use the useService hook, passing the id from location.state
   const { isLoading, isError, data: serviceDetails, error } = useService(location.state.id);
 
-  if (isLoading || serviceDetails === undefined) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isLoading || serviceDetails === undefined) {
+    return <Loading role="status" aria-live="polite" />;
+  }
+
+  if (isError) {
+    return <div role="alert">Error: {error.message}</div>;
+  }
 
   return (
-    <section className="contact">
+    <section className="contact" aria-labelledby="service-heading">
       <Container>
         <button
+          type="button"
           className="service-button animate__animated animate__backInLeft"
           onClick={() => {
             navigate("/");
@@ -36,7 +42,8 @@ const Service = () => {
             borderRadius: "25px",
           }}
         >
-          <span>Back to Home</span> <ArrowRightCircle size={25} />
+          <span>Back to Home</span>{" "}<ArrowRightCircle size={25} aria-hidden="true"
+            focusable="false" />
         </button>
         <Row
           className="align-items-center"
@@ -50,12 +57,12 @@ const Service = () => {
           }}
         >
           <Col lg={4} md={4} sm={12}>
-            <h2>{serviceDetails.title}</h2>
+            <h1 id="service-heading">{serviceDetails.title}</h1>
             <div style={{ alignContent: "center", alignItems: "center" }}>
               <img
                 src={require("../../" + serviceDetails.image)}
                 style={{ width: "50%" }}
-                alt=""
+                alt={`${serviceDetails.title} service illustration`}
               />
             </div>
           </Col>
@@ -65,34 +72,30 @@ const Service = () => {
             </div>
           </Col>
         </Row>
-        <Row
-          className="align-items-center"
-          style={{
-            margin: "15px",
-            paddingTop: "15px",
-            fontSize: "1.5rem",
-          }}
-        >
-          Pricing Details:
-        </Row>
-        {serviceDetails.pricing.map((service, idx) => (
-          <Row
-            key={service._id + "." + idx}
-            className="align-items-center"
-            style={{
-              border: "1px solid rgba(255, 255, 255, 0.5)",
-              margin: "15px",
-              padding: "15px",
-              borderRadius: "25px",
-              fontSize: "1.2rem",
-            }}
-          >
-            <div>Type: {service.type}</div>
-            <div>Price: {service.price}</div>
-            <div>Description: </div>
-            <div>{service.description}</div>
-          </Row>
-        ))}
+
+        <h2 style={{ margin: "15px", fontSize: "1.5rem" }}>
+          Pricing Details
+        </h2>
+
+        <div role="list">
+          {serviceDetails.pricing.map((service, idx) => (
+            <Row
+              key={service._id + "." + idx}
+              role="listitem"
+              style={{
+                border: "1px solid rgba(255, 255, 255, 0.5)",
+                margin: "15px",
+                padding: "15px",
+                borderRadius: "25px",
+                fontSize: "1.2rem",
+              }}
+            >
+              <div><strong>Type:</strong> {service.type}</div>
+              <div><strong>Price:</strong> {service.price}</div>
+              <div><strong>Description:</strong> {service.description}</div>
+            </Row>
+          ))}
+        </div>
       </Container>
     </section>
   );
