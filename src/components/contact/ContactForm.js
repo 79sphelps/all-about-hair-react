@@ -13,19 +13,6 @@ import {
   CONTACT_FORM_SUCCESS_SUBTEXT,
 } from "../../lib/data";
 
-// const ValidationError = ({ fieldError, id }) => {
-//   if (!fieldError) return null;
-//   return (
-//     <div
-//       id={id}
-//       role="alert"
-//       style={{ color: "red", marginTop: 2, marginBottom: 2 }}
-//     >
-//       {fieldError.message}
-//     </div>
-//   );
-// };
-
 const ContactForm = () => {
   const defaultValues = {
     firstName: "",
@@ -76,16 +63,6 @@ const ContactForm = () => {
     clearErrors();
     setRequestSubmitted(false);
   };
-
-  // const getEditorStyle = (fieldError) =>
-  //   fieldError ? "border: solid 1px red" : "";
-
-  // const ERRORS_OBJ = {
-  //   firstName: errors.firstName,
-  //   lastName: errors.lastName,
-  //   email: errors.email,
-  //   phone: errors.phone,
-  // };
 
   return (
     <section className="contact" aria-labelledby="contact-form-heading">
@@ -170,24 +147,6 @@ const ContactForm = () => {
                       </Row>
                     </form>
                   ) : (
-                    // <Col size={12} className="px-1">
-                    //   <h1 className="project-heading">{CONTACT_FORM_SUCCESS_TEXT}</h1>
-                    //   <p style={{ color: "white", marginTop: 0, marginBottom: "20px" }}>
-                    //     {CONTACT_FORM_SUCCESS_SUBTEXT}
-                    //   </p>
-                    //   <div className="contact-submit">
-                    //     <button
-                    //       type="button"
-                    //       onClick={() => {
-                    //         reset(defaultValues);
-                    //         clearErrors();
-                    //         handleReset();
-                    //       }}
-                    //     >
-                    //       <span>Reset</span>
-                    //     </button>
-                    //   </div>
-                    // </Col>
                     <div role="status" aria-live="assertive">
                       <h3>{CONTACT_FORM_SUCCESS_TEXT}</h3>
                       <p>{CONTACT_FORM_SUCCESS_SUBTEXT}</p>
