@@ -10,6 +10,7 @@ const FullPageLoader = ({ title, subtitle }) => (
   >
     <h5>{title}</h5>
     <h5>{subtitle}</h5>
+    <div className="loader" />
   </div>
 );
 

@@ -13,18 +13,18 @@ import {
   CONTACT_FORM_SUCCESS_SUBTEXT,
 } from "../../lib/data";
 
-const ValidationError = ({ fieldError, id }) => {
-  if (!fieldError) return null;
-  return (
-    <div
-      id={id}
-      role="alert"
-      style={{ color: "red", marginTop: 2, marginBottom: 2 }}
-    >
-      {fieldError.message}
-    </div>
-  );
-};
+// const ValidationError = ({ fieldError, id }) => {
+//   if (!fieldError) return null;
+//   return (
+//     <div
+//       id={id}
+//       role="alert"
+//       style={{ color: "red", marginTop: 2, marginBottom: 2 }}
+//     >
+//       {fieldError.message}
+//     </div>
+//   );
+// };
 
 const ContactForm = () => {
   const defaultValues = {
@@ -77,15 +77,15 @@ const ContactForm = () => {
     setRequestSubmitted(false);
   };
 
-  const getEditorStyle = (fieldError) =>
-    fieldError ? "border: solid 1px red" : "";
+  // const getEditorStyle = (fieldError) =>
+  //   fieldError ? "border: solid 1px red" : "";
 
-  const ERRORS_OBJ = {
-    firstName: errors.firstName,
-    lastName: errors.lastName,
-    email: errors.email,
-    phone: errors.phone,
-  };
+  // const ERRORS_OBJ = {
+  //   firstName: errors.firstName,
+  //   lastName: errors.lastName,
+  //   email: errors.email,
+  //   phone: errors.phone,
+  // };
 
   return (
     <section className="contact" aria-labelledby="contact-form-heading">

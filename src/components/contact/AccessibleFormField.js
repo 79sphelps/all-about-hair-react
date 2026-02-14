@@ -1,37 +1,50 @@
-import React from "react";
+/*
+Support for:
+- react-hook-form
+- controlled inputs
+- optional descriptions
+- optional errors
+- proper aria linking
+*/
 
 const AccessibleFormField = ({
   id,
+  name,
   label,
   type = "text",
   register,
   registerOptions,
+  value,
+  onChange,
   error,
-  as = "input", // "input" | "textarea"
+  as = "input",
   rows,
   placeholder,
   required,
-  showCharCount,
-  currentLength,
-  minLength,
+  description,
 }) => {
   const errorId = `${id}-error`;
-  const helperId = `${id}-helper`;
+  const descriptionId = description ? `${id}-description` : null;
 
   const hasError = !!error;
 
-  const describedBy =
-    [hasError ? errorId : null, showCharCount ? helperId : null]
-      .filter(Boolean)
-      .join(" ") || undefined;
+  const describedBy = [descriptionId, hasError ? errorId : null]
+    .filter(Boolean)
+    .join(" ") || undefined;
 
   const sharedProps = {
     id,
+    name,
+    type,
+    placeholder,
     "aria-invalid": hasError,
     "aria-describedby": describedBy,
-    placeholder,
-    ...register(id, registerOptions),
   };
+
+  // If using react-hook-form
+  const fieldProps = register
+    ? { ...sharedProps, ...register(name || id, registerOptions) }
+    : { ...sharedProps, value, onChange };
 
   return (
     <div className="form-field">
@@ -41,23 +54,23 @@ const AccessibleFormField = ({
       </label>
 
       {as === "textarea" ? (
-        <textarea {...sharedProps} rows={rows || 4} />
+        <textarea {...fieldProps} rows={rows || 4} />
       ) : (
-        <input {...sharedProps} type={type} />
+        <input {...fieldProps} />
       )}
 
-      {/* Character Counter */}
-      {showCharCount && typeof currentLength === "number" && minLength && (
-        <div id={helperId} aria-live="polite">
-          {currentLength < minLength
-            ? `${minLength - currentLength} characters still needed`
-            : "Minimum length reached"}
+      {description && (
+        <div id={descriptionId} className="form-description">
+          {description}
         </div>
       )}
 
-      {/* Error Message */}
       {hasError && (
-        <div id={errorId} role="alert" style={{ color: "red", marginTop: 4 }}>
+        <div
+          id={errorId}
+          role="alert"
+          style={{ color: "red", marginTop: 4 }}
+        >
           {error.message}
         </div>
       )}

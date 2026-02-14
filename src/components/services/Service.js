@@ -16,7 +16,12 @@ const Service = () => {
   }, [location]);
 
   // Use the useService hook, passing the id from location.state
-  const { isLoading, isError, data: serviceDetails, error } = useService(location.state.id);
+  const {
+    isLoading,
+    isError,
+    data: serviceDetails,
+    error,
+  } = useService(location.state.id);
 
   if (isLoading || serviceDetails === undefined) {
     return <Loading role="status" aria-live="polite" />;
@@ -42,40 +47,53 @@ const Service = () => {
             borderRadius: "25px",
           }}
         >
-          <span>Back to Home</span>{" "}<ArrowRightCircle size={25} aria-hidden="true"
-            focusable="false" />
+          <span>Back to Home</span>{" "}
+          <ArrowRightCircle size={25} aria-hidden="true" focusable="false" />
         </button>
-        <Row
-          className="align-items-center"
+
+        <div
           style={{
-            border: "1px solid rgba(255, 255, 255, 0.5)",
-            margin: "15px",
-            paddingLeft: "15px",
-            paddingBottom: "15px",
-            paddingTop: "15px",
-            borderRadius: "25px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            textAlign: "center",
           }}
         >
-          <Col lg={4} md={4} sm={12}>
-            <h1 id="service-heading">{serviceDetails.title}</h1>
-            <div style={{ alignContent: "center", alignItems: "center" }}>
-              <img
-                src={require("../../" + serviceDetails.image)}
-                style={{ width: "50%" }}
-                alt={`${serviceDetails.title} service illustration`}
-              />
+          <Row
+            className="align-items-center"
+            style={{
+              border: "1px solid rgba(255, 255, 255, 0.5)",
+              margin: "15px",
+              paddingLeft: "15px",
+              paddingBottom: "15px",
+              paddingTop: "15px",
+              borderRadius: "25px",
+            }}
+          >
+            <div>
+              <h1
+                id="service-heading"
+                style={{ display: "flex", justifyContent: "center" }}
+              >
+                {serviceDetails.title}
+              </h1>
+              <div style={{ alignContent: "center", alignItems: "center" }}>
+                <img
+                  src={require("../../" + serviceDetails.image)}
+                  style={{ width: "20%", boxShadow: "10px 10px 5px grey" }}
+                  alt={`${serviceDetails.title} service illustration`}
+                />
+              </div>
             </div>
-          </Col>
-          <Col>
-            <div style={{ fontSize: "1.2rem", paddingTop: "10px" }}>
-              {serviceDetails.description}
+            <div>
+              <div style={{ fontSize: "1.2rem", paddingTop: "10px" }}>
+                {serviceDetails.description}
+              </div>
             </div>
-          </Col>
-        </Row>
+          </Row>
+        </div>
 
-        <h2 style={{ margin: "15px", fontSize: "1.5rem" }}>
-          Pricing Details
-        </h2>
+        <h2 style={{ margin: "15px", fontSize: "1.5rem" }}>Pricing Details</h2>
 
         <div role="list">
           {serviceDetails.pricing.map((service, idx) => (
@@ -90,9 +108,15 @@ const Service = () => {
                 fontSize: "1.2rem",
               }}
             >
-              <div><strong>Type:</strong> {service.type}</div>
-              <div><strong>Price:</strong> {service.price}</div>
-              <div><strong>Description:</strong> {service.description}</div>
+              <div>
+                <strong>Type:</strong> {service.type}
+              </div>
+              <div>
+                <strong>Price:</strong> {service.price}
+              </div>
+              <div>
+                <strong>Description:</strong> {service.description}
+              </div>
             </Row>
           ))}
         </div>

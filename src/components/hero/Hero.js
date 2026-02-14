@@ -80,7 +80,7 @@ const Hero = () => {
                       <span className="wrap">{text}</span>
                     </span>
                   </h1> */}
-                  <h1 id="hero-heading">
+                  <h1 id="hero-heading" style={{ height: "130px" }}>
                     {BANNER_HEADLINE_TEXT}{" "}
                     <span className="txt-rotate" aria-hidden="true">
                       <span className="wrap">{text}</span>
