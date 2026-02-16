@@ -4,12 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import "animate.css";
 
-import NavBar from "../../ui/NavBar";
-import Loading from "../Loading";
-import { FormError, formErrorsCreateService } from "../../lib/common";
+import NavBar from "../../../ui/NavBar";
+import Loading from "../../Loading";
+import { FormError, formErrorsCreateService } from "../../../lib/common";
 
-import { useService } from "./hooks/useService";
-import { useUpdateService } from "./hooks/useUpdateService";
+import { useService } from "../hooks/useService";
+import { useUpdateService } from "../hooks/useUpdateService";
 
 const EMPTY_SERVICE = {
   _id: "",

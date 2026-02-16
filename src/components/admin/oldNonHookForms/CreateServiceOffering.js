@@ -4,9 +4,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
 import "animate.css";
 
-import NavBar from "../../ui/NavBar";
-import { FormError, formErrorsCreateService } from "../../lib/common";
-import { useCreateService } from "./hooks/useCreateService";
+import NavBar from "../../../ui/NavBar";
+import { FormError, formErrorsCreateService } from "../../../lib/common";
+import { useCreateService } from "../hooks/useCreateService";
 
 const EMPTY_SERVICE = {
   title: "",

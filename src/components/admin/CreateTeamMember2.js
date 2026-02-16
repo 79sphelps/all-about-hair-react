@@ -8,6 +8,11 @@ import AdminFormLayout from "./AdminFormLayout";
 import AccessibleFormField from "../contact/AccessibleFormField";
 
 import { useCreateTeamMember } from "./hooks/useCreateTeamMember";
+import useAdminForm from "./hooks/useAdminForm";
+
+/* =========================
+   CONSTANTS
+========================= */
 
 const EMPTY_FORM = {
   name: "",
@@ -16,9 +21,9 @@ const EMPTY_FORM = {
   bio: "",
 };
 
-/** =========================
- * VALIDATORS
- ========================== */
+/* =========================
+   VALIDATION
+========================= */
 
 const validators = {
   name: (v) => v.trim().length >= 2,
@@ -34,83 +39,36 @@ const errorMessages = {
   bio: "Bio must be at least 25 characters.",
 };
 
-const CreateTeamMember = () => {
+/* =========================
+   COMPONENT
+========================= */
+
+const CreateTeamMember2 = () => {
   const navigate = useNavigate();
   const createTeamMember = useCreateTeamMember();
 
-  /** =========================
-   * STATE
-   ========================== */
-
-  const [formData, setFormData] = useState(EMPTY_FORM);
-  const [touched, setTouched] = useState({});
-  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  /** =========================
-   * VALIDATION
-   ========================== */
+  /* =========================
+     ADMIN FORM HOOK
+  ========================= */
 
-  const validateField = (name, value) => {
-    if (!validators[name]) return;
+  const form = useAdminForm({
+    initialValues: EMPTY_FORM,
+    validators,
+    errorMessages,
+  });
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: validators[name](value)
-        ? null
-        : { message: errorMessages[name] },
-    }));
-  };
-
-  const validateAll = () => {
-    const newErrors = {};
-
-    Object.keys(validators).forEach((key) => {
-      if (!validators[key](formData[key])) {
-        newErrors[key] = { message: errorMessages[key] };
-      }
-    });
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  /** =========================
-   * HANDLERS
-   ========================== */
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // BEST UX:
-    // validate only after field has been touched
-    if (touched[name]) {
-      validateField(name, value);
-    }
-  };
-
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-
-    setTouched((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
-
-    validateField(name, value);
-  };
+  /* =========================
+     ACTIONS
+  ========================= */
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!validateAll()) return;
+    if (!form.validateBeforeSubmit()) return;
 
-    createTeamMember.mutate(formData, {
+    createTeamMember.mutate(form.values, {
       onSuccess: () => {
         setSubmitted(true);
       },
@@ -122,20 +80,19 @@ const CreateTeamMember = () => {
   };
 
   const handleAddAnother = () => {
-    setFormData(EMPTY_FORM);
-    setTouched({});
-    setErrors({});
+    form.resetForm();
     setSubmitted(false);
   };
 
-  /** =========================
-   * STATES
-   ========================== */
+  /* =========================
+     SUCCESS STATE
+  ========================= */
 
   if (submitted) {
     return (
       <section className="contact">
         <NavBar />
+
         <AdminFormLayout title="Team Member Created">
           <div role="status" aria-live="polite">
             <h4>The new team member was created successfully!</h4>
@@ -151,9 +108,9 @@ const CreateTeamMember = () => {
     );
   }
 
-  /** =========================
-   * UI
-   ========================== */
+  /* =========================
+     UI
+  ========================= */
 
   return (
     <section className="contact">
@@ -165,16 +122,18 @@ const CreateTeamMember = () => {
       >
         <TrackVisibility once>
           {({ isVisible }) => (
-            <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+            <div
+              className={isVisible ? "animate__animated animate__fadeIn" : ""}
+            >
               <form onSubmit={handleSubmit} noValidate>
                 <AccessibleFormField
                   id="name"
                   name="name"
                   label="Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.name ? errors.name : null}
+                  value={form.values.name}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  error={form.touched.name ? form.errors.name : null}
                   required
                 />
 
@@ -182,10 +141,10 @@ const CreateTeamMember = () => {
                   id="role"
                   name="role"
                   label="Role"
-                  value={formData.role}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.role ? errors.role : null}
+                  value={form.values.role}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  error={form.touched.role ? form.errors.role : null}
                   required
                 />
 
@@ -193,10 +152,10 @@ const CreateTeamMember = () => {
                   id="photo"
                   name="photo"
                   label="Image Path"
-                  value={formData.photo}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.photo ? errors.photo : null}
+                  value={form.values.photo}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  error={form.touched.photo ? form.errors.photo : null}
                   required
                 />
 
@@ -206,13 +165,13 @@ const CreateTeamMember = () => {
                   label="Bio"
                   as="textarea"
                   rows={6}
-                  value={formData.bio}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.bio ? errors.bio : null}
+                  value={form.values.bio}
+                  onChange={form.handleChange}
+                  onBlur={form.handleBlur}
+                  error={form.touched.bio ? form.errors.bio : null}
                   description={
-                    formData.bio.length < 25
-                      ? `${25 - formData.bio.length} characters remaining`
+                    form.values.bio.length < 25
+                      ? `${25 - form.values.bio.length} characters remaining`
                       : null
                   }
                   required
@@ -240,4 +199,4 @@ const CreateTeamMember = () => {
   );
 };
 
-export default CreateTeamMember;
+export default CreateTeamMember2;

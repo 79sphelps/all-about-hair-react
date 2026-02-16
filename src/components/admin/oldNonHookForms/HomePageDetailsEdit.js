@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "animate.css";
 
-import Loading from "../Loading";
-import AccessibleFormField from "../contact/AccessibleFormField";
-import AdminFormLayout from "./AdminFormLayout";
+import Loading from "../../Loading";
+import AccessibleFormField from "../../contact/AccessibleFormField";
+import AdminFormLayout from "../AdminFormLayout";
 
-import { useHomePageDetails } from "./hooks/useHomePageDetails";
-import { useUpdateHomePageDetails } from "./hooks/useUpdateHomePageDetails";
+import { useHomePageDetails } from "../hooks/useHomePageDetails";
+import { useUpdateHomePageDetails } from "../hooks/useUpdateHomePageDetails";
 
 const EMPTY_FORM = {
   headline: "",

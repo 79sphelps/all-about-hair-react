@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
 
-import Loading from "../Loading";
-import AccessibleFormField from "../contact/AccessibleFormField";
-import AdminFormLayout from "./AdminFormLayout";
+import Loading from "../../Loading";
+import AccessibleFormField from "../../contact/AccessibleFormField";
+import AdminFormLayout from "../AdminFormLayout";
 
-import { useTeamMember } from "./hooks/useTeamMember";
-import { useUpdateTeamMember } from "./hooks/useUpdateTeamMember";
+import { useTeamMember } from "../hooks/useTeamMember";
+import { useUpdateTeamMember } from "../hooks/useUpdateTeamMember";
+import { useAdminForm } from "../hooks/useAdminForm";
 
 const EMPTY_FORM = {
   name: "",

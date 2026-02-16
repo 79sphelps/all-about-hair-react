@@ -14,13 +14,13 @@ const Home = lazy(() => import("./components/Home"));
 const Service = lazy(() => import("./components/services/Service"));
 
 // Admin routes
-const HomePageDetailsEdit = lazy(() => import("./components/admin/HomePageDetailsEdit"));
+const HomePageDetailsEdit2 = lazy(() => import("./components/admin/HomePageDetailsEdit2"));
 const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"));
-const ServiceOfferingEdit = lazy(() => import("./components/admin/ServiceOfferingEdit"));
-const CreateServiceOffering = lazy(() => import("./components/admin/CreateServiceOffering"));
-const TeamMemberEdit = lazy(() => import("./components/admin/TeamMemberEdit"));
+const ServiceOfferingEdit2 = lazy(() => import("./components/admin/ServiceOfferingEdit2"));
+const CreateServiceOffering2 = lazy(() => import("./components/admin/CreateServiceOffering2"));
+const TeamMemberEdit2 = lazy(() => import("./components/admin/TeamMemberEdit2"));
 const TeamDetails = lazy(() => import("./components/admin/TeamDetails"));
-const CreateTeamMember = lazy(() => import("./components/admin/CreateTeamMember"));
+const CreateTeamMember2 = lazy(() => import("./components/admin/CreateTeamMember2"));
 
 const App = () => {
   return (
@@ -33,13 +33,13 @@ const App = () => {
 
           {/* Admin Group */}
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="home-page-details" element={<HomePageDetailsEdit />} />
+            <Route path="home-page-details" element={<HomePageDetailsEdit2 />} />
             <Route path="services-details" element={<ServicesDetails />} />
-            <Route path="service-edit/:id" element={<ServiceOfferingEdit />} />
-            <Route path="service-add" element={<CreateServiceOffering />} />
+            <Route path="service-edit/:id" element={<ServiceOfferingEdit2 />} />
+            <Route path="service-add" element={<CreateServiceOffering2 />} />
             <Route path="team-details" element={<TeamDetails />} />
-            <Route path="team-member-edit/:id" element={<TeamMemberEdit />} />
-            <Route path="team-member-add" element={<CreateTeamMember />} />
+            <Route path="team-member-edit/:id" element={<TeamMemberEdit2 />} />
+            <Route path="team-member-add" element={<CreateTeamMember2 />} />
           </Route>
 
           {/* Fallback */}
