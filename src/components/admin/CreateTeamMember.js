@@ -1,232 +1,242 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import { useForm } from "react-hook-form";
 import "animate.css";
 
 import NavBar from "../../ui/NavBar";
+import AdminFormLayout from "./AdminFormLayout";
 import AccessibleFormField from "../contact/AccessibleFormField";
 
 import { useCreateTeamMember } from "./hooks/useCreateTeamMember";
+
+const EMPTY_FORM = {
+  name: "",
+  role: "",
+  photo: "",
+  bio: "",
+};
+
+/** =========================
+ * VALIDATORS
+ ========================== */
+
+const validators = {
+  name: (v) => v.trim().length >= 2,
+  role: (v) => v.trim().length >= 5,
+  photo: (v) => v.trim().length >= 10,
+  bio: (v) => v.trim().length >= 25,
+};
+
+const errorMessages = {
+  name: "Name must be at least 2 characters.",
+  role: "Role must be at least 5 characters.",
+  photo: "Image path must be at least 10 characters.",
+  bio: "Bio must be at least 25 characters.",
+};
 
 const CreateTeamMember = () => {
   const navigate = useNavigate();
   const createTeamMember = useCreateTeamMember();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
-    mode: "onBlur",
-    reValidateMode: "onBlur",
-  });
+  /** =========================
+   * STATE
+   ========================== */
 
-  const bio = watch("bio");
-
+  const [formData, setFormData] = useState(EMPTY_FORM);
+  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
-  const [buttonText, setButtonText] = useState("Create New Team Member");
 
-  const onSubmit = (formData) => {
-    setSubmitted(true);
-    setButtonText("Creating Team Member…");
+  /** =========================
+   * VALIDATION
+   ========================== */
+
+  const validateField = (name, value) => {
+    if (!validators[name]) return;
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validators[name](value)
+        ? null
+        : { message: errorMessages[name] },
+    }));
+  };
+
+  const validateAll = () => {
+    const newErrors = {};
+
+    Object.keys(validators).forEach((key) => {
+      if (!validators[key](formData[key])) {
+        newErrors[key] = { message: errorMessages[key] };
+      }
+    });
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /** =========================
+   * HANDLERS
+   ========================== */
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // BEST UX:
+    // validate only after field has been touched
+    if (touched[name]) {
+      validateField(name, value);
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    validateField(name, value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!validateAll()) return;
 
     createTeamMember.mutate(formData, {
       onSuccess: () => {
-        setButtonText("Create New Team Member");
-      },
-      onError: () => {
-        setSubmitted(false);
-        setButtonText("Create New Team Member");
+        setSubmitted(true);
       },
     });
   };
 
   const handleCancel = () => {
-    reset();
     navigate("/");
   };
 
   const handleAddAnother = () => {
-    reset();
+    setFormData(EMPTY_FORM);
+    setTouched({});
+    setErrors({});
     setSubmitted(false);
-    setButtonText("Create New Team Member");
   };
 
+  /** =========================
+   * STATES
+   ========================== */
+
+  if (submitted) {
+    return (
+      <section className="contact">
+        <NavBar />
+        <AdminFormLayout title="Team Member Created">
+          <div role="status" aria-live="polite">
+            <h4>The new team member was created successfully!</h4>
+            <button
+              className="btn btn-success"
+              onClick={handleAddAnother}
+            >
+              Add Another Team Member
+            </button>
+          </div>
+        </AdminFormLayout>
+      </section>
+    );
+  }
+
+  /** =========================
+   * UI
+   ========================== */
+
   return (
-    <>
+    <section className="contact">
       <NavBar />
 
-      <main
-        aria-labelledby="create-team-member-title"
+      <AdminFormLayout
+        title="New Team Member Details"
+        subtitle="Fill out the fields below to create a new team member."
       >
-        <section className="contact">
-          <Container style={{ marginTop: "100px" }}>
-            <Row className="align-items-center">
-              {submitted ? (
-                <div
-                  className="admin-add-success-container"
-                  role="status"
-                  aria-live="polite"
-                >
-                  <h2>The new team member was created successfully!</h2>
+        <TrackVisibility once>
+          {({ isVisible }) => (
+            <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
+              <form onSubmit={handleSubmit} noValidate>
+                <AccessibleFormField
+                  id="name"
+                  name="name"
+                  label="Name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.name ? errors.name : null}
+                  required
+                />
+
+                <AccessibleFormField
+                  id="role"
+                  name="role"
+                  label="Role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.role ? errors.role : null}
+                  required
+                />
+
+                <AccessibleFormField
+                  id="photo"
+                  name="photo"
+                  label="Image Path"
+                  value={formData.photo}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.photo ? errors.photo : null}
+                  required
+                />
+
+                <AccessibleFormField
+                  id="bio"
+                  name="bio"
+                  label="Bio"
+                  as="textarea"
+                  rows={6}
+                  value={formData.bio}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  error={touched.bio ? errors.bio : null}
+                  description={
+                    formData.bio.length < 25
+                      ? `${25 - formData.bio.length} characters remaining`
+                      : null
+                  }
+                  required
+                />
+
+                <div className="admin-btn-container">
+                  <button type="submit" className="admin-btn">
+                    Create Team Member
+                  </button>
+
                   <button
-                    className="btn btn-success"
-                    onClick={handleAddAnother}
+                    type="button"
+                    className="admin-btn"
+                    onClick={handleCancel}
                   >
-                    Add Another Team Member
+                    Cancel
                   </button>
                 </div>
-              ) : (
-                <Col>
-                  <TrackVisibility once>
-                    {({ isVisible }) => (
-                      <div
-                        className={
-                          isVisible
-                            ? "animate__animated animate__fadeIn"
-                            : ""
-                        }
-                      >
-                        <h1 id="create-team-member-title">
-                          New Team Member Details
-                        </h1>
-
-                        <form
-                          noValidate
-                          onSubmit={handleSubmit(onSubmit)}
-                          aria-busy={createTeamMember.isPending}
-                        >
-                          {/* NAME */}
-                          <Row>
-                            <AccessibleFormField
-                              id="name"
-                              name="name"
-                              label="Name"
-                              register={register}
-                              registerOptions={{
-                                required:
-                                  "Please provide a team member name",
-                                minLength: {
-                                  value: 2,
-                                  message:
-                                    "Name must be at least 2 characters",
-                                },
-                              }}
-                              error={errors.name}
-                              required
-                            />
-                          </Row>
-
-                          {/* ROLE */}
-                          <Row>
-                            <AccessibleFormField
-                              id="role"
-                              name="role"
-                              label="Role"
-                              register={register}
-                              registerOptions={{
-                                required:
-                                  "Please provide a role description",
-                                minLength: {
-                                  value: 5,
-                                  message:
-                                    "Role must be at least 5 characters",
-                                },
-                              }}
-                              error={errors.role}
-                              required
-                            />
-                          </Row>
-
-                          {/* PHOTO */}
-                          <Row>
-                            <AccessibleFormField
-                              id="photo"
-                              name="photo"
-                              label="Image Path"
-                              register={register}
-                              registerOptions={{
-                                required:
-                                  "Please provide a valid image path",
-                                minLength: {
-                                  value: 10,
-                                  message:
-                                    "Image path must be at least 10 characters",
-                                },
-                              }}
-                              error={errors.photo}
-                              required
-                            />
-                          </Row>
-
-                          {/* BIO */}
-                          <Row>
-                            <AccessibleFormField
-                              id="bio"
-                              name="bio"
-                              label="Bio"
-                              as="textarea"
-                              rows={6}
-                              register={register}
-                              registerOptions={{
-                                required:
-                                  "Please provide a team member bio",
-                                minLength: {
-                                  value: 25,
-                                  message:
-                                    "Bio must be at least 25 characters",
-                                },
-                              }}
-                              error={errors.bio}
-                              required
-                              description={
-                                bio && bio.length < 25
-                                  ? `${25 - bio.length} characters remaining`
-                                  : undefined
-                              }
-                            />
-                          </Row>
-
-                          {/* ACTIONS */}
-                          <Row>
-                            <Col className="px-1 admin-btn-container">
-                              <button
-                                type="submit"
-                                className="admin-btn"
-                                disabled={!isValid}
-                                aria-disabled={!isValid}
-                                style={{
-                                  opacity: !isValid ? 0.5 : 1,
-                                  marginRight: "16px",
-                                }}
-                              >
-                                {buttonText}
-                              </button>
-
-                              <button
-                                type="button"
-                                className="admin-btn"
-                                onClick={handleCancel}
-                              >
-                                Cancel
-                              </button>
-                            </Col>
-                          </Row>
-                        </form>
-                      </div>
-                    )}
-                  </TrackVisibility>
-                </Col>
-              )}
-            </Row>
-          </Container>
-        </section>
-      </main>
-    </>
+              </form>
+            </div>
+          )}
+        </TrackVisibility>
+      </AdminFormLayout>
+    </section>
   );
 };
 

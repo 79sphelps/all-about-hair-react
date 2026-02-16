@@ -14,7 +14,7 @@ const Home = lazy(() => import("./components/Home"));
 const Service = lazy(() => import("./components/services/Service"));
 
 // Admin routes
-const HomePageDetails = lazy(() => import("./components/admin/HomePageDetails"));
+const HomePageDetailsEdit = lazy(() => import("./components/admin/HomePageDetailsEdit"));
 const ServicesDetails = lazy(() => import("./components/admin/ServicesDetails"));
 const ServiceOfferingEdit = lazy(() => import("./components/admin/ServiceOfferingEdit"));
 const CreateServiceOffering = lazy(() => import("./components/admin/CreateServiceOffering"));
@@ -33,7 +33,7 @@ const App = () => {
 
           {/* Admin Group */}
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="home-page-details" element={<HomePageDetails />} />
+            <Route path="home-page-details" element={<HomePageDetailsEdit />} />
             <Route path="services-details" element={<ServicesDetails />} />
             <Route path="service-edit/:id" element={<ServiceOfferingEdit />} />
             <Route path="service-add" element={<CreateServiceOffering />} />

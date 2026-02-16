@@ -15,7 +15,7 @@ const Mission = lazy(() => import("./mission/Mission"));
 const Team = lazy(() => import("./team/Team"));
 const Gallery = lazy(() => import("./gallery/Gallery"));
 const Contact = lazy(() => import("./contact/Contact"));
-const HomePageDetails = lazy(() => import("./admin/HomePageDetails"));
+const HomePageDetailsEdit = lazy(() => import("./admin/HomePageDetailsEdit"));
 
 const Home = () => {
   const { isAuthenticated } = useAuth0();
@@ -48,7 +48,7 @@ const Home = () => {
           <Contact />
         </>
       ) : (
-        <HomePageDetails />
+        <HomePageDetailsEdit />
       )}
 
       <Footer />

@@ -1,12 +1,3 @@
-/*
-Support for:
-- react-hook-form
-- controlled inputs
-- optional descriptions
-- optional errors
-- proper aria linking
-*/
-
 const AccessibleFormField = ({
   id,
   name,
@@ -16,13 +7,18 @@ const AccessibleFormField = ({
   registerOptions,
   value,
   onChange,
+  onBlur,          // ⭐ REQUIRED
   error,
   as = "input",
   rows,
   placeholder,
   required,
   description,
+  inputRef,        // optional ref support
+  ...rest          // ⭐ safety for future props
 }) => {
+  const fieldName = name || id;
+
   const errorId = `${id}-error`;
   const descriptionId = description ? `${id}-description` : null;
 
@@ -34,17 +30,29 @@ const AccessibleFormField = ({
 
   const sharedProps = {
     id,
-    name,
-    type,
+    name: fieldName,
     placeholder,
     "aria-invalid": hasError,
     "aria-describedby": describedBy,
+    ...(as !== "textarea" ? { type } : {}),
+    ...rest,
   };
 
-  // If using react-hook-form
+  /**
+   * react-hook-form mode
+   */
   const fieldProps = register
-    ? { ...sharedProps, ...register(name || id, registerOptions) }
-    : { ...sharedProps, value, onChange };
+    ? {
+        ...sharedProps,
+        ...register(fieldName, registerOptions),
+      }
+    : {
+        ...sharedProps,
+        value: value ?? "",
+        onChange,
+        onBlur,      // ⭐ CRITICAL FIX
+        ref: inputRef,
+      };
 
   return (
     <div className="form-field">
@@ -71,7 +79,7 @@ const AccessibleFormField = ({
           role="alert"
           style={{ color: "red", marginTop: 4 }}
         >
-          {error.message}
+          {error.message || error}
         </div>
       )}
     </div>

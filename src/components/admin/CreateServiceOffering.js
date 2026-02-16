@@ -5,7 +5,7 @@ import TrackVisibility from "react-on-screen";
 import "animate.css";
 
 import NavBar from "../../ui/NavBar";
-import { FormError, formErrorsCreateService } from "../../lib/common.js";
+import { FormError, formErrorsCreateService } from "../../lib/common";
 import { useCreateService } from "./hooks/useCreateService";
 
 const EMPTY_SERVICE = {
@@ -21,6 +21,10 @@ const EMPTY_PRICING = {
   description: "",
 };
 
+/** =========================
+ * VALIDATORS
+ ========================== */
+
 const validators = {
   title: (v) => /^[A-Za-z0-9_ ']{5,}$/.test(v),
   image: (v) => /^[A-Za-z0-9_ /.']{5,}$/.test(v),
@@ -33,46 +37,152 @@ const CreateServiceOffering = () => {
   const navigate = useNavigate();
   const createService = useCreateService();
 
+  /** =========================
+   * STATE
+   ========================== */
   const [service, setService] = useState(EMPTY_SERVICE);
   const [pricingDraft, setPricingDraft] = useState(EMPTY_PRICING);
-  const [showPricingForm, setShowPricingForm] = useState(false);
+
+  const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+
+  const [showPricingForm, setShowPricingForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [buttonText, setButtonText] = useState("Create New Service");
 
-  const getError = (name, value) => {
+  /** =========================
+   * VALIDATION
+   ========================== */
+
+  const validateField = (name, value) => {
     if (!validators[name]?.(value)) {
-      return formErrorsCreateService[name]?.error;
+      return formErrorsCreateService[name]?.error || "Invalid field";
     }
-    return null;
+    return "";
   };
+
+  /** =========================
+   * MAIN FIELD HANDLERS
+   ========================== */
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setService((prev) => ({ ...prev, [name]: value }));
+
+    setService((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    // BEST UX:
+    if (touched[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: validateField(name, value),
+      }));
+    }
   };
 
   const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouched((prev) => ({ ...prev, [name]: true }));
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
   };
+
+  /** =========================
+   * PRICING HANDLERS
+   ========================== */
 
   const handlePricingChange = (e) => {
     const { name, value } = e.target;
-    setPricingDraft((prev) => ({ ...prev, [name]: value }));
+
+    setPricingDraft((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (touched[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: validateField(name, value),
+      }));
+    }
   };
 
+  const handlePricingBlur = (e) => {
+    const { name, value } = e.target;
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: validateField(name, value),
+    }));
+  };
+
+  /** =========================
+   * VALIDATION BEFORE SUBMIT
+   ========================== */
+
+  const validateBeforeSubmit = () => {
+    const newErrors = {};
+
+    ["title", "image", "description"].forEach((field) => {
+      const err = validateField(field, service[field]);
+      if (err) newErrors[field] = err;
+    });
+
+    setErrors(newErrors);
+    setTouched({
+      title: true,
+      image: true,
+      description: true,
+    });
+
+    return Object.keys(newErrors).length === 0;
+  };
+
+  /** =========================
+   * ACTIONS
+   ========================== */
+
   const addPricingDetail = () => {
+    const pricingErrors = {};
+
+    ["type", "price", "description"].forEach((field) => {
+      const err = validateField(field, pricingDraft[field]);
+      if (err) pricingErrors[field] = err;
+    });
+
+    if (Object.keys(pricingErrors).length) {
+      setErrors((prev) => ({ ...prev, ...pricingErrors }));
+      return;
+    }
+
     setService((prev) => ({
       ...prev,
       pricing: [...prev.pricing, pricingDraft],
     }));
+
     setPricingDraft(EMPTY_PRICING);
     setShowPricingForm(false);
   };
 
   const submitService = () => {
-    setButtonText("Creating Service...");
+    if (!validateBeforeSubmit()) return;
+
+    setButtonText("Creating Service…");
+
     createService.mutate(service, {
       onSuccess: () => setSubmitted(true),
       onError: () => setButtonText("Create New Service"),
@@ -82,6 +192,7 @@ const CreateServiceOffering = () => {
   const resetForm = () => {
     setService(EMPTY_SERVICE);
     setPricingDraft(EMPTY_PRICING);
+    setErrors({});
     setTouched({});
     setSubmitted(false);
     setButtonText("Create New Service");
@@ -91,6 +202,10 @@ const CreateServiceOffering = () => {
     resetForm();
     navigate("/");
   };
+
+  /** =========================
+   * STATES
+   ========================== */
 
   if (submitted) {
     return (
@@ -108,22 +223,22 @@ const CreateServiceOffering = () => {
     );
   }
 
+  /** =========================
+   * UI
+   ========================== */
+
   return (
     <section className="contact">
       <NavBar />
+
       <Container style={{ marginTop: "100px" }}>
         <Row className="align-items-center">
           <Col>
             <TrackVisibility>
               {({ isVisible }) => (
-                <div
-                  className={
-                    isVisible ? "animate__animated animate__fadeIn" : ""
-                  }
-                >
+                <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
                   <h2>New Service Details</h2>
 
-                  {/* Title + Image */}
                   {["title", "image"].map((field) => (
                     <Row key={field}>
                       <div>{field.toUpperCase()}</div>
@@ -134,13 +249,12 @@ const CreateServiceOffering = () => {
                         onBlur={handleBlur}
                         className="admin-add-service-form-input"
                       />
-                      {touched[field] && (
-                        <FormError msg={getError(field, service[field])} />
+                      {touched[field] && errors[field] && (
+                        <FormError msg={errors[field]} />
                       )}
                     </Row>
                   ))}
 
-                  {/* Description */}
                   <Row>
                     <div>Description</div>
                     <textarea
@@ -150,21 +264,15 @@ const CreateServiceOffering = () => {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       className="admin-add-service-form-input"
-                      style={{ marginTop: "20px" }}
                     />
-                    {touched.description && (
-                      <FormError
-                        msg={getError("description", service.description)}
-                      />
+                    {touched.description && errors.description && (
+                      <FormError msg={errors.description} />
                     )}
                   </Row>
 
-                  {/* Pricing Form */}
                   {showPricingForm && (
                     <>
-                      <h4 style={{ marginTop: "30px" }}>
-                        Add Pricing Detail
-                      </h4>
+                      <h4 style={{ marginTop: 30 }}>Add Pricing Detail</h4>
 
                       {["type", "price", "description"].map((field) => (
                         <Row key={field}>
@@ -173,21 +281,21 @@ const CreateServiceOffering = () => {
                             name={field}
                             value={pricingDraft[field]}
                             onChange={handlePricingChange}
+                            onBlur={handlePricingBlur}
                             className="admin-add-service-form-input"
                           />
+                          {touched[field] && errors[field] && (
+                            <FormError msg={errors[field]} />
+                          )}
                         </Row>
                       ))}
 
-                      <button
-                        className="admin-btn"
-                        onClick={addPricingDetail}
-                      >
+                      <button className="admin-btn" onClick={addPricingDetail}>
                         Add Detail
                       </button>
                     </>
                   )}
 
-                  {/* Buttons */}
                   <Row className="admin-add-service-btn-container">
                     <button className="admin-btn" onClick={handleCancel}>
                       Cancel
@@ -198,10 +306,7 @@ const CreateServiceOffering = () => {
                     >
                       Add Pricing Detail
                     </button>
-                    <button
-                      className="admin-btn"
-                      onClick={submitService}
-                    >
+                    <button className="admin-btn" onClick={submitService}>
                       {buttonText}
                     </button>
                   </Row>
