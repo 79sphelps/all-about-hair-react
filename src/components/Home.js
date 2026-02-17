@@ -24,7 +24,7 @@ const Home = () => {
   if (isLoading) {
     return (
       <FullPageLoader
-        title="Waking up the server…"
+        title="Waking up the server hosted on Render.com (free tier)…"
         subtitle="This can take up to 45 seconds on first load."
       />
     );

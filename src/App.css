@@ -670,6 +670,7 @@ nav.navbar .navbar-toggler:focus,
 
 .banner img {
   animation: updown 3s linear infinite;
+  translate: 25px 120px;
 }
 
 @keyframes updown {

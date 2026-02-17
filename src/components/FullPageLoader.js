@@ -8,7 +8,7 @@ const FullPageLoader = ({ title, subtitle }) => (
       justifyContent: "center",
     }}
   >
-    <h5>{title}</h5>
+    <h5 style={{ marginBottom: "5.0rem" }}>{title}</h5>
     <h5>{subtitle}</h5>
     <div className="loader" />
   </div>

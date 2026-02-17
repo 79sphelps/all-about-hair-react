@@ -121,7 +121,7 @@ const ContactForm = () => {
                             register={register}
                             registerOptions={{
                               required:
-                                "You must enter a reason for contacting",
+                                "Please specify your request or question pertaining to services or scheduling needs.",
                               minLength: {
                                 value: 25,
                                 message:
@@ -137,8 +137,9 @@ const ContactForm = () => {
                           <button
                             type="submit"
                             disabled={!isValid || isPending}
+                            style={{ marginRight: "10px" }}
                           >
-                            {isPending ? "Sending..." : "Send"}
+                            { buttonText }  {/* {isPending ? "Sending..." : "Send"}  */}
                           </button>
                           <button type="button" onClick={handleReset}>
                             Reset

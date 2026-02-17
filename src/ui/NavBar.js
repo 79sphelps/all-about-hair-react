@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import logo from "../assets/img/logo.svg";
 import navIcon1 from "../assets/img/nav-icon1.svg";
 import navIcon2 from "../assets/img/nav-icon2.svg";
@@ -11,8 +12,13 @@ import NavLink from "./NavLink";
 const NavBar = () => {
   const navigate = useNavigate();
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const navbarRef = useRef(null);
+  const toggleRef = useRef(null);
 
   const logoutWithRedirect = () =>
     logout({
@@ -32,95 +38,48 @@ const NavBar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* CLOSE MENU ON OUTSIDE CLICK */
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!expanded) return;
+
+      if (
+        navbarRef.current &&
+        !navbarRef.current.contains(e.target) &&
+        toggleRef.current &&
+        !toggleRef.current.contains(e.target)
+      ) {
+        setExpanded(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [expanded]);
+
   const onUpdateActiveLink = (value, page) => {
     setActiveLink(value);
-    navigate(page);
+    setExpanded(false); // close mobile menu
+
+    if (page) navigate(page);
   };
 
-  const AdminNavLinksAry = [
-    {
-      eventKey: "1",
-      title: "home",
-      onClick: () => onUpdateActiveLink("home", "/admin/home-page-details"),
-      text: "Edit Homepage Details",
-    },
-    {
-      eventKey: "2",
-      title: "service-details",
-      onClick: () => onUpdateActiveLink("services", "/admin/services-details"),
-      text: "Edit Services",
-    },
-    {
-      eventKey: "3",
-      title: "service-add",
-      onClick: () => onUpdateActiveLink("services", "/admin/service-add"),
-      text: "Add Service",
-    },
-    {
-      eventKey: "4",
-      title: "team-details",
-      onClick: () => onUpdateActiveLink("team", "/admin/team-details"),
-      text: "Edit Team",
-    },
-    {
-      eventKey: "5",
-      title: "team-member-add",
-      onClick: () => onUpdateActiveLink("team", "/admin/team-member-add"),
-      text: "Add Team Member",
-    },
-    {
-      eventKey: "6",
-      title: "logout",
-      onClick: logoutWithRedirect,
-      text: "Log Out",
-      href: "",
-    },
-  ];
-
-  const NavLinksAry = [
-    {
-      eventKey: "1",
-      title: "home",
-      onClick: () => onUpdateActiveLink("home"),
-      text: "Home",
-      href: "#home",
-    },
-    {
-      eventKey: "2",
-      title: "services",
-      onClick: () => onUpdateActiveLink("services"),
-      text: "Services",
-      href: "#services",
-    },
-    {
-      eventKey: "3",
-      title: "mission",
-      onClick: () => onUpdateActiveLink("mission"),
-      text: "Mission",
-      href: "#mission",
-    },
-    {
-      eventKey: "4",
-      title: "team",
-      onClick: () => onUpdateActiveLink("team"),
-      text: "Team",
-      href: "#team",
-    },
-    {
-      eventKey: "5",
-      title: "gallery",
-      onClick: () => onUpdateActiveLink("gallery"),
-      text: "Gallery",
-      href: "#gallery",
-    },
-    {
-      eventKey: "6",
-      title: "login",
-      onClick: loginWithRedirect,
-      text: "Log In",
-      href: "",
-    },
-  ];
+  const links = isAuthenticated
+    ? [
+        ["home", "/admin/home-page-details", "Edit Homepage Details"],
+        ["services", "/admin/services-details", "Edit Services"],
+        ["services", "/admin/service-add", "Add Service"],
+        ["team", "/admin/team-details", "Edit Team"],
+        ["team", "/admin/team-member-add", "Add Team Member"],
+      ]
+    : [
+        ["home", null, "Home", "#home"],
+        ["services", null, "Services", "#services"],
+        ["mission", null, "Mission", "#mission"],
+        ["team", null, "Team", "#team"],
+        ["gallery", null, "Gallery", "#gallery"],
+      ];
 
   /* 
   Note: The collapseOnSelect property needs to be used in conjunction with adding the eventKey props to the 
@@ -128,6 +87,9 @@ const NavBar = () => {
         */
   return (
     <Navbar
+      ref={navbarRef}
+      expanded={expanded}
+      onToggle={(value) => setExpanded(value)}
       as="nav"
       aria-label="Primary navigation"
       collapseOnSelect
@@ -141,48 +103,41 @@ const NavBar = () => {
           <img src={logo} alt="All About Hair logo" />
         </Navbar.Brand>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" aria-label="Toggle navigation menu">
+        <Navbar.Toggle
+          ref={toggleRef}
+          aria-label="Toggle navigation menu"
+          aria-controls="primary-navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </Navbar.Toggle>
 
-        {/* <Navbar.Collapse id="basic-navbar-nav"> */}
         <Navbar.Collapse id="primary-navigation">
           <Nav className="ms-auto" role="menubar">
-            {isAuthenticated && (
-                AdminNavLinksAry.map((item, idx) => (
-                  <div key={idx}>
-                    <NavLink
-                      activeLink={activeLink}
-                      title={item.title}
-                      eventKey={item.eventKey}
-                      onClick={item.onClick}
-                      aria-current={
-                        activeLink === item.title ? "page" : undefined
-                      }
-                    >
-                      {item.text}
-                    </NavLink>
-                  </div>
-                ))
-            )}
-            {!isAuthenticated && (
-              NavLinksAry.map((item, idx) => (
-                  <div key={idx}>
-                    <NavLink
-                      activeLink={activeLink}
-                      title={item.title}
-                      eventKey={item.eventKey}
-                      onClick={item.onClick}
-                      href={item.href}
-                      aria-current={
-                        activeLink === item.title ? "page" : undefined
-                      }
-                    >
-                      {item.text}
-                    </NavLink>
-                  </div>
-                ))
-            )}
+            {links.map(([title, page, text, href], idx) => (
+              <div key={idx}>
+                <NavLink
+                  key={idx}
+                  activeLink={activeLink}
+                  title={title}
+                  onClick={() =>
+                    page
+                      ? onUpdateActiveLink(title, page)
+                      : onUpdateActiveLink(title)
+                  }
+                  href={href}
+                >
+                  {text}
+                </NavLink>
+              </div>
+            ))}
+
+            <NavLink
+              title={isAuthenticated ? "logout" : "login"}
+              onClick={isAuthenticated ? logoutWithRedirect : loginWithRedirect}
+            >
+              {isAuthenticated ? "Log Out" : "Log In"}
+            </NavLink>
+
             {/* <Nav.Link href="#prices" className={activeLink === 'prices' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('prices')}>Prices</Nav.Link> */}
             {/* <Nav.Link href="#contact" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}>Contact</Nav.Link> */}
           </Nav>
