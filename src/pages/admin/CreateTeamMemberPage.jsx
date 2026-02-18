@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TrackVisibility from "react-on-screen";
 import "animate.css";
 
-import NavBar from "../../ui/navigation/NavBar";
-import AdminFormLayout from "../../components/admin/AdminFormLayout";
 import AccessibleFormField from "../../ui/form/AccessibleFormField";
 
 import { useCreateTeamMember } from "../../features/admin/hooks/useCreateTeamMember";
@@ -90,21 +87,15 @@ const CreateTeamMemberPage = () => {
 
   if (submitted) {
     return (
-      <section className="contact">
-        <NavBar />
-
-        <AdminFormLayout title="Team Member Created">
-          <div role="status" aria-live="polite">
-            <h4>The new team member was created successfully!</h4>
-            <button
-              className="btn btn-success"
-              onClick={handleAddAnother}
-            >
-              Add Another Team Member
-            </button>
-          </div>
-        </AdminFormLayout>
-      </section>
+      <>
+        <h1>Team Member Created</h1>
+        <div role="status" aria-live="polite">
+          <h4>The new team member was created successfully!</h4>
+          <button className="btn btn-success" onClick={handleAddAnother}>
+            Add Another Team Member
+          </button>
+        </div>
+      </>
     );
   }
 
@@ -113,89 +104,73 @@ const CreateTeamMemberPage = () => {
   ========================= */
 
   return (
-    <section className="contact">
-      <NavBar />
+    <>
+      <h1>New Team Member Details</h1>
+      <p>Fill out the fields below to create a new team member.</p>
 
-      <AdminFormLayout
-        title="New Team Member Details"
-        subtitle="Fill out the fields below to create a new team member."
-      >
-        <TrackVisibility once>
-          {({ isVisible }) => (
-            <div
-              className={isVisible ? "animate__animated animate__fadeIn" : ""}
-            >
-              <form onSubmit={handleSubmit} noValidate>
-                <AccessibleFormField
-                  id="name"
-                  name="name"
-                  label="Name"
-                  value={form.values.name}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  error={form.touched.name ? form.errors.name : null}
-                  required
-                />
+      <form onSubmit={handleSubmit} noValidate>
+        <AccessibleFormField
+          id="name"
+          name="name"
+          label="Name"
+          value={form.values.name}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
+          error={form.touched.name ? form.errors.name : null}
+          required
+        />
 
-                <AccessibleFormField
-                  id="role"
-                  name="role"
-                  label="Role"
-                  value={form.values.role}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  error={form.touched.role ? form.errors.role : null}
-                  required
-                />
+        <AccessibleFormField
+          id="role"
+          name="role"
+          label="Role"
+          value={form.values.role}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
+          error={form.touched.role ? form.errors.role : null}
+          required
+        />
 
-                <AccessibleFormField
-                  id="photo"
-                  name="photo"
-                  label="Image Path"
-                  value={form.values.photo}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  error={form.touched.photo ? form.errors.photo : null}
-                  required
-                />
+        <AccessibleFormField
+          id="photo"
+          name="photo"
+          label="Image Path"
+          value={form.values.photo}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
+          error={form.touched.photo ? form.errors.photo : null}
+          required
+        />
 
-                <AccessibleFormField
-                  id="bio"
-                  name="bio"
-                  label="Bio"
-                  as="textarea"
-                  rows={6}
-                  value={form.values.bio}
-                  onChange={form.handleChange}
-                  onBlur={form.handleBlur}
-                  error={form.touched.bio ? form.errors.bio : null}
-                  description={
-                    form.values.bio.length < 25
-                      ? `${25 - form.values.bio.length} characters remaining`
-                      : null
-                  }
-                  required
-                />
+        <AccessibleFormField
+          id="bio"
+          name="bio"
+          label="Bio"
+          as="textarea"
+          rows={6}
+          value={form.values.bio}
+          onChange={form.handleChange}
+          onBlur={form.handleBlur}
+          error={form.touched.bio ? form.errors.bio : null}
+          description={
+            form.values.bio.length < 25
+              ? `${25 - form.values.bio.length} characters remaining`
+              : null
+          }
+          required
+        />
 
-                <div className="admin-btn-container">
-                  <button type="submit" className="admin-btn">
-                    Create Team Member
-                  </button>
+        <div className="admin-btn-container">
+          <button type="submit" className="admin-btn">
+            Create Team Member
+          </button>
 
-                  <button
-                    type="button"
-                    className="admin-btn"
-                    onClick={handleCancel}
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-        </TrackVisibility>
-      </AdminFormLayout>
-    </section>
+          <button type="button" className="admin-btn" onClick={handleCancel}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

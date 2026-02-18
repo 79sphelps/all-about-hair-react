@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import NavBar from "../../ui/navigation/NavBar";
-import Footer from "../../components/footer/Footer";
+// import NavBar from "../../ui/navigation/NavBar";
+// import Footer from "../../features/footer/Footer";
 import FullPageLoader from "../../ui/feedback/FullPageLoader";
 import { lazy } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -15,7 +15,7 @@ const Mission = lazy(() => import("../../features/mission/Mission"));
 const Team = lazy(() => import("../../features/team/Team"));
 const Gallery = lazy(() => import("../../features/gallery/Gallery"));
 const ContactSection = lazy(() => import("../../features/contact/ContactSection"));
-const HomePageDetailsEdit2 = lazy(() => import("../admin/HomePageDetailsPage"));
+const HomePageDetailsPage = lazy(() => import("../admin/HomePageDetailsPage"));
 
 const HomePage = () => {
   const { isAuthenticated } = useAuth0();
@@ -36,7 +36,7 @@ const HomePage = () => {
 
   return (
     <div className="App">
-      <NavBar />
+      {/* <NavBar /> */}
 
       {!isAuthenticated ? (
         <>
@@ -48,10 +48,10 @@ const HomePage = () => {
           <ContactSection />
         </>
       ) : (
-        <HomePageDetailsEdit2 />
+        <HomePageDetailsPage />
       )}
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

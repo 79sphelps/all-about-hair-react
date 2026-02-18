@@ -4,7 +4,6 @@ import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 import AccessibleFormField from "../../ui/form/AccessibleFormField";
-import AdminFormLayout from "../../components/admin/AdminFormLayout";
 
 import { useHomePageDetails } from "../../features/admin/hooks/useHomePageDetails";
 import { useUpdateHomePageDetails } from "../../features/admin/hooks/useUpdateHomePageDetails";
@@ -126,7 +125,7 @@ const HomePageDetailsPage = () => {
       },
       {
         onSuccess: () => setUpdateSuccess(true),
-      }
+      },
     );
   };
 
@@ -157,10 +156,9 @@ const HomePageDetailsPage = () => {
   ========================= */
 
   return (
-    <AdminFormLayout
-      title="Update Homepage Details"
-      subtitle="Modify homepage content and click update."
-    >
+    <>
+      <h1>Update Homepage Details</h1>
+      <p>Modify homepage content and click update.</p>
       {updateSuccess && (
         <div role="status" aria-live="polite" className="mb-3">
           Homepage details successfully updated.
@@ -209,7 +207,7 @@ const HomePageDetailsPage = () => {
           </button>
         </div>
       </form>
-    </AdminFormLayout>
+    </>
   );
 };
 

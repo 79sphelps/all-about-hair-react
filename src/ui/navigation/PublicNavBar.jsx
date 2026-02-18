@@ -9,9 +9,9 @@ import navIcon2 from "../../assets/img/nav-icon2.svg";
 import navIcon3 from "../../assets/img/nav-icon3.svg";
 import NavLink from "./NavLink";
 
-const NavBar = () => {
+const PublicNavBar = () => {
   const navigate = useNavigate();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   const [activeLink, setActiveLink] = useState("home");
   const [scrolled, setScrolled] = useState(false);
@@ -19,11 +19,6 @@ const NavBar = () => {
 
   const navbarRef = useRef(null);
   const toggleRef = useRef(null);
-
-  const logoutWithRedirect = () =>
-    logout({
-      returnTo: window.location.origin,
-    });
 
   useEffect(() => {
     const onScroll = () => {
@@ -65,15 +60,7 @@ const NavBar = () => {
     if (page) navigate(page);
   };
 
-  const links = isAuthenticated
-    ? [
-        ["home", "/admin/home-page-details", "Edit Homepage Details"],
-        ["services", "/admin/services-details", "Edit Services"],
-        ["services", "/admin/service-add", "Add Service"],
-        ["team", "/admin/team-details", "Edit Team"],
-        ["team", "/admin/team-member-add", "Add Team Member"],
-      ]
-    : [
+  const links = [
         ["home", null, "Home", "#home"],
         ["services", null, "Services", "#services"],
         ["mission", null, "Mission", "#mission"],
@@ -131,12 +118,14 @@ const NavBar = () => {
               </div>
             ))}
 
-            <NavLink
-              title={isAuthenticated ? "logout" : "login"}
-              onClick={isAuthenticated ? logoutWithRedirect : loginWithRedirect}
-            >
-              {isAuthenticated ? "Log Out" : "Log In"}
-            </NavLink>
+            {!isAuthenticated && (
+              <NavLink
+                title="login"
+                onClick={loginWithRedirect}
+              >
+                Log In
+              </NavLink>
+            )}
 
             {/* <Nav.Link href="#prices" className={activeLink === 'prices' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('prices')}>Prices</Nav.Link> */}
             {/* <Nav.Link href="#contact" className={activeLink === 'contact' ? 'active navbar-link' : 'navbar-link'} onClick={() => onUpdateActiveLink('contact')}>Contact</Nav.Link> */}
@@ -167,4 +156,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default PublicNavBar;

@@ -4,7 +4,6 @@ import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 import AccessibleFormField from "../../ui/form/AccessibleFormField";
-import AdminFormLayout from "../../components/admin/AdminFormLayout";
 
 import { useTeamMember } from "../../features/admin/hooks/useTeamMember";
 import { useUpdateTeamMember } from "../../features/admin/hooks/useUpdateTeamMember";
@@ -45,8 +44,12 @@ const TeamMemberEditPage = () => {
 
   const teamMemberId = location.state?.id;
 
-  const { data: teamMember, isLoading, isError, error } =
-    useTeamMember(teamMemberId);
+  const {
+    data: teamMember,
+    isLoading,
+    isError,
+    error,
+  } = useTeamMember(teamMemberId);
 
   const updateTeamMember = useUpdateTeamMember();
 
@@ -74,7 +77,6 @@ const TeamMemberEditPage = () => {
         photo: teamMember.photo || "",
         bio: teamMember.bio || "",
       });
-          
     }
   }, [teamMember]);
 
@@ -102,7 +104,7 @@ const TeamMemberEditPage = () => {
         onError: () => {
           setButtonText("Update");
         },
-      }
+      },
     );
   };
 
@@ -123,7 +125,8 @@ const TeamMemberEditPage = () => {
   ========================= */
 
   return (
-    <AdminFormLayout title="Update Team Member Details">
+    <>
+      <h1>Update Team Member Details</h1>
       {/* Image preview */}
       {form.values.photo && (
         <div aria-live="polite">
@@ -198,11 +201,7 @@ const TeamMemberEditPage = () => {
         />
 
         <div className="admin-btn-container">
-            <button
-                type="button"
-                className="admin-btn"
-                onClick={handleCancel}
-            >
+          <button type="button" className="admin-btn" onClick={handleCancel}>
             Cancel
           </button>
           <button type="submit" className="admin-btn">
@@ -210,7 +209,7 @@ const TeamMemberEditPage = () => {
           </button>
         </div>
       </form>
-    </AdminFormLayout>
+    </>
   );
 };
 

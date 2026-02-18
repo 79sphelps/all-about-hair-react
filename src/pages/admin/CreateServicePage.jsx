@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import TrackVisibility from "react-on-screen";
 import "animate.css";
 
-import NavBar from "../../ui/navigation/NavBar";
-import AdminFormLayout from "../../components/admin/AdminFormLayout";
 import AccessibleFormField from "../../ui/form/AccessibleFormField";
 
 import { useCreateService } from "../../features/admin/hooks/useCreateService";
@@ -134,17 +131,15 @@ const CreateServicePage = () => {
 
   if (submitted) {
     return (
-      <section className="contact">
-        <NavBar />
-        <AdminFormLayout title="Service Created">
-          <div role="status" aria-live="polite">
-            <h4>The new service was created successfully!</h4>
-            <button className="btn btn-success" onClick={resetForm}>
-              Add Another
-            </button>
-          </div>
-        </AdminFormLayout>
-      </section>
+      <>
+        <h1>Service Created</h1>
+        <div role="status" aria-live="polite">
+          <h4>The new service was created successfully!</h4>
+          <button className="btn btn-success" onClick={resetForm}>
+            Add Another
+          </button>
+        </div>
+      </>
     );
   }
 
@@ -153,144 +148,120 @@ const CreateServicePage = () => {
   ========================= */
 
   return (
-    <section className="contact">
-      <NavBar />
+    <>
+      <h1>New Service Details</h1>
+      <form onSubmit={submitService} noValidate>
+        <AccessibleFormField
+          id="title"
+          name="title"
+          label="Title"
+          value={serviceForm.values.title}
+          onChange={serviceForm.handleChange}
+          onBlur={serviceForm.handleBlur}
+          error={serviceForm.touched.title ? serviceForm.errors.title : null}
+          required
+        />
 
-      <AdminFormLayout title="New Service Details">
-        <TrackVisibility once>
-          {({ isVisible }) => (
-            <div className={isVisible ? "animate__animated animate__fadeIn" : ""}>
-              <form onSubmit={submitService} noValidate>
+        <AccessibleFormField
+          id="image"
+          name="image"
+          label="Image Path"
+          value={serviceForm.values.image}
+          onChange={serviceForm.handleChange}
+          onBlur={serviceForm.handleBlur}
+          error={serviceForm.touched.image ? serviceForm.errors.image : null}
+          required
+        />
 
-                <AccessibleFormField
-                  id="title"
-                  name="title"
-                  label="Title"
-                  value={serviceForm.values.title}
-                  onChange={serviceForm.handleChange}
-                  onBlur={serviceForm.handleBlur}
-                  error={
-                    serviceForm.touched.title
-                      ? serviceForm.errors.title
-                      : null
-                  }
-                  required
-                />
+        <AccessibleFormField
+          id="description"
+          name="description"
+          label="Description"
+          as="textarea"
+          rows={6}
+          value={serviceForm.values.description}
+          onChange={serviceForm.handleChange}
+          onBlur={serviceForm.handleBlur}
+          error={
+            serviceForm.touched.description
+              ? serviceForm.errors.description
+              : null
+          }
+          required
+        />
 
-                <AccessibleFormField
-                  id="image"
-                  name="image"
-                  label="Image Path"
-                  value={serviceForm.values.image}
-                  onChange={serviceForm.handleChange}
-                  onBlur={serviceForm.handleBlur}
-                  error={
-                    serviceForm.touched.image
-                      ? serviceForm.errors.image
-                      : null
-                  }
-                  required
-                />
+        {showPricingForm && (
+          <>
+            <h4 style={{ marginTop: 30 }}>Add Pricing Detail</h4>
 
-                <AccessibleFormField
-                  id="description"
-                  name="description"
-                  label="Description"
-                  as="textarea"
-                  rows={6}
-                  value={serviceForm.values.description}
-                  onChange={serviceForm.handleChange}
-                  onBlur={serviceForm.handleBlur}
-                  error={
-                    serviceForm.touched.description
-                      ? serviceForm.errors.description
-                      : null
-                  }
-                  required
-                />
+            <AccessibleFormField
+              id="type"
+              name="type"
+              label="Type"
+              value={pricingForm.values.type}
+              onChange={pricingForm.handleChange}
+              onBlur={pricingForm.handleBlur}
+              error={pricingForm.touched.type ? pricingForm.errors.type : null}
+              required
+            />
 
-                {showPricingForm && (
-                  <>
-                    <h4 style={{ marginTop: 30 }}>Add Pricing Detail</h4>
+            <AccessibleFormField
+              id="price"
+              name="price"
+              label="Price"
+              value={pricingForm.values.price}
+              onChange={pricingForm.handleChange}
+              onBlur={pricingForm.handleBlur}
+              error={
+                pricingForm.touched.price ? pricingForm.errors.price : null
+              }
+              required
+            />
 
-                    <AccessibleFormField
-                      id="type"
-                      name="type"
-                      label="Type"
-                      value={pricingForm.values.type}
-                      onChange={pricingForm.handleChange}
-                      onBlur={pricingForm.handleBlur}
-                      error={
-                        pricingForm.touched.type
-                          ? pricingForm.errors.type
-                          : null
-                      }
-                      required
-                    />
+            <AccessibleFormField
+              id="pricing-description"
+              name="description"
+              label="Description"
+              value={pricingForm.values.description}
+              onChange={pricingForm.handleChange}
+              onBlur={pricingForm.handleBlur}
+              error={
+                pricingForm.touched.description
+                  ? pricingForm.errors.description
+                  : null
+              }
+              required
+            />
 
-                    <AccessibleFormField
-                      id="price"
-                      name="price"
-                      label="Price"
-                      value={pricingForm.values.price}
-                      onChange={pricingForm.handleChange}
-                      onBlur={pricingForm.handleBlur}
-                      error={
-                        pricingForm.touched.price
-                          ? pricingForm.errors.price
-                          : null
-                      }
-                      required
-                    />
+            <button
+              type="button"
+              className="admin-btn"
+              onClick={addPricingDetail}
+            >
+              Add Detail
+            </button>
+          </>
+        )}
 
-                    <AccessibleFormField
-                      id="pricing-description"
-                      name="description"
-                      label="Description"
-                      value={pricingForm.values.description}
-                      onChange={pricingForm.handleChange}
-                      onBlur={pricingForm.handleBlur}
-                      error={
-                        pricingForm.touched.description
-                          ? pricingForm.errors.description
-                          : null
-                      }
-                      required
-                    />
+        <div className="admin-btn-container">
+          <button type="button" className="admin-btn" onClick={handleCancel}>
+            Cancel
+          </button>
 
-                    <button
-                      type="button"
-                      className="admin-btn"
-                      onClick={addPricingDetail}
-                    >
-                      Add Detail
-                    </button>
-                  </>
-                )}
+          <button
+            type="button"
+            className="admin-btn"
+            onClick={() => setShowPricingForm(true)}
+          >
+            Add Pricing Detail
+          </button>
 
-                <div className="admin-btn-container">
-                  <button type="button" className="admin-btn" onClick={handleCancel}>
-                    Cancel
-                  </button>
-
-                  <button
-                    type="button"
-                    className="admin-btn"
-                    onClick={() => setShowPricingForm(true)}
-                  >
-                    Add Pricing Detail
-                  </button>
-
-                  <button type="submit" className="admin-btn">
-                    {buttonText}
-                  </button>
-                </div>
-              </form>
-            </div>
-          )}
-        </TrackVisibility>
-      </AdminFormLayout>
-    </section>
+          <button type="submit" className="admin-btn">
+            {buttonText}
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 

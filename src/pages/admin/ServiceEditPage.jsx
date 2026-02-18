@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 import AccessibleFormField from "../../ui/form/AccessibleFormField";
-import AdminFormLayout from "../../components/admin/AdminFormLayout";
 
 import { useService } from "../../features/admin/hooks/useService";
 import { useUpdateService } from "../../features/admin/hooks/useUpdateService";
@@ -173,7 +172,8 @@ const ServiceEditPage = () => {
   ========================= */
 
   return (
-    <AdminFormLayout title="Update Service Details">
+    <>
+      <h1>Update Service Details</h1>
       <form onSubmit={handleSubmit} noValidate>
         <AccessibleFormField
           id="title"
@@ -243,7 +243,7 @@ const ServiceEditPage = () => {
           </button>
         </div>
       </form>
-    </AdminFormLayout>
+    </>
   );
 };
 
