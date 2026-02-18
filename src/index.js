@@ -7,7 +7,7 @@ import { createBrowserHistory } from "history";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { getConfig } from "./config";
 import "./index.css";
-import App from "./App";
+import App from "./app/App";
 
 // create a client
 const queryClient = new QueryClient();

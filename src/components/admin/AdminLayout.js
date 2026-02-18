@@ -13,7 +13,7 @@ Architecture:
 */
 import { Outlet, Navigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import Loading from "../Loading";
+import LoadingSpinner from "../../ui/feedback/LoadingSpinner";
 import { NavLink } from "react-router-dom";
 
 const AdminNav = () => (
@@ -27,7 +27,7 @@ const AdminNav = () => (
 const AdminLayout = () => {
   const { isAuthenticated, isLoading } = useAuth0();
 
-  if (isLoading) return <Loading />;
+  if (isLoading) return <LoadingSpinner />;
 
   if (!isAuthenticated) {
     return <Navigate to="/" replace />;

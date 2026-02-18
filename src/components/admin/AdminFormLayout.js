@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import TrackVisibility from "react-on-screen";
-import NavBar from "../../ui/NavBar";
+import NavBar from "../../ui/navigation/NavBar";
 
 const AdminFormLayout = ({
   title,
