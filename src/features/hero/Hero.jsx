@@ -11,7 +11,7 @@ import {
   BANNER_CONNECT_TEXT,
   BANNER_ROTATING_TEXT_ARY,
 } from "../../lib/data.js";
-import { useHomePageDetails } from "../admin/hooks/useHomePageDetails.js"; // Adjust path as needed
+import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
 
 const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);

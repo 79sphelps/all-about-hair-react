@@ -2,8 +2,8 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import ServicesCard from "./components/ServicesCard";
 import Loading from "../../ui/feedback/LoadingSpinner";
-import { useHomePageDetails } from "../admin/hooks/useHomePageDetails";
-import { useServices } from "../admin/hooks/useServices";
+import { useHomePageDetails } from "../admin/homepage/useHomePageDetails";
+import { useServices } from "../admin/services/useServices";
 
 const Services = () => {
   const {

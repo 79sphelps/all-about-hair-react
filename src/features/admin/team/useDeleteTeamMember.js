@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteTeamMember } from "../../../api/team.api.js";
-import { teamMemberQueryKey } from "./queryKeys";
+import { teamMemberQueryKey } from "../hooks/queryKeys.js";
 
 export const useDeleteTeamMember = () => {
   const queryClient = useQueryClient();

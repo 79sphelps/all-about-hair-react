@@ -1,15 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import PublicNavBar from "../ui/navigation/PublicNavBar";
 import Footer from "../features/footer/Footer";
 
 const PublicLayout = () => {
+  const location = useLocation();
+
   return (
     <>
       <PublicNavBar />
       <main>
         <Outlet />
       </main>
-      <Footer />
+      { !location.pathname.includes('services') && <Footer /> }
     </>
   );
 };

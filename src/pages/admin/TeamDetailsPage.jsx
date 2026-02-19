@@ -4,8 +4,8 @@ import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 
-import { useTeamMembers } from "../../features/admin/hooks/useTeamMember";
-import { useDeleteTeamMember } from "../../features/admin/hooks/useDeleteTeamMember";
+import { useTeamMembers } from "../../features/admin/team/hooks";
+import { useDeleteTeamMember } from "../../features/admin/team/hooks";
 
 const TeamDetailsPage = () => {
   const navigate = useNavigate();

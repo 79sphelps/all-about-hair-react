@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
-import AccessibleFormField from "../../ui/form/AccessibleFormField";
+import AdminPageHeader from "../../features/admin/components/AdminPageHeader";
+import HomePageDetailsForm from "../../features/admin/homepage/HomePageDetailsForm";
 
-import { useHomePageDetails } from "../../features/admin/hooks/useHomePageDetails";
-import { useUpdateHomePageDetails } from "../../features/admin/hooks/useUpdateHomePageDetails";
+import { useHomePageDetails } from "../../features/admin/homepage/hooks";
+import { useUpdateHomePageDetails } from "../../features/admin/homepage/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
-
-/* =========================
-   CONSTANTS
-========================= */
 
 const EMPTY_FORM = {
   headline: "",
@@ -29,10 +25,6 @@ const EMPTY_FORM = {
   contactHeadline: "",
   contactSubMsg: "",
 };
-
-/* =========================
-   VALIDATION
-========================= */
 
 const isValidUrl = (value) => {
   try {
@@ -77,21 +69,11 @@ const errorMessages = {
   contactSubMsg: "Must be at least 10 characters.",
 };
 
-/* =========================
-   COMPONENT
-========================= */
-
 const HomePageDetailsPage = () => {
-  const navigate = useNavigate();
-
   const { data, isLoading, isError, error } = useHomePageDetails();
   const updateHomepageDetails = useUpdateHomePageDetails();
 
   const [updateSuccess, setUpdateSuccess] = useState(false);
-
-  /* =========================
-     ADMIN FORM HOOK
-  ========================= */
 
   const form = useAdminForm({
     initialValues: EMPTY_FORM,
@@ -99,19 +81,11 @@ const HomePageDetailsPage = () => {
     errorMessages,
   });
 
-  /* =========================
-     INITIALIZE DATA
-  ========================= */
-
   useEffect(() => {
     if (data?.[0]) {
       form.setFormValues(data[0]);
     }
   }, [data]);
-
-  /* =========================
-     SUBMIT
-  ========================= */
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -128,8 +102,6 @@ const HomePageDetailsPage = () => {
       },
     );
   };
-
-  /* ========================= */
 
   if (isLoading) return <Loading />;
   if (isError) return <div role="alert">Error: {error.message}</div>;
@@ -151,62 +123,21 @@ const HomePageDetailsPage = () => {
     ["Contact Section Sub Msg", "contactSubMsg"],
   ];
 
-  /* =========================
-     UI
-  ========================= */
-
   return (
     <>
-      <h1>Update Homepage Details</h1>
-      <p>Modify homepage content and click update.</p>
+      <AdminPageHeader title="Update Homepage Details" subtitle="Modify homepage content and click update." />
+
       {updateSuccess && (
         <div role="status" aria-live="polite" className="mb-3">
           Homepage details successfully updated.
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate>
-        {FIELDS.map(([label, name]) => (
-          <AccessibleFormField
-            key={name}
-            id={name}
-            name={name}
-            label={label}
-            value={form.values[name]}
-            onChange={form.handleChange}
-            onBlur={form.handleBlur}
-            error={form.touched[name] ? form.errors[name] : null}
-            required
-          />
-        ))}
-
-        <AccessibleFormField
-          id="aboutSubMsg"
-          name="aboutSubMsg"
-          label="About Section Sub Message"
-          as="textarea"
-          rows={6}
-          value={form.values.aboutSubMsg}
-          onChange={form.handleChange}
-          onBlur={form.handleBlur}
-          error={form.touched.aboutSubMsg ? form.errors.aboutSubMsg : null}
-          required
-        />
-
-        <div className="admin-btn-container">
-          <button type="submit" className="admin-btn">
-            Update
-          </button>
-
-          <button
-            type="button"
-            className="admin-btn"
-            onClick={() => navigate("/")}
-          >
-            Cancel
-          </button>
-        </div>
-      </form>
+      <HomePageDetailsForm 
+        fields={FIELDS}
+        onSubmit={handleSubmit}
+        form={form}
+      />
     </>
   );
 };

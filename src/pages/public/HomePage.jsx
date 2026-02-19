@@ -36,8 +36,6 @@ const HomePage = () => {
 
   return (
     <div className="App">
-      {/* <NavBar /> */}
-
       {!isAuthenticated ? (
         <>
           <Hero />
@@ -50,8 +48,6 @@ const HomePage = () => {
       ) : (
         <HomePageDetailsPage />
       )}
-
-      {/* <Footer /> */}
     </div>
   );
 };

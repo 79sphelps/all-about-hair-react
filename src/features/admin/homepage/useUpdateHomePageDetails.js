@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateHomepageDetails } from "../../../api/homepage.api";
-import { homepageDetailsQueryKey } from "./queryKeys";
+import { homepageDetailsQueryKey } from "../hooks/queryKeys";
 
 export function useUpdateHomePageDetails() {
   const queryClient = useQueryClient();

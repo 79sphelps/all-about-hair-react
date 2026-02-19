@@ -4,7 +4,7 @@ import MissionAbout from "./MissionAbout";
 import Loading from "../../ui/feedback/LoadingSpinner.jsx";
 import laptopImg from "../../assets/img/about-img.jpg";
 
-import { useHomePageDetails } from "../admin/hooks/useHomePageDetails.js"; // Adjust the import path as needed
+import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
 
 const Mission = () => {
   const {

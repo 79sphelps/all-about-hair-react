@@ -5,7 +5,8 @@ import { Container, Row } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import "animate.css";
 import Loading from "../../ui/feedback/LoadingSpinner.jsx";
-import { useService } from "../../features/admin/hooks/useService.js"; // Adjust path as needed
+import { useService } from "../../features/admin/services/hooks"; // Adjust path as needed
+import Footer from "../../features/footer/Footer.js";
 
 const ServicePage = () => {
   const navigate = useNavigate();

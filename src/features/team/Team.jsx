@@ -3,8 +3,8 @@ import "react-multi-carousel/lib/styles.css";
 import TeamCard from "./components/TeamCard";
 import Loading from "../../ui/feedback/LoadingSpinner";
 
-import { useHomePageDetails } from "../admin/hooks/useHomePageDetails";
-import { useTeamMembers } from "../admin/hooks/useTeamMember";
+import { useHomePageDetails } from "../admin/homepage/useHomePageDetails";
+import { useTeamMembers } from "../admin/team/useTeamMember";
 
 const Team = () => {
   const {

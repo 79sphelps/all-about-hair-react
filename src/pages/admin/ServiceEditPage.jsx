@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
-import AccessibleFormField from "../../ui/form/AccessibleFormField";
+import AdminPageHeader from "../../features/admin/components/AdminPageHeader";
+import EditServiceForm from "../../features/admin/services/EditServiceForm";
 
-import { useService } from "../../features/admin/hooks/useService";
-import { useUpdateService } from "../../features/admin/hooks/useUpdateService";
+import { useService } from "../../features/admin/services/hooks";
+import { useUpdateService } from "../../features/admin/services/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
-
-/* =========================
-   CONSTANTS
-========================= */
 
 const EMPTY_SERVICE = {
   _id: "",
@@ -38,10 +35,6 @@ const pricingValidators = {
   description: (v) => /^[A-Za-z0-9_& .,!']{5,}$/.test(v),
 };
 
-/* =========================
-   COMPONENT
-========================= */
-
 const ServiceEditPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,31 +43,17 @@ const ServiceEditPage = () => {
   const { data: service, isLoading, error } = useService(serviceId);
   const updateService = useUpdateService();
 
-  const [buttonText, setButtonText] = useState("Update");
-
-  /* =========================
-     ADMIN FORM HOOK
-  ========================= */
-
   const form = useAdminForm({
     initialValues: EMPTY_SERVICE,
     validators,
     errorMessages,
   });
 
-  /* =========================
-     INIT DATA
-  ========================= */
-
   useEffect(() => {
     if (service) {
       form.setFormValues(service);
     }
   }, [service]);
-
-  /* =========================
-     PRICING HELPERS
-  ========================= */
 
   const validatePricingField = (name, value) => {
     return pricingValidators[name]?.(value);
@@ -96,7 +75,7 @@ const ServiceEditPage = () => {
     if (form.touched[key]) {
       form.setFieldError(
         key,
-        validatePricingField(name, value) ? null : "Invalid value"
+        validatePricingField(name, value) ? null : "Invalid value",
       );
     }
   };
@@ -109,7 +88,7 @@ const ServiceEditPage = () => {
 
     form.setFieldError(
       key,
-      validatePricingField(name, value) ? null : "Invalid value"
+      validatePricingField(name, value) ? null : "Invalid value",
     );
   };
 
@@ -130,10 +109,6 @@ const ServiceEditPage = () => {
     return !hasErrors;
   };
 
-  /* =========================
-     ACTIONS
-  ========================= */
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -142,8 +117,6 @@ const ServiceEditPage = () => {
 
     if (!mainValid || !pricingValid) return;
 
-    setButtonText("Updating…");
-
     updateService.mutate(
       {
         id: form.values._id,
@@ -151,8 +124,7 @@ const ServiceEditPage = () => {
       },
       {
         onSuccess: () => navigate("/admin/services-details"),
-        onError: () => setButtonText("Update"),
-      }
+      },
     );
   };
 
@@ -160,89 +132,20 @@ const ServiceEditPage = () => {
     navigate("/admin/services-details");
   };
 
-  /* =========================
-     STATES
-  ========================= */
-
   if (isLoading) return <Loading />;
   if (error) return <div role="alert">Error: {error.message}</div>;
 
-  /* =========================
-     UI
-  ========================= */
-
   return (
     <>
-      <h1>Update Service Details</h1>
-      <form onSubmit={handleSubmit} noValidate>
-        <AccessibleFormField
-          id="title"
-          name="title"
-          label="Title"
-          value={form.values.title}
-          onChange={form.handleChange}
-          onBlur={form.handleBlur}
-          error={form.touched.title ? form.errors.title : null}
-          required
-        />
+      <AdminPageHeader title="Update Service Details" />
 
-        <AccessibleFormField
-          id="image"
-          name="image"
-          label="Image Path"
-          value={form.values.image}
-          onChange={form.handleChange}
-          onBlur={form.handleBlur}
-          error={form.touched.image ? form.errors.image : null}
-          required
-        />
-
-        <AccessibleFormField
-          id="description"
-          name="description"
-          label="Description"
-          as="textarea"
-          rows={6}
-          value={form.values.description}
-          onChange={form.handleChange}
-          onBlur={form.handleBlur}
-          error={form.touched.description ? form.errors.description : null}
-          required
-        />
-
-        <h3 style={{ marginTop: 30 }}>Pricing Details</h3>
-
-        {form.values.pricing.map((item, idx) => (
-          <div key={idx}>
-            {["type", "price", "description"].map((field) => {
-              const key = `pricing-${idx}-${field}`;
-
-              return (
-                <AccessibleFormField
-                  key={key}
-                  id={key}
-                  name={field}
-                  label={field}
-                  value={item[field]}
-                  onChange={(e) => handlePricingChange(idx, e)}
-                  onBlur={(e) => handlePricingBlur(idx, e)}
-                  error={form.touched[key] ? form.errors[key] : null}
-                />
-              );
-            })}
-          </div>
-        ))}
-
-        <div className="admin-btn-container">
-          <button type="button" className="admin-btn" onClick={handleCancel}>
-            Cancel
-          </button>
-
-          <button type="submit" className="admin-btn">
-            {buttonText}
-          </button>
-        </div>
-      </form>
+      <EditServiceForm
+        form={form}
+        onSubmit={handleSubmit}
+        onCancel={handleCancel}
+        handlePricingChange={handlePricingChange}
+        handlePricingBlur={handlePricingBlur}
+      />
     </>
   );
 };

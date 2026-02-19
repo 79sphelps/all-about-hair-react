@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -11,6 +11,7 @@ import NavLink from "./NavLink";
 
 const PublicNavBar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   const [activeLink, setActiveLink] = useState("home");
@@ -19,6 +20,12 @@ const PublicNavBar = () => {
 
   const navbarRef = useRef(null);
   const toggleRef = useRef(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/admin/home-page-details');
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -60,13 +67,16 @@ const PublicNavBar = () => {
     if (page) navigate(page);
   };
 
-  const links = [
-        ["home", null, "Home", "#home"],
-        ["services", null, "Services", "#services"],
-        ["mission", null, "Mission", "#mission"],
-        ["team", null, "Team", "#team"],
-        ["gallery", null, "Gallery", "#gallery"],
-      ];
+  const links =
+    location.pathname.split("/")[1] !== "services"
+      ? [
+          ["home", null, "Home", "#home"],
+          ["services", null, "Services", "#services"],
+          ["mission", null, "Mission", "#mission"],
+          ["team", null, "Team", "#team"],
+          ["gallery", null, "Gallery", "#gallery"],
+        ]
+      : [];
 
   /* 
   Note: The collapseOnSelect property needs to be used in conjunction with adding the eventKey props to the 
@@ -119,10 +129,7 @@ const PublicNavBar = () => {
             ))}
 
             {!isAuthenticated && (
-              <NavLink
-                title="login"
-                onClick={loginWithRedirect}
-              >
+              <NavLink title="login" onClick={loginWithRedirect}>
                 Log In
               </NavLink>
             )}
@@ -143,11 +150,13 @@ const PublicNavBar = () => {
                   <img src={navIcon3} alt="" aria-hidden="true" />
                 </a>
               </div>
-              <Nav.Link href="#contact" className="navbar-lets-connect-btn">
-                <button type="button" className="vvd">
-                  <span>Let’s Connect</span>
-                </button>
-              </Nav.Link>
+              {location.pathname.split("/")[1] !== "services" ? (
+                <Nav.Link href="#contact" className="navbar-lets-connect-btn">
+                  <button type="button" className="vvd">
+                    <span>Let’s Connect</span>
+                  </button>
+                </Nav.Link>
+              ) : null}
             </span>
           )}
         </Navbar.Collapse>

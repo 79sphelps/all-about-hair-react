@@ -4,8 +4,8 @@ import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 
-import { useServices } from "../../features/admin/hooks/useServices";
-import { useDeleteService } from "../../features/admin/hooks/useDeleteService";
+import { useServices } from "../../features/admin/services/hooks";
+import { useDeleteService } from "../../features/admin/services/hooks";
 
 const ServicesDetailsPage = () => {
   const navigate = useNavigate();

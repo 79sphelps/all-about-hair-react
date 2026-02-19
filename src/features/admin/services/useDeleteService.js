@@ -1,15 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createService } from "../../../api/services.api";
-import { servicesQueryKey } from "./queryKeys";
+import { deleteService } from "../../../api/services.api";
+import { servicesQueryKey } from "../hooks/queryKeys";
 
-export function useCreateService() {
+export function useDeleteService() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createService,
+    mutationFn: deleteService,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: servicesQueryKey,
+        refetchType: "all",
       });
     },
   });

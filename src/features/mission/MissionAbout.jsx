@@ -8,7 +8,7 @@ import {
   ABOUT_MISSION_STATEMENT_SUBTEXT,
 } from "../../lib/data.js";
 
-import { useHomePageDetails } from "../admin/hooks/useHomePageDetails.js"; // Adjust import path if needed
+import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
 
 const MissionAbout = () => {
   const {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTeamMemberById, getTeamMembers } from "../../../api/team.api";
-import { teamMembersQueryKey, teamMemberQueryKey } from "./queryKeys";
+import { teamMembersQueryKey, teamMemberQueryKey } from "../hooks/queryKeys";
 
 /**
  * Fetch all team members

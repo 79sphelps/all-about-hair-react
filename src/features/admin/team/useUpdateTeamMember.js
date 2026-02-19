@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateTeamMember } from "../../../api/team.api.js";
-import { teamMemberQueryKey, teamMembersQueryKey } from "./queryKeys";
+import { teamMemberQueryKey, teamMembersQueryKey } from "../hooks/queryKeys.js";
 
 export const useUpdateTeamMember = () => {
   const queryClient = useQueryClient();

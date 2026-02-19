@@ -1,6 +1,6 @@
-import { useHomePageDetails } from "../features/admin/hooks/useHomePageDetails";
-import { useServices } from "../features/admin/hooks/useServices";
-import { useTeamMembers } from "../features/admin/hooks/useTeamMember";
+import { useHomePageDetails } from "../features/admin/homepage/useHomePageDetails";
+import { useServices } from "../features/admin/services/useServices";
+import { useTeamMembers } from "../features/admin/team/useTeamMember";
 
 export function useHomePageBootstrap() {
   const home = useHomePageDetails();
