@@ -1,5 +1,7 @@
-export async function http(url, options = {}) {
-  const response = await fetch(url, {
+import { API } from "./index";
+
+export async function http(endpoint, options = {}) {
+  const response = await fetch(`${API}${endpoint}`, {
     headers: {
       "Content-Type": "application/json",
       ...options.headers,

@@ -1,10 +1,10 @@
 import { Container, Row } from "react-bootstrap";
-import Loading from "../../ui/feedback/LoadingSpinner.jsx";
+import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
 import FooterAboutUsCol from "./FooterAboutUsCol.js";
 import FooterFollowUsCol from "./FooterFollowUsCol.js";
 import FooterNewsletterCol from "./FooterNewsletterCol.js";
 // import FooterCopyrightCol from "./FooterCopyrightCol.js";
-import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
+import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
 const Footer = () => {
   const {

@@ -3,7 +3,7 @@ import {
   FOOTER_FOLLOW_US_TEXT,
   FOOTER_FOLLOW_US_SUBTEXT,
   FOOTER_SOCIALS_ARY,
-} from "../../lib/data.js";
+} from "../../../lib/data.js";
 
 const FooterFollowUsCol = () => {
   return (

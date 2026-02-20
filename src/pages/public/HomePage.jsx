@@ -9,12 +9,12 @@ import { useHomePageBootstrap } from "../../hooks/useHomePageBootstrap";
 import ErrorState from "../../ui/feedback/ErrorState";
 
 // Lazy sections
-const Hero = lazy(() => import("../../features/hero/Hero"));
-const Services = lazy(() => import("../../features/services/Services"));
-const Mission = lazy(() => import("../../features/mission/Mission"));
-const Team = lazy(() => import("../../features/team/Team"));
-const Gallery = lazy(() => import("../../features/gallery/Gallery"));
-const ContactSection = lazy(() => import("../../features/contact/ContactSection"));
+const Hero = lazy(() => import("../../features/hero/components/Hero"));
+const Services = lazy(() => import("../../features/services/components/Services"));
+const Mission = lazy(() => import("../../features/mission/components/Mission"));
+const Team = lazy(() => import("../../features/team/components/Team"));
+const Gallery = lazy(() => import("../../features/gallery/components/Gallery"));
+const ContactSection = lazy(() => import("../../features/contact/components/ContactSection"));
 const HomePageDetailsPage = lazy(() => import("../admin/HomePageDetailsPage"));
 
 const HomePage = () => {

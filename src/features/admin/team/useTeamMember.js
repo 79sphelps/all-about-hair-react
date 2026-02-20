@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTeamMemberById, getTeamMembers } from "../../../api/team.api";
+import { teamApi } from "../../team/api/team.api";
 import { teamMembersQueryKey, teamMemberQueryKey } from "../hooks/queryKeys";
 
 /**
@@ -8,7 +8,7 @@ import { teamMembersQueryKey, teamMemberQueryKey } from "../hooks/queryKeys";
 export const useTeamMembers = () => {
   return useQuery({
     queryKey: teamMembersQueryKey,
-    queryFn: getTeamMembers,
+    queryFn: teamApi.getTeamMembers,
   });
 };
 
@@ -18,7 +18,7 @@ export const useTeamMembers = () => {
 export const useTeamMember = (id) => {
   return useQuery({
     queryKey: teamMemberQueryKey(id),
-    queryFn: () => getTeamMemberById(id),
+    queryFn: () => teamApi.getTeamMemberById(id),
     enabled: Boolean(id), // prevents accidental calls
     // enabled: !!id, // prevents firing without an id
   });

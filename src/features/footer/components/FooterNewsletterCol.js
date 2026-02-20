@@ -2,7 +2,7 @@ import { Col } from "react-bootstrap";
 import {
   FOOTER_NEWSLETTER_TEXT,
   FOOTER_NEWSLETTER_SUBTEXT,
-} from "../../lib/data.js";
+} from "../../../lib/data.js";
 
 const FooterNewsletterCol = () => {
   return (

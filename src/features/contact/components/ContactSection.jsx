@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
 import "react-multi-carousel/lib/styles.css";
-import Loading from "../../ui/feedback/LoadingSpinner";
+import Loading from "../../../ui/feedback/LoadingSpinner";
 import ContactForm from "./ContactForm";
-import { useContactInfo } from "./hooks/useContactInfo";
+import { useContactInfo } from "../hooks/useContactInfo";
 import {
   CONTACT_INFO_TITLE_TEXT,
   CONTACT_INFO_SUBTITLE_TEXT,
@@ -16,7 +16,7 @@ import {
   CONTACT_INFO_CALL_US_TEXT,
   CONTACT_INFO_EMAIL_US_TEXT,
   CONTACT_INFO_SALON_HOURS_TEXT,
-} from "../../lib/data";
+} from "../../../lib/data";
 
 const ContactSection = () => {
   const { data, isLoading, isError, error } = useContactInfo();
@@ -27,7 +27,7 @@ const ContactSection = () => {
   const contact = data[0];
 
   return (
-    <section className="skill" id="contact" aria-labelledby="contact-heading"
+    <section className="skill" aria-labelledby="contact-heading"
       aria-describedby="contact-subtitle">
       <Container fluid className="contact-info-section">
         <Container>

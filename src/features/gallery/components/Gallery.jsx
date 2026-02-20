@@ -5,9 +5,9 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
-import { useGalleryImages } from "./hooks/useGalleryImages";
-import Loading from "../../ui/feedback/LoadingSpinner";
-import colorSharp from "../../assets/img/color-sharp.png";
+import { useGalleryImages } from "../hooks/useGalleryImages";
+import Loading from "../../../ui/feedback/LoadingSpinner";
+import colorSharp from "../../../assets/img/color-sharp.png";
 
 const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
@@ -91,7 +91,7 @@ const Gallery = () => {
                     aria-label={`View gallery image ${index + 1}`}
                   >
                     <img
-                      src={require("../../" + pic.path)}
+                      src={require("../../../" + pic.path)}
                       alt={`Gallery styling ${index + 1}`}
                       style={{ width: "100%" }}
                     />
@@ -125,7 +125,7 @@ const Gallery = () => {
                 {imgPath && (
                   <Card.Img
                     variant="top"
-                    src={require("../../" + imgPath)}
+                    src={require("../../../" + imgPath)}
                     alt="Enlarged gallery image"
                   />
                 )}

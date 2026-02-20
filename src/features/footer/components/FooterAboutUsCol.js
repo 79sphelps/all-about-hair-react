@@ -3,7 +3,7 @@ import {
   FOOTER_ABOUT_US_TEXT,
   FOOTER_ABOUT_US_SUBTEXT,
   FOOTER_COPYRIGHT_TEXT,
-} from "../../lib/data.js";
+} from "../../../lib/data.js";
 
 const FooterAboutUsCol = () => {
   return (

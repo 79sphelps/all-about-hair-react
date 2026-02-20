@@ -3,15 +3,15 @@ import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
 import TrackVisibility from "react-on-screen";
 import "animate.css";
-import Loading from "../../ui/feedback/LoadingSpinner.jsx";
-import headerImg from "../../assets/img/header-img-min.png";
+import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
+import headerImg from "../../../assets/img/header-img-min.png";
 import {
   BANNER_TITLE_TEXT,
   BANNER_HEADLINE_TEXT,
   BANNER_CONNECT_TEXT,
   BANNER_ROTATING_TEXT_ARY,
-} from "../../lib/data.js";
-import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
+} from "../../../lib/data.js";
+import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
 const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);

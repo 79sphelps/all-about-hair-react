@@ -1,10 +1,10 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MissionAbout from "./MissionAbout";
-import Loading from "../../ui/feedback/LoadingSpinner.jsx";
-import laptopImg from "../../assets/img/about-img.jpg";
+import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
+import laptopImg from "../../../assets/img/about-img.jpg";
 
-import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
+import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
 const Mission = () => {
   const {

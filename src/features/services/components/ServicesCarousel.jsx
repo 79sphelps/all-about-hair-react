@@ -1,10 +1,10 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import team1 from "../../assets/img/img_5.jpg";
-import team2 from "../../assets/img/img_7.jpg";
-import team3 from "../../assets/img/person_1.jpg";
-import team4 from "../../assets/img/person_4.jpg";
-import colorSharp from "../../assets/img/color-sharp.png";
+import team1 from "../../../assets/img/img_5.jpg";
+import team2 from "../../../assets/img/img_7.jpg";
+import team3 from "../../../assets/img/person_1.jpg";
+import team4 from "../../../assets/img/person_4.jpg";
+import colorSharp from "../../../assets/img/color-sharp.png";
 
 const ServicesCarousel = () => {
   const responsive = {

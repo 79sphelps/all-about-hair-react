@@ -1,14 +1,14 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
 import { ImPointRight } from "react-icons/im";
-import Loading from "../../ui/feedback/LoadingSpinner.jsx";
+import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
 import {
   ABOUT_QUALITIES_ARY,
   ABOUT_MISSION_STATEMENT_TEXT,
   ABOUT_MISSION_STATEMENT_SUBTEXT,
-} from "../../lib/data.js";
+} from "../../../lib/data.js";
 
-import { useHomePageDetails } from "../admin/homepage/useHomePageDetails.js";
+import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
 const MissionAbout = () => {
   const {

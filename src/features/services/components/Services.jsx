@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import ServicesCard from "./components/ServicesCard";
-import Loading from "../../ui/feedback/LoadingSpinner";
-import { useHomePageDetails } from "../admin/homepage/useHomePageDetails";
-import { useServices } from "../admin/services/useServices";
+import ServicesCard from "./ServicesCard";
+import Loading from "../../../ui/feedback/LoadingSpinner";
+import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails";
+import { useServices } from "../../admin/services/useServices";
 
 const Services = () => {
   const {
@@ -69,7 +69,7 @@ const Services = () => {
                 className="project-card"
               >
                 <ServicesCard
-                  imgPath={require("../../" + service.image)}
+                  imgPath={require("../../../" + service.image)}
                   title={service.title}
                   description={service.description}
                   service={service.pricing}

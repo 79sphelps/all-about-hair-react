@@ -4,14 +4,14 @@ import TrackVisibility from "react-on-screen";
 import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useForm } from "react-hook-form";
-import { usePostGeneralRequest } from "./hooks/usePostGeneralRequest";
-import contactImg from "../../assets/img/contact-img.svg";
-import AccessibleFormField from "../../ui/form/AccessibleFormField";
+import { usePostGeneralRequest } from "../hooks/usePostGeneralRequest";
+import contactImg from "../../../assets/img/contact-img.svg";
+import AccessibleFormField from "../../../ui/form/AccessibleFormField";
 import {
   CONTACT_FORM_INPUTS_ARY,
   CONTACT_FORM_SUCCESS_TEXT,
   CONTACT_FORM_SUCCESS_SUBTEXT,
-} from "../../lib/data";
+} from "../../../lib/data";
 
 const ContactForm = () => {
   const defaultValues = {
@@ -65,7 +65,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="contact" aria-labelledby="contact-form-heading">
+    <section id="contact" className="contact" aria-labelledby="contact-form-heading">
       <Container>
         <Row className="align-items-center">
           <Col size={12} md={6}>

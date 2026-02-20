@@ -121,9 +121,11 @@ const AdminNavBar = () => {
             ))}
 
             {isAuthenticated && (
-              <NavLink title="login" onClick={logoutWithRedirect}>
+              <>
+              <NavLink title="logout" onClick={logoutWithRedirect}>
                 Log Out
               </NavLink>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>
