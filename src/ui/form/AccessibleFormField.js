@@ -7,7 +7,7 @@ const AccessibleFormField = ({
   registerOptions,
   value,
   onChange,
-  onBlur,          // ⭐ REQUIRED
+  onBlur,
   error,
   as = "input",
   rows,
@@ -15,7 +15,7 @@ const AccessibleFormField = ({
   required,
   description,
   inputRef,        // optional ref support
-  ...rest          // ⭐ safety for future props
+  ...rest          // safety for future props
 }) => {
   const fieldName = name || id;
 
@@ -50,7 +50,7 @@ const AccessibleFormField = ({
         ...sharedProps,
         value: value ?? "",
         onChange,
-        onBlur,      // ⭐ CRITICAL FIX
+        onBlur,
         ref: inputRef,
       };
 

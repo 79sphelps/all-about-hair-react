@@ -4,37 +4,15 @@ import "animate.css";
 
 import Loading from "../../ui/feedback/LoadingSpinner";
 import AdminPageHeader from "../../features/admin/components/AdminPageHeader";
-import EditTeamMemberForm from "../../features/admin/team/EditTeamMemberForm";
+import AdminFormBuilder from "../../features/admin/components/AdminFormBuilder";
 
-import { useTeamMember } from "../../features/admin/team/hooks";
-import { useUpdateTeamMember } from "../../features/admin/team/hooks";
+import { useTeamMember, useUpdateTeamMember } from "../../features/admin/team/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
-
-const EMPTY_FORM = {
-  name: "",
-  role: "",
-  photo: "",
-  bio: "",
-};
-
-const validators = {
-  name: (v) => v.trim().length >= 2,
-  role: (v) => v.trim().length >= 5,
-  photo: (v) => v.trim().length >= 10,
-  bio: (v) => v.trim().length >= 25,
-};
-
-const errorMessages = {
-  name: "Name must be at least 2 characters.",
-  role: "Role must be at least 5 characters.",
-  photo: "Image path must be at least 10 characters.",
-  bio: "Bio must be at least 25 characters.",
-};
+import { teamMemberFormConfig } from "../../features/admin/team/teamMember.form";
 
 const TeamMemberEditPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const teamMemberId = location.state?.id;
 
   const {
@@ -45,18 +23,17 @@ const TeamMemberEditPage = () => {
   } = useTeamMember(teamMemberId);
 
   const updateTeamMember = useUpdateTeamMember();
-
   const [buttonText, setButtonText] = useState("Update");
 
   const form = useAdminForm({
-    initialValues: EMPTY_FORM,
-    validators,
-    errorMessages,
+    schema: teamMemberFormConfig.schema,
+    defaultValues: teamMemberFormConfig.defaultValues,
   });
 
+  // Populate form once data loads
   useEffect(() => {
     if (teamMember) {
-      form.setFormValues({
+      form.setValues({
         name: teamMember.name || "",
         role: teamMember.role || "",
         photo: teamMember.photo || "",
@@ -85,7 +62,7 @@ const TeamMemberEditPage = () => {
         onError: () => {
           setButtonText("Update");
         },
-      },
+      }
     );
   };
 
@@ -101,7 +78,7 @@ const TeamMemberEditPage = () => {
     <>
       <AdminPageHeader title="Update Team Member Details" />
 
-      {/* Image preview */}
+      {/* Image Preview */}
       {form.values.photo && (
         <div aria-live="polite">
           <img
@@ -122,11 +99,26 @@ const TeamMemberEditPage = () => {
         </div>
       )}
 
-      <EditTeamMemberForm
-        form={form}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-      />
+      <form onSubmit={handleSubmit} noValidate>
+        <AdminFormBuilder
+          form={form}
+          fields={teamMemberFormConfig.fields}
+        />
+
+        <div className="admin-btn-container">
+          <button
+            type="button"
+            className="admin-btn"
+            onClick={handleCancel}
+          >
+            Cancel
+          </button>
+
+          <button type="submit" className="admin-btn">
+            {buttonText}
+          </button>
+        </div>
+      </form>
     </>
   );
 };
