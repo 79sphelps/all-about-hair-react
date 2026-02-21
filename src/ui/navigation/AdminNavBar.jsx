@@ -68,6 +68,7 @@ const AdminNavBar = () => {
     ["services", "/admin/service-add", "Add Service"],
     ["team", "/admin/team-details", "Edit Team"],
     ["team", "/admin/team-member-add", "Add Team Member"],
+    ["logout", "", "Log Out"],
   ];
 
   /* 
@@ -104,29 +105,27 @@ const AdminNavBar = () => {
           <Nav className="ms-auto" role="menubar">
             {links.map(([title, page, text, href], idx) => (
               <div key={idx}>
-                <NavLink
-                  key={idx}
-                  activeLink={activeLink}
-                  title={title}
-                  onClick={() =>
-                    page
-                      ? onUpdateActiveLink(title, page)
-                      : onUpdateActiveLink(title)
-                  }
-                  href={href}
-                >
-                  {text}
-                </NavLink>
+                {title === "logout" ? (
+                  <NavLink title="logout" onClick={logoutWithRedirect}>
+                    Log Out
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    key={idx}
+                    activeLink={activeLink}
+                    title={title}
+                    onClick={() =>
+                      page
+                        ? onUpdateActiveLink(title, page)
+                        : onUpdateActiveLink(title)
+                    }
+                    href={href}
+                  >
+                    {text}
+                  </NavLink>
+                )}
               </div>
             ))}
-
-            {isAuthenticated && (
-              <>
-              <NavLink title="logout" onClick={logoutWithRedirect}>
-                Log Out
-              </NavLink>
-              </>
-            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
