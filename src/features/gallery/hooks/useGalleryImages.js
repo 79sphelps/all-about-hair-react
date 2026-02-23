@@ -7,5 +7,6 @@ export function useGalleryImages() {
     queryKey: galleryQueryKey,
     queryFn: galleryApi.getGalleryImages,
     staleTime: 1000 * 60 * 10, // 10 minutes (gallery rarely changes)
+    cacheTime: 1000 * 60 * 10,
   });
 }

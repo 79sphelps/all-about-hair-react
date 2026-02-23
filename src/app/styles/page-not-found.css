@@ -1,0 +1,45 @@
+/************ Page Not Found ****/
+
+.page-not-found-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-not-found {
+  border: 1px solid dodgerblue;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 30px;
+  padding: 30px;
+  font-size: 2rem;
+  box-shadow: 10px 10px 5px tomato;
+  text-shadow: 3px 3px 3px slateblue;
+  width: 50%;
+}
+
+.page-not-found-btn {
+  color: whitesmoke;
+  text-align: center;
+  background-color: dodgerblue;
+  border: 1px solid whitesmoke;
+  border-radius: 20px;
+  margin: 20px;
+  padding: 20px;
+  width: 20%;
+}
+
+.page-not-found-btn:hover {
+  background-color: dodgerblue;
+  color: yellow;
+  opacity: 0.9;
+}
+
+.page-not-found-btn:active {
+  scale: 98%;
+}

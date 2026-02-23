@@ -14,6 +14,8 @@ const AccessibleFormField = ({
   placeholder,
   required,
   description,
+  showCharCount,
+  currentLength,
   inputRef,        // optional ref support
   ...rest          // safety for future props
 }) => {

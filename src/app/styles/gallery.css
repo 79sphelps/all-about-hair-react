@@ -1,0 +1,14 @@
+/************ Gallery ************/
+
+.gallery-section {
+  position: relative !important;
+  background-image: var(--section-background-color) !important;
+}
+
+.background-image-left {
+  top: 28%;
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  z-index: -4;
+}

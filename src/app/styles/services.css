@@ -1,0 +1,79 @@
+/************ Services ************/
+
+.services-section {
+  position: relative !important;
+  padding-top: 30px !important;
+  background-image: var(--section-background-color) !important;
+}
+
+.service-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.service-button {
+  color: white !important;
+  align-content: center !important;
+  justify-content: center !important;
+}
+
+.service-button:hover {
+  background-color: dodgerblue;
+  color: yellow;
+  opacity: 0.9;
+}
+
+.service-button:active {
+  scale: 98%;
+}
+
+.admin-add-service-form-input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.admin-add-service-btn-container,
+.admin-edit-service-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px !important;
+}
+
+.admin-btn {
+  background-color: dodgerblue;
+  border-radius: 20px;
+  color: whitesmoke;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-right: 20px;
+}
+
+.admin-btn:hover {
+  background-color: dodgerblue;
+  opacity: 0.9;
+}
+
+.admin-btn:active {
+  scale: 98%;
+}
+
+.admin-add-service-success-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-add-service-success-container button {
+  margin-top: 20px;
+  padding: 20px;
+  min-height: 44px;
+  min-width: 44px;
+}

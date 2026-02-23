@@ -6,5 +6,7 @@ export function useServices() {
   return useQuery({
     queryKey: servicesQueryKey,
     queryFn: servicesApi.getServices,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 10,
   });
 }

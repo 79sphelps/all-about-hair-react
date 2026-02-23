@@ -1,0 +1,6 @@
+/************ Mission ************/
+
+.mission-section {
+  position: relative !important;
+  background-image: var(--section-background-color) !important;
+}

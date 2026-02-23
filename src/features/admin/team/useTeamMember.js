@@ -9,6 +9,8 @@ export const useTeamMembers = () => {
   return useQuery({
     queryKey: teamMembersQueryKey,
     queryFn: teamApi.getTeamMembers,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+    cacheTime: 1000 * 60 * 10,
   });
 };
 
@@ -18,7 +20,7 @@ export const useTeamMembers = () => {
 export const useTeamMember = (id) => {
   return useQuery({
     queryKey: teamMemberQueryKey(id),
-    queryFn: () => teamApi.getTeamMemberById(id),
+    queryFn: () => teamApi.getTeamMember(id),
     enabled: Boolean(id), // prevents accidental calls
     // enabled: !!id, // prevents firing without an id
   });

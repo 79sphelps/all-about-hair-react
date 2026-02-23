@@ -1,0 +1,39 @@
+/************ Loader ************/
+
+/* Fullscreen overlay */
+#loading {
+  position: fixed;
+  inset: 0;
+  background: #121212;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+}
+
+/* Spinner */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  display: grid;
+  mask: conic-gradient(from 22deg, #0003, #000);
+  animation: spin 1s steps(8) infinite;
+}
+
+.loader,
+.loader::before {
+  --_g: linear-gradient(#17177c 0 0) 50%;
+  background:
+    var(--_g) / 34% 8% space no-repeat,
+    var(--_g) / 8% 34% no-repeat space;
+}
+
+.loader::before {
+  content: "";
+  transform: rotate(45deg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}

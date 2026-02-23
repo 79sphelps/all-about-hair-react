@@ -1,0 +1,159 @@
+/************ Navbar ************/
+
+.navbar {
+  position: fixed;
+  inset: 0 0 auto 0; /* top:0; left:0; right:0 */
+  width: 100%;
+  padding: 1rem 2rem;
+  z-index: 9999;
+
+  background: transparent;
+  transition: background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Sticky / scrolled state */
+.navbar.scrolled,
+.navbar.sticky {
+  background-color: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 10px 10px rgba(9, 5, 29, 0.17);
+  padding: 0.5rem 2rem;
+}
+
+/* Brand */
+.navbar-brand {
+  color: #fafafa;
+}
+
+/* Navigation links */
+.navbar-nav {
+  align-items: center;
+}
+
+.navbar-nav .nav-item {
+  position: relative;
+  margin-left: 20px;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 400;
+  font-size: 1.125rem;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  opacity: 0.75;
+  padding: 0.8rem 1rem;
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  opacity: 1;
+}
+
+/* Animated underline */
+.navbar-nav .nav-link::after {
+  content: "";
+  display: block;
+  height: 4px;
+  width: 0;
+  border-radius: 12px;
+  background: #c95bf5;
+  transition: width 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+/* Navbar CTA button */
+.navbar-text {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-text button {
+  font-weight: 700;
+  font-size: 1.125rem;
+  padding: 0.75rem 1.5rem;
+  margin-left: 1rem;
+
+  color: #fff;
+  background: transparent;
+  border: 1px solid #fff;
+
+  position: relative;
+  overflow: hidden;
+  transition: color 0.3s ease;
+}
+
+.navbar-text button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+  z-index: -1;
+}
+
+.navbar-text button:hover {
+  color: #121212;
+}
+
+.navbar-text button:hover::before {
+  transform: scaleX(1);
+}
+
+/* Toggler */
+.navbar-toggler {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Custom hamburger */
+.navbar-toggler span {
+  display: block;
+  width: 27px;
+  height: 4px;
+  margin: 5px 0;
+  background: #be50f4;
+  transition: transform 0.35s ease, opacity 0.3s ease;
+}
+
+/* Toggler animation */
+.navbar-toggler:not(.collapsed) span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar-toggler:not(.collapsed) span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .navbar-lets-connect-btn {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    background-color: #181a27;
+  }
+
+  .navbar-nav .nav-link::after {
+    display: none;
+  }
+}

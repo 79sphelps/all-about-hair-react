@@ -1,10 +1,9 @@
+import { lazy } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useAuth0 } from "@auth0/auth0-react";
 // import NavBar from "../../ui/navigation/NavBar";
 // import Footer from "../../features/footer/Footer";
 import FullPageLoader from "../../ui/feedback/FullPageLoader";
-import { lazy } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { useHomePageBootstrap } from "../../hooks/useHomePageBootstrap";
 import ErrorState from "../../ui/feedback/ErrorState";
 

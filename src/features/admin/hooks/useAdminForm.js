@@ -48,29 +48,26 @@ const useAdminForm = ({ schema, defaultValues }) => {
   };
 
   const validateField = (name) => {
-  if (!schema) return;
+    if (!schema) return;
 
-  const result = schema.safeParse(values);
+    const result = schema.safeParse(values);
 
-  if (!result.success) {
-    const issues = result.error?.issues || result.error?.errors || [];
+    if (!result.success) {
+      const issues = result.error?.issues || result.error?.errors || [];
 
-    const fieldError = issues.find(
-      (err) => err.path?.[0] === name
-    );
+      const fieldError = issues.find((err) => err.path?.[0] === name);
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: fieldError?.message || null,
-    }));
-  } else {
-    setErrors((prev) => ({
-      ...prev,
-      [name]: null,
-    }));
-  }
-};
-
+      setErrors((prev) => ({
+        ...prev,
+        [name]: fieldError?.message || null,
+      }));
+    } else {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: null,
+      }));
+    }
+  };
 
   const validateBeforeSubmit = () => {
     if (!schema) {
