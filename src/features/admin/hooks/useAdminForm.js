@@ -24,22 +24,78 @@ const useAdminForm = ({ schema, defaultValues }) => {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
+
+const setDeepValue = (obj, path, value) => {
+  const keys = Array.isArray(path) ? path : path.split(".");
+  const newObj = { ...obj };
+  let current = newObj;
+
+  keys.forEach((key, index) => {
+    if (index === keys.length - 1) {
+      current[key] = value;
+    } else {
+      current[key] = Array.isArray(current[key])
+        ? [...current[key]]
+        : { ...current[key] };
+
+      current = current[key];
+    }
+  });
+
+  return newObj;
+};
+
+const getDeepValue = (obj, path) => {
+  const keys = Array.isArray(path) ? path : path.split(".");
+  return keys.reduce((acc, key) => acc?.[key], obj);
+};
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setValues((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    // setValues((prev) => ({
+    //   ...prev,
+    //   [name]: value,
+    // }));
+    setValues((prev) => setDeepValue(prev, name, value));
   };
+
+  const handleNestedChange = (arrayName, index, e) => {
+    const { name, value } = e.target;
+
+    const path = `${arrayName}.${index}.${name}`;
+
+    setValues((prev) => setDeepValue(prev, path, value));
+  };
+
+  const addArrayItem = (arrayName, defaultItem) => {
+    setValues((prev) => {
+      const currentArray = getDeepValue(prev, arrayName) || [];
+      const updated = [...currentArray, { ...defaultItem }];
+
+      return setDeepValue(prev, arrayName, updated);
+    });
+  };
+
+  const removeArrayItem = (arrayName, index) => {
+    setValues((prev) => {
+      const currentArray = getDeepValue(prev, arrayName) || [];
+      const updated = currentArray.filter((_, i) => i !== index);
+
+      return setDeepValue(prev, arrayName, updated);
+    });
+  };
+
+
 
   const handleBlur = (e) => {
     const { name } = e.target;
 
-    setTouched((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
+    // setTouched((prev) => ({
+    //   ...prev,
+    //   [name]: true,
+    // }));
+    setTouched((prev) => setDeepValue(prev, name, true));
 
     // prevent validating possibly stale values
     setTimeout(() => {
@@ -77,15 +133,18 @@ const useAdminForm = ({ schema, defaultValues }) => {
     const result = schema.safeParse(values);
 
     if (!result.success) {
-      const newErrors = {};
-      const issues = result.error?.issues || result.error?.errors || [];
-      issues.forEach((err) => {
-        newErrors[err.path?.[0]] = err.message;
+      const formattedErrors = {};
+
+      result.error.issues.forEach((issue) => {
+        const path = issue.path.join(".");
+        formattedErrors[path] = issue.message;
       });
-      setErrors(newErrors);
+
+      setErrors(formattedErrors);
       return false;
     }
 
+    setErrors({});
     return true;
   };
 
@@ -100,8 +159,11 @@ const useAdminForm = ({ schema, defaultValues }) => {
     errors,
     touched,
     handleChange,
+    handleNestedChange,
     handleBlur,
     validateBeforeSubmit,
+    addArrayItem,
+    removeArrayItem,
     resetForm,
     setValues,
   };

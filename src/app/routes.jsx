@@ -8,7 +8,6 @@ import "./styles/mission.css";
 import "./styles/about.css";
 import "./styles/gallery.css";
 import "./styles/hero.css";
-import "./styles/home.css";
 import "./styles/social-icons.css";
 import "./styles/team.css";
 import "./styles/page-not-found.css";

@@ -25,6 +25,11 @@ const ServiceEditPage = () => {
 
   useEffect(() => {
     if (service) {
+
+
+      console.log('service: ', service);
+
+
       form.setValues({
         ...service,
         pricing: service.pricing || [],

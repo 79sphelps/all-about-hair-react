@@ -90,5 +90,11 @@ export const serviceFormConfig = {
       rows: 6,
       required: true,
     },
+    {
+      name: "pricing",
+      label: "Pricing",
+      type: "array",
+      itemConfig: pricingFormConfig,
+    },
   ],
 };
