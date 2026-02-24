@@ -17,95 +17,77 @@ Handles:
 ✔ submit-safe validation
 */
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 const useAdminForm = ({ schema, defaultValues }) => {
   const [values, setValues] = useState(defaultValues);
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
 
+  const setDeepValue = (obj, path, value) => {
+    const keys = Array.isArray(path) ? path : path.split(".");
+    const newObj = { ...obj };
+    let current = newObj;
 
-const setDeepValue = (obj, path, value) => {
-  const keys = Array.isArray(path) ? path : path.split(".");
-  const newObj = { ...obj };
-  let current = newObj;
+    keys.forEach((key, index) => {
+      if (index === keys.length - 1) {
+        current[key] = value;
+      } else {
+        current[key] = Array.isArray(current[key])
+          ? [...current[key]]
+          : { ...current[key] };
 
-  keys.forEach((key, index) => {
-    if (index === keys.length - 1) {
-      current[key] = value;
-    } else {
-      current[key] = Array.isArray(current[key])
-        ? [...current[key]]
-        : { ...current[key] };
+        current = current[key];
+      }
+    });
 
-      current = current[key];
-    }
-  });
+    return newObj;
+  };
 
-  return newObj;
-};
+  const getDeepValue = (obj, path) => {
+    const keys = Array.isArray(path) ? path : path.split(".");
+    return keys.reduce((acc, key) => acc?.[key], obj);
+  };
 
-const getDeepValue = (obj, path) => {
-  const keys = Array.isArray(path) ? path : path.split(".");
-  return keys.reduce((acc, key) => acc?.[key], obj);
-};
-  
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-
-    // setValues((prev) => ({
-    //   ...prev,
-    //   [name]: value,
-    // }));
     setValues((prev) => setDeepValue(prev, name, value));
-  };
+  }, []);
 
-  const handleNestedChange = (arrayName, index, e) => {
+  const handleNestedChange = useCallback((arrayName, index, e) => {
     const { name, value } = e.target;
-
     const path = `${arrayName}.${index}.${name}`;
-
     setValues((prev) => setDeepValue(prev, path, value));
-  };
+  }, []);
 
-  const addArrayItem = (arrayName, defaultItem) => {
+  const addArrayItem = useCallback((arrayName, defaultItem) => {
     setValues((prev) => {
       const currentArray = getDeepValue(prev, arrayName) || [];
       const updated = [...currentArray, { ...defaultItem }];
-
       return setDeepValue(prev, arrayName, updated);
     });
-  };
+  }, []);
 
-  const removeArrayItem = (arrayName, index) => {
+  const removeArrayItem = useCallback((arrayName, index) => {
     setValues((prev) => {
       const currentArray = getDeepValue(prev, arrayName) || [];
       const updated = currentArray.filter((_, i) => i !== index);
-
       return setDeepValue(prev, arrayName, updated);
     });
-  };
+  }, []);
 
-
-
-  const handleBlur = (e) => {
+  const handleBlur = useCallback((e) => {
     const { name } = e.target;
-
-    // setTouched((prev) => ({
-    //   ...prev,
-    //   [name]: true,
-    // }));
     setTouched((prev) => setDeepValue(prev, name, true));
 
     // prevent validating possibly stale values
     setTimeout(() => {
       validateField(name);
     }, 0);
-  };
+  }, []);
 
   const validateField = (name) => {
     if (!schema) return;
-
     const result = schema.safeParse(values);
 
     if (!result.success) {

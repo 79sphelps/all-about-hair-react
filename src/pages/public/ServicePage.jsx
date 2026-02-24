@@ -43,8 +43,8 @@ const ServicePage = () => {
           }}
           style={{
             border: "1px solid rgba(255, 255, 255, 0.5)",
-            margin: "15px",
-            padding: "15px",
+            marginTop: "2rem",
+            padding: "1rem",
             borderRadius: "25px",
           }}
         >

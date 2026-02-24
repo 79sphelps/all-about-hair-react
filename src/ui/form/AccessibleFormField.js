@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const AccessibleFormField = ({
   id,
   name,
@@ -88,4 +90,23 @@ const AccessibleFormField = ({
   );
 };
 
-export default AccessibleFormField;
+/* Using 'memo()' here:
+A field only re-renders if:
+- Its value changes
+- Its error changes
+- Required changes
+- Description changes
+
+Typing in one field does NOT re-render siblings.
+*/
+export default memo(
+  AccessibleFormField,
+  (prev, next) => {
+    return (
+      prev.value === next.value &&
+      prev.error === next.error &&
+      prev.required === next.required &&
+      prev.description === next.description
+    );
+  }
+);
