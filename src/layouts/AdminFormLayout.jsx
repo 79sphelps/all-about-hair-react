@@ -22,7 +22,6 @@ const AdminFormLayout = () => {
                           : ""
                       }
                     >
-                      {/* THIS RENDERS ADMIN PAGES */}
                       <Outlet />
                     </div>
                   )}
