@@ -58,7 +58,7 @@ describe("HomePageDetailsPage", () => {
     });
 
     render(<HomePageDetailsPage />);
-    fireEvent.click(screen.getByText("Update Homepage Details"));
+    fireEvent.click(screen.getByText("Make Changes"));
 
     expect(
       screen.getByText("Homepage details successfully updated.")

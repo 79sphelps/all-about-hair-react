@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import router from "../routes";
 
@@ -32,21 +32,29 @@ describe("App Routes", () => {
 
   it("renders public home route", async () => {
     renderWithRoute("/");
-    expect(await screen.findByText("All About Hair")).toBeInTheDocument();
+    await act(async () => {
+      expect(await screen.findByText("/All About Hair/")).toBeInTheDocument();
+    })
   });
 
   it("renders service route", async () => {
     renderWithRoute("/services/123");
-    expect(await screen.findByText("Service")).toBeInTheDocument();
+    await act(async () => {
+      expect(await screen.findByText("/Back to Home/")).toBeInTheDocument();
+    })
   });
 
   it("renders admin route inside admin layout", async () => {
     renderWithRoute("/admin/home-page-details");
-    expect(await screen.findByTestId("admin-layout")).toBeInTheDocument();
+    await act(async () => {
+      expect(await screen.findByTestId("admin-layout")).toBeInTheDocument();
+    })
   });
 
   it("renders not found route", async () => {
     renderWithRoute("/unknown-route");
-    expect(await screen.findByText("NotFound")).toBeInTheDocument();
+    await act(async () => {
+      expect(await screen.findByText("NotFound")).toBeInTheDocument();
+    })
   });
 });

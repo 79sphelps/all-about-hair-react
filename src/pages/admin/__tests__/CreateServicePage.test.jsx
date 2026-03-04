@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import CreateServicePage from "../CreateServicePage";
 
 jest.mock("react-router-dom", () => ({
@@ -6,19 +6,24 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
-jest.mock("../../features/admin/services/hooks/useCreateService", () => ({
+jest.mock("../../../features/admin/services/useCreateService", () => ({
   useCreateService: jest.fn(),
 }));
 
-jest.mock("../../features/admin/hooks/useAdminForm");
+// jest.mock("../../../features/admin/hooks/useAdminForm");
 
-jest.mock("../../features/admin/components/AdminFormBuilder", () => () => (
+jest.mock("../../../features/admin/hooks/useAdminForm", () => ({
+  __esModule: true,
+  default: jest.fn(),
+}));
+
+jest.mock("../../../features/admin/components/AdminFormBuilder", () => () => (
   <div data-testid="form-builder" />
 ));
 
 const { useNavigate } = require("react-router-dom");
-const { useCreateService } = require("../../features/admin/services/hooks");
-const useAdminForm = require("../../features/admin/hooks/useAdminForm");
+const { useCreateService } = require("../../../features/admin/services/useCreateService");
+const useAdminForm = require("../../../features/admin/hooks/useAdminForm").default;
 
 describe("CreateServicePage", () => {
   const mockNavigate = jest.fn();

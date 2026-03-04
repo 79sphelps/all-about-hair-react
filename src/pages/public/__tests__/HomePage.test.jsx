@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import HomePage from "../HomePage";
 
 jest.mock("@auth0/auth0-react", () => ({
@@ -29,7 +29,8 @@ const { useAuth0 } = require("@auth0/auth0-react");
 const { useHomePageBootstrap } = require("../../../hooks/useHomePageBootstrap");
 
 describe("HomePage", () => {
-  it("shows loader while loading", () => {
+
+  it("shows loader while loading", async () => {
     useAuth0.mockReturnValue({ isAuthenticated: false });
     useHomePageBootstrap.mockReturnValue({
       isLoading: true,
@@ -37,10 +38,13 @@ describe("HomePage", () => {
     });
 
     render(<HomePage />);
-    expect(screen.getByText(/Waking up the server/)).toBeInTheDocument();
+
+    await act(async () => {
+      expect(await screen.getByText(/Waking up the server/)).toBeInTheDocument();
+    })
   });
 
-  it("shows error state", () => {
+  it("shows error state", async () => {
     useAuth0.mockReturnValue({ isAuthenticated: false });
     useHomePageBootstrap.mockReturnValue({
       isLoading: false,
@@ -49,7 +53,10 @@ describe("HomePage", () => {
     });
 
     render(<HomePage />);
-    expect(screen.getByText("ErrorState")).toBeInTheDocument();
+
+    await act(async () => {
+      expect(await screen.getByText("ErrorState")).toBeInTheDocument();
+    })
   });
 
   it("renders public homepage when not authenticated", async () => {
@@ -60,8 +67,10 @@ describe("HomePage", () => {
     });
 
     render(<HomePage />);
-    // expect(screen.getByText("Hero")).toBeInTheDocument();
-    expect(await screen.getByText("All About Hair")).toBeInTheDocument();
+
+    await act(async () => {
+      expect(await screen.getByText("All About Hair")).toBeInTheDocument();
+    })
   });
 
   it("renders admin page when authenticated", async () => {
@@ -72,6 +81,9 @@ describe("HomePage", () => {
     });
 
     render(<HomePage />);
-    expect(await screen.getByText("AdminHomePage")).toBeInTheDocument();
+    
+    await act(async () => {
+      expect(await screen.getByText("Update Homepage Details")).toBeInTheDocument();
+    })
   });
 });

@@ -68,7 +68,7 @@ const HomePageDetailsPage = () => {
         />
         <div className="admin-btn-container">
           <button type="submit" className="admin-btn">
-            Update Homepage Details
+            Make Changes
           </button>
         </div>
       </form>
