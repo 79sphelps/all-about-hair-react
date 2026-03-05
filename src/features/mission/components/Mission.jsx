@@ -14,17 +14,7 @@ const Mission = () => {
     error,
   } = useHomePageDetails();
 
-if (isLoading) {
-    return (
-      <Loading
-        role="status"
-        aria-live="polite"
-        aria-label="Loading mission content"
-      />
-    );
-  }
-
-if (isLoading) {
+  if (isLoading) {
     return (
       <Loading
         role="status"
@@ -35,10 +25,7 @@ if (isLoading) {
   }
 
   return (
-    <section 
-          id="mission"
-      aria-labelledby="mission-heading"
-    >
+    <section id="mission" aria-labelledby="mission-heading">
       <Container fluid className="mission-section">
         <Container>
           <Row style={{ justifyContent: "center", padding: "10px" }}>

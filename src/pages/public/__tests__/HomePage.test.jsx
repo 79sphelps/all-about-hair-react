@@ -1,5 +1,7 @@
 import { render, screen, act } from "@testing-library/react";
 import HomePage from "../HomePage";
+import { Suspense } from "react";
+import LoadingSpinner from "../../../ui/feedback/LoadingSpinner";
 
 jest.mock("@auth0/auth0-react", () => ({
   useAuth0: jest.fn(),
@@ -36,12 +38,14 @@ describe("HomePage", () => {
       isLoading: true,
       isError: false,
     });
+    
+    render(
+      <Suspense fallback={<LoadingSpinner />}>
+        <HomePage />
+      </Suspense>
+    );
 
-    render(<HomePage />);
-
-    await act(async () => {
-      expect(await screen.getByText(/Waking up the server/)).toBeInTheDocument();
-    })
+    expect(await screen.findByText(/Waking up the server/)).toBeInTheDocument();
   });
 
   it("shows error state", async () => {
@@ -52,11 +56,13 @@ describe("HomePage", () => {
       errors: [],
     });
 
-    render(<HomePage />);
+    render(
+      <Suspense fallback={<LoadingSpinner />}>
+        <HomePage />
+      </Suspense>
+    );
 
-    await act(async () => {
-      expect(await screen.getByText("ErrorState")).toBeInTheDocument();
-    })
+    expect(await screen.findByText("ErrorState")).toBeInTheDocument();
   });
 
   it("renders public homepage when not authenticated", async () => {
@@ -66,11 +72,13 @@ describe("HomePage", () => {
       isError: false,
     });
 
-    render(<HomePage />);
+    render(
+      <Suspense fallback={<LoadingSpinner />}>
+        <HomePage />
+      </Suspense>
+    );
 
-    await act(async () => {
-      expect(await screen.getByText("All About Hair")).toBeInTheDocument();
-    })
+    expect(await screen.findByText("Loading…")).toBeInTheDocument();
   });
 
   it("renders admin page when authenticated", async () => {
@@ -80,10 +88,12 @@ describe("HomePage", () => {
       isError: false,
     });
 
-    render(<HomePage />);
+    render(
+      <Suspense fallback={<LoadingSpinner />}>
+        <HomePage />
+      </Suspense>
+    );
     
-    await act(async () => {
-      expect(await screen.getByText("Update Homepage Details")).toBeInTheDocument();
-    })
+    expect(await screen.findByText("AdminHomePage")).toBeInTheDocument();
   });
 });

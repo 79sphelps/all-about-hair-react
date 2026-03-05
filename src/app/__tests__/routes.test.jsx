@@ -1,4 +1,4 @@
-import { render, screen, act } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import router from "../routes";
 
@@ -8,13 +8,35 @@ jest.mock("../../components/auth/RequireAuth", () => {
 });
 
 // Mock layouts so we only test route tree behavior
+// jest.mock("../../layouts/PublicLayout", () => {
+//   return ({ children }) => <div data-testid="public-layout">{children}</div>;
+// });
 jest.mock("../../layouts/PublicLayout", () => {
-  return ({ children }) => <div data-testid="public-layout">{children}</div>;
+  const { Outlet } = require("react-router-dom");
+
+  return function MockPublicLayout() {
+    return (
+      <div data-testid="public-layout">
+        <Outlet />
+      </div>
+    );
+  };
 });
 
 jest.mock("../../layouts/AdminFormLayout", () => {
   return ({ children }) => <div data-testid="admin-layout">{children}</div>;
 });
+// jest.mock("../../layouts/AdminFormLayout", () => {
+//   const { Outlet } = require("react-router-dom");
+
+//   return function MockAdminLayout() {
+//     return (
+//       <div data-testid="admin-layout">
+//         <Outlet />
+//       </div>
+//     );
+//   };
+// });
 
 // Mock pages
 jest.mock("../../pages/public/HomePage", () => () => <div>Home</div>);
@@ -32,29 +54,21 @@ describe("App Routes", () => {
 
   it("renders public home route", async () => {
     renderWithRoute("/");
-    await act(async () => {
-      expect(await screen.findByText("/All About Hair/")).toBeInTheDocument();
-    })
+    expect(await screen.findByText("Home")).toBeInTheDocument();
   });
 
   it("renders service route", async () => {
     renderWithRoute("/services/123");
-    await act(async () => {
-      expect(await screen.findByText("/Back to Home/")).toBeInTheDocument();
-    })
+      expect(await screen.findByText("Service")).toBeInTheDocument();
   });
 
   it("renders admin route inside admin layout", async () => {
     renderWithRoute("/admin/home-page-details");
-    await act(async () => {
-      expect(await screen.findByTestId("admin-layout")).toBeInTheDocument();
-    })
+    expect(await screen.findByTestId("admin-layout")).toBeInTheDocument();
   });
 
   it("renders not found route", async () => {
     renderWithRoute("/unknown-route");
-    await act(async () => {
-      expect(await screen.findByText("NotFound")).toBeInTheDocument();
-    })
+    expect(await screen.findByText("NotFound")).toBeInTheDocument();
   });
 });
