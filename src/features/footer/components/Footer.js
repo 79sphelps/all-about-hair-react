@@ -3,28 +3,20 @@ import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
 import FooterAboutUsCol from "./FooterAboutUsCol.js";
 import FooterFollowUsCol from "./FooterFollowUsCol.js";
 import FooterNewsletterCol from "./FooterNewsletterCol.js";
-// import FooterCopyrightCol from "./FooterCopyrightCol.js";
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
 const Footer = () => {
-  const {
-    isLoading,
-    isError,
-    data: homepageDetails,
-    error,
-  } = useHomePageDetails();
+  const { isLoading, isError, data, error } = useHomePageDetails();
 
   if (isLoading) return <Loading />;
-  if (isError) return `Error: ${error.message}`;
+  if (isError) return <div role="alert">{error.message}</div>;
 
   return (
     <Container fluid className="footer">
       <Row>
-        {/* You can pass homepageDetails as props if needed */}
-        <FooterAboutUsCol homepageDetails={homepageDetails} />
-        <FooterNewsletterCol homepageDetails={homepageDetails} />
-        {/* <FooterCopyrightCol /> */}
-        <FooterFollowUsCol homepageDetails={homepageDetails} />
+        <FooterAboutUsCol homepageDetails={data} />
+        <FooterNewsletterCol homepageDetails={data} />
+        <FooterFollowUsCol homepageDetails={data} />
       </Row>
     </Container>
   );

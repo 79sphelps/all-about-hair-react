@@ -1,17 +1,16 @@
-import { Col } from "react-bootstrap";
+import FooterColumn from "./FooterColumn";
 import {
   FOOTER_ABOUT_US_TEXT,
   FOOTER_ABOUT_US_SUBTEXT,
   FOOTER_COPYRIGHT_TEXT,
-} from "../../../lib/data.js";
+} from "../../../lib/data";
 
 const FooterAboutUsCol = () => {
   return (
-    <Col md="4" className="footer-copywright">
-      <h3>{FOOTER_ABOUT_US_TEXT}</h3>
+    <FooterColumn title={FOOTER_ABOUT_US_TEXT}>
       <p>{FOOTER_ABOUT_US_SUBTEXT}</p>
       <p>{FOOTER_COPYRIGHT_TEXT}</p>
-    </Col>
+    </FooterColumn>
   );
 };
 

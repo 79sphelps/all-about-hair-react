@@ -1,15 +1,14 @@
-import { Col } from "react-bootstrap";
+import FooterColumn from "./FooterColumn";
 import {
   FOOTER_NEWSLETTER_TEXT,
   FOOTER_NEWSLETTER_SUBTEXT,
-} from "../../../lib/data.js";
+} from "../../../lib/data";
 
 const FooterNewsletterCol = () => {
   return (
-    <Col md="4" className="footer-copywright">
-      <h3>{FOOTER_NEWSLETTER_TEXT}</h3>
+    <FooterColumn title={FOOTER_NEWSLETTER_TEXT}>
       <p>{FOOTER_NEWSLETTER_SUBTEXT}</p>
-    </Col>
+    </FooterColumn>
   );
 };
 
