@@ -5,11 +5,11 @@ import TrackVisibility from "react-on-screen";
 import "animate.css";
 import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
 import {
-  BANNER_TITLE_TEXT,
-  BANNER_HEADLINE_TEXT,
-  BANNER_CONNECT_TEXT,
-  BANNER_ROTATING_TEXT_ARY,
-  BANNER_IMAGE_PATH,
+  HERO_TITLE_TEXT,
+  HERO_HEADLINE_TEXT,
+  HERO_CONNECT_TEXT,
+  HERO_ROTATING_TEXT_ARY,
+  HERO_IMAGE_PATH,
 } from "../../../lib/data.js";
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
 
@@ -33,8 +33,8 @@ const Hero = () => {
   }, [text, delta]); // include delta to avoid stale interval timing
 
   const tick = () => {
-    let i = loopNum % BANNER_ROTATING_TEXT_ARY.length;
-    let fullText = BANNER_ROTATING_TEXT_ARY[i];
+    let i = loopNum % HERO_ROTATING_TEXT_ARY.length;
+    let fullText = HERO_ROTATING_TEXT_ARY[i];
     let updatedText = isDeleting
       ? fullText.substring(0, text.length - 1)
       : fullText.substring(0, text.length + 1);
@@ -71,7 +71,7 @@ const Hero = () => {
                   }
                 >
                   <span className="tagline animate__animated animate__bounce">
-                    {BANNER_TITLE_TEXT}
+                    {HERO_TITLE_TEXT}
                   </span>
                   {/* <h1>
                     {BANNER_HEADLINE_TEXT}{" "}
@@ -83,7 +83,7 @@ const Hero = () => {
                     </span>
                   </h1> */}
                   <h1 id="hero-heading" style={{ height: "130px" }}>
-                    {BANNER_HEADLINE_TEXT}{" "}
+                    {HERO_HEADLINE_TEXT}{" "}
                     <span className="txt-rotate" aria-hidden="true">
                       <span className="wrap">{text}</span>
                     </span>
@@ -91,7 +91,7 @@ const Hero = () => {
 
                   {/* Screen-reader-only static version of rotating text */}
                   <span className="visually-hidden">
-                    {BANNER_HEADLINE_TEXT} {BANNER_ROTATING_TEXT_ARY.join(", ")}
+                    {HERO_HEADLINE_TEXT} {HERO_ROTATING_TEXT_ARY.join(", ")}
                   </span>
 
                   <p>{bannerInfo[0].headlineSubMsg}</p>
@@ -106,7 +106,7 @@ const Hero = () => {
                     }
                     aria-label="Scroll to contact section"
                   >
-                    {BANNER_CONNECT_TEXT}
+                    {HERO_CONNECT_TEXT}
                     <ArrowRightCircle
                       size={25}
                       aria-hidden="true"
@@ -126,7 +126,7 @@ const Hero = () => {
                   }
                 >
                   <img
-                    src={BANNER_IMAGE_PATH}
+                    src={HERO_IMAGE_PATH}
                     alt="Illustration representing our services"
                     loading="eager"
                   />

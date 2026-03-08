@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "animate.css";
-
 import Loading from "../../ui/feedback/LoadingSpinner";
 import AdminPageHeader from "../../features/admin/components/AdminPageHeader";
 import AdminFormBuilder from "../../features/admin/components/AdminFormBuilder";
-
 import { useTeamMember, useUpdateTeamMember } from "../../features/admin/team/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
 import { teamMemberFormConfig } from "../../features/admin/team/teamMember.form";
+import { TEAM_IMAGE_DIR } from "../../lib/data";
+
 
 const TeamMemberEditPage = () => {
   const navigate = useNavigate();
@@ -82,7 +82,8 @@ const TeamMemberEditPage = () => {
       {form.values.photo && (
         <div aria-live="polite">
           <img
-            src={require(`../../${form.values.photo}`)}
+            // src={require(`../../${form.values.photo}`)}
+            src={`${TEAM_IMAGE_DIR}/${form.values.photo}`}
             alt={
               form.values.name
                 ? `${form.values.name} profile`

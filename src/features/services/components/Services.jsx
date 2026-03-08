@@ -4,6 +4,8 @@ import ServicesCard from "./ServicesCard";
 import Loading from "../../../ui/feedback/LoadingSpinner";
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails";
 import { useServices } from "../../admin/services/useServices";
+import { SERVICES_IMAGE_DIR } from "../../../lib/data";
+
 
 const Services = () => {
   const {
@@ -69,7 +71,7 @@ const Services = () => {
                 className="project-card"
               >
                 <ServicesCard
-                  imgPath={service.image}
+                  imgPath={`${SERVICES_IMAGE_DIR}/${service.image}`}
                   title={service.title}
                   description={service.description}
                   service={service.pricing}

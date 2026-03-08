@@ -7,6 +7,8 @@ import "animate.css";
 import Loading from "../../ui/feedback/LoadingSpinner.jsx";
 import { useService } from "../../features/admin/services/hooks"; // Adjust path as needed
 // import Footer from "../../features/footer/components/Footer.js";
+import { SERVICES_IMAGE_DIR } from "../../lib/data";
+
 
 const ServicePage = () => {
   const navigate = useNavigate();
@@ -80,7 +82,7 @@ const ServicePage = () => {
               </h1>
               <div style={{ alignContent: "center", alignItems: "center" }}>
                 <img
-                  src={serviceDetails.image}
+                  src={`${SERVICES_IMAGE_DIR}/${serviceDetails.image}`}
                   style={{ width: "20%", boxShadow: "10px 10px 5px grey" }}
                   alt={`${serviceDetails.title} service illustration`}
                 />

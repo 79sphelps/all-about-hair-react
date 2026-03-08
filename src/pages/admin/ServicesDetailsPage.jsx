@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import "animate.css";
-
 import Loading from "../../ui/feedback/LoadingSpinner";
-
 import { useServices } from "../../features/admin/services/hooks";
 import { useDeleteService } from "../../features/admin/services/hooks";
+import { SERVICES_IMAGE_DIR } from "../../lib/data";
+
 
 const ServicesDetailsPage = () => {
   const navigate = useNavigate();
@@ -36,7 +36,8 @@ const ServicesDetailsPage = () => {
             <div>{service.title}</div>
             {service.image && (
               <img
-                src={require(`../../${service.image}`)}
+                // src={require(`../../${service.image}`)}
+                src={`${SERVICES_IMAGE_DIR}/${service.image}`}
                 alt={service.title}
                 style={{ width: "100%", borderRadius: "8px" }}
               />

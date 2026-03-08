@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import "animate.css";
-
 import Loading from "../../ui/feedback/LoadingSpinner";
-
 import { useTeamMembers } from "../../features/admin/team/hooks";
 import { useDeleteTeamMember } from "../../features/admin/team/hooks";
+import { TEAM_IMAGE_DIR } from "../../lib/data";
+
 
 const TeamDetailsPage = () => {
   const navigate = useNavigate();
@@ -51,7 +51,8 @@ const TeamDetailsPage = () => {
             </div>
             {member.photo && (
               <img
-                src={require(`../../${member.photo}`)}
+                // src={require(`../../${member.photo}`)}
+                src={`${TEAM_IMAGE_DIR}/${member.photo}`}
                 alt={member.name}
                 style={{ width: "100%", borderRadius: "8px", marginTop: "5px" }}
               />

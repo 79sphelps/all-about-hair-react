@@ -2,9 +2,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import "react-multi-carousel/lib/styles.css";
 import TeamCard from "./TeamCard";
 import Loading from "../../../ui/feedback/LoadingSpinner";
-
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails";
 import { useTeamMembers } from "../../admin/team/useTeamMember";
+import { TEAM_IMAGE_DIR } from "../../../lib/data";
+
 
 const Team = () => {
   const {
@@ -64,7 +65,7 @@ const Team = () => {
                 className="project-card"
               >
                 <TeamCard
-                  imgPath={team.photo}
+                  imgPath={`${TEAM_IMAGE_DIR}/${team.photo}`}
                   title={team.name}
                   description={team.role.split(" ").join("-")}
                   bio={team.bio}

@@ -1,23 +1,29 @@
 import { AiOutlineTwitter, AiFillInstagram } from "react-icons/ai";
 import { FaLinkedinIn } from "react-icons/fa";
 
+const ASSETS_DIR = "/assets";
+
 // Navbar Constants
 
 export const NAVBAR_IMAGE_LOGO_PATH = "/assets/images/logo.svg";
 
-// Banner Constants
+// Hero Constants
 
-export const BANNER_IMAGE_PATH = "/assets/images/header-img-min.png";
-export const BANNER_TITLE_TEXT = "All About Hair";
-export const BANNER_HEADLINE_TEXT = "Hair Styling is a Must Try Fashion for";
-export const BANNER_CONNECT_TEXT = "Let’s Connect";
-export const BANNER_ROTATING_TEXT_ARY = [
+export const HERO_IMAGE_DIR = ASSETS_DIR + "/hero";
+export const HERO_IMAGE_PATH = HERO_IMAGE_DIR + "/header-img-min.png";
+
+export const HERO_TITLE_TEXT = "All About Hair";
+export const HERO_HEADLINE_TEXT = "Hair Styling is a Must Try Fashion for";
+export const HERO_CONNECT_TEXT = "Let’s Connect";
+export const HERO_ROTATING_TEXT_ARY = [
   "Special Occasions",
   "All Occasions",
   "Defining Unique You!",
 ];
 
 // Services Constants
+
+export const SERVICES_IMAGE_DIR = ASSETS_DIR + "/services";
 
 // About Constants
 
@@ -32,13 +38,15 @@ export const ABOUT_MISSION_STATEMENT_SUBTEXT = "mission statement";
 
 // Mission Constants
 
-export const MISSION_IMAGE_PATH = "/assets/images/about-img.jpg";
+export const MISSION_IMAGE_DIR = ASSETS_DIR + "/mission";
+export const MISSION_IMAGE_PATH = MISSION_IMAGE_DIR + "/about-img.jpg";
 
-// Team Constants
+// Social Icon Constants
 
-export const LINKEDIN_ICON_PATH = "/assets/images/nav-icon1.svg";
-export const FACEBOOK_ICON_PATH = "/assets/images/nav-icon2.svg";
-export const FOURSQUARE_ICON_PATH = "/assets/images/nav-icon3.svg";
+export const SOCIAL_ICON_IMAGE_DIR = ASSETS_DIR + "/social";
+export const LINKEDIN_ICON_PATH = SOCIAL_ICON_IMAGE_DIR + "/nav-icon1.svg";
+export const FACEBOOK_ICON_PATH = SOCIAL_ICON_IMAGE_DIR + "/nav-icon2.svg";
+export const FOURSQUARE_ICON_PATH = SOCIAL_ICON_IMAGE_DIR + "/nav-icon3.svg";
 
 // Contact Constants
 
@@ -107,7 +115,9 @@ export const CONTACT_FORM_INPUTS_ARY = [
 
 // Contact Info Constants
 
-export const CONTACT_FORM_IMAGE = "/assets/images/contact-img.svg";
+export const CONTACT_IMAGE_DIR = ASSETS_DIR + "/contact";
+export const CONTACT_FORM_IMAGE = CONTACT_IMAGE_DIR + "/contact-img.svg";
+
 export const CONTACT_INFO_TITLE_TEXT = "Salon Information";
 export const CONTACT_INFO_SUBTITLE_TEXT =
   "An experienced team member is almost always available during salon hours.";
@@ -125,9 +135,14 @@ export const CONTACT_INFO_CALL_US_TEXT = "Call Us";
 export const CONTACT_INFO_EMAIL_US_TEXT = "Email Us";
 export const CONTACT_INFO_SALON_HOURS_TEXT = "Salon Hours";
 
+// Team Constants
+
+export const TEAM_IMAGE_DIR = ASSETS_DIR + "/team";
+
 // Gallery Constants
 
-export const GALLERY_BG_IMG_PATH = "/assets/images/color-sharp.png";
+export const GALLERY_IMAGE_DIR = ASSETS_DIR + "/gallery";
+export const GALLERY_BG_IMG_PATH = GALLERY_IMAGE_DIR + "/color-sharp.png";
 
 // Footer Constants
 

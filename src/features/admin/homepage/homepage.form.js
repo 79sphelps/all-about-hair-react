@@ -20,8 +20,8 @@ export const homepageSchema = z.object({
   aboutSubMsg: z.string().min(10, "Must be at least 10 characters."),
   aboutImage: z
     .string()
-    .min(6, "Enter a valid image path.")
-    .refine((v) => v.includes("/"), "Enter a valid image path."),
+    .min(3, "Enter a valid image path."),
+    // .refine((v) => v.includes("/"), "Enter a valid image path."),
 
   aboutVideoLink: z
     .string()
