@@ -64,7 +64,7 @@ const Team = () => {
                 className="project-card"
               >
                 <TeamCard
-                  imgPath={require("../../../" + team.photo)}
+                  imgPath={team.photo}
                   title={team.name}
                   description={team.role.split(" ").join("-")}
                   bio={team.bio}

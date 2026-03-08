@@ -7,7 +7,8 @@ import Card from "react-bootstrap/Card";
 import "react-multi-carousel/lib/styles.css";
 import { useGalleryImages } from "../hooks/useGalleryImages";
 import Loading from "../../../ui/feedback/LoadingSpinner";
-import colorSharp from "../../../assets/img/color-sharp.png";
+import { GALLERY_BG_IMG_PATH } from "../../../lib/data";
+
 
 const Gallery = () => {
   const [imgPath, setImgPath] = useState("");
@@ -91,7 +92,7 @@ const Gallery = () => {
                     aria-label={`View gallery image ${index + 1}`}
                   >
                     <img
-                      src={require("../../../" + pic.path)}
+                      src={pic.path}
                       alt={`Gallery styling ${index + 1}`}
                       style={{ width: "100%" }}
                     />
@@ -125,7 +126,7 @@ const Gallery = () => {
                 {imgPath && (
                   <Card.Img
                     variant="top"
-                    src={require("../../../" + imgPath)}
+                    src={imgPath}
                     alt="Enlarged gallery image"
                   />
                 )}
@@ -142,7 +143,7 @@ const Gallery = () => {
         {/* Decorative background image */}
         <img
           className="background-image-left"
-          src={colorSharp}
+          src={GALLERY_BG_IMG_PATH}
           alt=""
           aria-hidden="true"
         />

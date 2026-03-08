@@ -3,7 +3,11 @@ import { FaLinkedinIn } from "react-icons/fa";
 
 // Navbar Constants
 
+export const NAVBAR_IMAGE_LOGO_PATH = "/assets/images/logo.svg";
+
 // Banner Constants
+
+export const BANNER_IMAGE_PATH = "/assets/images/header-img-min.png";
 export const BANNER_TITLE_TEXT = "All About Hair";
 export const BANNER_HEADLINE_TEXT = "Hair Styling is a Must Try Fashion for";
 export const BANNER_CONNECT_TEXT = "Let’s Connect";
@@ -26,7 +30,15 @@ export const ABOUT_MISSION_STATEMENT_TEXT =
   "Styling hair that makes a difference!";
 export const ABOUT_MISSION_STATEMENT_SUBTEXT = "mission statement";
 
+// Mission Constants
+
+export const MISSION_IMAGE_PATH = "/assets/images/about-img.jpg";
+
 // Team Constants
+
+export const LINKEDIN_ICON_PATH = "/assets/images/nav-icon1.svg";
+export const FACEBOOK_ICON_PATH = "/assets/images/nav-icon2.svg";
+export const FOURSQUARE_ICON_PATH = "/assets/images/nav-icon3.svg";
 
 // Contact Constants
 
@@ -95,6 +107,7 @@ export const CONTACT_FORM_INPUTS_ARY = [
 
 // Contact Info Constants
 
+export const CONTACT_FORM_IMAGE = "/assets/images/contact-img.svg";
 export const CONTACT_INFO_TITLE_TEXT = "Salon Information";
 export const CONTACT_INFO_SUBTITLE_TEXT =
   "An experienced team member is almost always available during salon hours.";
@@ -113,6 +126,8 @@ export const CONTACT_INFO_EMAIL_US_TEXT = "Email Us";
 export const CONTACT_INFO_SALON_HOURS_TEXT = "Salon Hours";
 
 // Gallery Constants
+
+export const GALLERY_BG_IMG_PATH = "/assets/images/color-sharp.png";
 
 // Footer Constants
 

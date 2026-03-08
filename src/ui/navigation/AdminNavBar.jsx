@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-
-import logo from "../../assets/img/logo.svg";
 import NavLink from "./NavLink";
+import { NAVBAR_IMAGE_LOGO_PATH } from "../../lib/data";
+
 
 const AdminNavBar = () => {
   const navigate = useNavigate();
@@ -90,7 +90,7 @@ const AdminNavBar = () => {
       <Container>
         <Navbar.Brand href="/" aria-label="All About Hair home">
           {/* <img src={logo} alt="Logo" /> */}
-          <img src={logo} alt="All About Hair logo" />
+          <img src={NAVBAR_IMAGE_LOGO_PATH} alt="All About Hair logo" />
         </Navbar.Brand>
 
         <Navbar.Toggle

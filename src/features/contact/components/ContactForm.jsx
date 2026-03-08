@@ -5,13 +5,14 @@ import { v4 as uuidv4 } from "uuid";
 import "animate.css";
 import { useForm } from "react-hook-form";
 import { usePostGeneralRequest } from "../hooks/usePostGeneralRequest";
-import contactImg from "../../../assets/img/contact-img.svg";
 import AccessibleFormField from "../../../ui/form/AccessibleFormField";
 import {
   CONTACT_FORM_INPUTS_ARY,
   CONTACT_FORM_SUCCESS_TEXT,
   CONTACT_FORM_SUCCESS_SUBTEXT,
+  CONTACT_FORM_IMAGE,
 } from "../../../lib/data";
+
 
 const ContactForm = () => {
   const defaultValues = {
@@ -34,7 +35,6 @@ const ContactForm = () => {
   const [message] = watch(["message"]);
   const [buttonText, setButtonText] = useState("Send");
   const [requestSubmitted, setRequestSubmitted] = useState(false);
-
   const { postRequestMutation, isPending } = usePostGeneralRequest();
 
   const handleSubmit2 = (formData) => {
@@ -46,7 +46,7 @@ const ContactForm = () => {
       {
         onSuccess: () => {
           setButtonText("Send");
-          // We can optionally reset form here if we want
+          // optionally reset form here
           // reset(defaultValues);
         },
         onError: () => {
@@ -75,7 +75,7 @@ const ContactForm = () => {
                   className={
                     isVisible ? "animate__animated animate__zoomIn" : ""
                   }
-                  src={contactImg}
+                  src={CONTACT_FORM_IMAGE}
                   alt=""
                   aria-hidden="true"
                 />

@@ -31,7 +31,7 @@ describe("Team", () => {
           name: "Jane",
           role: "Hair Stylist",
           bio: "Bio text",
-          photo: "assets/img/header-img-min.png",
+          photo: "assets/images/header-img-min.png",
         },
       ],
     });

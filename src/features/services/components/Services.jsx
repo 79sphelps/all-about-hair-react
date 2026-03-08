@@ -69,7 +69,7 @@ const Services = () => {
                 className="project-card"
               >
                 <ServicesCard
-                  imgPath={require("../../../" + service.image)}
+                  imgPath={service.image}
                   title={service.title}
                   description={service.description}
                   service={service.pricing}

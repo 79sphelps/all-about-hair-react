@@ -80,7 +80,7 @@ const ServicePage = () => {
               </h1>
               <div style={{ alignContent: "center", alignItems: "center" }}>
                 <img
-                  src={require("../../" + serviceDetails.image)}
+                  src={serviceDetails.image}
                   style={{ width: "20%", boxShadow: "10px 10px 5px grey" }}
                   alt={`${serviceDetails.title} service illustration`}
                 />

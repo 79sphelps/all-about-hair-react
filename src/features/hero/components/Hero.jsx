@@ -4,14 +4,15 @@ import { ArrowRightCircle } from "react-bootstrap-icons";
 import TrackVisibility from "react-on-screen";
 import "animate.css";
 import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
-import headerImg from "../../../assets/img/header-img-min.png";
 import {
   BANNER_TITLE_TEXT,
   BANNER_HEADLINE_TEXT,
   BANNER_CONNECT_TEXT,
   BANNER_ROTATING_TEXT_ARY,
+  BANNER_IMAGE_PATH,
 } from "../../../lib/data.js";
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
+
 
 const Hero = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -125,7 +126,7 @@ const Hero = () => {
                   }
                 >
                   <img
-                    src={headerImg}
+                    src={BANNER_IMAGE_PATH}
                     alt="Illustration representing our services"
                     loading="eager"
                   />

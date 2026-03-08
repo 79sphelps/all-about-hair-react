@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-
-import logo from "../../assets/img/logo.svg";
-import navIcon1 from "../../assets/img/nav-icon1.svg";
-import navIcon2 from "../../assets/img/nav-icon2.svg";
-import navIcon3 from "../../assets/img/nav-icon3.svg";
 import NavLink from "./NavLink";
+import { 
+  NAVBAR_IMAGE_LOGO_PATH,   
+  LINKEDIN_ICON_PATH,
+  FACEBOOK_ICON_PATH,
+  FOURSQUARE_ICON_PATH, 
+} from "../../lib/data";
+
 
 const PublicNavBar = () => {
   const navigate = useNavigate();
@@ -96,8 +98,7 @@ const PublicNavBar = () => {
     >
       <Container>
         <Navbar.Brand href="/" aria-label="All About Hair home">
-          {/* <img src={logo} alt="Logo" /> */}
-          <img src={logo} alt="All About Hair logo" />
+          <img src={NAVBAR_IMAGE_LOGO_PATH} alt="All About Hair logo" />
         </Navbar.Brand>
 
         <Navbar.Toggle
@@ -140,14 +141,14 @@ const PublicNavBar = () => {
           {!isAuthenticated && (
             <span className="navbar-text">
               <div className="social-icon" aria-label="Social media links">
+                <a href="#home" aria-label="Visit our LinkedIn">
+                  <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" />
+                </a>
                 <a href="#home" aria-label="Visit our Facebook">
-                  <img src={navIcon1} alt="" aria-hidden="true" />
+                  <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" />
                 </a>
-                <a href="#home" aria-label="Visit our Instagram">
-                  <img src={navIcon2} alt="" aria-hidden="true" />
-                </a>
-                <a href="#home" aria-label="Visit our Twitter">
-                  <img src={navIcon3} alt="" aria-hidden="true" />
+                <a href="#home" aria-label="Visit our Foursquare">
+                  <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" />
                 </a>
               </div>
               {location.pathname.split("/")[1] !== "services" ? (

@@ -1,6 +1,8 @@
 const LoadingSpinner = () => {
   return (
-    <div className="loader">Loading…</div>
+    <div className="loader" role="status">
+      Loading…
+    </div>
   );
 };
 

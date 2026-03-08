@@ -2,9 +2,9 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import MissionAbout from "./MissionAbout";
 import Loading from "../../../ui/feedback/LoadingSpinner.jsx";
-import laptopImg from "../../../assets/img/about-img.jpg";
-
 import { useHomePageDetails } from "../../admin/homepage/useHomePageDetails.js";
+import { MISSION_IMAGE_PATH } from "../../../lib/data";
+
 
 const Mission = () => {
   const {
@@ -55,10 +55,9 @@ const Mission = () => {
               style={{ paddingTop: "120px", paddingBottom: "50px" }}
               className="about-img"
             >
-              {/* <img src={laptopImg} alt="about" className="img-fluid" /> */}
               <figure>
                 <img
-                  src={laptopImg}
+                  src={MISSION_IMAGE_PATH}
                   alt="Interior design workspace showcasing architectural planning"
                   className="img-fluid"
                   loading="lazy"

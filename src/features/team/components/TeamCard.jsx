@@ -2,9 +2,12 @@ import React, { useState, useRef } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import navIcon1 from "../../../assets/img/nav-icon1.svg";
-import navIcon2 from "../../../assets/img/nav-icon2.svg";
-import navIcon3 from "../../../assets/img/nav-icon3.svg";
+import { 
+  LINKEDIN_ICON_PATH,
+  FACEBOOK_ICON_PATH,
+  FOURSQUARE_ICON_PATH,
+} from "../../../lib/data";
+
 
 const TeamCard = (props) => {
   const [show, setShow] = useState(false);
@@ -65,14 +68,14 @@ const TeamCard = (props) => {
         {/* Social Links */}
         <div className="team-social-icons-container">
           <div className="team-social-icon">
-            <a href="#home" aria-label={`${props.title} Facebook profile`}>
-              <img src={navIcon1} alt="" aria-hidden="true" />
-            </a>
-            <a href="#home" aria-label={`${props.title} Twitter profile`}>
-              <img src={navIcon2} alt="" aria-hidden="true" />
-            </a>
             <a href="#home" aria-label={`${props.title} LinkedIn profile`}>
-              <img src={navIcon3} alt="" aria-hidden="true" />
+              <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" />
+            </a>
+            <a href="#home" aria-label={`${props.title} Facebook profile`}>
+              <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" />
+            </a>
+            <a href="#home" aria-label={`${props.title} Foursquare profile`}>
+              <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" />
             </a>
           </div>
         </div>
