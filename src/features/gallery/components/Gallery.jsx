@@ -78,7 +78,8 @@ const Gallery = () => {
               itemClass="carousel-item-padding-40-px"
               aria-label="Gallery image carousel"
             >
-              {galleryPics.map((pic, index) => (
+              {/* {galleryPics.map((pic, index) => ( */}
+              {(galleryPics ?? []).map((pic, index) => (
                 <div key={pic._id} className="item">
                   <button
                     type="button"

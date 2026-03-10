@@ -7,6 +7,7 @@ const FullPageLoader = ({ title, subtitle }) => (
       alignItems: "center",
       justifyContent: "center",
     }}
+    role="status"
   >
     <h5 style={{ marginBottom: "5.0rem" }}>{title}</h5>
     <h5>{subtitle}</h5>

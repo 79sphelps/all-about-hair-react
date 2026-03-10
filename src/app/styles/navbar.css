@@ -49,6 +49,7 @@
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
   opacity: 1;
+  color: #2563eb;
 }
 
 /* Animated underline */
@@ -99,7 +100,7 @@
 }
 
 .navbar-text button:hover {
-  color: #121212;
+  color: #2563eb;   /* prev: color: #121212; */
 }
 
 .navbar-text button:hover::before {

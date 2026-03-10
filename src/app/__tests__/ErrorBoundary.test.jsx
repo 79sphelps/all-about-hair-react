@@ -6,15 +6,20 @@ const ThrowError = () => {
 };
 
 describe("ErrorBoundary", () => {
+  const consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+
+  afterAll(() => {
+    consoleError.mockRestore();
+  });
+
   it("renders fallback UI when child throws", () => {
     render(
       <ErrorBoundary>
         <ThrowError />
       </ErrorBoundary>
     );
-
     expect(screen.getByRole("alert")).toBeInTheDocument();
-    expect(screen.getByText("Something went wrong.")).toBeInTheDocument();
+    expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
 
   it("allows reset", () => {

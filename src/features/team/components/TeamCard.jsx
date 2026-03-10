@@ -29,7 +29,6 @@ const TeamCard = (props) => {
         src={props.imgPath}
         alt={`Portrait of ${props.title}`}
         className="teamCardAnimation"
-        centered="true"
         onClick={handleShow}
       />
       <Card.Body style={{ marginTop: "0px", paddingTop: "5px" }}>
@@ -118,7 +117,6 @@ const TeamCard = (props) => {
               src={props.imgPath}
               alt={`Portrait of ${props.title}`}
               style={{ width: "60%", boxShadow: "10px 10px 20px grey" }}
-              centered
             />
           </Modal.Header>
           <Modal.Body style={{ color: "black" }}>{props.bio}</Modal.Body>
