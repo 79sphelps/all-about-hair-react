@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import AdminFormBuilder from "../AdminFormBuilder";
+import FormProvider from "../../forms/FormProvider";
 
 /*
 What to verify:
@@ -38,6 +39,14 @@ jest.mock("../PricingRow", () => (props) => (
     </button>
   </div>
 ));
+
+function renderWithForm(ui, form) {
+  return render(
+    <FormProvider form={form}>
+      {ui}
+    </FormProvider>
+  );
+}
 
 describe("AdminFormBuilder", () => {
   const mockForm = {
@@ -78,19 +87,19 @@ describe("AdminFormBuilder", () => {
   ];
 
   it("renders normal fields", () => {
-    render(<AdminFormBuilder form={mockForm} fields={fields} />);
+    renderWithForm(<AdminFormBuilder fields={fields} />, mockForm);
 
     expect(screen.getByText("Headline")).toBeInTheDocument();
   });
 
   it("renders array rows", () => {
-    render(<AdminFormBuilder form={mockForm} fields={fields} />);
+    renderWithForm(<AdminFormBuilder fields={fields} />, mockForm);
 
     expect(screen.getByTestId("pricing-row")).toBeInTheDocument();
   });
 
   it("calls addArrayItem when add button clicked", async () => {
-    render(<AdminFormBuilder form={mockForm} fields={fields} />);
+    renderWithForm(<AdminFormBuilder fields={fields} />, mockForm);
 
     const button = screen.getByRole("button", { name: /add pricing/i });
 
@@ -100,7 +109,7 @@ describe("AdminFormBuilder", () => {
   });
 
   it("calls removeArrayItem when remove clicked", async () => {
-    render(<AdminFormBuilder form={mockForm} fields={fields} />);
+    renderWithForm(<AdminFormBuilder fields={fields} />, mockForm);
 
     const button = screen.getByText("Remove");
 

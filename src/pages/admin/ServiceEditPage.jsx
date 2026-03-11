@@ -7,6 +7,7 @@ import { useService } from "../../features/admin/services/hooks";
 import { useUpdateService } from "../../features/admin/services/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
 import { serviceFormConfig } from "../../features/admin/services/service.form";
+import FormProvider from "../../features/admin/forms/FormProvider";
 
 
 const ServiceEditPage = () => {
@@ -60,10 +61,9 @@ const ServiceEditPage = () => {
       <AdminPageHeader title="Update Service Details" />
 
       <form onSubmit={handleSubmit} noValidate>
-        <AdminFormBuilder
-          form={form}
-          fields={serviceFormConfig.fields}
-        />
+        <FormProvider form={form}>
+          <AdminFormBuilder fields={serviceFormConfig.fields} />
+        </FormProvider>
         <div className="admin-btn-container">
           <button
             type="button"

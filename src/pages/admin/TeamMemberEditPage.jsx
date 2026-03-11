@@ -8,6 +8,7 @@ import { useTeamMember, useUpdateTeamMember } from "../../features/admin/team/ho
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
 import { teamMemberFormConfig } from "../../features/admin/team/teamMember.form";
 import { TEAM_IMAGE_DIR } from "../../lib/data";
+import FormProvider from "../../features/admin/forms/FormProvider";
 
 
 const TeamMemberEditPage = () => {
@@ -101,10 +102,9 @@ const TeamMemberEditPage = () => {
       )}
 
       <form onSubmit={handleSubmit} noValidate>
-        <AdminFormBuilder
-          form={form}
-          fields={teamMemberFormConfig.fields}
-        />
+        <FormProvider form={form}>
+          <AdminFormBuilder fields={teamMemberFormConfig.fields} />
+        </FormProvider>
 
         <div className="admin-btn-container">
           <button

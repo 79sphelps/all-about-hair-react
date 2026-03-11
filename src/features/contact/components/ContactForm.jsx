@@ -29,15 +29,26 @@ const ContactForm = () => {
     handleSubmit,
     clearErrors,
     watch,
-    formState: { errors, isValid },
-  } = useForm({ mode: "onBlur", reValidateMode: "onBlur" });
+    formState: {
+      errors,
+      isValid,
+      touchedFields,
+      dirtyFields,
+      isDirty,
+      isSubmitting
+    }
+  } = useForm({
+    defaultValues,
+    mode: "onBlur",
+    reValidateMode: "onBlur",
+  });
 
-  const [message] = watch(["message"]);
+  const message = watch("message");
   const [buttonText, setButtonText] = useState("Send");
   const [requestSubmitted, setRequestSubmitted] = useState(false);
   const { postRequestMutation, isPending } = usePostGeneralRequest();
 
-  const handleSubmit2 = (formData) => {
+  const handleSubmitForm = (formData) => {
     setRequestSubmitted(true);
     setButtonText("Sending...");
 
@@ -46,21 +57,27 @@ const ContactForm = () => {
       {
         onSuccess: () => {
           setButtonText("Send");
-          // optionally reset form here
-          // reset(defaultValues);
+          setRequestSubmitted(true);
+          reset(defaultValues);
         },
         onError: () => {
           setButtonText("Send");
           setRequestSubmitted(false);
-        },
-      },
+        }
+      }
     );
   };
 
   const handleReset = () => {
     setButtonText("Send");
-    reset(defaultValues);
-    clearErrors();
+
+    reset(defaultValues, {
+      keepDirty: false,
+      keepTouched: false,
+      keepErrors: false,
+      keepIsSubmitted: false,
+    });
+
     setRequestSubmitted(false);
   };
 
@@ -95,20 +112,22 @@ const ContactForm = () => {
                   {!requestSubmitted ? (
                     <form
                       noValidate
-                      onSubmit={handleSubmit(handleSubmit2)}
+                      onSubmit={handleSubmit(handleSubmitForm)}
                       aria-busy={isPending}
                     >
                       <Row>
-                        {CONTACT_FORM_INPUTS_ARY.map((item, idx) => (
-                          <Col sm={6} className="px-1" key={idx}>
+                        {CONTACT_FORM_INPUTS_ARY.map((item) => (
+                          <Col sm={6} className="px-1" key={item.id}>
                             <AccessibleFormField
-                              id={item.register_obj.register_txt}
+                              id={item.id}
                               label={item.placeholder}
                               type="text"
                               register={register}
-                              registerOptions={item.register_obj}
-                              error={errors[item.register_obj.register_txt]}
-                              required={item.register_obj?.required}
+                              registerOptions={item.validation}
+                              error={errors[item.id]}
+                              touched={touchedFields[item.id]}
+                              dirty={dirtyFields[item.id]}
+                              required={!!item.validation?.required}
                             />
                           </Col>
                         ))}
@@ -136,10 +155,10 @@ const ContactForm = () => {
                           />
                           <button
                             type="submit"
-                            disabled={!isValid || isPending}
+                            disabled={!isValid || isSubmitting || !isDirty}
                             style={{ marginRight: "10px" }}
                           >
-                            { buttonText }  {/* {isPending ? "Sending..." : "Send"}  */}
+                            { isSubmitting ? "Sending…" : "Send" }
                           </button>
                           <button type="button" onClick={handleReset}>
                             Reset

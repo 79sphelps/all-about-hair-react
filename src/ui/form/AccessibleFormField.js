@@ -11,6 +11,8 @@ const AccessibleFormField = ({
   onChange,
   onBlur,
   error,
+  touched,
+  dirty,
   as = "input",
   rows,
   placeholder,
@@ -18,58 +20,56 @@ const AccessibleFormField = ({
   description,
   showCharCount,
   currentLength,
-  inputRef,        // optional ref support
-  ...rest          // safety for future props
+  inputRef,
+  ...rest
 }) => {
   const fieldName = name || id;
 
   const errorId = `${id}-error`;
   const descriptionId = description ? `${id}-description` : null;
 
-  const hasError = !!error;
+  const showError = error;
 
-  const describedBy = [descriptionId, hasError ? errorId : null]
-    .filter(Boolean)
-    .join(" ") || undefined;
+  const describedBy = [
+    descriptionId,
+    showError ? errorId : null
+  ].filter(Boolean).join(" ") || undefined;
 
   const sharedProps = {
     id,
     name: fieldName,
     placeholder,
-    "aria-invalid": hasError,
+    "aria-invalid": !!error,
     "aria-describedby": describedBy,
     ...(as !== "textarea" ? { type } : {}),
-    ...rest,
+    ...rest
   };
 
-  /**
-   * react-hook-form mode
-   */
   const fieldProps = register
     ? {
         ...sharedProps,
-        ...register(fieldName, registerOptions),
+        ...register(fieldName, registerOptions)
       }
     : {
         ...sharedProps,
         value: value ?? "",
         onChange,
         onBlur,
-        ref: inputRef,
+        ref: inputRef
       };
 
   return (
     <div className="form-field">
+
       <label htmlFor={id}>
         {label}
         {required && <span aria-hidden="true"> *</span>}
       </label>
 
-      {as === "textarea" ? (
-        <textarea {...fieldProps} rows={rows || 4} />
-      ) : (
-        <input {...fieldProps} />
-      )}
+      {as === "textarea"
+        ? <textarea {...fieldProps} rows={rows || 4} />
+        : <input {...fieldProps} />
+      }
 
       {description && (
         <div id={descriptionId} className="form-description">
@@ -77,15 +77,22 @@ const AccessibleFormField = ({
         </div>
       )}
 
-      {hasError && (
+      {showError && (
         <div
           id={errorId}
           role="alert"
           style={{ color: "red", marginTop: 4 }}
         >
-          {error.message || error}
+          {error.message}
         </div>
       )}
+
+      {showCharCount && (
+        <div className="char-count">
+          {currentLength}
+        </div>
+      )}
+
     </div>
   );
 };
@@ -99,14 +106,16 @@ A field only re-renders if:
 
 Typing in one field does NOT re-render siblings.
 */
-export default memo(
-  AccessibleFormField,
-  (prev, next) => {
-    return (
-      prev.value === next.value &&
-      prev.error === next.error &&
-      prev.required === next.required &&
-      prev.description === next.description
-    );
-  }
-);
+// export default memo(
+//   AccessibleFormField,
+//   (prev, next) => {
+//     return (
+//       prev.value === next.value &&
+//       prev.error === next.error &&
+//       prev.required === next.required &&
+//       prev.description === next.description
+//     );
+//   }
+// );
+
+export default memo(AccessibleFormField);

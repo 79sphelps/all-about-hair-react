@@ -7,6 +7,7 @@ import { useHomePageDetails } from "../../features/admin/homepage/hooks";
 import { useUpdateHomePageDetails } from "../../features/admin/homepage/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
 import { homepageFormConfig } from "../../features/admin/homepage/homepage.form";
+import FormProvider from "../../features/admin/forms/FormProvider";
 
 
 const HomePageDetailsPage = () => {
@@ -61,10 +62,9 @@ const HomePageDetailsPage = () => {
       )}
 
       <form onSubmit={handleSubmit} noValidate>
-        <AdminFormBuilder
-          form={form}
-          fields={homepageFormConfig.fields}
-        />
+        <FormProvider form={form}>
+          <AdminFormBuilder fields={homepageFormConfig.fields} />
+        </FormProvider>
         <div className="admin-btn-container">
           <button type="submit" className="admin-btn">
             Make Changes

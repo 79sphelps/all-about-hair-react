@@ -8,6 +8,7 @@ import {
 } from "../../features/admin/services/service.form";
 import { useCreateService } from "../../features/admin/services/hooks";
 import useAdminForm from "../../features/admin/hooks/useAdminForm";
+import FormProvider from "../../features/admin/forms/FormProvider";
 
 
 const CreateServicePage = () => {
@@ -64,10 +65,9 @@ const CreateServicePage = () => {
       <AdminPageHeader title="New Service Details" />
 
       <form onSubmit={handleSubmit} noValidate>
-        <AdminFormBuilder
-          form={serviceForm}
-          fields={serviceFormConfig.fields}
-        />
+        <FormProvider form={serviceForm}>
+          <AdminFormBuilder fields={serviceFormConfig.fields} />
+        </FormProvider>
 
         {/* ---------------- Pricing Section ---------------- */}
 
@@ -75,10 +75,9 @@ const CreateServicePage = () => {
           <>
             <h4 style={{ marginTop: 30 }}>Add Pricing Detail</h4>
 
-            <AdminFormBuilder
-              form={pricingForm}
-              fields={pricingFormConfig.fields}
-            />
+            <FormProvider form={pricingForm}>
+              <AdminFormBuilder fields={pricingFormConfig.fields} />
+            </FormProvider>
 
             <button
               type="button"

@@ -56,61 +56,49 @@ export const CONTACT_FORM_SUCCESS_SUBTEXT =
 
 export const CONTACT_FORM_INPUTS_ARY = [
   {
-    class: "firstName",
     id: "firstName",
     placeholder: "First Name",
-    register_obj: {
-      register_txt: "firstName",
+    validation: {
       required: "You must enter a valid first name",
       minLength: {
         value: 2,
-        message: "First name must be at least 2 characters",
-      },
-    },
-    fieldError: "firstName",
+        message: "First name must be at least 2 characters"
+      }
+    }
   },
   {
-    class: "lastName",
     id: "lastName",
     placeholder: "Last Name",
-    register_obj: {
-      register_txt: "lastName",
+    validation: {
       required: "You must enter a valid last name",
       minLength: {
         value: 2,
-        message: "Last name must be at least 2 characters",
-      },
-    },
-    fieldError: "lastName",
+        message: "Last name must be at least 2 characters"
+      }
+    }
   },
   {
-    class: "email",
     id: "email",
     placeholder: "Email Address",
-    register_obj: {
-      register_txt: "email",
+    validation: {
       required: "You must enter a valid email",
       pattern: {
         value: /\S+@\S+\.\S+/,
-        message: "Entered value does not match email format",
-      },
-    },
-    fieldError: "email",
+        message: "Entered value does not match email format"
+      }
+    }
   },
   {
-    class: "phone",
     id: "phone",
     placeholder: "Phone",
-    register_obj: {
-      register_txt: "phone",
+    validation: {
       pattern: {
         value:
           /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/,
-        message: "Entered value does not match phone format",
-      },
-    },
-    fieldError: "phone",
-  },
+        message: "Entered value does not match phone format"
+      }
+    }
+  }
 ];
 
 // Contact Info Constants
