@@ -21,16 +21,16 @@ const HomePageDetailsPage = () => {
   });
 
   useEffect(() => {
-    if (data?.[0]) {
+    if (form && data?.[0]) {
       form.setValues(data[0]);
     }
-  }, [data]);
+  }, [form, data]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setUpdateSuccess(false);
 
-    if (!form.validateBeforeSubmit()) return;
+    if (!form?.validateBeforeSubmit()) return;
 
     updateHomepageDetails.mutate(
       {

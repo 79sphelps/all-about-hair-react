@@ -23,7 +23,6 @@ const {
 describe("HomePageDetailsPage", () => {
   beforeEach(() => {
     useAdminForm.mockReturnValue({
-      values: {},
       setValues: jest.fn(),
       validateBeforeSubmit: jest.fn(() => true),
     });
