@@ -1,8 +1,6 @@
 import { memo } from "react";
 import AccessibleFormField from "../../../ui/form/AccessibleFormField";
 import PricingRow from "./PricingRow";
-
-
 import { useFormContext } from "../forms/FormContext";
 
 
@@ -10,11 +8,7 @@ const AdminFormBuilder = memo(function AdminFormBuilder({
   // form,
   fields,
 }) {
-
-
   const form = useFormContext();
-
-
 
   const {
     values,

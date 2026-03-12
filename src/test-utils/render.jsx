@@ -1,15 +1,23 @@
 import { render, renderHook } from "@testing-library/react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { createTestQueryClient } from "./createTestQueryClient";
+// import { MemoryRouter } from "react-router-dom";
 
 
-function createTestQueryClient() {
-  return new QueryClient({
-    defaultOptions: {
-      queries: { retry: false, cacheTime: 0 },
-      mutations: { retry: false },
-    },
-  });
-}
+// export function renderWithProviders(
+//   ui,
+//   { route = "/", queryClient } = {}
+// ) {
+//   const client = queryClient || createTestQueryClient();
+
+//   return render(
+//     <QueryClientProvider client={client}>
+//       <MemoryRouter initialEntries={[route]}>
+//         {ui}
+//       </MemoryRouter>
+//     </QueryClientProvider>
+//   );
+// }
 
 export function renderWithProviders(ui) {
   const queryClient = createTestQueryClient();

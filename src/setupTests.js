@@ -4,7 +4,6 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 
-
 // Fix jsdom scrollTo not implemented error
 Object.defineProperty(window, "scrollTo", {
   value: jest.fn(),

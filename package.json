@@ -60,5 +60,9 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/src/__mocks__/fileMock.js"
     }
+  },
+  "devDependencies": {
+    "jest-fixed-jsdom": "^0.0.11",
+    "msw": "^2.12.10"
   }
 }
