@@ -63,7 +63,7 @@ const AccessibleFormField = ({
 
       <label htmlFor={id}>
         {label}
-        {required && <span aria-hidden="true"> *</span>}
+        {required && <span aria-hidden="true" tabIndex="-1"> *</span>}
       </label>
 
       {as === "textarea"
@@ -87,11 +87,11 @@ const AccessibleFormField = ({
         </div>
       )}
 
-      {showCharCount && (
+      {/* {showCharCount && (
         <div className="char-count">
-          {currentLength}
+          (Message Length: {currentLength} characters)
         </div>
-      )}
+      )} */}
 
     </div>
   );

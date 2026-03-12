@@ -56,7 +56,7 @@ const MissionAbout = () => {
             <ul role="list">
               {ABOUT_QUALITIES_ARY.map((item, idx) => (
                 <li className="about-activity" key={idx}>
-                  <ImPointRight aria-hidden="true" focusable="false" />{" "}
+                  <ImPointRight aria-hidden="true" focusable="false" tabIndex="-1" />{" "}
                   <span>{item}</span>
                 </li>
               ))}

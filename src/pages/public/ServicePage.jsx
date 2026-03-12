@@ -51,7 +51,7 @@ const ServicePage = () => {
           }}
         >
           <span>Back to Home</span>{" "}
-          <ArrowRightCircle size={25} aria-hidden="true" focusable="false" />
+          <ArrowRightCircle size={25} aria-hidden="true" focusable="false" tabIndex="-1" />
         </button>
 
         <div

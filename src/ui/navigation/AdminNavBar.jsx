@@ -106,11 +106,12 @@ const AdminNavBar = () => {
             {links.map(([title, page, text, href], idx) => (
               <div key={idx}>
                 {title === "logout" ? (
-                  <NavLink title="logout" onClick={logoutWithRedirect}>
+                  <NavLink title="logout" onClick={logoutWithRedirect} role="menuitem">
                     Log Out
                   </NavLink>
                 ) : (
                   <NavLink
+                    role="menuitem"
                     key={idx}
                     activeLink={activeLink}
                     title={title}

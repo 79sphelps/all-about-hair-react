@@ -84,7 +84,7 @@ const Hero = () => {
                   </h1> */}
                   <h1 id="hero-heading" style={{ height: "130px" }}>
                     {HERO_HEADLINE_TEXT}{" "}
-                    <span className="txt-rotate" aria-hidden="true">
+                    <span className="txt-rotate" aria-hidden="true" tabIndex="-1">
                       <span className="wrap">{text}</span>
                     </span>
                   </h1>
@@ -111,6 +111,7 @@ const Hero = () => {
                       size={25}
                       aria-hidden="true"
                       focusable="false"
+                      tabIndex="-1"
                     />
                   </button>
                 </div>

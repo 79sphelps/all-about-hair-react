@@ -114,6 +114,7 @@ const PublicNavBar = () => {
             {links.map(([title, page, text, href], idx) => (
               <div key={idx}>
                 <NavLink
+                  role="menuitem"
                   key={idx}
                   activeLink={activeLink}
                   title={title}
@@ -130,7 +131,7 @@ const PublicNavBar = () => {
             ))}
 
             {!isAuthenticated && (
-              <NavLink title="login" onClick={loginWithRedirect}>
+              <NavLink title="login" onClick={loginWithRedirect} role="menuitem">
                 Log In
               </NavLink>
             )}
@@ -142,17 +143,17 @@ const PublicNavBar = () => {
             <span className="navbar-text">
               <div className="social-icon" aria-label="Social media links">
                 <a href="#home" aria-label="Visit our LinkedIn">
-                  <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" />
+                  <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
                 </a>
                 <a href="#home" aria-label="Visit our Facebook">
-                  <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" />
+                  <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
                 </a>
                 <a href="#home" aria-label="Visit our Foursquare">
-                  <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" />
+                  <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
                 </a>
               </div>
               {location.pathname.split("/")[1] !== "services" ? (
-                <Nav.Link href="#contact" className="navbar-lets-connect-btn">
+                <Nav.Link href="#contact" className="navbar-lets-connect-btn" role="menuitem">
                   <button type="button" className="vvd">
                     <span>Let’s Connect</span>
                   </button>

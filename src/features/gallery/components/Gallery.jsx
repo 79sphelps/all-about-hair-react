@@ -141,12 +141,13 @@ const Gallery = () => {
           </div>
         </div>
 
-        {/* Decorative background image */}
+        {/* background image */}
         <img
           className="background-image-left"
           src={GALLERY_BG_IMG_PATH}
           alt=""
           aria-hidden="true"
+          tabIndex="-1"
         />
       </Container>
     </section>

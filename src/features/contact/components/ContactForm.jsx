@@ -95,6 +95,7 @@ const ContactForm = () => {
                   src={CONTACT_FORM_IMAGE}
                   alt=""
                   aria-hidden="true"
+                  tabIndex="-1"
                 />
               )}
             </TrackVisibility>

@@ -1,5 +1,6 @@
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
 
+
 function Fallback({ error, resetErrorBoundary }) {
   return (
     <div

@@ -68,13 +68,13 @@ const TeamCard = (props) => {
         <div className="team-social-icons-container">
           <div className="team-social-icon">
             <a href="#home" aria-label={`${props.title} LinkedIn profile`}>
-              <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" />
+              <img src={LINKEDIN_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
             </a>
             <a href="#home" aria-label={`${props.title} Facebook profile`}>
-              <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" />
+              <img src={FACEBOOK_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
             </a>
             <a href="#home" aria-label={`${props.title} Foursquare profile`}>
-              <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" />
+              <img src={FOURSQUARE_ICON_PATH} alt="" aria-hidden="true" tabIndex="-1" />
             </a>
           </div>
         </div>

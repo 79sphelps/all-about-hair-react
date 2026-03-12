@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { RouterProvider } from "react-router-dom";
-
 import LoadingSpinner from "../ui/feedback/LoadingSpinner";
 import router from "./routes";
 import ErrorBoundary from "./ErrorBoundary";
+
 
 const App = () => {
   return (
